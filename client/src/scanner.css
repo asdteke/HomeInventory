@@ -1,10 +1,13 @@
 .scanner-overlay {
-    --scanner-accent: #75c5a5;
-    --scanner-accent-strong: #3b8f70;
-    --scanner-warm: #e6cf8d;
+    --scanner-accent: var(--hi-accent);
+    --scanner-accent-strong: var(--hi-accent-strong);
+    --scanner-accent-soft: color-mix(in srgb, var(--hi-accent) 24%, transparent);
+    --scanner-accent-pale: color-mix(in srgb, var(--hi-accent) 28%, white);
+    --scanner-warm: var(--hi-secondary);
     position: fixed;
     inset: 0;
-    z-index: 70;
+    /* Camera controls must stay above global notices such as the cookie banner. */
+    z-index: 110;
     display: grid;
     place-items: center;
     min-height: 100dvh;
@@ -12,10 +15,11 @@
     overflow: hidden;
     color: #f5faf7;
     background:
-        radial-gradient(circle at 12% 4%, rgba(76, 148, 119, 0.24), transparent 34%),
-        radial-gradient(circle at 88% 94%, rgba(212, 185, 112, 0.14), transparent 30%),
+        radial-gradient(circle at 12% 4%, color-mix(in srgb, var(--scanner-accent) 24%, transparent), transparent 34%),
+        radial-gradient(circle at 88% 94%, color-mix(in srgb, var(--scanner-warm) 14%, transparent), transparent 30%),
         #050807;
     isolation: isolate;
+    overscroll-behavior: none;
 }
 
 .scanner-overlay::before {
@@ -71,9 +75,9 @@
     width: 46px;
     height: 46px;
     border-radius: 18px;
-    color: #c7f1df;
-    background: rgba(105, 184, 151, 0.14);
-    box-shadow: inset 0 0 0 1px rgba(155, 220, 193, 0.13);
+    color: var(--scanner-accent-pale);
+    background: var(--scanner-accent-soft);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--scanner-accent) 18%, transparent);
 }
 
 .scanner-heading-copy {
@@ -151,7 +155,7 @@
     min-height: 270px;
     overflow: hidden;
     background:
-        radial-gradient(circle at center, rgba(70, 103, 88, 0.2), transparent 55%),
+        radial-gradient(circle at center, color-mix(in srgb, var(--scanner-accent) 16%, transparent), transparent 55%),
         #020403;
 }
 
@@ -178,6 +182,14 @@
     border-radius: 0 !important;
 }
 
+/* html5-qrcode uses four shaded elements to visualize its internal crop box.
+   The app already draws a responsive reticle, so showing both creates two
+   misaligned nested rectangles. Keep the crop behavior but hide its chrome. */
+.scanner-camera > [id$='-reader'] [id^='qr-shaded-region'] {
+    border: 0 !important;
+    background-color: transparent !important;
+}
+
 .scanner-reticle {
     position: absolute;
     z-index: 4;
@@ -195,6 +207,30 @@
     aspect-ratio: 1;
 }
 
+.scanner-reticle.is-detected {
+    background:
+        linear-gradient(#62d69b, #62d69b) center top / calc(100% - 70px) 2px no-repeat,
+        linear-gradient(#62d69b, #62d69b) center bottom / calc(100% - 70px) 2px no-repeat,
+        linear-gradient(#62d69b, #62d69b) left center / 2px calc(100% - 70px) no-repeat,
+        linear-gradient(#62d69b, #62d69b) right center / 2px calc(100% - 70px) no-repeat;
+    animation: scanner-detected-trace 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes scanner-detected-trace {
+    from {
+        opacity: 0.62;
+        background-size: 0 2px, 0 2px, 2px 0, 2px 0;
+    }
+    to {
+        opacity: 1;
+        background-size:
+            calc(100% - 70px) 2px,
+            calc(100% - 70px) 2px,
+            2px calc(100% - 70px),
+            2px calc(100% - 70px);
+    }
+}
+
 .scanner-reticle::before,
 .scanner-reticle::after,
 .scanner-reticle span::before,
@@ -203,7 +239,7 @@
     position: absolute;
     width: 27px;
     height: 27px;
-    border-color: rgba(219, 250, 236, 0.95);
+    border-color: color-mix(in srgb, var(--scanner-accent) 28%, white);
     border-style: solid;
 }
 
@@ -244,8 +280,8 @@
     height: 2px;
     pointer-events: none;
     opacity: 0.82;
-    background: linear-gradient(90deg, transparent, var(--scanner-accent), #d9fbe9, var(--scanner-accent), transparent);
-    box-shadow: 0 0 18px rgba(117, 197, 165, 0.68);
+    background: linear-gradient(90deg, transparent, var(--scanner-accent), var(--scanner-accent-pale), var(--scanner-accent), transparent);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--scanner-accent) 68%, transparent);
     transform: translate(-50%, -50%);
     animation: scanner-sweep 2.6s ease-in-out infinite;
 }
@@ -289,7 +325,7 @@
     display: grid;
     place-items: center;
     padding: 28px;
-    background: radial-gradient(circle at center, rgba(36, 62, 51, 0.48), rgba(2, 4, 3, 0.78));
+    background: radial-gradient(circle at center, color-mix(in srgb, var(--scanner-accent) 26%, rgba(2, 4, 3, 0.78)), rgba(2, 4, 3, 0.82));
     backdrop-filter: blur(7px);
     -webkit-backdrop-filter: blur(7px);
 }
@@ -368,7 +404,8 @@
 
 .scanner-zoom {
     display: grid;
-    grid-template-columns: 42px minmax(54px, auto) 42px;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(48px, auto);
     align-items: center;
     overflow: hidden;
     border-radius: 999px;
@@ -378,18 +415,21 @@
     display: grid;
     place-items: center;
     height: 42px;
+    padding: 0 12px;
     color: inherit;
+    font-size: 0.74rem;
+    font-weight: 750;
+    font-variant-numeric: tabular-nums;
+    transition: color 150ms ease, background 150ms ease;
 }
 
 .scanner-zoom button:disabled {
     opacity: 0.34;
 }
 
-.scanner-zoom strong {
-    color: rgba(239, 247, 243, 0.88);
-    font-size: 0.76rem;
-    font-variant-numeric: tabular-nums;
-    text-align: center;
+.scanner-zoom button.is-active {
+    color: #f7fbf8;
+    background: color-mix(in srgb, var(--scanner-accent) 42%, rgba(235, 246, 240, 0.08));
 }
 
 .scanner-feedback {
@@ -436,8 +476,8 @@
     width: 37px;
     height: 37px;
     border-radius: 14px;
-    color: #aee2ca;
-    background: rgba(106, 178, 148, 0.12);
+    color: var(--scanner-accent-pale);
+    background: var(--scanner-accent-soft);
 }
 
 .scanner-guidance p {
@@ -539,7 +579,7 @@
     border: 1px solid rgba(213, 235, 224, 0.14);
     border-radius: clamp(24px, 5vw, 34px);
     background:
-        radial-gradient(circle at 90% 0, rgba(98, 176, 143, 0.16), transparent 36%),
+        radial-gradient(circle at 90% 0, color-mix(in srgb, var(--scanner-accent) 16%, transparent), transparent 36%),
         rgba(13, 22, 18, 0.86);
     scrollbar-width: thin;
     scrollbar-color: rgba(184, 216, 201, 0.25) transparent;
@@ -549,7 +589,7 @@
     display: flex;
     align-items: center;
     gap: 11px;
-    color: #bcebd5;
+    color: var(--scanner-accent-pale);
     font-size: 0.78rem;
     font-weight: 750;
     letter-spacing: 0.09em;
@@ -610,10 +650,26 @@
     padding: 0 16px;
     border: 1px solid rgba(185, 217, 202, 0.16);
     border-radius: 999px;
-    color: #c7ebda;
-    background: rgba(110, 181, 151, 0.1);
+    color: var(--scanner-accent-pale);
+    background: var(--scanner-accent-soft);
     font-size: 0.79rem;
     font-weight: 700;
+}
+
+.scanner-online-consent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    margin-top: 16px;
+    padding: 14px;
+    border: 1px solid rgba(185, 217, 202, 0.13);
+    border-radius: 20px;
+    background: rgba(238, 246, 242, 0.045);
+}
+
+.scanner-online-consent .scanner-result-link {
+    margin-top: 10px;
 }
 
 .scanner-result-actions {
@@ -640,10 +696,10 @@
 }
 
 .scanner-result-action--primary {
-    border-color: rgba(163, 218, 193, 0.24);
-    color: #062519;
-    background: linear-gradient(135deg, #91d6b7, #64b18e);
-    box-shadow: 0 14px 32px rgba(52, 131, 98, 0.24);
+    border-color: color-mix(in srgb, var(--scanner-accent) 38%, transparent);
+    color: white;
+    background: linear-gradient(135deg, var(--scanner-accent-strong), var(--scanner-accent));
+    box-shadow: 0 14px 32px color-mix(in srgb, var(--scanner-accent) 28%, transparent);
 }
 
 @media (max-width: 600px) {
@@ -653,6 +709,7 @@
 
     .scanner-shell {
         width: 100%;
+        height: 100vh;
         height: 100dvh;
         border: 0;
         border-radius: 0;
@@ -679,7 +736,7 @@
     }
 
     .scanner-camera {
-        min-height: 230px;
+        min-height: min(230px, 42dvh);
     }
 
     .scanner-permission-note {
@@ -690,6 +747,10 @@
     .scanner-guidance {
         padding-right: 10px;
         padding-left: 10px;
+    }
+
+    .scanner-toolbar {
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
     }
 
     .scanner-result-actions {
@@ -790,6 +851,7 @@
 
 @media (prefers-reduced-motion: reduce) {
     .scanner-scanline,
+    .scanner-reticle.is-detected,
     .scanner-spinner {
         animation: none;
     }

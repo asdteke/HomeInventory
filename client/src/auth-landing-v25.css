@@ -2,6 +2,11 @@ html:has(.landing-page-shell) {
   scrollbar-gutter: stable;
 }
 
+.landing-page-shell {
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
+}
+
 .landing-topbar-v25 {
   padding: .65rem .8rem 0;
   background: transparent !important;
@@ -312,8 +317,95 @@ html[data-brand]:not([data-brand='homeinventory']) .landing-brand-v25 svg {
 }
 
 .landing-hero-grid-layer-v25 {
-  -webkit-mask-image: linear-gradient(180deg, black 0%, black 68%, transparent 100%);
-  mask-image: linear-gradient(180deg, black 0%, black 68%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 18%, black 68%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, black 18%, black 68%, transparent 100%);
+}
+
+.landing-technical-card-v25 {
+  border-color: color-mix(in srgb, var(--hi-border) 30%, var(--hi-bg-strong)) !important;
+  background: color-mix(in srgb, var(--hi-panel-strong) 58%, var(--hi-bg-strong)) !important;
+  box-shadow: 0 20px 48px -42px color-mix(in srgb, var(--hi-text) 34%, transparent);
+}
+
+.landing-cta-v25 {
+  isolation: isolate;
+}
+
+.landing-cta-card-v25 {
+  border: 1px solid color-mix(in srgb, var(--hi-border-strong) 38%, transparent);
+  background-color: var(--hi-bg-strong);
+  background-image:
+    radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--hi-accent) 16%, transparent), transparent 34%),
+    radial-gradient(circle at 92% 100%, color-mix(in srgb, var(--hi-secondary) 10%, transparent), transparent 34%);
+  box-shadow:
+    0 30px 76px -52px color-mix(in srgb, var(--hi-text) 56%, transparent),
+    inset 0 1px color-mix(in srgb, var(--hi-text) 8%, transparent);
+}
+
+.landing-cta-card-grid-v25 {
+  opacity: .22;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--hi-text) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--hi-text) 7%, transparent) 1px, transparent 1px);
+  background-size: 7rem 7rem;
+  mask-image: radial-gradient(ellipse at 78% 50%, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 78% 50%, black 0%, transparent 70%);
+}
+
+.landing-cta-actions-v25 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.landing-cta-button-stack-v25 {
+  display: flex;
+  width: min(100%, 18rem);
+  flex-direction: column;
+  gap: .65rem;
+  padding: .8rem;
+  border: 1px solid color-mix(in srgb, var(--hi-border-strong) 42%, var(--hi-bg-strong));
+  border-radius: 1.45rem;
+  background:
+    radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--hi-accent) 9%, transparent), transparent 48%),
+    color-mix(in srgb, var(--hi-panel-strong) 62%, var(--hi-bg-strong));
+  box-shadow:
+    0 22px 48px -38px color-mix(in srgb, var(--hi-text) 42%, transparent),
+    inset 0 1px color-mix(in srgb, white 5%, transparent);
+}
+
+.landing-cta-button-v25 {
+  display: inline-flex;
+  width: 100%;
+  min-height: 3.55rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .9rem 1.2rem;
+  border-radius: 1rem !important;
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1;
+  transition: transform 170ms ease, border-color 170ms ease, background-color 170ms ease, box-shadow 170ms ease;
+}
+
+.landing-cta-primary-v25 {
+  border: 1px solid color-mix(in srgb, var(--hi-accent-strong) 58%, transparent) !important;
+  box-shadow: 0 14px 28px -20px color-mix(in srgb, var(--hi-accent) 80%, transparent) !important;
+}
+
+.landing-cta-secondary-v25 {
+  border: 1px solid color-mix(in srgb, var(--hi-border) 68%, var(--hi-bg-strong));
+  background: color-mix(in srgb, var(--hi-panel-muted) 68%, var(--hi-bg-strong));
+}
+
+.landing-cta-button-v25:hover {
+  transform: translateY(-1px);
+}
+
+.landing-cta-secondary-v25:hover {
+  border-color: color-mix(in srgb, var(--hi-border-strong) 72%, var(--hi-bg-strong));
+  background: color-mix(in srgb, var(--hi-panel-muted) 84%, var(--hi-bg-strong));
 }
 
 .auth-page-v25 {
@@ -336,6 +428,11 @@ html[data-brand]:not([data-brand='homeinventory']) .landing-brand-v25 svg {
 
 .auth-top-controls-v25 {
   min-width: 0;
+}
+
+.auth-top-tools-compact-v25 {
+  width: fit-content;
+  max-width: 100%;
 }
 
 .auth-top-label-v25 {
@@ -451,7 +548,12 @@ html[data-brand]:not([data-brand='homeinventory']) .landing-brand-v25 svg {
   min-height: 3.55rem;
   border: 0;
   border-radius: 999px;
+  cursor: pointer;
   transition: color 220ms ease, transform 220ms ease, opacity 220ms ease;
+}
+
+.register-mode-track-v25.is-dragging .register-mode-option-v25 {
+  cursor: grabbing;
 }
 
 .register-mode-option-v25.is-active {
@@ -503,6 +605,14 @@ html[data-brand]:not([data-brand='homeinventory']) .landing-brand-v25 svg {
   .landing-hero-v25 {
     padding-top: 4.8rem !important;
     padding-bottom: 4.5rem !important;
+  }
+
+  .landing-cta-actions-v25 {
+    justify-content: flex-start;
+  }
+
+  .landing-cta-button-stack-v25 {
+    width: min(100%, 22rem);
   }
 
   .auth-shell-v25 {

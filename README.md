@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.6.0 release line. -->
+<!-- Release status: v2.6.1 release line. -->
 
 <p align="center">
   <strong>Private, self-hostable household inventory for shared homes.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory is built for families, roommates, and small households that need a practical inventory without turning private records into a shared spreadsheet.
 
 > [!NOTE]
-> **v2.6.0 is the current release line.** It adds simple shared and personal box management with safe item moves, existing QR label support, optional box photos and locations, and backup-compatible storage while keeping the managed app and desktop launcher synchronized.
+> **v2.6.1 is the current release line.** It keeps v2.6 box management intact, improves mobile barcode/QR camera quality and lifecycle, makes external product lookup opt-in, polishes landing/auth surfaces, and keeps the managed app and desktop launcher synchronized.
 
 ## Why HomeInventory
 
@@ -105,7 +105,7 @@ HomeInventory is built for families, roommates, and small households that need a
 | Personal Vault | Client-side encrypted vault flow for IDs, property documents, access codes, and sensitive notes |
 | Shopping List | Manual and inventory-linked shopping items, completed history, and low-stock suggestions |
 | Smart Maintenance | Recurring item-care tasks, overdue indicators, and automated next-due-date calculations |
-| Labels and scanning | Barcode scanning, branded item QR label sheets, room/shelf labels, print cut guides, and mobile-friendly lookup |
+| Labels and scanning | Local-first barcode lookup with opt-in public catalogue search, responsive Full HD barcode/QR scanning, supported-device flash and zoom controls, branded item/box QR label sheets, room/shelf labels, and print cut guides |
 | Alerts and service | Focused low-stock, expiration, warranty, maintenance, and borrow-return surfaces |
 | Backup and restore | Owner-only standard/full export and import with passphrase encryption, box metadata/assignments/archive state, and optional media/attachment coverage |
 | Activity history | Protected item activity log for edits, stock changes, attachments, borrowing, and bulk actions |

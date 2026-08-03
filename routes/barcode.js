@@ -18,10 +18,11 @@ import { authenticateToken, requireActiveHouse } from '../middleware/auth.js';
 import { buildBarcodeLookup, decryptItemRecord } from '../utils/protectedFields.js';
 
 const router = express.Router();
+const PRODUCT_LOOKUP_TIMEOUT_MS = 3500;
 
-// Geçerli barkod formatı: sadece rakam, harf, tire ve nokta, max 50 karakter.
-// Bu standart GS1 (EAN-13, UPC-A, Code128 vb.) barkodları kapsıyor.
-const BARCODE_REGEX = /^[A-Za-z0-9.\-]{1,50}$/;
+// Accept printable barcode payloads plus the GS1 group separator. Route callers
+// URL-encode the value, and the length bound prevents oversized lookup requests.
+const BARCODE_REGEX = /^(?:[^\u0000-\u001C\u001E-\u001F\u007F]|\u001D){1,120}$/u;
 
 const selectVisibleBoxPlacement = db.prepare(`
     SELECT id
@@ -146,9 +147,12 @@ async function scrapeGoogle(barcode) {
 }
 
 // Try Open Food Facts API
-async function tryOpenFoodFacts(barcode) {
+async function tryOpenFoodFacts(barcode, signal) {
     try {
-        const response = await axios.get(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`, { timeout: 5000 });
+        const response = await axios.get(`https://world.openfoodfacts.org/api/v0/product/${encodeURIComponent(barcode)}.json`, {
+            timeout: PRODUCT_LOOKUP_TIMEOUT_MS,
+            signal
+        });
         if (response.data.status === 1 && response.data.product) {
             const p = response.data.product;
             return {
@@ -165,9 +169,12 @@ async function tryOpenFoodFacts(barcode) {
 }
 
 // Try Open Products Facts API
-async function tryOpenProductsFacts(barcode) {
+async function tryOpenProductsFacts(barcode, signal) {
     try {
-        const response = await axios.get(`https://world.openproductsfacts.org/api/v0/product/${barcode}.json`, { timeout: 5000 });
+        const response = await axios.get(`https://world.openproductsfacts.org/api/v0/product/${encodeURIComponent(barcode)}.json`, {
+            timeout: PRODUCT_LOOKUP_TIMEOUT_MS,
+            signal
+        });
         if (response.data.status === 1 && response.data.product) {
             const p = response.data.product;
             return {
@@ -184,9 +191,12 @@ async function tryOpenProductsFacts(barcode) {
 }
 
 // Try Open Beauty Facts API
-async function tryOpenBeautyFacts(barcode) {
+async function tryOpenBeautyFacts(barcode, signal) {
     try {
-        const response = await axios.get(`https://world.openbeautyfacts.org/api/v0/product/${barcode}.json`, { timeout: 5000 });
+        const response = await axios.get(`https://world.openbeautyfacts.org/api/v0/product/${encodeURIComponent(barcode)}.json`, {
+            timeout: PRODUCT_LOOKUP_TIMEOUT_MS,
+            signal
+        });
         if (response.data.status === 1 && response.data.product) {
             const p = response.data.product;
             return {
@@ -233,25 +243,35 @@ router.get('/:code', authenticateToken, requireActiveHouse, async (req, res) => 
             });
         }
 
-        // STEP 2: Try Open Food Facts
-        const foodResult = await tryOpenFoodFacts(barcode);
-        if (foodResult) {
-            return res.json(foodResult);
+        // External catalogues receive the scanned barcode, so they are never
+        // contacted implicitly. The client must request an online lookup
+        // after the user explicitly chooses it.
+        if (req.query.online !== '1') {
+            return res.json({
+                found: false,
+                onlineLookupAvailable: true
+            });
         }
 
-        // STEP 3: Try Open Products Facts
-        const productResult = await tryOpenProductsFacts(barcode);
-        if (productResult) {
-            return res.json(productResult);
+        // STEP 2: Query the public catalogues concurrently and use the first
+        // actual match. Cancel slower requests once one source succeeds.
+        const lookupController = new AbortController();
+        const lookupTasks = [tryOpenFoodFacts, tryOpenProductsFacts, tryOpenBeautyFacts]
+            .map(async (lookup) => {
+                const result = await lookup(barcode, lookupController.signal);
+                if (!result) throw new Error('catalogue-miss');
+                return result;
+            });
+
+        try {
+            const catalogueResult = await Promise.any(lookupTasks);
+            lookupController.abort();
+            return res.json(catalogueResult);
+        } catch {
+            lookupController.abort();
         }
 
-        // STEP 4: Try Open Beauty Facts
-        const beautyResult = await tryOpenBeautyFacts(barcode);
-        if (beautyResult) {
-            return res.json(beautyResult);
-        }
-
-        // STEP 5: Try Google Scraping as last resort
+        // STEP 3: Try Google Scraping as last resort
         const googleName = await scrapeGoogle(barcode);
         if (googleName) {
             return res.json({

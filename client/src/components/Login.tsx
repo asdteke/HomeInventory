@@ -183,7 +183,7 @@ export default function Login() {
 
             <div className="auth-shell-v25 relative z-10 flex min-h-screen items-center justify-center px-5 py-8 sm:px-6 sm:py-12">
                 <div className="w-full max-w-[31rem]">
-                    <div className="auth-top-tools-v25 mb-4 flex items-center justify-between gap-3 sm:mb-5">
+                    <div className="auth-top-tools-v25 auth-top-tools-compact-v25 mb-4 inline-flex items-center sm:mb-5">
                         <div className="auth-top-controls-v25 flex shrink-0 items-center gap-2 sm:gap-3">
                             <button
                                 type="button"
@@ -201,10 +201,6 @@ export default function Login() {
                                     className={`!h-10 !rounded-full !px-3 !py-0 sm:!h-11 sm:!px-4 ${isDark ? (isCustomBrand ? '!border-[var(--hi-border)] !bg-[var(--hi-panel)] !text-white hover:!bg-[var(--hi-panel-muted)]' : '!border-white/10 !bg-white/4 !text-white/88 hover:!bg-white/8') : '!border-[var(--hi-border)] !bg-[var(--hi-panel)] !text-[var(--hi-text)] hover:!bg-[var(--hi-panel-strong)]'}`}
                                 />
                             </div>
-                        </div>
-
-                        <div className={`auth-top-label-v25 text-right font-medium uppercase ${isDark ? 'text-white/38' : 'text-[var(--hi-text-muted)]'}`}>
-                            {t('landing.nav.login')}
                         </div>
                     </div>
 

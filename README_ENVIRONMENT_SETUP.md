@@ -2,7 +2,7 @@
 
 This repository contains a rebuilt frontend, encrypted storage flows, and optional secret-loading paths for Docker and OCI. Keep local and production secrets out of git.
 
-These settings match the public v2.6.0 release line.
+These settings match the public v2.6.1 release line.
 
 ### Safe workflow
 
