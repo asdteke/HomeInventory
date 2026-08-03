@@ -79,20 +79,13 @@ export default function LandingPage() {
     const ghostThemeClass = isDark
         ? (isCustomBrand ? 'border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] hover:text-white' : 'border border-white/10 bg-white/4 text-white/84 hover:bg-white/8 hover:text-white')
         : 'border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]';
-    const heroAtmosphereBackground = isDark
-        ? (isCustomBrand
-            ? 'radial-gradient(circle_at_top_left,rgba(100,168,255,0.10),transparent_24%),radial-gradient(circle_at_top_right,rgba(88,213,240,0.12),transparent_34%)'
-            : 'radial-gradient(circle_at_top_left,rgba(205,176,136,0.08),transparent_24%),radial-gradient(circle_at_top_right,rgba(74,125,100,0.14),transparent_34%)')
-        : (isCustomBrand
-            ? 'radial-gradient(circle_at_top_left,rgba(100,168,255,0.16),transparent_24%),radial-gradient(circle_at_top_right,rgba(22,166,220,0.10),transparent_30%)'
-            : 'radial-gradient(circle_at_top_left,rgba(205,176,136,0.18),transparent_24%),radial-gradient(circle_at_top_right,rgba(45,82,65,0.10),transparent_30%)');
     const pageContinuumBackground = isDark
         ? (isCustomBrand
-            ? 'linear-gradient(180deg,#08111e 0%,#0d1726 9%,#10213a 18%,#151d2b 28%,#1a2230 44%,#16202d 54%,#111925 64%,#0d1726 76%,#0a1422 88%,#091321 100%)'
-            : 'linear-gradient(180deg,#181d1a 0%,#1b211d 9%,#171b18 18%,#1b201d 28%,#202622 44%,#1c2720 54%,#19231d 64%,#1f2522 76%,#1b211d 88%,#171c19 100%)')
+            ? 'radial-gradient(ellipse 120% 70% at 50% 48%,rgba(17,35,58,0.72) 0%,rgba(8,17,30,0) 100%),#08111e'
+            : 'radial-gradient(ellipse 120% 70% at 50% 48%,rgba(39,49,42,0.58) 0%,rgba(26,31,28,0) 100%),#1a1f1c')
         : (isCustomBrand
-            ? 'linear-gradient(180deg,#f3f7ff 0%,#edf4ff 9%,#e8f1ff 18%,#eef4fc 28%,#e8f0fa 44%,#edf4fd 54%,#e7f0fb 64%,#f3f7ff 76%,#f8fbff 88%,#edf4ff 100%)'
-            : 'linear-gradient(180deg,#f7f1e8 0%,#f2ebdf 9%,#ece3d4 18%,#f1eadf 28%,#ebe2d3 44%,#ece0ce 54%,#e8dccb 64%,#f0e9dd 76%,#f8f5ef 88%,#f7f2e8 100%)');
+            ? 'radial-gradient(ellipse 120% 70% at 50% 48%,rgba(221,234,252,0.80) 0%,rgba(233,241,255,0) 100%),#e9f1ff'
+            : 'radial-gradient(ellipse 120% 70% at 50% 48%,rgba(232,221,201,0.76) 0%,rgba(248,244,236,0) 100%),#f8f4ec');
     const securityPanelClass = isDark
         ? (isCustomBrand ? 'border border-[var(--hi-border)] bg-[linear-gradient(180deg,rgba(28,38,53,0.96),rgba(20,28,40,0.98))] shadow-[0_30px_70px_rgba(0,0,0,0.24)]' : 'border border-[#4d6755] bg-[#314338] shadow-[0_30px_70px_rgba(0,0,0,0.18)]')
         : (isCustomBrand ? 'border border-[rgba(176,193,216,0.34)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(239,246,253,0.94))] shadow-[0_26px_52px_rgba(19,35,61,0.10)]' : 'border border-[#d4c4aa] bg-[#fbf7f0] shadow-[0_26px_52px_rgba(38,48,38,0.12)]');
@@ -409,7 +402,10 @@ export default function LandingPage() {
         }, t, brandTranslationNamespace);
 
     return (
-        <div className="landing-v25 landing-page-shell min-h-screen overflow-hidden bg-[var(--hi-bg)] text-[var(--hi-text)] selection:bg-[var(--hi-secondary-soft)]">
+        <div
+            className="landing-v25 landing-page-shell min-h-screen overflow-hidden text-[var(--hi-text)] selection:bg-[var(--hi-secondary-soft)]"
+            style={{ background: pageContinuumBackground }}
+        >
             <header className={`landing-topbar-v25 fixed inset-x-0 top-0 z-50 ${headerTextClass}`}>
                 <div className="landing-topbar-inner-v25 mx-auto flex h-24 max-w-7xl items-center justify-between px-6 lg:px-8">
                     <Link
@@ -455,7 +451,7 @@ export default function LandingPage() {
                         </Link>
                         <Link
                             to="/register"
-                            className={`inline-flex h-12 items-center rounded-full px-6 text-sm font-semibold text-white transition ${isCustomBrand ? 'btn-primary !h-12 !rounded-full !px-6' : 'bg-[#6f9978] hover:bg-[#7aa484]'}`}
+                            className="btn-primary !h-12 !rounded-full !px-6 !py-0 text-sm"
                         >
                             {copy.hero.primaryCta}
                         </Link>
@@ -543,14 +539,11 @@ export default function LandingPage() {
                 </div>
             )}
 
-            <main className="pt-24" style={{ background: pageContinuumBackground }}>
+            <main className="pt-24">
                 <section className="landing-hero-v25 relative isolate overflow-hidden pb-28 pt-28 lg:min-h-[calc(100svh-6rem)] lg:pb-36 lg:pt-32">
-                    <div className="pointer-events-none absolute inset-0 z-0" style={{ background: heroAtmosphereBackground }} />
                     <div className={`landing-hero-grid-layer-v25 pointer-events-none absolute inset-0 z-0 ${isDark ? 'opacity-[0.16]' : 'opacity-[0.28]'}`}>
                         <div className="landing-grid absolute inset-0" />
                     </div>
-                    <div className={`pointer-events-none absolute -left-24 top-24 z-0 h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.14)]' : 'bg-[rgba(205,176,136,0.14)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.20)]' : 'bg-[rgba(205,176,136,0.22)]')}`} />
-                    <div className={`pointer-events-none absolute right-0 top-0 z-0 h-[28rem] w-[28rem] rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.14)]' : 'bg-[rgba(74,125,100,0.14)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.10)]' : 'bg-[rgba(45,82,65,0.12)]')}`} />
 
                     <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-12 px-6 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1fr)] lg:gap-16 lg:px-8">
                         <div className={`max-w-[30rem] ${shellTextClass}`}>
@@ -853,7 +846,7 @@ export default function LandingPage() {
 
                                 {!isCustomBrand && copy.about?.advanced && (
                                     <article
-                                        className={`rounded-[1rem] border p-6 md:p-7 ${isDark ? (isCustomBrand ? 'border-[var(--hi-border)] bg-[rgba(22,30,42,0.72)]' : 'border-white/8 bg-white/5') : (isCustomBrand ? 'border-[rgba(176,193,216,0.26)] bg-[rgba(255,255,255,0.84)]' : 'border-[rgba(45,82,65,0.1)] bg-white/75')}`}
+                                        className="landing-technical-card-v25 rounded-[1rem] border p-6 md:p-7"
                                     >
                                         <p className="landing-kicker text-[var(--hi-secondary)]">
                                             {copy.about.advanced.eyebrow}
@@ -880,40 +873,40 @@ export default function LandingPage() {
                     </div>
                 </section>
 
-                <section
-                    className="relative overflow-hidden py-32"
-                >
-                    <div className={`pointer-events-none absolute -left-20 top-24 h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.12)]' : 'bg-[rgba(205,176,136,0.12)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.14)]' : 'bg-[rgba(184,153,104,0.16)]')}`} />
-                    <div className={`pointer-events-none absolute right-0 top-16 h-72 w-72 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.1)]' : 'bg-[rgba(74,125,100,0.1)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.08)]' : 'bg-[rgba(45,82,65,0.1)]')}`} />
-
+                <section id="start" className="landing-cta-v25 relative overflow-hidden py-24 md:py-32">
                     <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-                        <div className={`relative rounded-[1rem] px-8 py-14 md:px-12 ${isDark ? (isCustomBrand ? 'border border-[var(--hi-border)] bg-[linear-gradient(135deg,rgba(27,37,52,0.96),rgba(18,25,36,0.98))] shadow-[0_30px_70px_rgba(0,0,0,0.24)]' : 'border border-white/6 bg-[linear-gradient(135deg,rgba(41,49,44,0.96),rgba(24,29,26,0.98))] shadow-[0_30px_70px_rgba(0,0,0,0.24)]') : (isCustomBrand ? 'border border-[rgba(176,193,216,0.26)] bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(239,246,253,0.98))] shadow-[0_28px_56px_rgba(19,35,61,0.10)]' : 'border border-[rgba(45,82,65,0.06)] bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(241,235,224,0.98))] shadow-[0_28px_56px_rgba(38,48,38,0.10)]')}`}>
-                            <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-                                <div>
+                        <div className="landing-cta-card-v25 relative overflow-hidden rounded-[2rem] p-7 sm:p-10 lg:p-14">
+                            <div className="landing-cta-card-grid-v25 pointer-events-none absolute inset-0" />
+                            <div className="relative z-10 grid gap-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(17rem,.65fr)] lg:items-center lg:gap-16">
+                                <div className="landing-cta-copy-v25">
                                     <p className="landing-kicker text-[var(--hi-secondary)]">
                                         {copy.cta.eyebrow}
                                     </p>
-                                    <h2 className={`landing-display mt-3 max-w-2xl text-[2.45rem] font-semibold tracking-[-0.05em] md:text-[3.3rem] ${shellTextClass}`}>
+                                    <h2 className={`landing-display mt-4 max-w-3xl text-[clamp(2.35rem,5vw,4.35rem)] font-semibold leading-[.98] tracking-[-0.065em] ${shellTextClass}`}>
                                         {copy.cta.heading}
                                     </h2>
-                                    <p className={`mt-4 max-w-2xl text-lg font-normal leading-relaxed ${mutedTextClass}`}>
+                                    <p className={`mt-6 max-w-2xl text-base font-normal leading-7 sm:text-lg ${mutedTextClass}`}>
                                         {copy.cta.description}
                                     </p>
                                 </div>
 
-                                <div className="flex flex-col gap-4 sm:flex-row lg:flex-col">
-                                    <Link
-                                        to="/register"
-                                        className={`inline-flex h-14 items-center justify-center rounded-full px-8 text-base font-semibold text-white transition ${isCustomBrand ? 'btn-primary !h-14 !rounded-full !px-8' : 'bg-[#6f9978] hover:bg-[#7aa484]'}`}
-                                    >
-                                        {copy.hero.primaryCta}
-                                    </Link>
-                                    <Link
-                                        to="/login"
-                                        className={`inline-flex h-14 items-center justify-center rounded-full px-8 text-base font-semibold transition ${isDark ? 'border border-white/10 text-white/84 hover:bg-white/6 hover:text-white' : 'border border-[var(--hi-border)] text-[var(--hi-text)] hover:bg-[var(--hi-panel)]'}`}
-                                    >
-                                        {t('landing.nav.login')}
-                                    </Link>
+                                <div className="landing-cta-actions-v25">
+                                    <div className="landing-cta-button-stack-v25">
+                                        <Link
+                                            to="/register"
+                                            className="btn-primary landing-cta-button-v25 landing-cta-primary-v25 text-white"
+                                        >
+                                            {copy.hero.primaryCta}
+                                            <ArrowRight className="ml-2 h-4 w-4" />
+                                        </Link>
+                                        <Link
+                                            to="/login"
+                                            className={`landing-cta-button-v25 landing-cta-secondary-v25 ${isDark ? 'text-white/84 hover:text-white' : 'text-[var(--hi-text)]'}`}
+                                        >
+                                            {t('landing.nav.login')}
+                                            <ArrowRight className="ml-2 h-4 w-4 opacity-70" />
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Sürüm durumu: v2.6.0 release line. -->
+<!-- Sürüm durumu: v2.6.1 release line. -->
 
 <p align="center">
   <strong>Paylaşımlı evler için özel, self-host edilebilir ev envanteri.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
 
 > [!NOTE]
-> **v2.6.0 güncel release hattıdır.** Güvenli eşya taşıma, mevcut QR etiket sistemi, isteğe bağlı kutu fotoğrafı/konumu ve yedek uyumlu depolama ile sade ortak ve kişisel kutu yönetimi ekler; yönetilen uygulama ile masaüstü Launcher sürümünü aynı tutar.
+> **v2.6.1 güncel release hattıdır.** v2.6 kutu yönetimini korur; mobil barkod/QR kamera kalitesini ve yaşam döngüsünü iyileştirir, dış ürün aramasını kullanıcı onayına bağlar, landing/auth yüzeylerini sadeleştirir ve yönetilen uygulama ile masaüstü Launcher sürümünü eşit tutar.
 
 ## Neden HomeInventory
 
@@ -105,7 +105,7 @@ HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtl
 | Personal Vault | Kimlikler, mülk belgeleri, erişim kodları ve hassas notlar için istemci tarafında şifrelenen vault akışı |
 | Alışveriş Listesi | Manuel ve envantere bağlı alışveriş öğeleri, tamamlanan geçmişi ve düşük stok önerileri |
 | Akıllı Bakım | Tekrarlayan eşya bakım görevleri, gecikme göstergeleri ve otomatik sonraki bakım tarihi hesaplama |
-| Etiket ve tarama | Barkod tarama, markalı eşya QR etiket sayfaları, oda/raf etiketleri, kesim çizgileri ve mobil uyumlu hızlı erişim |
+| Etiket ve tarama | Önce yerel envanteri kullanan, dış katalog aramasını onaya bağlayan barkod akışı; responsive Full HD barkod/QR tarama, desteklenen cihazlarda flaş/zoom, markalı eşya/kutu QR etiketleri, oda/raf etiketleri ve kesim çizgileri |
 | Uyarılar ve servis | Düşük stok, son kullanma, garanti, bakım ve ödünç iade için odaklı takip ekranları |
 | Yedekleme ve geri yükleme | Sadece ev sahibine açık standart/tam dışa ve içe aktarma; parola ile şifreleme, kutu metadata'sı, atamaları ve arşiv durumu ile isteğe bağlı medya/ek dosya kapsamı |
 | Aktivite geçmişi | Düzenleme, stok değişimi, ek dosya, ödünç ve toplu işlemler için korumalı eşya aktivite kaydı |

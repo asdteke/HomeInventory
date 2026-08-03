@@ -2,6 +2,27 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.6.1 - Mobile Scanner, Privacy, and Interface Polish
+
+### Highlights
+
+- **Clearer mobile barcode and QR scanning:** Both scanners now prefer a Full HD rear-camera stream, use one responsive app-owned scan frame, apply continuous camera focus where supported, and expose capability-aware flash and zoom presets up to the device's practical `8x` limit.
+- **Reliable camera lifecycle:** Closing a scanner explicitly disables the torch before releasing the track, stale decoded frames are discarded, and **Scan again** always starts a fresh camera session instead of replaying the previous barcode or QR result.
+- **Privacy-first barcode lookup:** A scan checks the signed-in household inventory locally first. External public product catalogues are contacted only after the user chooses the clearly labelled online search action; catalogue requests run concurrently and slower requests are cancelled after a result is found.
+- **Faster, calmer feedback:** Removed fixed camera-start delays, avoided duplicate sound/vibration when an online lookup misses, and added a restrained detection indicator that appears only after a readable code is detected.
+- **Practical item entry fixes:** Box-scoped quick add keeps the scanner available for batch capture, preserves the scanned barcode as the minimal item name, and product-catalogue photo previews can now be removed reliably on touch devices.
+- **Landing and authentication polish:** Smoothed landing-page background transitions, simplified responsive navigation, refined setup/login actions, kept login/register chrome aligned, and made the create-or-join household selector both draggable and directly clickable.
+- **Opaque cookie notice:** Replaced the translucent cookie-notice material with a fully opaque theme surface so page content cannot show through th.e notice in light or dark mode.
+- **Localization cleanup:** Added the scanner privacy/status strings across all 103 locale packs and removed translation-pipeline artifacts caught by the release gate. English and Turkish were reviewed directly; automated parity, key-shape, and artifact checks cover every locale.
+- **Synchronized patch version:** Kept the server, client, managed app, desktop launcher, Tauri, Rust, and lockfile metadata aligned at `2.6.1`.
+
+### Upgrade notes
+
+- No database migration is required beyond the backwards-compatible v2.6 box schema already applied by the server at startup.
+- Rebuild the client and refresh the PWA/service worker so the scanner and landing-page assets replace cached v2.6.0 files.
+- Camera flash and zoom remain browser- and hardware-dependent. Unsupported controls stay disabled instead of pretending that a camera setting was applied.
+- Back up the SQLite database and uploads before upgrading a self-hosted installation.
+
 ## v2.6.0 - Simple Box Management
 
 ### Added

@@ -826,6 +826,11 @@ export default function ItemForm() {
             setPhoto(null);
             setPhotoPreview(null);
             setRemovePhoto(false);
+        } else if (photoPreview) {
+            // Product catalogue images are URL-backed previews rather than
+            // uploaded files. They still need to be removable on touch/mobile.
+            setPhotoPreview(null);
+            setRemovePhoto(false);
         } else if (existingPhoto) {
             setExistingPhoto(null);
             setRemovePhoto(true);
@@ -970,15 +975,14 @@ export default function ItemForm() {
         setFormData(prev => ({ ...prev, barcode }));
     };
 
-    // Quick add - save item with just barcode for later editing
+    // Box-only batch capture: save a minimal item and keep the scanner open.
     const handleQuickAdd = async (barcode) => {
         try {
             const data = new FormData();
-            data.append('name', `Bilinmeyen Ürün - ${barcode}`);
+            data.append('name', barcode);
             data.append('barcode', barcode);
             data.append('quantity', '1');
             data.append('is_public', formData.is_public ? 'true' : 'false');
-            data.append('description', t('items.messages.quick_add_success', { barcode }));
             const targetBox = boxes.find((box: any) => String(box.id) === String(formData.box_id || ''));
             const targetBoxId = targetBox?.id || formData.box_id;
             if (targetBoxId) {
@@ -1048,7 +1052,7 @@ export default function ItemForm() {
         try {
             // Use backend proxy for waterfall lookup
             const response = await axios.get(
-                `/api/barcode/${barcode}`,
+                `/api/barcode/${encodeURIComponent(barcode)}`,
                 createRequestConfig({ timeout: ACTION_REQUEST_TIMEOUT_MS })
             );
             const result = response.data;
@@ -2875,7 +2879,7 @@ export default function ItemForm() {
                         onClose={() => setShowBarcodeScanner(false)}
                         onProductFound={handleProductFound}
                         onBarcodeOnly={handleBarcodeOnly}
-                        onQuickAdd={handleQuickAdd}
+                        onQuickAdd={selectedBox ? handleQuickAdd : undefined}
                         onExistingItemFound={selectedBox ? handleExistingBarcodeItem : undefined}
                         existingItemActionLabel={selectedBox
                             ? t('boxes.quick_add_item', { defaultValue: 'Add item to box' })

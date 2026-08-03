@@ -36,7 +36,16 @@ const additionalKeyPaths = [
     'activity.actions.box_updated',
     'activity.actions.box_archived',
     'activity.actions.box_restored',
-    'activity.actions.box_deleted'
+    'activity.actions.box_deleted',
+    'settings.house_info.share_info',
+    'landing.features.items.barcode.desc',
+    'scanner.searching_inventory',
+    'scanner.searching_online',
+    'scanner.local_not_found',
+    'scanner.local_not_found_msg',
+    'scanner.search_online',
+    'scanner.online_search_privacy',
+    'scanner.zoom_hint'
 ];
 
 function readJson(filePath) {
@@ -80,7 +89,7 @@ test('v2.6 box and organization strings are genuinely localized in all 103 local
         .sort();
 
     assert.equal(languages.length, 103);
-    assert.equal(keyPaths.length, 169);
+    assert.equal(keyPaths.length, 178);
 
     for (const language of languages) {
         const locale = readJson(
@@ -118,7 +127,7 @@ test('v2.6 box and organization strings are genuinely localized in all 103 local
     }
 });
 
-test('server login lock and rate-limit messages match the client locales', () => {
+test('server locale artifacts match the client for shared runtime strings', () => {
     const languages = readdirSync(clientLocalesDir)
         .filter((language) =>
             existsSync(path.join(clientLocalesDir, language, 'translation.json'))
@@ -126,7 +135,16 @@ test('server login lock and rate-limit messages match the client locales', () =>
         .sort();
     const keyPaths = [
         'auth.account_locked',
-        'rate_limit.too_many_requests'
+        'rate_limit.too_many_requests',
+        'settings.house_info.share_info',
+        'landing.features.items.barcode.desc',
+        'scanner.searching_inventory',
+        'scanner.searching_online',
+        'scanner.local_not_found',
+        'scanner.local_not_found_msg',
+        'scanner.search_online',
+        'scanner.online_search_privacy',
+        'scanner.zoom_hint'
     ];
 
     for (const language of languages) {
@@ -141,5 +159,63 @@ test('server login lock and rate-limit messages match the client locales', () =>
                 `${language}/${keyPath} must stay synchronized`
             );
         }
+    }
+});
+
+test('welcome email feature lists are localized and synchronized in all locales', () => {
+    const english = readJson(
+        path.join(clientLocalesDir, 'en', 'translation.json')
+    ).emails.welcome.features;
+    const languages = readdirSync(clientLocalesDir)
+        .filter((language) =>
+            existsSync(path.join(clientLocalesDir, language, 'translation.json'))
+        )
+        .sort();
+
+    assert.ok(Array.isArray(english));
+    assert.ok(english.length > 0);
+
+    for (const language of languages) {
+        const clientLocale = readJson(
+            path.join(clientLocalesDir, language, 'translation.json')
+        );
+        const serverLocale = readJson(path.join(serverLocalesDir, `${language}.json`));
+        const translated = clientLocale.emails.welcome.features;
+
+        assert.ok(Array.isArray(translated), `${language}/emails.welcome.features must be an array`);
+        assert.equal(
+            translated.length,
+            english.length,
+            `${language}/emails.welcome.features must preserve the item count`
+        );
+        assert.deepEqual(
+            serverLocale.emails.welcome.features,
+            translated,
+            `${language}/emails.welcome.features must stay synchronized`
+        );
+
+        translated.forEach((value, index) => {
+            assert.equal(
+                typeof value,
+                'string',
+                `${language}/emails.welcome.features[${index}] must be a string`
+            );
+            assert.ok(
+                value.trim(),
+                `${language}/emails.welcome.features[${index}] must not be blank`
+            );
+            assert.doesNotMatch(
+                value,
+                artifactPattern,
+                `${language}/emails.welcome.features[${index}] contains a translation artifact`
+            );
+            if (!['en', 'tr'].includes(language)) {
+                assert.notEqual(
+                    value,
+                    english[index],
+                    `${language}/emails.welcome.features[${index}] is still an English fallback`
+                );
+            }
+        });
     }
 });

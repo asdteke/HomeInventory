@@ -1,11 +1,28 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router';
-import { X, Camera, AlertCircle, CheckCircle, RefreshCw } from 'lucide-react';
+import { X, Camera, AlertCircle, CheckCircle, Flashlight, RefreshCw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { loadScannerRuntime } from '../utils/scannerRuntime';
 import '../scanner.css';
 
 const SCANNER_ID = 'qr-scanner';
+const QR_VIDEO_CONSTRAINTS: MediaTrackConstraints = {
+    facingMode: { ideal: 'environment' },
+    width: { ideal: 1920 },
+    height: { ideal: 1080 },
+    frameRate: { ideal: 30, max: 30 }
+};
+const QR_ZOOM_PRESETS = [1, 2, 4, 8];
+
+const getResponsiveQrScanBox = (viewfinderWidth: number, viewfinderHeight: number) => {
+    const availableWidth = Math.max(1, Number(viewfinderWidth) || 1);
+    const availableHeight = Math.max(1, Number(viewfinderHeight) || 1);
+    const size = Math.floor(Math.min(280, availableWidth * 0.72, availableHeight * 0.72));
+    return {
+        width: Math.max(1, Math.min(Math.max(120, size), Math.max(1, availableWidth - 2))),
+        height: Math.max(1, Math.min(Math.max(120, size), Math.max(1, availableHeight - 2)))
+    };
+};
 
 export interface QRScannerProps {
     isOpen: boolean;
@@ -19,17 +36,52 @@ export default function QRScanner({ isOpen, onClose }: QRScannerProps) {
     const html5QrcodeRef = useRef<any>(null);
     const isMountedRef = useRef<boolean>(true);
     const isStartingRef = useRef<boolean>(false);
+    const startAttemptRef = useRef(0);
+    const scanProcessingRef = useRef(false);
+    const currentTrackRef = useRef<MediaStreamTrack | null>(null);
 
     const [error, setError] = useState<string>('');
     const [success, setSuccess] = useState<string>('');
     const [isScanning, setIsScanning] = useState<boolean>(false);
     const [preparingScanner, setPreparingScanner] = useState<boolean>(false);
+    const [scanDetected, setScanDetected] = useState(false);
+    const [flashOn, setFlashOn] = useState(false);
+    const [flashSupported, setFlashSupported] = useState<boolean | null>(null);
+    const [isFlashChanging, setIsFlashChanging] = useState(false);
+    const flashChangingRef = useRef(false);
+    const [flashFeedback, setFlashFeedback] = useState({ text: '', type: 'default' });
+    const [zoomLevel, setZoomLevel] = useState(1);
+    const [maxZoom, setMaxZoom] = useState(1);
+    const [zoomSupported, setZoomSupported] = useState<boolean | null>(null);
+    const [isZoomChanging, setIsZoomChanging] = useState(false);
+    const zoomChangingRef = useRef(false);
 
     // Full cleanup function
-    const stopScanner = useCallback(async () => {
+    const stopScanner = useCallback(async (preserveDetected = false) => {
         console.log('[QRScanner] Stopping scanner...');
+        startAttemptRef.current += 1;
+        isStartingRef.current = false;
+        scanProcessingRef.current = true;
 
         try {
+            for (let attempt = 0; attempt < 10 && flashChangingRef.current; attempt += 1) {
+                await new Promise(resolve => setTimeout(resolve, 25));
+            }
+
+            const activeTrack = currentTrackRef.current;
+            if (activeTrack?.readyState === 'live') {
+                try {
+                    const capabilities = activeTrack.getCapabilities?.() as any;
+                    const torchIsOn = (activeTrack.getSettings?.() as any)?.torch === true;
+                    if (capabilities?.torch === true || torchIsOn) {
+                        await activeTrack.applyConstraints({ advanced: [{ torch: false }] as any });
+                        await new Promise(resolve => setTimeout(resolve, 80));
+                    }
+                } catch (error) {
+                    console.log('[QRScanner] Torch cleanup skipped:', error);
+                }
+            }
+
             const { cameraManager } = await loadScannerRuntime();
 
             // Release global camera streams first
@@ -65,7 +117,15 @@ export default function QRScanner({ isOpen, onClose }: QRScannerProps) {
 
             if (isMountedRef.current) {
                 setIsScanning(false);
+                setPreparingScanner(false);
+                setFlashOn(false);
+                setFlashSupported(null);
+                setZoomLevel(1);
+                setMaxZoom(1);
+                setZoomSupported(null);
+                if (!preserveDetected) setScanDetected(false);
             }
+            currentTrackRef.current = null;
 
             console.log('[QRScanner] Scanner stopped successfully');
         } catch (err) {
@@ -79,20 +139,30 @@ export default function QRScanner({ isOpen, onClose }: QRScannerProps) {
             return;
         }
 
+        const attemptId = startAttemptRef.current + 1;
+        startAttemptRef.current = attemptId;
         isStartingRef.current = true;
+        scanProcessingRef.current = false;
         setError('');
         setSuccess('');
         setPreparingScanner(true);
+        setScanDetected(false);
 
         try {
             const { Html5Qrcode, cameraManager } = await loadScannerRuntime();
 
             // CRITICAL: Release any existing camera streams first
             console.log('[QRScanner] Releasing existing streams...');
+            const wasCameraActive = !cameraManager.isAvailable();
             await cameraManager.releaseAllStreams();
 
-            // Wait for hardware to be fully released
-            await new Promise(resolve => setTimeout(resolve, 300));
+            // Only pause for a camera hand-off. On the initial open there is
+            // no hardware lock to wait for.
+            if (wasCameraActive) {
+                await new Promise(resolve => setTimeout(resolve, 120));
+            }
+
+            if (attemptId !== startAttemptRef.current) return;
 
             // Check if DOM element exists
             const readerElement = document.getElementById('qr-reader');
@@ -100,72 +170,47 @@ export default function QRScanner({ isOpen, onClose }: QRScannerProps) {
                 throw new Error('Scanner element not found');
             }
 
-            html5QrcodeRef.current = new Html5Qrcode('qr-reader');
+            const scannerInstance = new Html5Qrcode('qr-reader');
+            html5QrcodeRef.current = scannerInstance;
 
-            // Try with environment camera first, fallback to any camera
-            let started = false;
+            console.log('[QRScanner] Starting preferred environment camera...');
+            await scannerInstance.start(
+                { facingMode: 'environment' },
+                {
+                    fps: 12,
+                    qrbox: getResponsiveQrScanBox,
+                    disableFlip: false,
+                    videoConstraints: QR_VIDEO_CONSTRAINTS
+                },
+                (decodedText: string) => handleScanSuccess(decodedText),
+                () => { }
+            );
 
-            // First attempt: exact environment camera
-            try {
-                console.log('[QRScanner] Trying exact environment camera...');
-                await html5QrcodeRef.current.start(
-                    { facingMode: { exact: 'environment' } },
-                    {
-                        fps: 10,
-                        qrbox: { width: 250, height: 250 },
-                        aspectRatio: 1
-                    },
-                    (decodedText: string) => handleScanSuccess(decodedText),
-                    () => { }
-                );
-                started = true;
-            } catch (exactErr) {
-                console.log('[QRScanner] Exact environment failed, trying fallback...');
-
-                // Second attempt: prefer environment
-                try {
-                    await html5QrcodeRef.current.start(
-                        { facingMode: 'environment' },
-                        {
-                            fps: 10,
-                            qrbox: { width: 250, height: 250 },
-                            aspectRatio: 1
-                        },
-                        (decodedText: string) => handleScanSuccess(decodedText),
-                        () => { }
-                    );
-                    started = true;
-                } catch (envErr) {
-                    console.log('[QRScanner] Environment fallback failed, trying any camera...');
-
-                    // Third attempt: any available camera
-                    await html5QrcodeRef.current.start(
-                        { facingMode: 'user' },
-                        {
-                            fps: 10,
-                            qrbox: { width: 250, height: 250 },
-                            aspectRatio: 1
-                        },
-                        (decodedText: string) => handleScanSuccess(decodedText),
-                        () => { }
-                    );
-                    started = true;
+            if (attemptId !== startAttemptRef.current) {
+                try { await scannerInstance.stop(); } catch (e) { }
+                try { scannerInstance.clear(); } catch (e) { }
+                if (html5QrcodeRef.current === scannerInstance) {
+                    html5QrcodeRef.current = null;
                 }
+                return;
             }
 
-            if (started && isMountedRef.current) {
+            if (isMountedRef.current) {
                 // Register the stream with global manager
                 const videoElement = document.querySelector('#qr-reader video') as HTMLVideoElement | null;
                 if (videoElement && videoElement.srcObject) {
                     cameraManager.registerStream(videoElement.srcObject as MediaStream, SCANNER_ID);
+                    currentTrackRef.current = (videoElement.srcObject as MediaStream).getVideoTracks()[0] || null;
                 }
 
                 setIsScanning(true);
+                await checkCameraCapabilities();
+                await applyAdvancedCameraConstraints();
             }
         } catch (err: any) {
             console.error('[QRScanner] Start error:', err);
 
-            if (isMountedRef.current) {
+            if (isMountedRef.current && attemptId === startAttemptRef.current) {
                 const errStr = err.toString();
                 if (errStr.includes('Permission')) {
                     setError(t('scanner.permission_error'));
@@ -178,10 +223,122 @@ export default function QRScanner({ isOpen, onClose }: QRScannerProps) {
                 }
             }
         } finally {
-            isStartingRef.current = false;
-            if (isMountedRef.current) {
+            if (attemptId === startAttemptRef.current) {
+                isStartingRef.current = false;
+            }
+            if (isMountedRef.current && attemptId === startAttemptRef.current) {
                 setPreparingScanner(false);
             }
+        }
+    };
+
+    const checkCameraCapabilities = async () => {
+        const track = currentTrackRef.current;
+        try {
+            const capabilities = track?.getCapabilities?.() as any;
+            if (!track || !capabilities) {
+                setFlashSupported(false);
+                setZoomSupported(false);
+                return;
+            }
+
+            setFlashSupported(capabilities.torch === true);
+            if (capabilities.zoom) {
+                const practicalMax = Math.min(Number(capabilities.zoom.max) || 1, 8);
+                const currentZoom = Number((track.getSettings?.() as any)?.zoom) || 1;
+                setMaxZoom(practicalMax);
+                setZoomLevel(Math.min(practicalMax, Math.max(1, currentZoom)));
+                setZoomSupported(practicalMax > 1);
+            } else {
+                setZoomSupported(false);
+            }
+        } catch (error) {
+            console.log('[QRScanner] Capability check failed:', error);
+            setFlashSupported(false);
+            setZoomSupported(false);
+        }
+    };
+
+    const applyAdvancedCameraConstraints = async () => {
+        const track = currentTrackRef.current;
+        try {
+            const capabilities = track?.getCapabilities?.() as any;
+            if (!track || !capabilities) return;
+
+            const advanced = [];
+            if (capabilities.focusMode?.includes('continuous')) advanced.push({ focusMode: 'continuous' });
+            if (capabilities.exposureMode?.includes('continuous')) advanced.push({ exposureMode: 'continuous' });
+            if (capabilities.whiteBalanceMode?.includes('continuous')) advanced.push({ whiteBalanceMode: 'continuous' });
+            if (advanced.length > 0) {
+                await track.applyConstraints({ advanced: advanced as any });
+            }
+        } catch (error) {
+            console.log('[QRScanner] Advanced camera constraints skipped:', error);
+        }
+    };
+
+    const toggleFlash = async () => {
+        if (flashChangingRef.current) return;
+
+        flashChangingRef.current = true;
+        setIsFlashChanging(true);
+        setFlashFeedback({ text: '', type: 'default' });
+        try {
+            const track = currentTrackRef.current;
+            const capabilities = track?.getCapabilities?.() as any;
+            if (!track || capabilities?.torch !== true) {
+                setFlashSupported(false);
+                setFlashFeedback({ text: t('scanner.flash_unsupported'), type: 'error' });
+                return;
+            }
+
+            const nextFlashState = !flashOn;
+            await track.applyConstraints({ advanced: [{ torch: nextFlashState }] as any });
+            await new Promise(resolve => setTimeout(resolve, 80));
+            const reportedState = (track.getSettings?.() as any)?.torch;
+            if (typeof reportedState === 'boolean' && reportedState !== nextFlashState) {
+                throw new Error('Camera did not apply the requested torch state');
+            }
+
+            setFlashOn(nextFlashState);
+            setFlashSupported(true);
+            setFlashFeedback({ text: nextFlashState ? t('scanner.flash_on') : '', type: 'success' });
+        } catch (error) {
+            console.log('[QRScanner] Torch change failed:', error);
+            setFlashFeedback({ text: t('common.error'), type: 'error' });
+        } finally {
+            setTimeout(() => setFlashFeedback({ text: '', type: 'default' }), 2000);
+            flashChangingRef.current = false;
+            setIsFlashChanging(false);
+        }
+    };
+
+    const changeZoom = async (requestedZoom: number) => {
+        if (zoomChangingRef.current) return;
+
+        zoomChangingRef.current = true;
+        setIsZoomChanging(true);
+        try {
+            const track = currentTrackRef.current;
+            const capabilities = track?.getCapabilities?.() as any;
+            if (!track || !capabilities?.zoom) {
+                setZoomSupported(false);
+                return;
+            }
+
+            const supportedMin = Number(capabilities.zoom.min) || 1;
+            const supportedMax = Math.min(Number(capabilities.zoom.max) || 1, 8);
+            const targetZoom = Math.min(supportedMax, Math.max(supportedMin, requestedZoom));
+            const focusMode = capabilities.focusMode?.includes('continuous') ? 'continuous' : undefined;
+            await track.applyConstraints({
+                advanced: [{ zoom: targetZoom, ...(focusMode && { focusMode }) }] as any
+            });
+            setZoomLevel(Number((track.getSettings?.() as any)?.zoom) || targetZoom);
+        } catch (error) {
+            console.log('[QRScanner] Zoom change failed:', error);
+        } finally {
+            zoomChangingRef.current = false;
+            setIsZoomChanging(false);
         }
     };
 
@@ -190,25 +347,44 @@ export default function QRScanner({ isOpen, onClose }: QRScannerProps) {
         isMountedRef.current = true;
         return () => {
             isMountedRef.current = false;
+            void stopScanner();
         };
-    }, []);
+    }, [stopScanner]);
+
+    useEffect(() => {
+        if (!isOpen) return;
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = previousOverflow;
+        };
+    }, [isOpen]);
 
     useEffect(() => {
         if (isOpen) {
-            // Delay to ensure DOM is ready
-            const timer = setTimeout(() => {
+            const frame = requestAnimationFrame(() => {
                 if (isMountedRef.current && scannerRef.current && !html5QrcodeRef.current && !isStartingRef.current) {
                     startScanner();
                 }
-            }, 200);
-            return () => clearTimeout(timer);
+            });
+            return () => cancelAnimationFrame(frame);
         } else {
             stopScanner();
         }
     }, [isOpen, stopScanner]);
 
     const handleScanSuccess = async (decodedText: string) => {
+        if (scanProcessingRef.current) return;
+        scanProcessingRef.current = true;
+        setScanDetected(true);
         console.log('[QRScanner] QR Scanned:', decodedText);
+
+        try {
+            await html5QrcodeRef.current?.pause(true);
+        } catch (error) {
+            console.log('[QRScanner] Pause skipped:', error);
+        }
+        if (isMountedRef.current) setIsScanning(false);
 
         // Check if it's a valid item URL
         const itemMatch = decodedText.match(/\/items\/(\d+)\/edit/);
@@ -217,7 +393,7 @@ export default function QRScanner({ isOpen, onClose }: QRScannerProps) {
             const itemId = itemMatch[1];
             setSuccess(t('scanner.found_item_redirect'));
 
-            await stopScanner();
+            await stopScanner(true);
 
             setTimeout(() => {
                 onClose();
@@ -225,13 +401,14 @@ export default function QRScanner({ isOpen, onClose }: QRScannerProps) {
             }, 1000);
         } else if (decodedText.includes(window.location.origin)) {
             setSuccess(t('scanner.found_page_redirect'));
-            await stopScanner();
+            await stopScanner(true);
 
             setTimeout(() => {
                 onClose();
                 window.location.href = decodedText;
             }, 1000);
         } else {
+            setScanDetected(false);
             setError(t('scanner.invalid_qr'));
         }
     };
@@ -244,7 +421,7 @@ export default function QRScanner({ isOpen, onClose }: QRScannerProps) {
     const handleRetry = async () => {
         setError('');
         await stopScanner();
-        await new Promise(r => setTimeout(r, 500));
+        await new Promise(r => setTimeout(r, 120));
         await startScanner();
     };
 
@@ -270,7 +447,7 @@ export default function QRScanner({ isOpen, onClose }: QRScannerProps) {
                     <div className="scanner-stage">
                         <div className="scanner-camera">
                             <div id="qr-reader" ref={scannerRef} />
-                            <div className="scanner-reticle scanner-reticle--qr" aria-hidden="true"><span /></div>
+                            <div className={`scanner-reticle scanner-reticle--qr ${scanDetected ? 'is-detected' : ''}`} aria-hidden="true"><span /></div>
                             {isScanning && <div className="scanner-scanline scanner-scanline--qr" aria-hidden="true" />}
                             {!isScanning && !error && !success && (
                                 <div className="scanner-permission-note"><Camera className="h-3.5 w-3.5" /><span>{t('scanner.init')}</span></div>
@@ -280,7 +457,41 @@ export default function QRScanner({ isOpen, onClose }: QRScannerProps) {
                                     <div className="scanner-state-card"><RefreshCw className="scanner-spinner h-5 w-5" /><span>{t('scanner.init')}</span></div>
                                 </div>
                             )}
+                            {flashFeedback.text && (
+                                <div className={`scanner-feedback ${flashFeedback.type === 'success' ? 'is-success' : flashFeedback.type === 'error' ? 'is-error' : ''}`}>
+                                    {flashFeedback.text}
+                                </div>
+                            )}
                         </div>
+
+                        {isScanning && (
+                            <div className="scanner-toolbar">
+                                <button
+                                    type="button"
+                                    onClick={toggleFlash}
+                                    disabled={flashSupported === false || isFlashChanging}
+                                    className={`scanner-control ${flashOn ? 'is-on' : ''}`}
+                                    aria-label={flashSupported === false ? t('scanner.flash_unsupported') : t('scanner.flash_on')}
+                                    aria-pressed={flashOn}
+                                >
+                                    <Flashlight className="h-5 w-5" />
+                                </button>
+                                <div className="scanner-zoom" aria-label={t('scanner.zoom_hint')}>
+                                    {QR_ZOOM_PRESETS.filter((preset) => preset <= maxZoom).map((preset) => (
+                                        <button
+                                            key={preset}
+                                            type="button"
+                                            onClick={() => changeZoom(preset)}
+                                            disabled={zoomSupported === false || isZoomChanging}
+                                            className={Math.abs(zoomLevel - preset) < 0.1 ? 'is-active' : ''}
+                                            aria-pressed={Math.abs(zoomLevel - preset) < 0.1}
+                                        >
+                                            {preset}×
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
 
                         {error && (
                             <div className="scanner-alert" role="alert">
@@ -292,7 +503,7 @@ export default function QRScanner({ isOpen, onClose }: QRScannerProps) {
                                         <button type="button" onClick={handleRetry} className="scanner-alert-button"><RefreshCw className="mr-1 inline h-3.5 w-3.5" />{t('scanner.retry')}</button>
                                     </div>
                                 </div>
-                                <button type="button" onClick={() => setError('')} className="scanner-alert-dismiss" aria-label={t('common.close')}><X className="h-4 w-4" /></button>
+                                <button type="button" onClick={handleRetry} className="scanner-alert-dismiss" aria-label={t('scanner.retry')}><X className="h-4 w-4" /></button>
                             </div>
                         )}
                         {success && (

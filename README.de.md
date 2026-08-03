@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.6.0 release line. -->
+<!-- Release status: v2.6.1 release line. -->
 
 <p align="center">
   <strong>Private, selbst hostbare Haushaltsinventur für gemeinsam genutzte Zuhause.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory ist für Familien, Wohngemeinschaften und kleine Haushalte gedacht, die ein praktisches Inventar brauchen, ohne private Datensätze in eine gemeinsame Tabelle zu verwandeln.
 
 > [!NOTE]
-> **v2.6.0 ist die aktuelle Release-Linie.** Sie ergänzt eine einfache gemeinsame und persönliche Boxverwaltung mit sicheren Gegenstandsverschiebungen, QR-Etiketten und backup-kompatibler Speicherung; Sicherheitsbasis und Versionsgleichstand bleiben erhalten.
+> **v2.6.1 ist die aktuelle Release-Linie.** Sie behält die Boxverwaltung von v2.6 bei, verbessert den mobilen Barcode-/QR-Kameraablauf, macht externe Produktsuchen zustimmungspflichtig, verfeinert Landing- und Auth-Oberflächen und hält Managed App und Desktop Launcher versionsgleich.
 
 ## Warum HomeInventory
 

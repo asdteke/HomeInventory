@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Estado de la versión: línea de lanzamiento v2.6.0. -->
+<!-- Estado de la versión: línea de lanzamiento v2.6.1. -->
 
 <p align="center">
   <strong>Inventario privado y autoalojable para hogares compartidos.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory está pensado para familias, compañeros de piso y hogares pequeños que necesitan un inventario práctico sin convertir registros privados en una hoja compartida.
 
 > [!NOTE]
-> **v2.6.0 es la línea de versión actual.** Añade una gestión sencilla de cajas compartidas y personales con movimientos seguros, etiquetas QR y copias de seguridad compatibles, manteniendo la base de seguridad y la paridad de versiones.
+> **v2.6.1 es la línea de versión actual.** Conserva la gestión de cajas de v2.6, mejora la cámara móvil para códigos de barras y QR, exige consentimiento para las búsquedas externas de productos, pule las pantallas de inicio y autenticación, y mantiene sincronizados la aplicación administrada y el lanzador de escritorio.
 
 ## Por qué HomeInventory
 

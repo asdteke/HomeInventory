@@ -12,7 +12,7 @@ on:
           - "false"
           - "true"
       release_tag:
-        description: "Release tag to use when publish_release is true, for example v2.6.0"
+        description: "Release tag to use when publish_release is true, for example v2.6.1"
         required: false
         default: ""
   push:
@@ -483,6 +483,12 @@ jobs:
           tag_name: ${{ needs.managed-app.outputs.release_tag }}
           name: HomeInventory ${{ needs.managed-app.outputs.release_tag }}
           body: |
+            ## HomeInventory v2.6.1
+
+            This maintenance release keeps the v2.6 box-management model intact while making barcode and QR scanning more reliable on mobile devices. It adds capability-aware Full HD camera preferences, flash and zoom controls, safe torch shutdown, fresh-session **Scan again**, and local-first barcode lookup with explicit consent before public catalogue searches.
+
+            The release also polishes landing and authentication surfaces, makes the cookie notice fully opaque, fixes touch removal for catalogue photos, completes the new scanner strings across 103 locales, and keeps the managed app and launcher on the same version.
+
             ## Recommended downloads
 
             - **macOS (Apple Silicon):** the `darwin-aarch64.dmg` file
@@ -491,4 +497,11 @@ jobs:
             - **Linux:** use `.AppImage`; `.deb` and `.rpm` are also available
 
             The remaining archive and metadata files are used automatically by HomeInventory updates.
+
+            ## Upgrade notes
+
+            - Back up the SQLite database and uploads before upgrading a self-hosted installation.
+            - Rebuild the client and refresh the PWA/service worker after upgrading.
+            - Flash and zoom availability depends on the mobile browser and camera hardware; unsupported controls remain disabled.
+            - See `CHANGELOG.md` in the source archive for the complete patch notes.
           files: public-release-assets/*

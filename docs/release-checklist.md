@@ -1,4 +1,4 @@
-# HomeInventory v2.6.0 Release Checklist
+# HomeInventory v2.6.1 Release Checklist
 
 Use this checklist for public HomeInventory source and launcher releases. Local/private branding is deliberately outside this workflow.
 
@@ -12,12 +12,13 @@ Use this checklist for public HomeInventory source and launcher releases. Local/
 
 ## 2. Deterministic validation
 
-Use the Node.js version configured in CI (Node 22.22.0 for v2.6.0):
+Use the Node.js version configured in CI (Node 22.22.0 for v2.6.1):
 
 ```bash
 npm ci
 npm ci --prefix client
 npm ci --prefix apps/launcher
+git diff --check
 npm run version:check
 npm run i18n:check
 npm run build
@@ -36,8 +37,12 @@ npm audit --audit-level=moderate --prefix apps/launcher
 - [ ] Delete a non-empty box once by moving contents to a valid destination and once by explicit unassignment. Include hidden private contents and confirm no item identifiers or private metadata leak.
 - [ ] In a multi-user household, verify personal boxes and labels remain creator-only (including from the household-owner inventory view), private items remain hidden inside shared boxes, and a public item inside another member's personal box does not reveal that box or its exact placement.
 - [ ] Scan and print box QR labels through the existing QR flow; verify both the compact single-label layout and multi-label sheet.
+- [ ] On a real HTTPS mobile browser, verify barcode and QR camera start/close/reopen, rear-camera selection, one visible scan frame, detected-code feedback, supported zoom presets, torch shutdown on close, and **Scan again** without replaying the previous result.
+- [ ] Confirm a barcode scan checks only the signed-in household inventory until the user chooses online search. Verify the consent copy, public-source result attribution, timeout/cancellation behavior, and that an online miss does not replay success/error sound or vibration.
+- [ ] Import a catalogue image, remove it on a touch viewport, and verify box-scoped quick add creates the minimal barcode item while keeping batch scanning available.
 - [ ] Round-trip standard and full encrypted owner backups. Verify box visibility, archive state, assignments, room/location, and full-backup media restore correctly.
 - [ ] Test keyboard focus, reduced motion, long translations, text zoom, and horizontal overflow.
+- [ ] Review English and Turkish release copy manually, then confirm all 103 locale packs pass parity, key-shape, replacement-character, and translation-artifact checks.
 
 ## 3. Signing and integrity
 
