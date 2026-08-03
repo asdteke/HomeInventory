@@ -3143,9 +3143,12 @@ async fn check_updates(
 
     let overrides = overrides.unwrap_or_default();
     let project_root_dir = project_root_handle(&app, &overrides).ok();
-    let current_app_version =
-        installed_app_version(&app_data, &metadata, project_root_dir.as_deref())
-            .unwrap_or_else(|| "0.0.0".to_string());
+    let current_app_version = resolve_current_app_version(
+        &app_data,
+        &metadata,
+        project_root_dir.as_deref(),
+        &launcher_version,
+    );
 
     if is_store_distribution() {
         return Ok(UpdateCheckResult {
