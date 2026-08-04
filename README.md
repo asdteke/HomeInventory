@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.6.1 release line. -->
+<!-- Release status: v2.6.2 release line. -->
 
 <p align="center">
   <strong>Private, self-hostable household inventory for shared homes.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory is built for families, roommates, and small households that need a practical inventory without turning private records into a shared spreadsheet.
 
 > [!NOTE]
-> **v2.6.1 is the current release line.** It keeps v2.6 box management intact, improves mobile barcode/QR camera quality and lifecycle, makes external product lookup opt-in, polishes landing/auth surfaces, and keeps the managed app and desktop launcher synchronized.
+> **v2.6.2 is the current release line.** It patches dependency security vulnerabilities in undici and ip-address, keeps v2.6 box management and v2.6.1 scanner/privacy features intact, and keeps the managed app and desktop launcher synchronized.
 
 ## Why HomeInventory
 

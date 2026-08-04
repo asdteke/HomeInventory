@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Sürüm durumu: v2.6.1 release line. -->
+<!-- Sürüm durumu: v2.6.2 release line. -->
 
 <p align="center">
   <strong>Paylaşımlı evler için özel, self-host edilebilir ev envanteri.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
 
 > [!NOTE]
-> **v2.6.1 güncel release hattıdır.** v2.6 kutu yönetimini korur; mobil barkod/QR kamera kalitesini ve yaşam döngüsünü iyileştirir, dış ürün aramasını kullanıcı onayına bağlar, landing/auth yüzeylerini sadeleştirir ve yönetilen uygulama ile masaüstü Launcher sürümünü eşit tutar.
+> **v2.6.2 güncel release hattıdır.** undici ve ip-address bağımlılık güvenlik zafiyetlerini yamalar; v2.6 kutu yönetimini ve v2.6.1 tarayıcı/gizlilik özelliklerini korur, yönetilen uygulama ile masaüstü Launcher sürümünü eşit tutar.
 
 ## Neden HomeInventory
 

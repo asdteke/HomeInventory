@@ -1,6 +1,6 @@
 # Roadmap
 
-HomeInventory v2.6.1 is the maintenance release for the v2.6 box-management line. It keeps the simple shared/personal box model while improving mobile barcode and QR scanning, requiring explicit consent before external product lookup, refining landing/auth surfaces, and synchronizing the managed app with the desktop launcher. This roadmap stays short and practical so reliability work remains ahead of speculative features.
+HomeInventory v2.6.2 is the security patch release for the v2.6 box-management line. It patches dependency security vulnerabilities while keeping the simple shared/personal box model, mobile barcode and QR scanning, landing/auth surfaces, and managed app synchronization intact. This roadmap stays short and practical so reliability work remains ahead of speculative features.
 
 The v2.6 release track adds practical household box organization while continuing to prioritize self-hosting reliability, accessibility, performance on constrained devices, and reproducible signed releases.
 

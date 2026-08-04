@@ -93,14 +93,14 @@ This keeps launcher-managed local runs separate from the normal repository `.env
 The launcher is shared as release artifacts, separate from the source archive:
 
 ```text
-GitHub Release v2.6.1
+GitHub Release v2.6.2
 ├── HomeInventory.Launcher-macos.dmg
 ├── HomeInventory.Launcher-macos.app.zip
-├── HomeInventory.Launcher_2.6.1_x64-setup.exe
-├── HomeInventory.Launcher_2.6.1_x64_en-US.msi
-├── HomeInventory.Launcher_2.6.1_amd64.AppImage
-├── HomeInventory.Launcher_2.6.1_amd64.deb
-└── HomeInventory.Launcher-2.6.1-1.x86_64.rpm
+├── HomeInventory.Launcher_2.6.2_x64-setup.exe
+├── HomeInventory.Launcher_2.6.2_x64_en-US.msi
+├── HomeInventory.Launcher_2.6.2_amd64.AppImage
+├── HomeInventory.Launcher_2.6.2_amd64.deb
+└── HomeInventory.Launcher-2.6.2-1.x86_64.rpm
 ```
 
 The `Launcher Packages` GitHub Actions workflow builds these packages on native macOS, Windows, and Linux runners. On tag pushes, the workflow uploads them to the matching GitHub Release alongside the normal source code archive. Linux packages still inherit Tauri's current GTK3/GLib dependency chain until an upstream Tauri release moves to a patched GLib stack.

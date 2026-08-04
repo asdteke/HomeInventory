@@ -1,6 +1,6 @@
 # GitHub Actions Release and Signing
 
-HomeInventory v2.6.1 publishes two jointly versioned, independently verified artifact families:
+HomeInventory v2.6.2 publishes two jointly versioned, independently verified artifact families:
 
 - Native launcher packages and mandatory signed Tauri updater artifacts. macOS applications are code-signed; launcher updates use the separate Tauri signing key.
 - The managed HomeInventory archive, shipped as `homeinventory-app.tar.gz` with an Ed25519-signed `homeinventory-app-manifest.json` and a SHA-256 digest.
@@ -40,9 +40,9 @@ Never commit any of these values. Key rotation requires updating the correspondi
 ## Release workflow
 
 1. Complete [`release-checklist.md`](release-checklist.md).
-2. Confirm root, client, launcher, Tauri, Rust, and lockfile versions are all `2.6.1` with `npm run version:check`.
+2. Confirm root, client, launcher, Tauri, Rust, and lockfile versions are all `2.6.2` with `npm run version:check`.
 3. Run CI and fix every build, test, audit, archive, launcher, and Rust failure.
-4. Push the matching tag, or run `Launcher Packages` manually with `publish_release=true` and `release_tag=v2.6.1`. A tag push publishes automatically.
+4. Push the matching tag, or run `Launcher Packages` manually with `publish_release=true` and `release_tag=v2.6.2`. A tag push publishes automatically.
 5. The workflow builds the HomeInventory-only managed archive, creates its signed manifest, builds native packages, verifies macOS signatures, optionally notarizes, collects updater signatures, generates `latest.json`, verifies the complete synchronized asset set, and only then replaces the release assets.
 6. Download the published assets into a clean machine and repeat the checksum/signature and first-launch smoke checks before announcing the release.
 

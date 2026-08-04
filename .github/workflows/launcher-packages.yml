@@ -12,7 +12,7 @@ on:
           - "false"
           - "true"
       release_tag:
-        description: "Release tag to use when publish_release is true, for example v2.6.1"
+        description: "Release tag to use when publish_release is true, for example v2.6.2"
         required: false
         default: ""
   push:
@@ -483,11 +483,9 @@ jobs:
           tag_name: ${{ needs.managed-app.outputs.release_tag }}
           name: HomeInventory ${{ needs.managed-app.outputs.release_tag }}
           body: |
-            ## HomeInventory v2.6.1
+            ## HomeInventory v2.6.2
 
-            This maintenance release keeps the v2.6 box-management model intact while making barcode and QR scanning more reliable on mobile devices. It adds capability-aware Full HD camera preferences, flash and zoom controls, safe torch shutdown, fresh-session **Scan again**, and local-first barcode lookup with explicit consent before public catalogue searches.
-
-            The release also polishes landing and authentication surfaces, makes the cookie notice fully opaque, fixes touch removal for catalogue photos, completes the new scanner strings across 103 locales, and keeps the managed app and launcher on the same version.
+            This security patch release resolves 7 Dependabot vulnerability alerts across undici and ip-address dependencies, keeping the v2.6 box-management model, mobile camera scanner improvements, and launcher synchronization intact.
 
             ## Recommended downloads
 

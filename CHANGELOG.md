@@ -2,6 +2,21 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.6.2 - Dependency Security Patch
+
+### Highlights
+
+- **Dependency vulnerability patches:** Resolved 7 security advisories across `undici` and `ip-address` dependencies.
+  - Upgraded `undici` to `7.29.0` (fixing GHSA-4cwx-7wf7-3272, GHSA-jr45-8vmc-qm54, GHSA-v3r7-h72x-cjcm, GHSA-8xcm-r25x-g524, GHSA-m8rv-5g2x-5cg5: cross-user info disclosure, parse-time crash, cookie attribute injection, downstream response desynchronization, and CRLF injection).
+  - Upgraded `ip-address` to `10.4.0` (fixing GHSA-22jq-vg5j-6vgg and GHSA-4xrf-jv44-h6hh: SSRF and trust-boundary check bypasses via IPv4-mapped/NAT64 misclassification and CIDR suffix handling).
+- **Synchronized patch version:** Kept the server, client, managed app, desktop launcher, Tauri, Rust, and lockfile metadata aligned at `2.6.2`.
+
+### Upgrade notes
+
+- No database migration is required beyond the backwards-compatible v2.6 box schema already applied by the server at startup.
+- Rebuild the client or pull the new image to ensure dependencies are up to date.
+- Back up the SQLite database and uploads before upgrading a self-hosted installation.
+
 ## v2.6.1 - Mobile Scanner, Privacy, and Interface Polish
 
 ### Highlights
