@@ -261,36 +261,115 @@
 
 .vault-secure-workspace {
   min-width: 0;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--hi-border-strong) 72%, rgba(255, 255, 255, 0.28));
-  border-radius: clamp(1.35rem, 3vw, 2rem);
-  padding: clamp(0.75rem, 2vw, 1.25rem);
-  background: color-mix(in srgb, var(--hi-panel) 83%, transparent);
-  box-shadow: var(--hi-shadow);
-  backdrop-filter: blur(14px) saturate(112%);
-  -webkit-backdrop-filter: blur(14px) saturate(112%);
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  padding: 0 0 clamp(1rem, 3vw, 2rem);
+  background:
+    radial-gradient(circle at 78% 14%, color-mix(in srgb, var(--hi-accent) 8%, transparent), transparent 24rem);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .vault-record-form,
 .vault-record-browser {
   min-width: 0;
-  border-radius: 1.35rem;
-  background: color-mix(in srgb, var(--hi-panel-strong) 88%, var(--hi-bg));
 }
 
 .vault-record-form {
-  padding: clamp(1rem, 2.4vw, 1.5rem);
+  padding: clamp(1.25rem, 2.4vw, 1.75rem);
+  border: 1px solid color-mix(in srgb, var(--hi-border-strong) 58%, transparent);
+  border-radius: 2.5rem;
+  background:
+    radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--hi-accent) 7%, transparent), transparent 20rem),
+    color-mix(in srgb, var(--hi-panel-strong) 84%, transparent);
+  box-shadow: 0 24px 56px -46px color-mix(in srgb, var(--hi-text) 48%, transparent);
 }
 
 .vault-record-browser {
   align-self: start;
-  padding: clamp(0.75rem, 2vw, 1rem);
+  padding: clamp(.35rem, 1vw, .65rem);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.vault-record-form .input-field,
+.vault-filter-bar .input-field {
+  border-color: color-mix(in srgb, var(--hi-border-strong) 64%, transparent);
+  border-radius: 1.35rem;
+  background: color-mix(in srgb, var(--hi-bg-strong) 46%, var(--hi-panel-strong));
+}
+
+.vault-record-form textarea.input-field {
+  border-radius: 1.65rem;
+}
+
+.vault-filter-bar input.input-field {
+  border-radius: 1.7rem;
+}
+
+/* v2.7 unlock flow: one editorial security workspace, with the passphrase
+   action as the focal surface and guidance integrated into the canvas. */
+.vault-unlock-layout {
+  position: relative;
+  align-items: center;
+  gap: clamp(1.5rem, 5vw, 5rem) !important;
+  overflow: visible;
+  padding: clamp(1.2rem, 3vw, 2.4rem) clamp(.2rem, 2vw, 1rem) clamp(1.8rem, 4vw, 3rem);
+  border-bottom: 0;
+  background: transparent;
+}
+
+.vault-unlock-panel {
+  border: 0 !important;
+  border-radius: 2.6rem 1.25rem 2.6rem 1.25rem;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--hi-panel-strong) 94%, var(--hi-accent-soft)), var(--hi-panel-strong));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 18%, transparent),
+    0 24px 54px -38px color-mix(in srgb, var(--hi-text) 48%, transparent);
+}
+
+.vault-unlock-panel > .flex.flex-wrap {
+  display: inline-flex;
+  padding: .25rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--hi-panel-muted) 82%, transparent);
+}
+
+.vault-unlock-panel > .flex.flex-wrap button {
+  border-radius: 999px;
+}
+
+.vault-security-panel {
+  position: relative;
+  padding: clamp(.5rem, 2vw, 1rem) 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.vault-security-panel::before {
+  content: '';
+  display: block;
+  width: 3.5rem;
+  height: 2px;
+  margin-bottom: 1.15rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--hi-accent), var(--hi-secondary));
+}
+
+.vault-invoice-control > div:last-child {
+  background: color-mix(in srgb, var(--hi-panel-muted) 52%, var(--hi-panel-strong)) !important;
 }
 
 .vault-form-section {
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--hi-border) 88%, transparent);
-  border-radius: 1.2rem;
+  border-radius: 1.65rem;
   background: color-mix(in srgb, var(--hi-bg-strong) 52%, var(--hi-panel-strong));
 }
 
@@ -327,8 +406,8 @@
 
 .vault-inline-note,
 .vault-record-finance {
-  border-left: 3px solid color-mix(in srgb, var(--hi-accent) 68%, var(--hi-border));
-  border-radius: 0 1rem 1rem 0;
+  border: 1px solid color-mix(in srgb, var(--hi-accent) 18%, var(--hi-border));
+  border-radius: 1rem;
   background: color-mix(in srgb, var(--hi-accent-soft) 52%, transparent);
   line-height: 1.55;
 }
@@ -336,8 +415,8 @@
 .vault-filter-bar {
   position: relative;
   z-index: 1;
-  border-bottom: 1px solid var(--hi-border);
-  padding: 0.25rem 0.25rem 1rem;
+  border: 0;
+  padding: .25rem .25rem 1.15rem;
 }
 
 .vault-record-list {
@@ -348,11 +427,21 @@
 .vault-record-state {
   min-width: 0;
   border: 1px solid color-mix(in srgb, var(--hi-border) 86%, transparent);
-  border-radius: 1.25rem;
+  border-radius: 1.75rem;
   background: color-mix(in srgb, var(--hi-panel-strong) 90%, var(--hi-bg));
   box-shadow: 0 12px 28px -26px rgba(20, 31, 25, 0.5);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+}
+
+.vault-record-state {
+  min-height: 18rem;
+  border: 0;
+  border-radius: 2.35rem;
+  background:
+    radial-gradient(circle at 50% 18%, color-mix(in srgb, var(--hi-accent) 7%, transparent), transparent 13rem),
+    color-mix(in srgb, var(--hi-panel-strong) 58%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 7%, transparent);
 }
 
 .vault-record-row {
@@ -468,6 +557,10 @@
   gap: 1rem;
   border-top: 1px solid var(--hi-border);
   padding-block: 1.25rem;
+}
+
+.settings-about-content > .settings-about-row:first-child {
+  border-top: 0;
 }
 
 .settings-about-icon {
@@ -666,7 +759,17 @@
 
   .vault-record-form,
   .vault-record-browser {
-    border-radius: 1rem;
+    border-radius: 1.65rem;
+  }
+
+  .vault-record-browser {
+    border-radius: 0;
+    padding-inline: 0;
+  }
+
+  .vault-record-state {
+    min-height: 14rem;
+    border-radius: 1.8rem;
   }
 
   .vault-record-row {
@@ -742,12 +845,12 @@
 
 @media (min-width: 1280px) {
   .vault-record-form {
-    border-radius: 1.35rem 0 0 1.35rem;
+    border-radius: 2.5rem;
   }
 
   .vault-record-browser {
-    border-left: 1px solid var(--hi-border);
-    border-radius: 0 1.35rem 1.35rem 0;
+    border-left: 0;
+    border-radius: 0;
   }
 }
 

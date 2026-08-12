@@ -10,7 +10,9 @@ npm run dev
 ```
 
 It adds a GUI for local setup tasks: dependency checks, profile start/stop,
-isolated data/upload paths, backups, logs, port checks, and QR/LAN access.
+isolated data/upload paths, backups, logs, fixed or random port selection,
+QR/LAN access, and optional offline mobile HTTPS. The launcher interface is
+available in English, Turkish, German, Spanish, and French.
 
 ## Development
 
@@ -39,3 +41,6 @@ workflow and attached to GitHub Releases as separate artifacts.
 - Windows resolves `node` and `npm` through `where.exe` and common install paths.
 - Only one profile can run at a time in the current launcher beta.
 - Each profile receives isolated data, database, and uploads directories.
+- Launcher-generated CA/server private keys remain in per-user application data and are excluded from managed-app archives and HomeInventory backups.
+
+See [Optional Offline Mobile HTTPS](../../docs/offline-mobile-https.md) for the enrollment, trust, expiry, and CA-rotation model.

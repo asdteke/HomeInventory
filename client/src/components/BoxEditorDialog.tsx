@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Box, Camera, ChevronDown, Globe, ImagePlus, Lock, MapPin, Trash2 } from 'lucide-react';
 import ModalDialog from './ModalDialog';
 import SecureImage from './SecureImage';
+import FullscreenImage from './FullscreenImage';
 import CreatableLocationSelect from './CreatableLocationSelect';
 import { getRoomPresentation } from '../utils/roomDisplay';
 
@@ -352,15 +353,28 @@ export default function BoxEditorDialog({
                     <div>
                         <span className="box-field-label-v26">{t('boxes.photo')}</span>
                         <div className="box-photo-picker-v26">
-                            <div className="box-photo-preview-v26">
-                                {photoPreview ? (
-                                    <img src={photoPreview} alt={t('boxes.photo')} />
-                                ) : box?.photo_path && !removePhoto ? (
-                                    <SecureImage src={box.photo_path} alt={box.name} className="h-full w-full object-cover" />
-                                ) : (
+                            {photoPreview ? (
+                                <FullscreenImage
+                                    src={photoPreview}
+                                    alt={form.name || t('boxes.photo')}
+                                    className="box-photo-preview-v26"
+                                >
+                                    <img src={photoPreview} alt="" />
+                                </FullscreenImage>
+                            ) : box?.photo_path && !removePhoto ? (
+                                <FullscreenImage
+                                    src={box.photo_path}
+                                    alt={box.name}
+                                    secure
+                                    className="box-photo-preview-v26"
+                                >
+                                    <SecureImage src={box.photo_path} alt="" className="h-full w-full object-cover" />
+                                </FullscreenImage>
+                            ) : (
+                                <div className="box-photo-preview-v26 box-photo-preview-empty-v27">
                                     <ImagePlus className="h-7 w-7" />
-                                )}
-                            </div>
+                                </div>
+                            )}
                             <div className="box-photo-actions-v26">
                                 <button type="button" onClick={() => cameraInputRef.current?.click()} className="btn-secondary">
                                     <Camera className="h-4 w-4" /> {t('items.form.take_photo')}

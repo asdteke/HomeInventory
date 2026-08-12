@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { copyTextToClipboard } from '../utils/clipboard';
-import { validatePasswordStrengthClient } from '../utils/passwordValidation';
+import { getPasswordGuidanceMessage, MIN_PASSWORD_LENGTH, validatePasswordStrengthClient } from '../utils/passwordValidation';
 import { EmptyState, LoadingState, SectionHeader } from './ProductUI';
 import LanguageSwitcher from './LanguageSwitcher';
 import AccordionSection from './AccordionSection';
@@ -2144,11 +2144,12 @@ export default function Settings() {
                                 </div>
                                 <div>
                                     <label className="mb-1 block text-sm font-medium text-[var(--hi-text)]">{t('settings.modals.password.new')}</label>
-                                    <input type="password" name="newPassword" value={formData.newPassword} onChange={handleChange} className="input-field" required minLength={6} />
+                                    <input type="password" name="newPassword" value={formData.newPassword} onChange={handleChange} className="input-field" required minLength={MIN_PASSWORD_LENGTH} aria-describedby="settings-password-guidance" />
+                                    <p id="settings-password-guidance" className="mt-2 text-xs leading-5 text-[var(--hi-text-muted)]">{getPasswordGuidanceMessage(t)}</p>
                                 </div>
                                 <div>
                                     <label className="mb-1 block text-sm font-medium text-[var(--hi-text)]">{t('settings.modals.password.confirm')}</label>
-                                    <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} className="input-field" required minLength={6} />
+                                    <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} className="input-field" required minLength={MIN_PASSWORD_LENGTH} />
                                 </div>
                                 <div className="house-action-dialog-actions pt-2">
                                     <button type="submit" disabled={loading} className="btn-primary w-full py-3 flex items-center justify-center gap-2">

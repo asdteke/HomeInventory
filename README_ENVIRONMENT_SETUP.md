@@ -2,7 +2,7 @@
 
 This repository contains a rebuilt frontend, encrypted storage flows, and optional secret-loading paths for Docker and OCI. Keep local and production secrets out of git.
 
-These settings match the public v2.6.2 release line.
+These settings match the public v2.7.0 release line.
 
 ### Safe workflow
 
@@ -25,6 +25,9 @@ These settings match the public v2.6.2 release line.
    - `JWT_SECRET`
    - `APP_ENCRYPTION_KEY`
    - `APP_ENCRYPTION_KEY_ID`
+   - `APP_MIN_PASSWORD_LENGTH` only when you intentionally want to override the
+     default minimum of 8 characters. Values from 8 to 128 are accepted; 12 or
+     more remains the recommended setting for internet-exposed deployments.
 4. Start locally:
    - `npm run dev`
 

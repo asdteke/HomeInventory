@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import {
     CalendarDays,
+    Camera,
     ImagePlus,
     KeyRound,
     Lock,
@@ -646,6 +647,7 @@ export default function PersonalVault() {
     } = useVault();
 
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const cameraInputRef = useRef<HTMLInputElement>(null);
     const itemPhotoPreviewUrlsRef = useRef<Record<string, string>>({});
     const photoPreviewLoadRef = useRef<number>(0);
     const photoDraftRef = useRef<PhotoDraft | null>(null);
@@ -1019,6 +1021,9 @@ export default function PersonalVault() {
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
         }
+        if (cameraInputRef.current) {
+            cameraInputRef.current.value = '';
+        }
     };
 
     const handleSetup = async (event: React.FormEvent) => {
@@ -1160,6 +1165,9 @@ export default function PersonalVault() {
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
         }
+        if (cameraInputRef.current) {
+            cameraInputRef.current.value = '';
+        }
     };
 
     const handleSubmitItem = async (event: React.FormEvent) => {
@@ -1213,6 +1221,9 @@ export default function PersonalVault() {
         replacePhotoDraft(null);
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
+        }
+        if (cameraInputRef.current) {
+            cameraInputRef.current.value = '';
         }
         setFormState({
             name: item.name,
@@ -1624,6 +1635,23 @@ export default function PersonalVault() {
                                             onChange={handlePhotoFileChange}
                                             className="hidden"
                                         />
+                                        <input
+                                            ref={cameraInputRef}
+                                            type="file"
+                                            accept="image/*"
+                                            capture="environment"
+                                            onChange={handlePhotoFileChange}
+                                            className="hidden"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => cameraInputRef.current?.click()}
+                                            disabled={photoProcessing || savingItem}
+                                            className="btn-secondary inline-flex items-center gap-2"
+                                        >
+                                            <Camera className="h-4 w-4" />
+                                            {t('items.form.take_photo', { defaultValue: 'Take Photo' })}
+                                        </button>
                                         <button
                                             type="button"
                                             onClick={() => fileInputRef.current?.click()}
@@ -1697,11 +1725,11 @@ export default function PersonalVault() {
                                 )}
                             </section>
 
-                            <section className="vault-form-section vault-invoice-control">
+                            <section className="vault-form-section vault-invoice-control item-invoice-accordion-v27">
                                 <button
                                     type="button"
                                     onClick={() => setShowInvoiceSection((currentValue) => !currentValue)}
-                                    className="flex w-full items-center justify-between gap-4 px-4 py-4 text-left transition-colors hover:bg-[var(--hi-panel-muted)]"
+                                    className="item-invoice-toggle-v27 flex w-full items-center justify-between gap-4 px-4 py-4 text-left transition-colors"
                                 >
                                     <div>
                                         <p className="font-medium text-[var(--hi-text)]">{t('items.form.invoice_section')}</p>

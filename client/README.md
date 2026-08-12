@@ -1,5 +1,5 @@
 # HomeInventory Client
 
-This React/Vite/TypeScript client documentation is current for the public v2.6.2 release line.
+This React/Vite/TypeScript client documentation is current for the public v2.7.0 release line.
 
-The client is maintained on the TypeScript/Vite component path. Feature history is tracked in [../CHANGELOG.md](../CHANGELOG.md); v2.6 adds shared/personal box workflows, single and bulk item assignment, inline room-scoped location creation, and QR label printing through the existing inventory infrastructure. v2.6.1 improves the shared barcode/QR camera lifecycle, supported-device flash and zoom, local-first barcode lookup with explicit online consent, and responsive landing/auth surfaces. v2.6.2 patches dependency security vulnerabilities.
+The client is maintained on the TypeScript/Vite component path. Feature history is tracked in [../CHANGELOG.md](../CHANGELOG.md); v2.6 adds shared/personal box workflows and scanner improvements, while v2.7 aligns inventory/admin surfaces, refreshes Personal Vault, and applies the practical password guidance used by registration, recovery, reset, and settings.

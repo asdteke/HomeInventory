@@ -22,6 +22,7 @@ const homeInventoryBuildEnv = {
     APP_PWA_BACKGROUND_COLOR_DARK: '#1a1f1c',
     APP_SITE_URL: 'http://localhost:3001',
     APP_VERSION: JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version,
+    APP_MIN_PASSWORD_LENGTH: '8',
     SITE_URL: 'http://localhost:3001',
     SUPPORT_EMAIL: ''
 };

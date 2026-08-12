@@ -1,14 +1,19 @@
-export const MIN_PASSWORD_LENGTH = 10;
+import { PASSWORD_MIN_LENGTH } from '../constants/branding';
+
+export const MIN_PASSWORD_LENGTH = PASSWORD_MIN_LENGTH;
+export const RECOMMENDED_PASSWORD_LENGTH = 12;
 
 export interface PasswordValidationResult {
     valid: boolean;
     error: string;
+    recommended: boolean;
 }
 
-function getPasswordRequirementsMessage(t: (key: string, options?: any) => string): string {
-    return t('auth.password_requirements', {
+export function getPasswordGuidanceMessage(t: (key: string, options?: any) => string): string {
+    return t('auth.password_guidance_v270', {
         min: MIN_PASSWORD_LENGTH,
-        defaultValue: 'Use at least {{min}} characters with uppercase, lowercase, number, and symbol.'
+        recommended: RECOMMENDED_PASSWORD_LENGTH,
+        defaultValue: 'Minimum {{min}} characters. {{recommended}} or more is recommended; spaces are allowed.'
     });
 }
 
@@ -17,24 +22,19 @@ export function validatePasswordStrengthClient(
     t: (key: string, options?: any) => string
 ): PasswordValidationResult {
     const value = String(password || '');
-    const requirementsMessage = getPasswordRequirementsMessage(t);
+    const guidanceMessage = getPasswordGuidanceMessage(t);
 
     if (value.length < MIN_PASSWORD_LENGTH) {
         return {
             valid: false,
-            error: requirementsMessage
-        };
-    }
-
-    if (!/[a-z]/.test(value) || !/[A-Z]/.test(value) || !/[0-9]/.test(value) || !/[^a-zA-Z0-9]/.test(value)) {
-        return {
-            valid: false,
-            error: requirementsMessage
+            error: guidanceMessage,
+            recommended: false
         };
     }
 
     return {
         valid: true,
-        error: ''
+        error: '',
+        recommended: value.length >= RECOMMENDED_PASSWORD_LENGTH
     };
 }

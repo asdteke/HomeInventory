@@ -600,7 +600,7 @@ function UserCard({
                                         : t('admin.users.role_user', { defaultValue: 'User' })}
                                 </span>
                                 {user.is_banned && <span className="app-meta-pill app-meta-pill-warning">{t('admin.users.banned')}</span>}
-                                {!user.is_banned && !isAdminAccount && <span className="app-meta-pill app-meta-pill-accent">{t('admin.users.active')}</span>}
+                                {!user.is_banned && <span className="app-meta-pill app-meta-pill-accent">{t('admin.users.active')}</span>}
                             </div>
                             <p className="mt-1 text-sm text-[var(--hi-text-soft)]">
                                 {t('admin.users.private_contact_hidden', { defaultValue: 'Private contact details stay hidden from the admin overview.' })}
@@ -888,7 +888,7 @@ export default function AdminPanel() {
             const matchesFilter = userFilter === 'all'
                 || (userFilter === 'admin' && user.role === 'admin')
                 || (userFilter === 'banned' && user.is_banned)
-                || (userFilter === 'active' && !user.is_banned && user.role !== 'admin');
+                || (userFilter === 'active' && !user.is_banned);
 
             return matchesSearch && matchesFilter;
         });

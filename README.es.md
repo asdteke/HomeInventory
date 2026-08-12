@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Estado de la versión: línea de lanzamiento v2.6.2. -->
+<!-- Estado de la versión: línea de lanzamiento v2.7.0. -->
 
 <p align="center">
   <strong>Inventario privado y autoalojable para hogares compartidos.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory está pensado para familias, compañeros de piso y hogares pequeños que necesitan un inventario práctico sin convertir registros privados en una hoja compartida.
 
 > [!NOTE]
-> **v2.6.2 es la línea de versión actual.** Corrige vulnerabilidades de seguridad en las dependencias y mantiene sincronizados la aplicación administrada y el lanzador de escritorio.
+> **v2.7.0 es la línea de versión actual.** Añade una política de contraseñas práctica, retraso progresivo de acceso, bloqueo offline de contraseñas débiles, HTTPS LAN opcional para la cámara móvil y un lanzador localizado.
 
 ## Por qué HomeInventory
 
@@ -105,7 +105,7 @@ HomeInventory está pensado para familias, compañeros de piso y hogares pequeñ
 | Etiquetas y escaneo | Escaneo de códigos de barras, etiquetas QR de objetos y acceso rápido móvil |
 | Backup y restore | Exportación e importación estándar o completa solo para propietarios, con cifrado por frase de contraseña, metadatos, asignaciones y estado de archivo de las cajas, además de medios/adjuntos opcionales |
 | Auth y recuperación | JWT, Google OAuth, verificación por correo, TOTP 2FA, dispositivos de confianza y recovery keys |
-| Desktop Launcher | GUI opcional con Tauri para setup local, chequeo de dependencias, inicio/parada de perfiles, apertura automática del navegador, backups, logs, ajustes avanzados, comprobaciones de puertos y acceso QR/LAN |
+| Desktop Launcher | GUI opcional con Tauri para setup local, chequeo de dependencias, inicio/parada de perfiles, backups, logs, puertos fijos o aleatorios, acceso QR/LAN y [HTTPS offline opcional para la cámara móvil](docs/offline-mobile-https.md) |
 | Internacionalización | 100+ paquetes de locale seleccionables con fallback y validaciones automatizadas |
 
 ## Seguridad & privacidad

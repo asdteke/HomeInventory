@@ -17,6 +17,8 @@ CLI and Docker remain first-class setup paths. The launcher is a convenience lay
 - **Profile isolation:** launcher-managed profiles receive separate data, SQLite, uploads, and encrypted media paths.
 - **Dependency verifier:** detects Node.js and npm, including macOS/Linux GUI PATH handling and Windows path lookup.
 - **Port and LAN checks:** validates local ports before launch and shows a QR code for devices on the same network.
+- **Optional offline mobile HTTPS:** creates a launcher-local CA, expiring enrollment links, and an HTTPS LAN gateway so supported phone browsers can grant camera permission without a domain or external certificate service. Normal HTTP remains available and is the default.
+- **Five launcher languages:** English, Turkish, German, Spanish, and French can be selected directly from the launcher and are remembered locally.
 - **Automatic local handoff:** can open the local HomeInventory URL in the browser after the services are ready.
 - **Integrated logs:** shows setup, backend, frontend, and launcher logs in one place.
 - **Backups:** creates local backups for launcher-managed profiles.
@@ -29,6 +31,7 @@ CLI and Docker remain first-class setup paths. The launcher is a convenience lay
 - **Minimal capabilities:** the launcher avoids broad shell/filesystem permissions in the frontend.
 - **Process cleanup:** launcher-managed service process groups are stopped when services are stopped or the launcher exits.
 - **Isolated runtime paths:** profiles use separate `HOMEINVENTORY_DATA_DIR`, `HOMEINVENTORY_DB_PATH`, and `HOMEINVENTORY_UPLOADS_DIR` values.
+- **Private certificate storage:** CA and server private keys stay in the launcher application-data directory, outside managed-app archives and HomeInventory backups. Only the public CA is offered to enrolled phones.
 
 ## Installation
 
@@ -39,6 +42,8 @@ For most users, there is no need to compile the launcher from source. Go to the 
 - **Linux:** `.AppImage`, `.deb`, or `.rpm`
 
 After opening the launcher, click **Launch HomeInventory**. The launcher checks dependencies and ports, starts the backend and frontend, then shows the local URL plus a QR code for devices on the same network.
+
+Live mobile camera access over a LAN IP requires a secure browser context. The opt-in, domain-free setup and its trust/rotation limits are documented in [Optional Offline Mobile HTTPS](docs/offline-mobile-https.md).
 
 ## Building from Source
 
@@ -93,14 +98,14 @@ This keeps launcher-managed local runs separate from the normal repository `.env
 The launcher is shared as release artifacts, separate from the source archive:
 
 ```text
-GitHub Release v2.6.2
+GitHub Release v2.7.0
 ├── HomeInventory.Launcher-macos.dmg
 ├── HomeInventory.Launcher-macos.app.zip
-├── HomeInventory.Launcher_2.6.2_x64-setup.exe
-├── HomeInventory.Launcher_2.6.2_x64_en-US.msi
-├── HomeInventory.Launcher_2.6.2_amd64.AppImage
-├── HomeInventory.Launcher_2.6.2_amd64.deb
-└── HomeInventory.Launcher-2.6.2-1.x86_64.rpm
+├── HomeInventory.Launcher_2.7.0_x64-setup.exe
+├── HomeInventory.Launcher_2.7.0_x64_en-US.msi
+├── HomeInventory.Launcher_2.7.0_amd64.AppImage
+├── HomeInventory.Launcher_2.7.0_amd64.deb
+└── HomeInventory.Launcher-2.7.0-1.x86_64.rpm
 ```
 
 The `Launcher Packages` GitHub Actions workflow builds these packages on native macOS, Windows, and Linux runners. On tag pushes, the workflow uploads them to the matching GitHub Release alongside the normal source code archive. Linux packages still inherit Tauri's current GTK3/GLib dependency chain until an upstream Tauri release moves to a patched GLib stack.

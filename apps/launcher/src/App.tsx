@@ -2,6 +2,7 @@ import { invoke } from '@tauri-apps/api/core';
 import { listen } from '@tauri-apps/api/event';
 import {
   Archive,
+  ChevronDown,
   ChevronRight,
   CircleDot,
   FolderArchive,
@@ -22,6 +23,9 @@ import {
   CheckCircle2,
   Download,
   RefreshCw,
+  Shuffle,
+  ShieldCheck,
+  Smartphone,
 } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import launcherPackage from '../package.json';
@@ -29,6 +33,12 @@ import logoFull from './logo-full.svg';
 import logoSymbolLight from './logo-symbol-light.svg';
 import logoSymbolLightSvg from './logo-symbol-light.svg?raw';
 import { QrCodeCard } from './QrCode';
+import {
+  LANGUAGE_OPTIONS,
+  LauncherI18nProvider,
+  useLauncherI18n,
+  type Translate,
+} from './i18n';
 
 /* ── Types ── */
 type ViewKey = 'logs' | 'backups' | 'settings' | 'updates';
@@ -59,6 +69,20 @@ type LanAccessStatus = {
   message: string;
 };
 
+type HttpsStatus = {
+  enabled: boolean;
+  httpsPort: number;
+  enrollmentPort: number;
+  httpsUrl: string;
+  iosEnrollmentUrl: string;
+  androidEnrollmentUrl: string;
+  caName: string;
+  caFingerprint: string;
+  enrollmentExpiresAt: number;
+  certificateExpiresAt: number;
+  localIp: string;
+};
+
 type LauncherSnapshot = {
   projectRoot: string; appDataDir: string; localIp?: string | null;
   tools: ToolStatus[]; setup: SetupStatus; profiles: ProfileStatus[];
@@ -69,6 +93,7 @@ type LauncherSnapshot = {
   bundledSyncRequired: boolean;
   distribution: string;
   storeBuild: boolean;
+  httpsStatus?: HttpsStatus | null;
 };
 
 type UpdateCheckResult = {
@@ -99,16 +124,19 @@ type PortCheckResult = {
   message: string;
 };
 
+type SuggestedPorts = { backendPort: number; frontendPort: number };
+
 type LauncherSettings = {
-  projectPath: string; nodePath: string; npmPath: string; autoOpen: boolean;
+  projectPath: string; nodePath: string; npmPath: string; autoOpen: boolean; mobileHttps: boolean;
 };
 
 type PathKind = 'project' | 'node' | 'npm';
+type AndroidGuideBrand = 'samsung' | 'pixel' | 'other';
 
 const LAUNCHER_VERSION = launcherPackage.version;
 
 const defaultSettings: LauncherSettings = {
-  projectPath: '', nodePath: '', npmPath: '', autoOpen: true,
+  projectPath: '', nodePath: '', npmPath: '', autoOpen: true, mobileHttps: false,
 };
 
 const hasTauriRuntime = () =>
@@ -143,22 +171,87 @@ function parsePort(value: string, fallback: number) {
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
-function validatePortInputs(apiPort: string, uiPort: string, profile: ProfileStatus | null) {
-  if (!profile) return 'No profile is available.';
+function validatePortInputs(apiPort: string, uiPort: string, profile: ProfileStatus | null, t: Translate) {
+  if (!profile) return t('status.noProfile');
   const backendPort = parsePort(apiPort, profile.backendPort);
   const frontendPort = parsePort(uiPort, profile.frontendPort);
-  if (backendPort < 1024 || backendPort > 65535) return 'API port must be between 1024 and 65535.';
-  if (frontendPort < 1024 || frontendPort > 65535) return 'UI port must be between 1024 and 65535.';
-  if (backendPort === frontendPort) return 'API and UI ports must be different.';
+  if (backendPort < 1024 || backendPort > 65535) return t('status.apiPortRange');
+  if (frontendPort < 1024 || frontendPort > 65535) return t('status.uiPortRange');
+  if (backendPort === frontendPort) return t('status.portsDifferent');
   return '';
+}
+
+function localizedPortMessage(status: PortCheckResult | null, t: Translate) {
+  if (!status) return t('status.portsAvailable');
+  if (status.existingHomeInventory) return t('status.existingInstance');
+  if (status.ok) return t('status.portsAvailable');
+  if (!status.backendOk && status.frontendOk) {
+    return t('status.apiPortBusy', { port: status.backendPort, suggested: status.suggestedBackendPort });
+  }
+  if (status.backendOk && !status.frontendOk) {
+    return t('status.uiPortBusy', { port: status.frontendPort, suggested: status.suggestedFrontendPort });
+  }
+  return t('status.bothPortsBusy', {
+    backend: status.backendPort,
+    frontend: status.frontendPort,
+    suggestedBackend: status.suggestedBackendPort,
+    suggestedFrontend: status.suggestedFrontendPort,
+  });
+}
+
+function localizedLanMessage(status: LanAccessStatus, t: Translate) {
+  if (status.frontendOk && status.backendOk) return t('status.networkReady');
+  if (!status.frontendOk && status.backendOk) return t('status.lanUiBlocked');
+  if (status.frontendOk && !status.backendOk) return t('status.lanApiBlocked');
+  return t('status.lanBlocked');
+}
+
+function localizedUpdateState(state: string, t: Translate) {
+  const keys: Record<string, Parameters<Translate>[0]> = {
+    Starting: 'update.stateStarting',
+    'Backing Up': 'update.stateBackingUp',
+    Downloading: 'update.stateDownloading',
+    Installing: 'update.stateInstalling',
+    Completed: 'update.stateCompleted',
+    RollingBack: 'update.stateRollback',
+    RollbackComplete: 'update.stateRollbackComplete',
+    RollbackFailed: 'update.stateFailed',
+    Failed: 'update.stateFailed',
+  };
+  return keys[state] ? t(keys[state]) : state;
+}
+
+function LanguageQuickPicker() {
+  const { locale, setLocale, t } = useLauncherI18n();
+
+  return (
+    <label className="language-quick-picker">
+      <Globe size={14} aria-hidden="true" />
+      <select
+        value={locale}
+        aria-label={t('language.launcherLanguage')}
+        onChange={event => setLocale(event.target.value as typeof locale)}
+      >
+        {LANGUAGE_OPTIONS.map(option => (
+          <option key={option.code} value={option.code}>{t(option.labelKey)}</option>
+        ))}
+      </select>
+      <ChevronDown size={13} aria-hidden="true" />
+    </label>
+  );
 }
 
 /* ── Root Component ── */
 export function App() {
+  return <LauncherI18nProvider><AppContent /></LauncherI18nProvider>;
+}
+
+function AppContent() {
+  const { t } = useLauncherI18n();
   const [snapshot, setSnapshot] = useState<LauncherSnapshot | null>(null);
   const [settings, setSettings] = useState<LauncherSettings>(() => loadSettings());
   const [busy, setBusy] = useState<string | null>(null);
-  const [notice, setNotice] = useState('Launcher ready.');
+  const [notice, setNotice] = useState(() => t('status.launcherReady'));
 
   const [showDevPanel, setShowDevPanel] = useState(false);
   const [devTab, setDevTab] = useState<ViewKey>('logs');
@@ -179,6 +272,12 @@ export function App() {
   const [portUi, setPortUi] = useState('');
   const [portCheck, setPortCheck] = useState<PortCheckResult | null>(null);
   const [portCheckRevision, setPortCheckRevision] = useState(0);
+  const [androidGuideBrand, setAndroidGuideBrand] = useState<AndroidGuideBrand>('samsung');
+  const androidCertificateGuides = useMemo<Record<AndroidGuideBrand, { label: string; path: string }>>(() => ({
+    samsung: { label: t('android.samsung'), path: t('android.samsungPath') },
+    pixel: { label: t('android.pixel'), path: t('android.pixelPath') },
+    other: { label: t('android.other'), path: t('android.otherPath') },
+  }), [t]);
 
   // User must click to start — no auto-boot
   const [userStarted, setUserStarted] = useState(false);
@@ -198,12 +297,13 @@ export function App() {
   const [bundledSyncRetryAvailable, setBundledSyncRetryAvailable] = useState(false);
   const bundledSyncStartedRef = useRef(false);
   const bundledSyncInFlightRef = useRef(false);
+  const httpsActivationRef = useRef(false);
 
   /* ── Refresh ── */
   const refresh = useCallback(async () => {
     if (!hasTauriRuntime()) {
       setSnapshot(prev => {
-        const next = mockSnapshot(settings);
+        const next = mockSnapshot(settings, t);
         if (!prev?.activeProfileId) return next;
         const activePreview = prev.profiles.find(profile => profile.id === prev.activeProfileId);
         if (!activePreview) return next;
@@ -220,13 +320,13 @@ export function App() {
           } : profile),
         };
       });
-      setNotice('Browser preview — Tauri commands are simulated.');
+      setNotice(t('status.browserPreview'));
       return;
     }
     try {
       setSnapshot(await invoke<LauncherSnapshot>('detect_tools', { overrides: overrides(settings) }));
     } catch (e) { setNotice(String(e)); }
-  }, [settings]);
+  }, [settings, t]);
 
   useEffect(() => { saveSettings(settings); refresh(); }, [settings, refresh]);
   useEffect(() => { const t = setInterval(refresh, 2000); return () => clearInterval(t); }, [refresh]);
@@ -311,7 +411,7 @@ export function App() {
       const result = await invoke<UpdateCheckResult>('check_updates', { overrides: overrides(settings) });
       setUpdateResult(result);
       if (!result.appUpdateAvailable && !result.launcherUpdateAvailable) {
-        setUpdateNotice('Your software is up to date.');
+        setUpdateNotice(t('update.upToDateNotice'));
       }
     } catch (err) {
       setUpdateNotice(err instanceof Error ? err.message : String(err));
@@ -337,7 +437,7 @@ export function App() {
 
     const managedProfile = snapshot.profiles.find(profile => profile.id === 'homeinventory')
       || snapshot.profiles[0];
-    if (!managedProfile || validatePortInputs(portApi, portUi, managedProfile)) {
+    if (!managedProfile || validatePortInputs(portApi, portUi, managedProfile, t)) {
       return;
     }
     const requestedBackendPort = parsePort(portApi, managedProfile.backendPort);
@@ -372,7 +472,7 @@ export function App() {
       && portCheck.suggestedFrontendPort === requestedFrontendPort
     ) {
       pauseBundledSync(
-        portCheck.message || 'Local ports could not be verified. Choose Retry Sync to check again.',
+        portCheck.message || t('update.previousAvailable'),
       );
       return;
     }
@@ -387,6 +487,7 @@ export function App() {
       String(backendPort),
       String(frontendPort),
       managedProfile,
+      t,
     );
     if (suggestedPortError) {
       pauseBundledSync(suggestedPortError);
@@ -400,7 +501,7 @@ export function App() {
     setBusy('bundled-sync');
     setUpdateProgress({
       state: 'Starting',
-      message: 'Preparing the included managed app. Dependency installation may require internet access...',
+      message: t('setup.installing'),
       progress: 0.01,
     });
     invoke<CommandResult>('sync_bundled_managed_app', {
@@ -480,29 +581,29 @@ export function App() {
 
   const triggerUpdate = async () => {
     if (!updateResult) {
-      setUpdateNotice('Please check for updates before starting the update.');
+      setUpdateNotice(t('update.checkFirst'));
       setUpdateProgress(null);
       return;
     }
 
     if (!updateResult.appUpdateAvailable && !updateResult.launcherUpdateAvailable) {
-      setUpdateNotice('Your software is up to date. No update is available to install.');
+      setUpdateNotice(t('update.noInstallAvailable'));
       setUpdateProgress(null);
       return;
     }
 
     setUpdateNotice('');
     setBusy('update');
-    setUpdateProgress({ state: 'Starting', message: 'Initializing update orchestration...', progress: 0.01 });
+    setUpdateProgress({ state: 'Starting', message: t('update.initializing'), progress: 0.01 });
     try {
       if (!hasTauriRuntime()) {
-        setUpdateProgress({ state: 'Backing Up', message: 'Creating database and uploads backup...', progress: 0.2 });
+        setUpdateProgress({ state: 'Backing Up', message: t('update.backingUp'), progress: 0.2 });
         await new Promise((r) => setTimeout(r, 1000));
-        setUpdateProgress({ state: 'Downloading', message: 'Downloading release archive...', progress: 0.4 });
+        setUpdateProgress({ state: 'Downloading', message: t('update.downloading'), progress: 0.4 });
         await new Promise((r) => setTimeout(r, 1000));
-        setUpdateProgress({ state: 'Installing', message: 'Running npm ci dependency install...', progress: 0.7 });
+        setUpdateProgress({ state: 'Installing', message: t('update.installing'), progress: 0.7 });
         await new Promise((r) => setTimeout(r, 1500));
-        setUpdateProgress({ state: 'Completed', message: 'Update complete!', progress: 1.0 });
+        setUpdateProgress({ state: 'Completed', message: t('update.complete'), progress: 1.0 });
         setTimeout(() => {
           setUpdateProgress(null);
           setUpdateResult(null);
@@ -528,18 +629,18 @@ export function App() {
   const selectedBackendPort = selProfile ? parsePort(portApi, selProfile.backendPort) : 3001;
   const selectedFrontendPort = selProfile ? parsePort(portUi, selProfile.frontendPort) : 5173;
   const portInputError = useMemo(() => {
-    if (!isStoreBuild) return validatePortInputs(portApi, portUi, selProfile);
-    if (!selProfile) return 'No profile is available.';
+    if (!isStoreBuild) return validatePortInputs(portApi, portUi, selProfile, t);
+    if (!selProfile) return t('status.noProfile');
     const backendPort = parsePort(portApi, selProfile.backendPort);
-    if (backendPort < 1024 || backendPort > 65535) return 'Local port must be between 1024 and 65535.';
+    if (backendPort < 1024 || backendPort > 65535) return t('status.localPortRange');
     return '';
-  }, [isStoreBuild, portApi, portUi, selProfile]);
+  }, [isStoreBuild, portApi, portUi, selProfile, t]);
   const existingHomeInventory = Boolean(portCheck?.existingHomeInventory && portCheck.existingFrontendUrl);
   const portBusy = Boolean(!portInputError && portCheck && !portCheck.ok && !existingHomeInventory);
   const checkingPorts = Boolean(selectedProfileId && !portInputError && !portCheck);
   const portBlocked = Boolean(portInputError);
   const portStatusBlocked = Boolean(portInputError || (portCheck && !portCheck.ok && !existingHomeInventory));
-  const portMessage = portInputError || portCheck?.message || 'Ports are available.';
+  const portMessage = portInputError || localizedPortMessage(portCheck, t);
   const launchBackendPort = portBusy && portCheck ? portCheck.suggestedBackendPort : selectedBackendPort;
   const launchFrontendPort = isStoreBuild
     ? launchBackendPort
@@ -562,20 +663,20 @@ export function App() {
     : portBusy
       ? portMessage
     : isStoreBuild && !ready
-    ? 'HomeInventory Local will prepare its bundled app files and local runtime from the Microsoft Store package.'
+    ? t('setup.storePreparation')
     : projectRootMissing
-    ? 'Choose an empty install folder or an existing HomeInventory folder.'
+    ? t('setup.chooseFolderHelp')
     : projectRootInstallable
-      ? 'Empty install folder selected. HomeInventory will be downloaded and installed here.'
+      ? t('setup.emptyFolderSelected')
       : projectRootInvalid
-        ? 'This folder is not empty and is not a HomeInventory install folder.'
-    : notice && !['Launcher ready.', 'Browser preview — Tauri commands are simulated.'].includes(notice)
+        ? t('setup.invalidFolder')
+    : notice && ![t('status.launcherReady'), t('status.browserPreview')].includes(notice)
       ? notice
       : '';
 
   const chooseInstallFolder = async () => {
     if (!hasTauriRuntime()) {
-      setNotice('Folder picker is available in the desktop launcher.');
+      setNotice(t('status.folderPickerDesktop'));
       return;
     }
     try {
@@ -583,7 +684,7 @@ export function App() {
       if (!selected) return;
       setSettings(current => ({ ...current, projectPath: selected }));
       setSetupAutoBlocked(false);
-      setNotice('Install folder selected.');
+      setNotice(t('status.folderSelected'));
     } catch (err) {
       setNotice(err instanceof Error ? err.message : String(err));
     }
@@ -592,7 +693,7 @@ export function App() {
   const clearInstallFolder = () => {
     setSettings(current => ({ ...current, projectPath: '' }));
     setSetupAutoBlocked(false);
-    setNotice('Install folder cleared.');
+    setNotice(t('status.folderCleared'));
   };
 
   const renderPreLaunchUpdateCheck = () => {
@@ -601,40 +702,40 @@ export function App() {
     }
 
     const title = bundledSyncRetryAvailable
-      ? 'Managed app sync paused'
+      ? t('update.syncPaused')
       : updateProgress
-      ? 'Update in progress'
+      ? t('update.inProgress')
       : checkingUpdates
-        ? 'Checking updates...'
+        ? t('update.checking')
         : updateResult
           ? updateAvailable
-            ? 'Update available before launch'
-            : 'Checked before launch'
-          : 'Check updates before launch';
+            ? t('update.availableBeforeLaunch')
+            : t('update.checkedBeforeLaunch')
+          : t('update.checkBeforeLaunch');
 
     const detail = bundledSyncRetryAvailable
-      ? updateNotice || 'The previous version remains available. Retry when you are ready.'
+      ? updateNotice || t('update.previousAvailable')
       : updateProgress
       ? updateProgress.message
       : checkingUpdates
-        ? 'Looking for signed launcher and app releases.'
+        ? t('update.lookingForReleases')
         : updateResult
           ? updateBlockedByNode
-            ? 'Node.js must be upgraded before this update can be installed.'
+            ? t('update.nodeUpgradeBeforeInstall')
             : updateAvailable
-              ? 'Install the verified update before starting HomeInventory.'
-              : 'No update is available right now.'
-          : 'Verify releases, signatures, and requirements before starting services.';
+              ? t('update.installBeforeStart')
+              : t('update.noneAvailable')
+          : t('update.verifyBeforeStart');
 
     const buttonLabel = bundledSyncRetryAvailable
-      ? 'Retry Sync'
+      ? t('update.retrySync')
       : checkingUpdates
-      ? 'Checking...'
+      ? t('common.checking')
       : updateAvailable
-        ? 'Update First'
+        ? t('update.updateFirst')
         : updateResult
-          ? 'Check Again'
-          : 'Check Updates';
+          ? t('common.checkAgain')
+          : t('update.checkUpdates');
 
     const buttonIcon = bundledSyncRetryAvailable
       ? <RefreshCw size={13} />
@@ -647,7 +748,7 @@ export function App() {
     return (
       <div className="prelaunch-update-card">
         <div className="prelaunch-update-copy">
-          <span className="prelaunch-update-kicker">Updates</span>
+          <span className="prelaunch-update-kicker">{t('update.kicker')}</span>
           <strong>{title}</strong>
           <p>{detail}</p>
         </div>
@@ -704,7 +805,7 @@ export function App() {
     const lastError = [...snapshot.logs].reverse().find(log => log.level === 'error');
     const nextNotice = lastError
       ? `${lastError.source}: ${lastError.message}`
-      : 'HomeInventory stopped before it finished starting. Open Developer Tools for logs.';
+      : t('status.setupStopped');
     setNotice(current => current === nextNotice ? current : nextNotice);
     setUserStarted(false);
   }, [active, busy, ready, serverReady, snapshot, stopped, userStarted]);
@@ -722,6 +823,23 @@ export function App() {
     setOpenedUrl(active.frontendUrl);
     invoke('open_app', { url: active.frontendUrl }).catch(e => setNotice(String(e)));
   }, [active, busy, serverReady, settings.autoOpen, openedUrl]);
+
+  useEffect(() => {
+    const certificateNeedsRefresh = Boolean(
+      snapshot?.httpsStatus
+      && (
+        (snapshot.localIp && snapshot.httpsStatus.localIp !== snapshot.localIp)
+        || snapshot.httpsStatus.certificateExpiresAt <= Math.floor(Date.now() / 1000) + 24 * 60 * 60
+      )
+    );
+    if (!active || !serverReady || !settings.mobileHttps || (snapshot?.httpsStatus && !certificateNeedsRefresh) || busy || !hasTauriRuntime()) {
+      if (!active || !settings.mobileHttps) httpsActivationRef.current = false;
+      return;
+    }
+    if (httpsActivationRef.current) return;
+    httpsActivationRef.current = true;
+    enableMobileHttps().finally(() => { httpsActivationRef.current = false; });
+  }, [active, serverReady, settings.mobileHttps, snapshot?.httpsStatus, snapshot?.localIp, busy]);
 
   useEffect(() => {
     if (!selectedProfileId || portInputError) {
@@ -742,7 +860,7 @@ export function App() {
         suggestedFrontendPort: selectedBackendPort,
         existingHomeInventory: false,
         existingFrontendUrl: null,
-        message: 'Local port is valid.',
+        message: t('status.localPortValid'),
       });
       return;
     }
@@ -760,7 +878,7 @@ export function App() {
           suggestedFrontendPort: selectedFrontendPort,
           existingHomeInventory: false,
           existingFrontendUrl: null,
-          message: 'Ports look valid in browser preview.',
+          message: t('status.previewPortsValid'),
         });
         return;
       }
@@ -821,13 +939,33 @@ export function App() {
     finally { setBusy(null); }
   }
 
+  async function chooseRandomPorts() {
+    setBusy('random-ports');
+    try {
+      const suggested = hasTauriRuntime()
+        ? await invoke<SuggestedPorts>('suggest_random_ports')
+        : { backendPort: 43101, frontendPort: 43102 };
+      setPortApi(String(suggested.backendPort));
+      setPortUi(String(suggested.frontendPort));
+      setPortCheck(null);
+      setPortCheckRevision(current => current + 1);
+      setNotice(isStoreBuild
+        ? t('status.randomLocalPort', { port: suggested.backendPort })
+        : t('status.randomPorts', { backend: suggested.backendPort, frontend: suggested.frontendPort }));
+    } catch (error) {
+      setNotice(String(error));
+    } finally {
+      setBusy(null);
+    }
+  }
+
   const doStart = async (
     p: ProfileStatus,
     requestedBackendPort = launchBackendPort,
     requestedFrontendPort = launchFrontendPort,
   ) => {
     if (checkingPorts) {
-      setNotice('Checking local ports before launch…');
+      setNotice(t('status.checkingPorts'));
       return;
     }
     if (existingHomeInventory && portCheck?.existingFrontendUrl) {
@@ -845,7 +983,7 @@ export function App() {
     if (portBusy && portCheck) {
       setPortApi(String(backendPort));
       setPortUi(String(frontendPort));
-      setNotice(`Default ports were busy. Launching on ${backendPort}/${frontendPort}.`);
+      setNotice(t('status.defaultPortsBusy', { backend: backendPort, frontend: frontendPort }));
     }
     setUserStarted(true);
     setStopped(false);
@@ -864,7 +1002,7 @@ export function App() {
         } : profile),
       } : prev);
       setServerReady(true);
-      setNotice(`Starting ${p.name}: simulated in browser mode.`);
+      setNotice(t('status.startPreview', { name: p.name }));
       return;
     }
     const started = await run(`start-${p.id}`, () => invoke('start_profile', {
@@ -885,10 +1023,81 @@ export function App() {
         activeProfileId: null,
         profiles: prev.profiles.map(profile => ({ ...profile, running: false })),
       } : prev);
-      setNotice('Stopped active profile: simulated in browser mode.');
+      setNotice(t('status.stopPreview'));
       return;
     }
     await run('stop', () => invoke('stop_profile'));
+  };
+
+  const enableMobileHttps = async () => {
+    if (!active) {
+      setNotice(t('https.startFirst'));
+      return;
+    }
+    setBusy('mobile-https');
+    try {
+      if (!hasTauriRuntime()) {
+        setSettings(current => ({ ...current, mobileHttps: true }));
+        setNotice(t('https.previewEnabled'));
+        return;
+      }
+      const status = await invoke<HttpsStatus>('enable_https', {
+        request: {
+          profileId: active.id,
+          overrides: overrides(settings),
+          httpsPort: 5443,
+        },
+      });
+      setSettings(current => ({ ...current, mobileHttps: true }));
+      setNotice(t('https.readyNotice', { url: status.httpsUrl }));
+      await refresh();
+    } catch (error) {
+      setNotice(String(error));
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  const disableMobileHttps = async () => {
+    setBusy('mobile-https');
+    try {
+      if (hasTauriRuntime() && snapshot?.httpsStatus) {
+        const result = await invoke<CommandResult>('disable_https');
+        setNotice(result.message);
+      } else {
+        setNotice(t('https.disabledNotice'));
+      }
+      setSettings(current => ({ ...current, mobileHttps: false }));
+      await refresh();
+    } catch (error) {
+      setNotice(String(error));
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  const rotateMobileCa = async () => {
+    if (!active || !window.confirm(
+      t('https.rotateConfirm')
+    )) return;
+    setBusy('mobile-https');
+    try {
+      if (hasTauriRuntime()) {
+        if (snapshot?.httpsStatus) await invoke<CommandResult>('disable_https');
+        const result = await invoke<CommandResult>('rotate_https_ca', {
+          request: { profileId: active.id },
+        });
+        setNotice(result.message);
+      } else {
+        setNotice(t('https.rotatePreview'));
+      }
+      setSettings(current => ({ ...current, mobileHttps: false }));
+      await refresh();
+    } catch (error) {
+      setNotice(String(error));
+    } finally {
+      setBusy(null);
+    }
   };
 
   const doInstall = async (automatic = false) => {
@@ -911,7 +1120,7 @@ export function App() {
       if (!hasTauriRuntime()) {
         const simulated = {
           ok: true,
-          message: `Backup created for ${p.name}: simulated in browser mode.`,
+          message: t('status.backupPreview', { name: p.name }),
           path: `${snapshot?.appDataDir || '/tmp'}/backups/${p.id}-preview`,
         };
         setNotice(simulated.message);
@@ -970,7 +1179,7 @@ export function App() {
   }, [busy]);
 
   /* ── Render ── */
-  if (!snapshot) return <div className="loading-state"><Loader2 size={28} className="spin" /><span>Loading environment…</span></div>;
+  if (!snapshot) return <div className="loading-state"><Loader2 size={28} className="spin" /><span>{t('status.loadingEnvironment')}</span></div>;
 
   /* ─── STATE 1: Setup ─── */
   if (!ready && !(active && serverReady)) {
@@ -979,14 +1188,14 @@ export function App() {
     const elapsedSeconds = installStartedAt ? Math.max(0, Math.floor((elapsedNow - installStartedAt) / 1000)) : 0;
     const elapsedLabel = `${Math.floor(elapsedSeconds / 60)}:${String(elapsedSeconds % 60).padStart(2, '0')}`;
 
-    let msg = 'Waiting to initialize…';
-    if (!isStoreBuild && (!s.node || !s.npm)) msg = 'Node.js is required.';
+    let msg = t('setup.waiting');
+    if (!isStoreBuild && (!s.node || !s.npm)) msg = t('setup.nodeRequired');
     else if (installing) {
       msg = isStoreBuild
-        ? 'Preparing application files…'
-        : 'Installing dependencies and preparing the app…';
+        ? t('setup.preparingFiles')
+        : t('setup.installing');
     } else if (setupAutoBlocked) {
-      msg = 'Setup stopped after an error. Choose another install folder, then try again.';
+      msg = t('setup.failed');
     }
 
     return (
@@ -996,25 +1205,26 @@ export function App() {
             <img src={logoFull} alt="HomeInventory" className="splash-logo-full pulsing" />
             <div className="logo-aura" />
           </div>
-          <p className="splash-subtitle">Your private household registry</p>
+          <p className="splash-subtitle">{t('setup.subtitle')}</p>
           <span className="version-badge">
-            {snapshot ? `App v${snapshot.appVersion} · Launcher v${snapshot.launcherVersion} · Local-first` : `v${LAUNCHER_VERSION} · Local-first`}
+            {snapshot ? `App v${snapshot.appVersion} · ${t('common.launcher')} v${snapshot.launcherVersion} · ${t('setup.localFirst')}` : `v${LAUNCHER_VERSION} · ${t('setup.localFirst')}`}
           </span>
+          <LanguageQuickPicker />
 
           {installing ? (
             <div className="install-status" style={{ marginTop: 28 }}>
               <Loader2 size={18} className="spin" />
               <div>
                 <strong>{msg}</strong>
-                <p>{isStoreBuild ? `Elapsed ${elapsedLabel}. Preparing bundled app files and runtime.` : `Elapsed ${elapsedLabel}. First install can take a few minutes depending on npm and network speed.`}</p>
+                <p>{isStoreBuild ? t('setup.elapsedBundled', { elapsed: elapsedLabel }) : t('setup.elapsedInstall', { elapsed: elapsedLabel })}</p>
               </div>
             </div>
           ) : (!isStoreBuild && (!s.node || !s.npm)) ? (
             <div className="error-box">
               <AlertCircle size={16} />
               <div>
-                <strong>{isStoreBuild ? 'Bundled runtime not ready' : 'Node.js not found'}</strong>
-                <p>{isStoreBuild ? 'Launch HomeInventory Local to prepare the runtime included with the Microsoft Store package.' : <>Download and install from <a href="https://nodejs.org" target="_blank" rel="noreferrer">nodejs.org</a> to continue.</>}</p>
+                <strong>{isStoreBuild ? t('setup.runtimeNotReady') : t('setup.nodeNotFound')}</strong>
+                <p>{isStoreBuild ? t('setup.runtimeHelp') : <>{t('setup.nodeHelpPrefix')} <a href="https://nodejs.org" target="_blank" rel="noreferrer">nodejs.org</a> {t('setup.nodeHelpSuffix')}</>}</p>
               </div>
             </div>
           ) : (
@@ -1036,7 +1246,7 @@ export function App() {
                 disabled={Boolean(busy) || portBlocked || checkingPorts}
               >
                 {busy || checkingPorts ? <Loader2 size={16} className="spin" /> : <Play size={16} />}
-                {checkingPorts ? 'Checking local ports…' : isStoreBuild ? 'Launch HomeInventory Local' : projectRootBlocked ? 'Choose Install Folder' : projectRootInstallable ? 'Install & Launch' : existingHomeInventory ? 'Open Running HomeInventory' : portBusy ? `Launch on ${launchBackendPort}/${launchFrontendPort}` : 'Initialize & Launch'}
+                {checkingPorts ? t('setup.checkingLocalPorts') : isStoreBuild ? t('setup.launchLocal') : projectRootBlocked ? t('setup.chooseInstallFolder') : projectRootInstallable ? t('setup.installLaunch') : existingHomeInventory ? t('setup.openRunning') : portBusy ? t('setup.launchOn', { backend: launchBackendPort, frontend: launchFrontendPort }) : t('setup.initializeLaunch')}
               </button>
 
               {visibleLaunchNotice && (
@@ -1047,11 +1257,11 @@ export function App() {
                     {projectRootBlocked && (
                       <div className="launch-notice-actions">
                         <button type="button" className="mini-action" onClick={chooseInstallFolder}>
-                          Choose Install Folder
+                          {t('setup.chooseInstallFolder')}
                         </button>
                         {settings.projectPath && (
                           <button type="button" className="mini-action" onClick={clearInstallFolder}>
-                            Clear
+                            {t('common.clear')}
                           </button>
                         )}
                       </div>
@@ -1074,6 +1284,8 @@ export function App() {
                 portMessage={portMessage}
                 portBlocked={portStatusBlocked}
                 storeBuild={isStoreBuild}
+                randomPortBusy={busy === 'random-ports'}
+                onChooseRandomPorts={chooseRandomPorts}
                 onUseSuggestedPorts={() => {
                   if (!portCheck) return;
                   setPortApi(String(portCheck.suggestedBackendPort));
@@ -1082,14 +1294,14 @@ export function App() {
               />
 
               <button className="btn-outline" onClick={() => { setDevTab(isStoreBuild ? 'logs' : 'settings'); setShowDevPanel(true); }}>
-                <SlidersHorizontal size={13} /> Developer Tools
+                <SlidersHorizontal size={13} /> {t('setup.developerTools')}
               </button>
             </div>
           )}
 
           <footer className="splash-footer">
             <button className="link-btn" onClick={() => setShowLogs(!showLogs)}>
-              <Terminal size={11} />{showLogs ? 'Hide console' : 'System console'}
+              <Terminal size={11} />{showLogs ? t('setup.hideConsole') : t('setup.systemConsole')}
             </button>
             {snapshot.appDataDir && <span className="data-path">{snapshot.appDataDir}</span>}
           </footer>
@@ -1099,8 +1311,8 @@ export function App() {
           <div className="drawer-overlay">
             <div className="drawer">
               <div className="drawer-header">
-                <h3>System Console</h3>
-                <button className="btn-secondary compact" onClick={() => setShowLogs(false)}>Close</button>
+                <h3>{t('setup.systemConsole')}</h3>
+                <button className="btn-secondary compact" onClick={() => setShowLogs(false)}>{t('common.close')}</button>
               </div>
               <div className="drawer-body"><LogRows logs={snapshot.logs} /></div>
             </div>
@@ -1133,7 +1345,7 @@ export function App() {
   /* ─── STATE 2: Warm-up ─── */
   if (!stopped && (busy?.startsWith('start-') || (active && !serverReady))) {
     const starting = busy?.startsWith('start-');
-    const msg2 = !active ? (starting ? 'Starting services…' : 'Launching…') : 'Connecting to database…';
+    const msg2 = !active ? (starting ? t('setup.startingServices') : t('setup.launching')) : t('setup.connectingDatabase');
     return (
       <div className="splash-layout">
         <div className="splash-card">
@@ -1141,7 +1353,8 @@ export function App() {
             <img src={logoFull} alt="HomeInventory" className="splash-logo-full pulsing" />
             <div className="logo-aura" />
           </div>
-          <p className="splash-subtitle">Connecting to your registry</p>
+          <p className="splash-subtitle">{t('setup.connectingRegistry')}</p>
+          <LanguageQuickPicker />
           <div className="progress-wrap" style={{ marginTop: 24 }}>
             <div className="progress-track"><div className="progress-fill" style={{ width: `${warmup}%` }} /></div>
             <div className="progress-meta"><span>{msg2}</span><span>{warmup}%</span></div>
@@ -1166,44 +1379,133 @@ export function App() {
             <img src={logoFull} alt="HomeInventory" className="running-logo" />
             <div className="running-status" role="status">
               <span className="status-pulse" />
-              <span>Running</span>
+              <span>{t('running.status')}</span>
             </div>
           </header>
+          <LanguageQuickPicker />
 
           <div className="running-intro">
-            <span className="running-eyebrow">Local access</span>
-            <h1>Your inventory is ready.</h1>
-            <p>Open it on this device, or scan the code from another device on the same network.</p>
+            <span className="running-eyebrow">{t('running.localAccess')}</span>
+            <h1>{t('running.ready')}</h1>
+            <p>{t('running.help')}</p>
           </div>
 
           <div className="running-qr">
+            <span className="running-qr-label">{t('running.standardLan')}</span>
             <QrCodeCard url={activeLanUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
             <div className={`lan-status ${lanStatus?.ok ? 'ok' : 'blocked'}`}>
               <Wifi size={12} />
-              <span>{lanStatus?.message || 'LAN status is checked after the services bind to the network.'}</span>
+              <span>{lanStatus ? localizedLanMessage(lanStatus, t) : t('running.lanPending')}</span>
             </div>
           </div>
+
+          {snapshot.httpsStatus ? (
+            <section className="mobile-https-card" aria-label={t('https.setupLabel')}>
+              <div className="mobile-https-heading">
+                <span className="mobile-https-icon"><ShieldCheck size={16} /></span>
+                <div>
+                  <strong>{t('https.title')}</strong>
+                  <span>{t('https.subtitle')}</span>
+                </div>
+              </div>
+
+              <div className="mobile-https-step-title">
+                <strong>{t('https.installTitle')}</strong>
+                <span>{t('https.choosePlatform')}</span>
+              </div>
+              <div className="mobile-https-qr-grid">
+                <div className="mobile-https-qr">
+                  <span>{t('https.ios')}</span>
+                  <QrCodeCard url={snapshot.httpsStatus.iosEnrollmentUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
+                  <small>{t('https.iosHelp')}</small>
+                </div>
+                <div className="mobile-https-qr">
+                  <span>{t('https.android')}</span>
+                  <QrCodeCard url={snapshot.httpsStatus.androidEnrollmentUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
+                  <div className="certificate-download-notice">
+                    <Download size={13} />
+                    <p>{t('https.downloadPrefix')} <strong>HomeInventory-Local-CA.crt</strong>, {t('https.downloadSuffix')}</p>
+                  </div>
+                  <label className="android-guide-picker">
+                    <span>{t('https.phoneBrand')}</span>
+                    <select
+                      value={androidGuideBrand}
+                      onChange={event => setAndroidGuideBrand(event.target.value as AndroidGuideBrand)}
+                    >
+                      {Object.entries(androidCertificateGuides).map(([value, guide]) => (
+                        <option key={value} value={value}>{guide.label}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <ol className="android-guide-steps">
+                    <li>{t('https.scanDownload')}</li>
+                    <li><span>{t('https.typicalPath')}</span> {androidCertificateGuides[androidGuideBrand].path}</li>
+                    <li>{t('https.finishInstall')} <strong>{t('https.openSecureApp')}</strong>.</li>
+                  </ol>
+                  <small>{t('https.menuVariation')}</small>
+                </div>
+                <div className="mobile-https-qr secure-app-qr">
+                  <span>{t('https.openSecureApp')}</span>
+                  <QrCodeCard url={snapshot.httpsStatus.httpsUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
+                  <small>{t('https.secureHelp')}</small>
+                </div>
+              </div>
+
+              <div className="mobile-https-identity">
+                <span><strong>CA:</strong> {snapshot.httpsStatus.caName}</span>
+                <code title={snapshot.httpsStatus.caFingerprint}>{snapshot.httpsStatus.caFingerprint}</code>
+                <small>{t('https.linksExpire')}</small>
+              </div>
+              <div className="mobile-https-actions">
+                <button type="button" className="settings-action" onClick={enableMobileHttps} disabled={busy === 'mobile-https'}>
+                  <RefreshCw size={13} /> {t('https.refreshLinks')}
+                </button>
+                <button type="button" className="settings-action danger" onClick={disableMobileHttps} disabled={busy === 'mobile-https'}>
+                  <Power size={13} /> {t('https.disable')}
+                </button>
+                <button type="button" className="settings-action danger wide" onClick={rotateMobileCa} disabled={busy === 'mobile-https'}>
+                  <RotateCcw size={13} /> {t('https.rotate')}
+                </button>
+              </div>
+              <small className="mobile-https-removal">{t('https.removal')}</small>
+            </section>
+          ) : (
+            <section className="mobile-https-card mobile-https-compact" aria-label={t('https.optionalLabel')}>
+              <div className="mobile-https-heading">
+                <span className="mobile-https-icon"><Smartphone size={16} /></span>
+                <div>
+                  <strong>{t('https.wantCamera')}</strong>
+                  <span>{t('https.oneTimeSetup')}</span>
+                </div>
+              </div>
+              <button type="button" className="btn-secondary mobile-https-enable" onClick={enableMobileHttps} disabled={busy === 'mobile-https'}>
+                {busy === 'mobile-https' ? <Loader2 size={14} className="spin" /> : <ShieldCheck size={14} />}
+                {t('https.enable')}
+              </button>
+              <small>{t('https.normalRemains')}</small>
+            </section>
+          )}
 
           <button
             className="open-app-button"
             onClick={() => run('open browser', () => invoke('open_app', { url: active.frontendUrl }))}
-            title="Open in browser"
+            title={t('running.openBrowser')}
           >
             <span className="open-app-icon"><ExternalLink size={16} /></span>
-            <span>Open app</span>
+            <span>{t('running.openApp')}</span>
           </button>
 
           <div className="running-meta">
             <span>App v{snapshot.appVersion}</span>
-            <span>Launcher v{snapshot.launcherVersion}</span>
-            <span>{isStoreBuild ? `Port ${active.backendPort}` : `Ports ${active.backendPort}/${active.frontendPort}`}</span>
+            <span>{t('common.launcher')} v{snapshot.launcherVersion}</span>
+            <span>{isStoreBuild ? t('running.port', { port: active.backendPort }) : t('running.ports', { backend: active.backendPort, frontend: active.frontendPort })}</span>
           </div>
 
-          <div className="running-actions" aria-label="App controls">
-            <button className="icon-action" onClick={() => { setDevTab(isStoreBuild ? 'logs' : 'settings'); setShowDevPanel(true); }} title="Launcher settings" aria-label="Launcher settings">
+          <div className="running-actions" aria-label={t('running.controls')}>
+            <button className="icon-action" onClick={() => { setDevTab(isStoreBuild ? 'logs' : 'settings'); setShowDevPanel(true); }} title={t('running.settings')} aria-label={t('running.settings')}>
               <SlidersHorizontal size={15} />
             </button>
-            <button className="icon-action danger" onClick={doStop} title="Stop local services" aria-label="Stop local services">
+            <button className="icon-action danger" onClick={doStop} title={t('running.stop')} aria-label={t('running.stop')}>
               <Power size={15} />
             </button>
           </div>
@@ -1214,7 +1516,7 @@ export function App() {
             <div className="modal-panel" onClick={e => e.stopPropagation()}>
               <DevPanelContent
                 snapshot={snapshot} profiles={profiles} settings={settings} setSettings={setSettings}
-                devTab={devTab} setDevTab={setDevTab} busy={busy} notice={`${active.name} is running.`}
+                devTab={devTab} setDevTab={setDevTab} busy={busy} notice={t('running.active', { name: active.name })}
                 onNotice={setNotice}
                 onClose={() => setShowDevPanel(false)}
                 onBackup={doBackup}
@@ -1235,8 +1537,8 @@ export function App() {
 
   /* ─── STATE 4: Stopped ─── */
   const startButtonLabel = stopped
-    ? isStoreBuild ? 'Restart HomeInventory Local' : 'Restart HomeInventory'
-    : isStoreBuild ? 'Launch HomeInventory Local' : 'Launch HomeInventory';
+    ? isStoreBuild ? t('setup.restartLocal') : t('setup.restart')
+    : isStoreBuild ? t('setup.launchLocal') : t('setup.launch');
 
   return (
     <div className="splash-layout">
@@ -1245,8 +1547,9 @@ export function App() {
           <img src={logoFull} alt="HomeInventory" className="splash-logo-full stopped" />
           <div className="logo-aura off" />
         </div>
-        <p className="splash-subtitle dimmed">{stopped ? 'Services are stopped' : 'Ready to launch'}</p>
-        <span className="version-badge">{stopped ? 'Offline' : 'Ready'}</span>
+        <p className="splash-subtitle dimmed">{stopped ? t('setup.servicesStopped') : t('setup.readyToLaunch')}</p>
+        <span className="version-badge">{stopped ? t('common.offline') : t('common.ready')}</span>
+        <LanguageQuickPicker />
 
         <div className="action-stack" style={{ marginTop: 24 }}>
           {renderPreLaunchUpdateCheck()}
@@ -1268,19 +1571,19 @@ export function App() {
           >
             {busy?.startsWith('start-') || checkingUpdates || checkingPorts ? <Loader2 size={16} className="spin" /> : updateAvailable ? <Download size={16} /> : <Play size={16} />}
             {checkingPorts
-              ? 'Checking local ports…'
+              ? t('setup.checkingLocalPorts')
               : checkingUpdates
-              ? 'Checking for updates…'
+              ? t('setup.checkingUpdates')
               : updateAvailable
-                ? `Update App to v${updateResult?.latestAppVersion}`
+                ? t('setup.updateApp', { version: updateResult?.latestAppVersion || '' })
                 : isStoreBuild
                   ? startButtonLabel
                   : projectRootBlocked
-                    ? 'Choose Install Folder'
+                    ? t('setup.chooseInstallFolder')
                     : existingHomeInventory
-                      ? 'Open Running HomeInventory'
+                      ? t('setup.openRunning')
                     : portBusy
-                      ? `Launch on ${launchBackendPort}/${launchFrontendPort}`
+                      ? t('setup.launchOn', { backend: launchBackendPort, frontend: launchFrontendPort })
                       : startButtonLabel}
           </button>
 
@@ -1292,11 +1595,11 @@ export function App() {
                 {projectRootBlocked && (
                   <div className="launch-notice-actions">
                     <button type="button" className="mini-action" onClick={chooseInstallFolder}>
-                      Choose Install Folder
+                      {t('setup.chooseInstallFolder')}
                     </button>
                     {settings.projectPath && (
                       <button type="button" className="mini-action" onClick={clearInstallFolder}>
-                        Clear
+                        {t('common.clear')}
                       </button>
                     )}
                   </div>
@@ -1319,6 +1622,8 @@ export function App() {
             portMessage={portMessage}
             portBlocked={portStatusBlocked}
             storeBuild={isStoreBuild}
+            randomPortBusy={busy === 'random-ports'}
+            onChooseRandomPorts={chooseRandomPorts}
             onUseSuggestedPorts={() => {
               if (!portCheck) return;
               setPortApi(String(portCheck.suggestedBackendPort));
@@ -1327,7 +1632,7 @@ export function App() {
           />
 
           <button className="btn-outline" onClick={() => { setDevTab('logs'); setShowDevPanel(true); }}>
-            <SlidersHorizontal size={13} /> Developer Tools
+            <SlidersHorizontal size={13} /> {t('setup.developerTools')}
           </button>
         </div>
 
@@ -1365,7 +1670,8 @@ function AdvancedConfigPanel({
   emailFrom, setEmailFrom, supportEmail, setSupportEmail,
   bootstrapAdminEmail, setBootstrapAdminEmail,
   portApi, setPortApi, portUi, setPortUi, localIp,
-  lanStatus, portCheck, portMessage, portBlocked, storeBuild, onUseSuggestedPorts,
+  lanStatus, portCheck, portMessage, portBlocked, storeBuild, randomPortBusy,
+  onChooseRandomPorts, onUseSuggestedPorts,
 }: {
   showAdvanced: boolean; setShowAdvanced: (v: boolean) => void;
   resendKey: string; setResendKey: (v: string) => void;
@@ -1380,18 +1686,21 @@ function AdvancedConfigPanel({
   portMessage: string;
   portBlocked: boolean;
   storeBuild: boolean;
+  randomPortBusy: boolean;
+  onChooseRandomPorts: () => void;
   onUseSuggestedPorts: () => void;
 }) {
+  const { t } = useLauncherI18n();
   const uiPort = portUi.trim() || '5173';
   const lanUrl = lanStatus?.frontendUrl || (localIp ? `http://${localIp}:${uiPort}` : null);
 
   return (
     <>
-      <div className="divider"><span>Advanced</span></div>
+      <div className="divider"><span>{t('advanced.title')}</span></div>
 
       <button className="advanced-toggle" onClick={() => setShowAdvanced(!showAdvanced)}>
         <ChevronRight size={12} className={`chevron ${showAdvanced ? 'open' : ''}`} />
-        Advanced Configuration
+        {t('advanced.configuration')}
       </button>
 
       <div className={`collapse-panel ${showAdvanced ? 'open' : ''}`}>
@@ -1399,12 +1708,12 @@ function AdvancedConfigPanel({
           <div className="guide-box">
             <div className="guide-title">
               <Info size={13} />
-              <span>What matters here</span>
+              <span>{t('advanced.whatMatters')}</span>
             </div>
             <ul>
-              <li><strong>Email:</strong> Resend needs both an API key and a verified sender address. A key alone can look configured but still fail delivery.</li>
-              <li><strong>Admin:</strong> Bootstrap Admin Email makes the first trusted admin predictable.</li>
-              <li><strong>Network:</strong> {storeBuild ? 'HomeInventory Local uses one local port for the app and API.' : 'Ports must be free locally; LAN access also depends on firewall and same Wi-Fi.'}</li>
+              <li><strong>{t('advanced.emailLabel')}</strong> {t('advanced.emailHelp')}</li>
+              <li><strong>{t('advanced.adminLabel')}</strong> {t('advanced.adminHelp')}</li>
+              <li><strong>{t('advanced.networkLabel')}</strong> {storeBuild ? t('advanced.networkStore') : t('advanced.networkDesktop')}</li>
             </ul>
           </div>
 
@@ -1412,30 +1721,30 @@ function AdvancedConfigPanel({
           <div className="config-section">
             <div className="config-section-header">
               <Mail size={13} />
-              <span>Email Delivery</span>
-              <span className="config-badge recommended">Recommended</span>
+              <span>{t('advanced.emailDelivery')}</span>
+              <span className="config-badge recommended">{t('common.recommended')}</span>
             </div>
             <div className="field">
-              <label className="field-label">Resend API Key · RESEND_API_KEY</label>
+              <label className="field-label">{t('advanced.resendKey')}</label>
               <input className="field-input" type="password" value={resendKey}
                 onChange={e => setResendKey(e.target.value)} placeholder="re_xxxxxxxxxxxxxxxxxxxxxxxx" />
               <span className="field-hint">
-                Enables invitations, verification, admin mail, and password reset emails.
+                {t('advanced.resendHelp')}
               </span>
             </div>
             <div className="field">
-              <label className="field-label">Verified Sender · EMAIL_FROM</label>
+              <label className="field-label">{t('advanced.sender')}</label>
               <input className="field-input" value={emailFrom}
                 onChange={e => setEmailFrom(e.target.value)} placeholder="HomeInventory <hello@your-domain.com>" />
               <span className="field-hint">
-                Use a sender from a verified Resend domain. For quick testing, Resend allows onboarding@resend.dev.
+                {t('advanced.senderHelp')}
               </span>
             </div>
             <div className="field">
-              <label className="field-label">Support Email · SUPPORT_EMAIL</label>
+              <label className="field-label">{t('advanced.supportEmail')}</label>
               <input className="field-input" type="email" value={supportEmail}
                 onChange={e => setSupportEmail(e.target.value)} placeholder="support@example.com" />
-              <span className="field-hint">Shown in help links and outgoing email footers.</span>
+              <span className="field-hint">{t('advanced.supportHelp')}</span>
             </div>
           </div>
 
@@ -1443,47 +1752,51 @@ function AdvancedConfigPanel({
           <div className="config-section">
             <div className="config-section-header">
               <Settings size={13} />
-              <span>Instance & Admin</span>
-              <span className="config-badge recommended">Recommended</span>
+              <span>{t('advanced.instanceAdmin')}</span>
+              <span className="config-badge recommended">{t('common.recommended')}</span>
             </div>
             <div className="field">
-              <label className="field-label">Bootstrap Admin Email · BOOTSTRAP_ADMIN_EMAIL</label>
+              <label className="field-label">{t('advanced.bootstrapAdmin')}</label>
               <input className="field-input" type="email" value={bootstrapAdminEmail}
                 onChange={e => setBootstrapAdminEmail(e.target.value)} placeholder="admin@example.com" />
-              <span className="field-hint">Maps to BOOTSTRAP_ADMIN_EMAIL. The matching account receives admin privileges during first setup/login.</span>
+              <span className="field-hint">{t('advanced.bootstrapHelp')}</span>
             </div>
-            <span className="field-hint">Launcher writes only filled values to .env, so existing configuration is preserved.</span>
+            <span className="field-hint">{t('advanced.envHelp')}</span>
           </div>
 
           {/* Ports */}
           <div className="config-section">
             <div className="config-section-header">
               <Globe size={13} />
-              <span>{storeBuild ? 'Local Port' : 'Network Ports'}</span>
-              <span className="config-badge required">Required</span>
+              <span>{storeBuild ? t('advanced.localPort') : t('advanced.networkPorts')}</span>
+              <span className="config-badge required">{t('common.required')}</span>
             </div>
             <div className={storeBuild ? '' : 'row-2'}>
               <div className="field">
-                <label className="field-label">{storeBuild ? 'Local Port' : 'API Port'}</label>
+                <label className="field-label">{storeBuild ? t('advanced.localPort') : t('advanced.apiPort')}</label>
                 <input className={`field-input ${portBlocked && !portCheck?.backendOk ? 'invalid' : ''}`}
                   type="number" inputMode="numeric" min={1024} max={65535} value={portApi}
                   onChange={e => setPortApi(sanitizePortInput(e.target.value))} placeholder="3001" />
               </div>
               {!storeBuild && (
                 <div className="field">
-                  <label className="field-label">UI Port</label>
+                  <label className="field-label">{t('advanced.uiPort')}</label>
                   <input className={`field-input ${portBlocked && !portCheck?.frontendOk ? 'invalid' : ''}`}
                     type="number" inputMode="numeric" min={1024} max={65535} value={portUi}
                     onChange={e => setPortUi(sanitizePortInput(e.target.value))} placeholder="5173" />
                 </div>
               )}
             </div>
-            <span className="field-hint">{storeBuild ? 'Valid range: 1024-65535. Default: 3001. Only change if another app is using the same port.' : 'Valid range: 1024-65535. Defaults: API 3001, UI 5173. Only change if another app is using the same port.'}</span>
+            <span className="field-hint">{storeBuild ? t('advanced.storePortHelp') : t('advanced.desktopPortHelp')}</span>
+            <button type="button" className="mini-action random-port-action" onClick={onChooseRandomPorts} disabled={randomPortBusy}>
+              {randomPortBusy ? <Loader2 size={12} className="spin" /> : <Shuffle size={12} />}
+              {storeBuild ? t('advanced.randomPort') : t('advanced.randomPorts')}
+            </button>
             <div className={`port-status ${portBlocked ? 'blocked' : 'ok'}`}>
               <span>{portMessage}</span>
               {portBlocked && portCheck && (
                 <button type="button" className="mini-action" onClick={onUseSuggestedPorts}>
-                  {storeBuild ? `Use ${portCheck.suggestedBackendPort}` : `Use ${portCheck.suggestedBackendPort}/${portCheck.suggestedFrontendPort}`}
+                  {storeBuild ? t('advanced.usePort', { port: portCheck.suggestedBackendPort }) : t('advanced.usePorts', { backend: portCheck.suggestedBackendPort, frontend: portCheck.suggestedFrontendPort })}
                 </button>
               )}
             </div>
@@ -1493,16 +1806,16 @@ function AdvancedConfigPanel({
           <div className="tip-box">
             <div className="tip-header">
               <Wifi size={13} />
-              <span>Access from other devices</span>
+              <span>{t('advanced.otherDevices')}</span>
             </div>
             <ol className="tip-steps">
-              <li>Keep devices on the <strong>same Wi-Fi network</strong>.</li>
-              <li>Allow HomeInventory or Node.js through Windows Firewall for private networks if prompted.</li>
+              <li>{t('advanced.sameWifiPrefix')} <strong>{t('advanced.sameWifi')}</strong>.</li>
+              <li>{t('advanced.firewall')}</li>
             </ol>
             {lanStatus && (
               <div className={`lan-status ${lanStatus.ok ? 'ok' : 'blocked'}`}>
                 <Wifi size={12} />
-                <span>{lanStatus.message}</span>
+                <span>{localizedLanMessage(lanStatus, t)}</span>
               </div>
             )}
             {lanUrl ? (
@@ -1514,7 +1827,7 @@ function AdvancedConfigPanel({
                 <code className="lan-url">http://&lt;your-ip&gt;:{uiPort}</code>
                 <div className="tip-note">
                   <Info size={11} />
-                  <span>Find your IP: System Settings → Wi-Fi → Details → IP Address</span>
+                  <span>{t('advanced.findIp')}</span>
                 </div>
               </>
             )}
@@ -1545,6 +1858,7 @@ function DevPanelContent({
   onCheckUpdates: () => Promise<void>;
   onTriggerUpdate: () => Promise<void>;
 }) {
+  const { locale, setLocale, t } = useLauncherI18n();
   const isStoreBuild = snapshot.storeBuild;
   const nodeTool = snapshot.tools.find(tool => tool.name === 'Node.js');
   const npmTool = snapshot.tools.find(tool => tool.name === 'npm');
@@ -1564,7 +1878,7 @@ function DevPanelContent({
 
   const chooseSettingPath = async (kind: PathKind) => {
     if (!hasTauriRuntime()) {
-      onNotice('Path picker is available in the desktop launcher.');
+      onNotice(t('status.pathPickerDesktop'));
       return;
     }
     try {
@@ -1573,7 +1887,7 @@ function DevPanelContent({
       if (kind === 'project') setSettings({ ...settings, projectPath: selected });
       if (kind === 'node') setSettings({ ...settings, nodePath: selected });
       if (kind === 'npm') setSettings({ ...settings, npmPath: selected });
-      onNotice('Path updated. Tool detection will refresh automatically.');
+      onNotice(t('status.pathUpdated'));
     } catch (err) {
       onNotice(err instanceof Error ? err.message : String(err));
     }
@@ -1581,16 +1895,16 @@ function DevPanelContent({
 
   const revealSettingPath = async (path: string, label: string) => {
     if (!path.trim()) {
-      onNotice(`${label} path is empty.`);
+      onNotice(t('status.pathEmpty', { label }));
       return;
     }
     if (!hasTauriRuntime()) {
-      onNotice('Folder reveal is available in the desktop launcher.');
+      onNotice(t('status.folderRevealDesktop'));
       return;
     }
     try {
       const result = await invoke<CommandResult>('reveal_path', { path });
-      onNotice(isCmd(result) ? result.message : `${label} opened.`);
+      onNotice(isCmd(result) ? result.message : t('status.pathOpened', { label }));
     } catch (err) {
       onNotice(err instanceof Error ? err.message : String(err));
     }
@@ -1601,16 +1915,16 @@ function DevPanelContent({
       <header className="modal-header">
         <div className="modal-header-left">
           <Archive size={15} className="accent-icon" />
-          <h3>Developer Console</h3>
+          <h3>{t('dev.console')}</h3>
         </div>
-        <button className="close-x" onClick={onClose}>✕</button>
+        <button className="close-x" onClick={onClose} aria-label={t('common.close')}>✕</button>
       </header>
 
       <nav className="modal-tabs">
-        <button className={devTab === 'logs' ? 'active' : ''} onClick={() => setDevTab('logs')}>Logs</button>
-        <button className={devTab === 'backups' ? 'active' : ''} onClick={() => setDevTab('backups')}>Backups</button>
-        {!isStoreBuild && <button className={devTab === 'settings' ? 'active' : ''} onClick={() => setDevTab('settings')}>Settings</button>}
-        {!isStoreBuild && <button className={devTab === 'updates' ? 'active' : ''} onClick={() => setDevTab('updates')}>Updates</button>}
+        <button className={devTab === 'logs' ? 'active' : ''} onClick={() => setDevTab('logs')}>{t('dev.logs')}</button>
+        <button className={devTab === 'backups' ? 'active' : ''} onClick={() => setDevTab('backups')}>{t('dev.backups')}</button>
+        <button className={devTab === 'settings' ? 'active' : ''} onClick={() => setDevTab('settings')}>{t('dev.settings')}</button>
+        {!isStoreBuild && <button className={devTab === 'updates' ? 'active' : ''} onClick={() => setDevTab('updates')}>{t('dev.updates')}</button>}
       </nav>
 
       <div className="modal-body">
@@ -1618,12 +1932,12 @@ function DevPanelContent({
 
         {!isStoreBuild && devTab === 'updates' && (
           <div className="tab-updates">
-            <p className="tab-description">Manage and check for software updates.</p>
+            <p className="tab-description">{t('update.manage')}</p>
 
             {checkingUpdates && (
               <div className="backup-card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
                 <Loader2 size={20} className="spin" style={{ marginRight: 8 }} />
-                <span>Checking for updates...</span>
+                <span>{t('update.checkingForUpdates')}</span>
               </div>
             )}
 
@@ -1631,7 +1945,7 @@ function DevPanelContent({
               <div className="update-status-card">
                 <div className="update-progress-section">
                   <div className="update-progress-header">
-                    <span className="progress-state-badge">{updateProgress.state}</span>
+                    <span className="progress-state-badge">{localizedUpdateState(updateProgress.state, t)}</span>
                     <span className="progress-message">{updateProgress.message}</span>
                   </div>
                   <div className="progress-track">
@@ -1646,20 +1960,20 @@ function DevPanelContent({
               <div className="update-status-card">
                 <div className="version-info-grid">
                   <div className="version-info-item">
-                    <span className="version-info-label">Managed App</span>
+                    <span className="version-info-label">{t('common.managedApp')}</span>
                     <span className="version-info-value">
                       v{updateResult.currentAppVersion}
                       {updateResult.appUpdateAvailable && (
-                        <span style={{ fontSize: 11, color: '#e74c3c', marginLeft: 6 }}>(Update to v{updateResult.latestAppVersion})</span>
+                        <span style={{ fontSize: 11, color: '#e74c3c', marginLeft: 6 }}>{t('update.toVersion', { version: updateResult.latestAppVersion })}</span>
                       )}
                     </span>
                   </div>
                   <div className="version-info-item">
-                    <span className="version-info-label">Launcher</span>
+                    <span className="version-info-label">{t('common.launcher')}</span>
                     <span className="version-info-value">
                       v{updateResult.currentLauncherVersion}
                       {updateResult.launcherUpdateAvailable && (
-                        <span style={{ fontSize: 11, color: '#e74c3c', marginLeft: 6 }}>(Update to v{updateResult.latestLauncherVersion})</span>
+                        <span style={{ fontSize: 11, color: '#e74c3c', marginLeft: 6 }}>{t('update.toVersion', { version: updateResult.latestLauncherVersion })}</span>
                       )}
                     </span>
                   </div>
@@ -1669,25 +1983,22 @@ function DevPanelContent({
                   <div className="error-box" style={{ margin: 0 }}>
                     <AlertCircle size={16} />
                     <div>
-                      <strong>Node.js Upgrade Required</strong>
-                      <p>
-                        The latest app version requires Node.js v{updateResult.appReleaseNotes?.match(/Node\.js >= v(\d+)/)?.[1] || '20'} or higher.
-                        Please upgrade your Node.js runtime to proceed with the update.
-                      </p>
+                      <strong>{t('update.nodeRequired')}</strong>
+                      <p>{t('update.nodeRequiredBody', { version: updateResult.appReleaseNotes?.match(/Node\.js >= v(\d+)/)?.[1] || '20' })}</p>
                     </div>
                   </div>
                 )}
 
                 {updateResult.appReleaseNotes && (
                   <div className="release-notes-box">
-                    <h4>App Release Notes</h4>
+                    <h4>{t('update.appReleaseNotes')}</h4>
                     <div className="release-notes-content">{updateResult.appReleaseNotes}</div>
                   </div>
                 )}
 
                 {updateResult.launcherReleaseNotes && (
                   <div className="release-notes-box">
-                    <h4>Launcher Release Notes</h4>
+                    <h4>{t('update.launcherReleaseNotes')}</h4>
                     <div className="release-notes-content">{updateResult.launcherReleaseNotes}</div>
                   </div>
                 )}
@@ -1696,8 +2007,8 @@ function DevPanelContent({
                   <div className="success-box">
                     <CheckCircle2 size={16} className="text-success" />
                     <div>
-                      <strong>Your software is up to date</strong>
-                      <p>You are running the latest version of HomeInventory and the desktop launcher.</p>
+                      <strong>{t('update.softwareCurrent')}</strong>
+                      <p>{t('update.latestVersions')}</p>
                     </div>
                   </div>
                 )}
@@ -1710,12 +2021,12 @@ function DevPanelContent({
                       disabled={nodeUpgradeRequired || busy === 'update'}
                     >
                       {busy === 'update' ? <Loader2 size={13} className="spin" /> : <Download size={13} />}
-                      Update HomeInventory
+                      {t('update.updateHomeInventory')}
                     </button>
                   )}
                   <button className="btn-secondary" onClick={onCheckUpdates} disabled={checkingUpdates || busy === 'update'}>
                     <RefreshCw size={12} className={checkingUpdates ? 'spin' : ''} />
-                    Check Again
+                    {t('common.checkAgain')}
                   </button>
                 </div>
               </div>
@@ -1726,17 +2037,14 @@ function DevPanelContent({
                 <div className="update-guidance-box">
                   <Info size={16} />
                   <div>
-                    <strong>Check updates before installing</strong>
-                    <p>
-                      Before running the updater, the launcher should verify the latest release,
-                      signatures, required Node.js version, and available app or launcher updates.
-                    </p>
+                    <strong>{t('update.checkBeforeInstalling')}</strong>
+                    <p>{t('update.checkExplanation')}</p>
                   </div>
                 </div>
                 <div className="update-actions-section">
                   <button className="btn-primary" onClick={onCheckUpdates} disabled={checkingUpdates}>
                     <RefreshCw size={13} className={checkingUpdates ? 'spin' : ''} />
-                    Check for updates
+                    {t('update.checkForUpdates')}
                   </button>
                 </div>
               </div>
@@ -1746,24 +2054,24 @@ function DevPanelContent({
               <div className="update-status-card">
                 <div className="version-info-grid">
                   <div className="version-info-item">
-                    <span className="version-info-label">Managed App</span>
+                    <span className="version-info-label">{t('common.managedApp')}</span>
                     <span className="version-info-value">v{snapshot.appVersion}</span>
                   </div>
                   <div className="version-info-item">
-                    <span className="version-info-label">Launcher</span>
+                    <span className="version-info-label">{t('common.launcher')}</span>
                     <span className="version-info-value">v{snapshot.launcherVersion}</span>
                   </div>
                 </div>
                 <div className="update-guidance-box unavailable">
                   <Info size={16} />
                   <div>
-                    <strong>Update information is temporarily unavailable</strong>
+                    <strong>{t('update.temporarilyUnavailable')}</strong>
                     <p>{updateNotice}</p>
                   </div>
                 </div>
                 <button className="btn-secondary update-check-inline" onClick={onCheckUpdates} disabled={checkingUpdates}>
                   <RefreshCw size={12} className={checkingUpdates ? 'spin' : ''} />
-                  Check Again
+                  {t('common.checkAgain')}
                 </button>
               </div>
             )}
@@ -1772,7 +2080,7 @@ function DevPanelContent({
 
         {devTab === 'backups' && (
           <div>
-            <p className="tab-description">One-click backups of your local data and media.</p>
+            <p className="tab-description">{t('dev.backupDescription')}</p>
             <div className="backup-actions">
               {profiles.map(p => (
                 <div className="backup-card" key={p.id}>
@@ -1786,12 +2094,12 @@ function DevPanelContent({
                   )}
                   <button className="btn-secondary" onClick={() => handleBackup(p)} disabled={busy === 'backup' || !p.available}>
                     {busy === 'backup' ? <Loader2 size={13} className="spin" /> : <FolderArchive size={13} />}
-                    {busy === 'backup' ? 'Backing up...' : 'Backup Now'}
+                    {busy === 'backup' ? t('dev.backingUp') : t('dev.backupNow')}
                   </button>
                   {backupResults[p.id] && (
                     <button className="btn-secondary" onClick={() => revealSettingPath(backupResults[p.id].path, 'Backup')}>
                       <FolderOpen size={13} />
-                      Open Backup
+                      {t('dev.openBackup')}
                     </button>
                   )}
                 </div>
@@ -1800,59 +2108,87 @@ function DevPanelContent({
           </div>
         )}
 
-        {devTab === 'settings' && !isStoreBuild && (
+        {devTab === 'settings' && (
           <div className="tab-settings">
-            <PathSettingField
-              label="Install Folder"
-              value={settings.projectPath}
-              placeholder={snapshot.projectRoot}
-              onChange={v => setSettings({ ...settings, projectPath: v })}
-              onChoose={() => chooseSettingPath('project')}
-              onOpen={() => revealSettingPath(settings.projectPath || snapshot.projectRoot, 'Install folder')}
-              onReset={() => setSettings({ ...settings, projectPath: '' })}
-              hint="Choose an empty folder for a new install, or an existing HomeInventory folder."
-            />
-            <PathSettingField
-              label="Node Path"
-              value={settings.nodePath}
-              placeholder={nodeTool?.path || 'Auto-detected'}
-              onChange={v => setSettings({ ...settings, nodePath: v })}
-              onChoose={() => chooseSettingPath('node')}
-              onOpen={() => revealSettingPath(settings.nodePath || nodeTool?.path || '', 'Node')}
-              onReset={() => setSettings({ ...settings, nodePath: '' })}
-              hint={nodeTool?.path ? `Detected: ${nodeTool.path}` : 'Set this only if the launcher cannot find your Node installation.'}
-            />
-            <PathSettingField
-              label="npm Path"
-              value={settings.npmPath}
-              placeholder={npmTool?.path || 'Auto-detected'}
-              onChange={v => setSettings({ ...settings, npmPath: v })}
-              onChoose={() => chooseSettingPath('npm')}
-              onOpen={() => revealSettingPath(settings.npmPath || npmTool?.path || '', 'npm')}
-              onReset={() => setSettings({ ...settings, npmPath: '' })}
-              hint={npmTool?.path ? `Detected: ${npmTool.path}` : 'Set this only if npm detection fails from the desktop app.'}
-            />
-            <div className="settings-actions">
-              <button className="settings-action" onClick={() => revealSettingPath(snapshot.projectRoot, 'Install folder')}>
-                <FolderOpen size={13} /> Open Folder
-              </button>
-              <button className="settings-action" onClick={() => revealSettingPath(snapshot.appDataDir, 'Launcher data')}>
-                <FolderOpen size={13} /> Open Data
-              </button>
-              <button className="settings-action wide" onClick={() => {
-                setSettings({ ...settings, nodePath: '', npmPath: '' });
-                onNotice('Node/npm overrides cleared. Auto-detect is active.');
-              }}>
-                <RotateCcw size={13} /> Reset Node/npm Detection
-              </button>
-            </div>
-            <div className="settings-info"><CircleDot size={11} /><span>{snapshot.appDataDir}</span></div>
+            <section className="language-settings-card" aria-label={t('language.label')}>
+              <div className="language-settings-heading">
+                <span className="language-settings-icon"><Globe size={15} /></span>
+                <div>
+                  <strong>{t('language.launcherLanguage')}</strong>
+                  <span>{t('language.savedHelp')}</span>
+                </div>
+              </div>
+              <div className="language-options" role="radiogroup" aria-label={t('language.label')}>
+                {LANGUAGE_OPTIONS.map(option => (
+                  <button
+                    key={option.code}
+                    type="button"
+                    className={locale === option.code ? 'active' : ''}
+                    role="radio"
+                    aria-checked={locale === option.code}
+                    onClick={() => setLocale(option.code)}
+                    title={t(option.labelKey)}
+                  >
+                    <span>{option.code.toUpperCase()}</span>
+                    <small>{t(option.labelKey)}</small>
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            {!isStoreBuild && <>
+              <PathSettingField
+                label={t('dev.installFolder')}
+                value={settings.projectPath}
+                placeholder={snapshot.projectRoot}
+                onChange={v => setSettings({ ...settings, projectPath: v })}
+                onChoose={() => chooseSettingPath('project')}
+                onOpen={() => revealSettingPath(settings.projectPath || snapshot.projectRoot, 'Install folder')}
+                onReset={() => setSettings({ ...settings, projectPath: '' })}
+                hint={t('dev.installFolderHelp')}
+              />
+              <PathSettingField
+                label={t('dev.nodePath')}
+                value={settings.nodePath}
+                placeholder={nodeTool?.path || t('dev.autoDetected')}
+                onChange={v => setSettings({ ...settings, nodePath: v })}
+                onChoose={() => chooseSettingPath('node')}
+                onOpen={() => revealSettingPath(settings.nodePath || nodeTool?.path || '', 'Node')}
+                onReset={() => setSettings({ ...settings, nodePath: '' })}
+                hint={nodeTool?.path ? t('common.detected', { path: nodeTool.path }) : t('dev.nodePathHelp')}
+              />
+              <PathSettingField
+                label={t('dev.npmPath')}
+                value={settings.npmPath}
+                placeholder={npmTool?.path || t('dev.autoDetected')}
+                onChange={v => setSettings({ ...settings, npmPath: v })}
+                onChoose={() => chooseSettingPath('npm')}
+                onOpen={() => revealSettingPath(settings.npmPath || npmTool?.path || '', 'npm')}
+                onReset={() => setSettings({ ...settings, npmPath: '' })}
+                hint={npmTool?.path ? t('common.detected', { path: npmTool.path }) : t('dev.npmPathHelp')}
+              />
+              <div className="settings-actions">
+                <button className="settings-action" onClick={() => revealSettingPath(snapshot.projectRoot, 'Install folder')}>
+                  <FolderOpen size={13} /> {t('dev.openFolder')}
+                </button>
+                <button className="settings-action" onClick={() => revealSettingPath(snapshot.appDataDir, 'Launcher data')}>
+                  <FolderOpen size={13} /> {t('dev.openData')}
+                </button>
+                <button className="settings-action wide" onClick={() => {
+                  setSettings({ ...settings, nodePath: '', npmPath: '' });
+                  onNotice(t('status.nodeOverridesCleared'));
+                }}>
+                  <RotateCcw size={13} /> {t('dev.resetDetection')}
+                </button>
+              </div>
+              <div className="settings-info"><CircleDot size={11} /><span>{snapshot.appDataDir}</span></div>
+            </>}
           </div>
         )}
       </div>
 
       <footer className="modal-footer">
-        {onStop && <button className="btn-danger" onClick={onStop}><Power size={13} /> Stop Server</button>}
+        {onStop && <button className="btn-danger" onClick={onStop}><Power size={13} /> {t('dev.stopServer')}</button>}
         <span className="notice-text">{notice}</span>
       </footer>
     </>
@@ -1861,7 +2197,8 @@ function DevPanelContent({
 
 /* ── Small components ── */
 function LogRows({ logs }: { logs: LogEntry[] }) {
-  if (!logs.length) return <div className="empty-log">No log entries yet.</div>;
+  const { t } = useLauncherI18n();
+  if (!logs.length) return <div className="empty-log">{t('dev.noLogs')}</div>;
   return (
     <div className="log-rows">
       {logs.map((l, i) => (
@@ -1885,19 +2222,20 @@ function PathSettingField({ label, value, placeholder, hint, onChange, onChoose,
   onOpen: () => void;
   onReset: () => void;
 }) {
+  const { t } = useLauncherI18n();
   return (
     <label className="field">
       <span className="field-label">{label}</span>
       <span className="path-control">
         <input className="field-input" value={value} placeholder={placeholder} onChange={e => onChange(e.target.value)} />
         <span className="path-buttons">
-          <button type="button" className="icon-mini" onClick={onChoose} title="Choose path">
+          <button type="button" className="icon-mini" onClick={onChoose} title={t('dev.choosePath')} aria-label={t('dev.choosePath')}>
             <FolderOpen size={14} />
           </button>
-          <button type="button" className="icon-mini" onClick={onOpen} title="Open location">
+          <button type="button" className="icon-mini" onClick={onOpen} title={t('dev.openLocation')} aria-label={t('dev.openLocation')}>
             <ExternalLink size={14} />
           </button>
-          <button type="button" className="icon-mini" onClick={onReset} title="Use auto-detected path">
+          <button type="button" className="icon-mini" onClick={onReset} title={t('dev.useDetectedPath')} aria-label={t('dev.useDetectedPath')}>
             <RotateCcw size={14} />
           </button>
         </span>
@@ -1908,7 +2246,7 @@ function PathSettingField({ label, value, placeholder, hint, onChange, onChoose,
 }
 
 /* ── Mock data for browser preview ── */
-function mockSnapshot(settings: LauncherSettings): LauncherSnapshot {
+function mockSnapshot(settings: LauncherSettings, t: Translate): LauncherSnapshot {
   const root = settings.projectPath || '/Users/demo/HomeInventory';
   const data = '/Users/demo/Library/Application Support/net.homeinventory.launcher';
   const runningPreview = new URLSearchParams(window.location.search).get('preview') === 'running';
@@ -1920,13 +2258,26 @@ function mockSnapshot(settings: LauncherSettings): LauncherSnapshot {
     distribution: 'standard',
     storeBuild: false,
     projectRoot: root, appDataDir: data, activeProfileId: runningPreview ? 'homeinventory' : null,
+    httpsStatus: runningPreview && settings.mobileHttps ? {
+      enabled: true,
+      httpsPort: 5443,
+      enrollmentPort: 5444,
+      httpsUrl: 'https://192.168.1.42:5443',
+      iosEnrollmentUrl: 'http://192.168.1.42:5444/enroll/preview/ios.mobileconfig',
+      androidEnrollmentUrl: 'http://192.168.1.42:5444/enroll/preview/android.crt',
+      caName: 'HomeInventory Local CA PREVIEW',
+      caFingerprint: 'AA:BB:CC:DD:EE:FF',
+      enrollmentExpiresAt: Math.floor(Date.now() / 1000) + 600,
+      certificateExpiresAt: Math.floor(Date.now() / 1000) + 89 * 24 * 60 * 60,
+      localIp: '192.168.1.42',
+    } : null,
     lanStatus: runningPreview ? {
       ok: true,
       frontendOk: true,
       backendOk: true,
       frontendUrl: 'http://192.168.1.42:5173',
       backendUrl: 'http://192.168.1.42:3001',
-      message: 'Network address is ready. If another device cannot connect, allow HomeInventory or Node.js through Windows Firewall for private networks.',
+      message: t('status.networkReady'),
     } : null,
     tools: [
       { name: 'Node.js', path: '/usr/local/bin/node', ok: true, detail: 'Ready' },

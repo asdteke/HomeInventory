@@ -433,7 +433,7 @@ export default function ShoppingListPage() {
                 {/* LEFT COLUMN: Shopping List Section & History */}
                 <div className="lg:col-span-8 space-y-5">
                     <section className="shopping-list-section-v25">
-                        <div className="flex items-center justify-between pb-2 border-b border-[var(--hi-border)]/60">
+                        <div className="shopping-section-heading-v27 flex items-center justify-between pb-2 border-b">
                             <SectionHeader
                                 title={t('shopping.sections.active_list', { defaultValue: 'Alınacak Ürünler' })}
                                 description={t('shopping.sections.active_desc', { defaultValue: 'Sepetinize ekleyeceğiniz güncel alışveriş öğeleri.' })}

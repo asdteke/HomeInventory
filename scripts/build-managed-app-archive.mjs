@@ -27,6 +27,7 @@ const excludedNames = new Set([
   'dist',
   'brand-local',
   'local-brands',
+  'logs',
   'node_modules',
   'private-brands',
   'remote-edit',
@@ -77,6 +78,24 @@ function archiveEntries(path) {
   return result.stdout.split('\n').filter(Boolean);
 }
 
+function releaseSourceEntries() {
+  const result = spawnSync(
+    'git',
+    ['ls-files', '-z', '--cached', '--others', '--exclude-standard'],
+    {
+      cwd: repoRoot,
+      encoding: 'utf8',
+      shell: false
+    }
+  );
+
+  if (result.status !== 0) {
+    fail('git ls-files failed while resolving managed app release sources.');
+  }
+
+  return result.stdout.split('\0').filter(Boolean);
+}
+
 function isExcluded(path) {
   const rel = relative(repoRoot, path);
   const parts = rel.split(sep);
@@ -116,7 +135,7 @@ rmSync(stagingRoot, { recursive: true, force: true });
 mkdirSync(stagingRoot, { recursive: true });
 mkdirSync(dirname(outputPath), { recursive: true });
 
-for (const entry of readdirSync(repoRoot)) {
+for (const entry of releaseSourceEntries()) {
   copyTree(join(repoRoot, entry), join(stagingRoot, entry));
 }
 
@@ -148,6 +167,7 @@ const forbiddenArchivePatterns = [
   /(^|\/)local-brands\//,
   /(^|\/)private-brands\//,
   /(^|\/)brand-local\//,
+  /(^|\/)logs\//,
   /(^|\/)uploads\//,
   /(^|\/)secrets\//,
   /(^|\/).*\.db$/,

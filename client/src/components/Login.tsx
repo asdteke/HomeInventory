@@ -150,10 +150,8 @@ export default function Login() {
             const data = err.response?.data;
             if (data?.code === 'AUTH_RATE_LIMITED') {
                 setError(t('rate_limit.too_many_login_attempts'));
-            } else if (data?.code === 'LOGIN_LOCKED') {
-                setError(t('auth.account_locked', {
-                    minutes: data?.retryAfterMinutes || 60
-                }));
+            } else if (data?.code === 'LOGIN_THROTTLED') {
+                setError(data?.error || t('rate_limit.too_many_login_attempts'));
             } else {
                 setError(data?.error || err.message || t('common.error'));
             }

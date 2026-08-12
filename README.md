@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.6.2 release line. -->
+<!-- Release status: v2.7.0 release line. -->
 
 <p align="center">
   <strong>Private, self-hostable household inventory for shared homes.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory is built for families, roommates, and small households that need a practical inventory without turning private records into a shared spreadsheet.
 
 > [!NOTE]
-> **v2.6.2 is the current release line.** It patches dependency security vulnerabilities in undici and ip-address, keeps v2.6 box management and v2.6.1 scanner/privacy features intact, and keeps the managed app and desktop launcher synchronized.
+> **v2.7.0 is the current release line.** It adds practical password rules, progressive account throttling, offline weak-password protection, optional LAN HTTPS for mobile camera access, five launcher languages, random-port selection, and synchronized managed-app/launcher updates.
 
 ## Why HomeInventory
 
@@ -110,7 +110,7 @@ HomeInventory is built for families, roommates, and small households that need a
 | Backup and restore | Owner-only standard/full export and import with passphrase encryption, box metadata/assignments/archive state, and optional media/attachment coverage |
 | Activity history | Protected item activity log for edits, stock changes, attachments, borrowing, and bulk actions |
 | Auth and recovery | JWT auth, Google OAuth, email verification, TOTP 2FA, trusted devices, and recovery keys |
-| Desktop Launcher | Optional Tauri GUI plus release packages for local setup, dependency checks, profile start/stop, automatic browser opening, backups, logs, advanced settings, port checks, and QR/LAN access |
+| Desktop Launcher | Optional Tauri GUI plus release packages for local setup, dependency checks, profile start/stop, automatic browser opening, backups, logs, advanced settings, port checks, QR/LAN access, and [opt-in offline HTTPS for mobile camera access](docs/offline-mobile-https.md) |
 | Internationalization | 100+ selectable UI locale packs with fallback behavior and automated validation checks |
 
 ## Security & Privacy

@@ -6,7 +6,7 @@ import { useTheme } from '../context/ThemeContext';
 import { Sun, Moon, AlertCircle, Loader2, LockKeyhole, ShieldCheck } from 'lucide-react';
 import BrandLogo from './BrandLogo';
 import LanguageSwitcher from './LanguageSwitcher';
-import { validatePasswordStrengthClient } from '../utils/passwordValidation';
+import { getPasswordGuidanceMessage, MIN_PASSWORD_LENGTH, validatePasswordStrengthClient } from '../utils/passwordValidation';
 import '../auth-onboarding-v25.css';
 
 export default function ResetPassword() {
@@ -18,6 +18,7 @@ export default function ResetPassword() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [loading, setLoading] = useState(false);
+    const passwordGuidance = getPasswordGuidanceMessage(t);
 
     const token = searchParams.get('token') || '';
 
@@ -123,9 +124,12 @@ export default function ResetPassword() {
                                     className="auth-flow-input-v25"
                                     placeholder={t('auth.reset_password.new_password_placeholder')}
                                     autoComplete="new-password"
+                                    minLength={MIN_PASSWORD_LENGTH}
+                                    aria-describedby="reset-password-guidance"
                                     disabled={!token || Boolean(success)}
                                     required
                                 />
+                                <p id="reset-password-guidance" className="auth-flow-hint-v25">{passwordGuidance}</p>
                             </div>
 
                             <div className="auth-flow-field-v25">
@@ -139,6 +143,7 @@ export default function ResetPassword() {
                                     className="auth-flow-input-v25"
                                     placeholder={t('auth.reset_password.confirm_password_placeholder')}
                                     autoComplete="new-password"
+                                    minLength={MIN_PASSWORD_LENGTH}
                                     disabled={!token || Boolean(success)}
                                     required
                                 />
