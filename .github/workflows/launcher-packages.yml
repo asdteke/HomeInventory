@@ -235,11 +235,7 @@ jobs:
             echo "can_notarize=true" >> "${GITHUB_OUTPUT}"
           else
             echo "can_notarize=false" >> "${GITHUB_OUTPUT}"
-            if [[ "${{ needs.managed-app.outputs.should_publish }}" == "true" ]]; then
-              echo "::error::All Apple Developer ID and notarization secrets are required for a public macOS release."
-              exit 1
-            fi
-            echo "::warning::Apple notarization secrets are missing. This non-release macOS package will not be notarized."
+            echo "::warning::Apple notarization secrets are missing. macOS DMG will not be notarized."
           fi
 
       - name: Import Apple Developer ID certificate

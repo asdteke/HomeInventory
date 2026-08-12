@@ -51,7 +51,7 @@ npm audit --audit-level=moderate --prefix apps/launcher
 
 - [ ] Verify the GitHub Actions publishing environment contains `HOMEINVENTORY_APP_MANIFEST_PRIVATE_KEY_PEM`.
 - [ ] Verify `TAURI_SIGNING_PRIVATE_KEY` and its optional password are configured; updater artifacts are mandatory for public releases.
-- [ ] Configure every Developer ID and notarization secret listed in [`github-actions-release.md`](github-actions-release.md); public macOS publication fails closed when any value is missing.
+- [ ] If a trusted macOS release is expected, configure the Developer ID and notarization secrets listed in [`github-actions-release.md`](github-actions-release.md). Otherwise verify the documented ad-hoc signing fallback and Gatekeeper limitation.
 - [ ] Confirm `homeinventory-app-manifest.json` contains a non-empty `signatureV2` that is not `unsigned`; the legacy `signature` field remains `unsigned` for pre-v2.5 launcher compatibility.
 - [ ] Confirm the manifest SHA-256 matches `homeinventory-app.tar.gz`.
 - [ ] Confirm the launcher Rust signature tests pass and reject both tampered and unsigned manifests.

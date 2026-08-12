@@ -161,7 +161,9 @@ test('macOS packages build updater app bundles with the compact Tauri-controlled
   assert.match(workflow, /name: macos-aarch64[\s\S]*?bundles: app,dmg/);
   assert.match(workflow, /name: macos-x86_64[\s\S]*?bundles: app,dmg/);
   assert.doesNotMatch(workflow, /hdiutil create/);
-  assert.match(
+  assert.match(workflow, /echo "mode=ad-hoc"/);
+  assert.match(workflow, /Apple Developer ID signing secrets are missing\. Using ad-hoc macOS signing\./);
+  assert.doesNotMatch(
     workflow,
     /All Apple Developer ID and notarization secrets are required for a public macOS release\./
   );
