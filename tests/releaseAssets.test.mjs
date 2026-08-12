@@ -11,6 +11,10 @@ const repoRoot = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const rootPackage = JSON.parse(readFileSync(join(repoRoot, 'package.json'), 'utf8'));
 const releaseVersion = rootPackage.version;
 const requiredNodeMajor = Number(String(rootPackage.engines.node).match(/>=\s*(\d+)/)?.[1]);
+const managedArchiveBuilder = readFileSync(
+  join(repoRoot, 'scripts/build-managed-app-archive.mjs'),
+  'utf8'
+);
 
 function runScriptResult(script, args) {
   return spawnSync(process.execPath, [join(repoRoot, 'scripts', script), ...args], {
@@ -157,4 +161,16 @@ test('macOS packages build updater app bundles with the compact Tauri-controlled
   assert.match(workflow, /name: macos-aarch64[\s\S]*?bundles: app,dmg/);
   assert.match(workflow, /name: macos-x86_64[\s\S]*?bundles: app,dmg/);
   assert.doesNotMatch(workflow, /hdiutil create/);
+  assert.match(
+    workflow,
+    /All Apple Developer ID and notarization secrets are required for a public macOS release\./
+  );
+});
+
+test('managed app archives only copy Git-visible release sources', () => {
+  assert.match(
+    managedArchiveBuilder,
+    /git[\s\S]*ls-files[\s\S]*--cached[\s\S]*--others[\s\S]*--exclude-standard/
+  );
+  assert.doesNotMatch(managedArchiveBuilder, /for \(const entry of readdirSync\(repoRoot\)\)/);
 });

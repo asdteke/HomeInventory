@@ -625,6 +625,58 @@
     text-align: center;
 }
 
+/* Branded deployments inherit the product's blue material system instead of
+   the HomeInventory-specific black/green camera chrome. */
+html[data-brand]:not([data-brand='homeinventory']) .scanner-overlay {
+    color: var(--hi-text);
+    background:
+        radial-gradient(circle at 12% 4%, color-mix(in srgb, var(--hi-accent) 22%, transparent), transparent 34%),
+        radial-gradient(circle at 88% 94%, color-mix(in srgb, var(--hi-secondary) 16%, transparent), transparent 30%),
+        var(--hi-bg-strong);
+}
+
+html[data-brand]:not([data-brand='homeinventory']) .scanner-shell {
+    border-color: color-mix(in srgb, var(--hi-border-strong) 70%, transparent);
+    background: linear-gradient(145deg, color-mix(in srgb, var(--hi-panel-strong) 94%, transparent), color-mix(in srgb, var(--hi-panel) 90%, var(--hi-bg)));
+    box-shadow: var(--hi-shadow);
+}
+
+html[data-brand]:not([data-brand='homeinventory']) .scanner-heading-copy h2,
+html[data-brand]:not([data-brand='homeinventory']) .scanner-close,
+html[data-brand]:not([data-brand='homeinventory']) .scanner-control,
+html[data-brand]:not([data-brand='homeinventory']) .scanner-zoom {
+    color: var(--hi-text);
+}
+
+html[data-brand]:not([data-brand='homeinventory']) .scanner-heading-copy p,
+html[data-brand]:not([data-brand='homeinventory']) .scanner-guidance {
+    color: var(--hi-text-soft);
+}
+
+html[data-brand]:not([data-brand='homeinventory']) .scanner-heading-icon,
+html[data-brand]:not([data-brand='homeinventory']) .scanner-guidance-icon {
+    color: var(--hi-accent);
+    background: var(--hi-accent-soft);
+}
+
+html[data-brand]:not([data-brand='homeinventory']) .scanner-close,
+html[data-brand]:not([data-brand='homeinventory']) .scanner-control,
+html[data-brand]:not([data-brand='homeinventory']) .scanner-zoom {
+    border-color: var(--hi-border);
+    background: color-mix(in srgb, var(--hi-panel-muted) 76%, transparent);
+}
+
+html[data-brand]:not([data-brand='homeinventory']) .scanner-stage,
+html[data-brand]:not([data-brand='homeinventory']) .scanner-result {
+    border-color: color-mix(in srgb, var(--hi-border-strong) 72%, transparent);
+    background: color-mix(in srgb, var(--hi-bg-strong) 94%, black 6%);
+}
+
+html[data-brand]:not([data-brand='homeinventory']) .scanner-toolbar {
+    border-color: var(--hi-border);
+    background: color-mix(in srgb, var(--hi-panel-strong) 90%, transparent);
+}
+
 .scanner-result-code {
     margin: 16px 0 0;
     padding: 13px 15px;

@@ -49,7 +49,7 @@ function normalizeBrandKey(value) {
 
 export const SITE_URL = resolveSiteUrl();
 const SITE_HOST = resolveSiteHost(SITE_URL);
-const FALLBACK_APP_VERSION = '2.6.2';
+const FALLBACK_APP_VERSION = '2.7.0';
 const CONFIGURED_BRAND_KEY = (
     typeof __APP_BRAND_KEY__ === 'string' && __APP_BRAND_KEY__.trim()
         ? normalizeBrandKey(__APP_BRAND_KEY__)
@@ -123,4 +123,13 @@ export const APP_VERSION = (
     typeof __APP_VERSION__ === 'string' && __APP_VERSION__.trim()
         ? __APP_VERSION__.trim()
         : FALLBACK_APP_VERSION
+);
+
+export const PASSWORD_MIN_LENGTH = (
+    typeof __APP_MIN_PASSWORD_LENGTH__ === 'number'
+    && Number.isInteger(__APP_MIN_PASSWORD_LENGTH__)
+    && __APP_MIN_PASSWORD_LENGTH__ >= 8
+    && __APP_MIN_PASSWORD_LENGTH__ <= 128
+        ? __APP_MIN_PASSWORD_LENGTH__
+        : BRAND_KEY === 'envanterim' ? 10 : 8
 );

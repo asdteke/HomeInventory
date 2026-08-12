@@ -4,6 +4,7 @@
  */
 import QRCode from 'qrcode';
 import { useEffect, useState } from 'react';
+import { useLauncherI18n } from './i18n';
 
 /* ── Design tokens copied from client/src/utils/itemQrRuntime.js ── */
 const QR_DARK   = '#1c2920';
@@ -46,7 +47,7 @@ function finderPattern(x: number, y: number) {
   ].join('');
 }
 
-function buildSvg(url: string, width: number, logoDataUrl: string) {
+function buildSvg(url: string, width: number, logoDataUrl: string, ariaLabel: string) {
   const qrData = QRCode.create(url, { errorCorrectionLevel: 'H' });
   const size = qrData.modules.size;
   const total = size + QR_MARGIN * 2;
@@ -77,7 +78,7 @@ function buildSvg(url: string, width: number, logoDataUrl: string) {
     : '';
 
   return [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${width}" viewBox="0 0 ${total} ${total}" role="img" aria-label="QR Code">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${width}" viewBox="0 0 ${total} ${total}" role="img" aria-label="${ariaLabel}">`,
     rect(0, 0, total, total, 3.6, QR_LIGHT),
     dots.join(''),
     finders,
@@ -118,6 +119,7 @@ interface Props {
 }
 
 export function QrCodeCard({ url, size = 200, logoSrc, logoSvg }: Props) {
+  const { t } = useLauncherI18n();
   const [markup, setMarkup] = useState('');
 
   useEffect(() => {
@@ -126,12 +128,12 @@ export function QrCodeCard({ url, size = 200, logoSrc, logoSvg }: Props) {
     (async () => {
       const dataUrl = logoSvg ? svgToDataUrl(logoSvg) : logoSrc ? await loadLogoDataUrl(logoSrc) : '';
       if (cancelled) return;
-      const svg = buildSvg(url, size, dataUrl);
+      const svg = buildSvg(url, size, dataUrl, t('qr.code'));
       if (!cancelled) setMarkup(svg);
     })();
 
     return () => { cancelled = true; };
-  }, [url, size, logoSrc, logoSvg]);
+  }, [url, size, logoSrc, logoSvg, t]);
 
   if (!markup) return null;
 
@@ -144,7 +146,7 @@ export function QrCodeCard({ url, size = 200, logoSrc, logoSvg }: Props) {
         />
       </div>
       <div className="qr-meta">
-        <span className="qr-label">Scan to connect</span>
+        <span className="qr-label">{t('qr.scan')}</span>
         <code className="qr-url">{url}</code>
       </div>
     </div>

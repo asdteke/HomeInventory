@@ -1989,11 +1989,11 @@ export default function ItemForm() {
                     </div>
 
                     {/* Optional Invoice Section */}
-                    <div className="overflow-hidden rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow-soft)]">
+                    <div className="item-invoice-accordion-v27 overflow-hidden rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow-soft)]">
                         <button
                             type="button"
                             onClick={() => setShowInvoiceSection(prev => !prev)}
-                            className="flex w-full items-center justify-between gap-4 px-4 py-4 text-left transition-colors hover:bg-[var(--hi-panel-muted)]"
+                            className="item-invoice-toggle-v27 flex w-full items-center justify-between gap-4 px-4 py-4 text-left transition-colors"
                         >
                             <div>
                                 <p className="font-medium text-[var(--hi-text)]">{t('items.form.invoice_section')}</p>

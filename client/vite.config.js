@@ -429,6 +429,13 @@ export default defineConfig(({ command, mode }) => {
     const appVersion = String(env.APP_VERSION || CLIENT_PACKAGE_VERSION || '1.1.0').trim();
 
     const brandKey = normalizeBrandKey(rawBrandKey) || 'homeinventory';
+    const defaultMinPasswordLength = brandKey === 'envanterim' ? 10 : 8;
+    const configuredMinPasswordLength = Number.parseInt(String(env.APP_MIN_PASSWORD_LENGTH || ''), 10);
+    const minPasswordLength = Number.isInteger(configuredMinPasswordLength)
+        && configuredMinPasswordLength >= 8
+        && configuredMinPasswordLength <= 128
+        ? configuredMinPasswordLength
+        : defaultMinPasswordLength;
     const assetVersion = String(
         env.APP_PWA_ASSET_VERSION ||
         env.APP_ASSET_VERSION ||
@@ -609,6 +616,7 @@ export default defineConfig(({ command, mode }) => {
             __APP_PRIVACY_COMPLAINT_AUTHORITY__: JSON.stringify(rawPrivacyComplaintAuthority),
             __APP_SUPPORT_EMAIL__: JSON.stringify(supportEmail),
             __APP_VERSION__: JSON.stringify(appVersion),
+            __APP_MIN_PASSWORD_LENGTH__: JSON.stringify(minPasswordLength),
             __APP_BUILD_ID__: JSON.stringify(buildId)
         },
         server: {

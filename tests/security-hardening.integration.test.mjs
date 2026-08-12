@@ -149,7 +149,7 @@ async function requestJson(port, path, {
     };
 }
 
-async function startTestServer(t) {
+async function startTestServer(t, envOverrides = {}) {
     const tempDir = mkdtempSync(join(tmpdir(), 'homeinventory-security-'));
     const dbPath = join(tempDir, 'inventory.db');
     const port = await getFreePort();
@@ -169,7 +169,8 @@ async function startTestServer(t) {
             GOOGLE_CLIENT_ID: 'google-client-id-test',
             GOOGLE_CLIENT_SECRET: 'google-client-secret-test',
             RESEND_API_KEY: '',
-            SUPPORT_EMAIL: 'support@example.com'
+            SUPPORT_EMAIL: 'support@example.com',
+            ...envOverrides
         },
         stdio: ['ignore', 'pipe', 'pipe']
     });
@@ -488,7 +489,87 @@ test('leaving through the houses API transfers shared locations without exposing
     assert.equal(retainedBox.data.box.location_id, publicLocation.data.location.id);
 });
 
-test('login attempts lock the account after repeated failures', async (t) => {
+test('password policy accepts simple passphrases but rejects short and common passwords', async (t) => {
+    const { port } = await startTestServer(t);
+
+    const shortPassword = await requestJson(port, '/api/auth/register', {
+        method: 'POST',
+        body: {
+            username: 'shortpass',
+            email: 'shortpass@example.com',
+            password: 'seven77',
+            mode: 'create',
+            acceptedTerms: true,
+            acknowledgedPrivacyNotice: true
+        }
+    });
+    assert.equal(shortPassword.status, 400);
+    assert.deepEqual(shortPassword.data.passwordErrorCodes, ['min_length']);
+
+    const commonPassword = await requestJson(port, '/api/auth/register', {
+        method: 'POST',
+        body: {
+            username: 'commonpass',
+            email: 'commonpass@example.com',
+            password: 'Password1!',
+            mode: 'create',
+            acceptedTerms: true,
+            acknowledgedPrivacyNotice: true
+        }
+    });
+    assert.equal(commonPassword.status, 400);
+    assert.ok(commonPassword.data.passwordErrorCodes.includes('common_password'));
+
+    const simplePassphrase = await requestJson(port, '/api/auth/register', {
+        method: 'POST',
+        body: {
+            username: 'simplepass',
+            email: 'simplepass@example.com',
+            password: 'mintleaf',
+            mode: 'create',
+            acceptedTerms: true,
+            acknowledgedPrivacyNotice: true
+        }
+    });
+    assert.equal(simplePassphrase.status, 201);
+});
+
+test('Envanterim applies its 10-character password minimum on the server', async (t) => {
+    const { port } = await startTestServer(t, {
+        APP_BRAND_KEY: 'envanterim',
+        APP_MIN_PASSWORD_LENGTH: '10'
+    });
+
+    const nineCharacters = await requestJson(port, '/api/auth/register', {
+        method: 'POST',
+        body: {
+            username: 'envshort',
+            email: 'envshort@example.com',
+            password: 'mintleafx',
+            mode: 'create',
+            acceptedTerms: true,
+            acknowledgedPrivacyNotice: true
+        }
+    });
+    assert.equal(nineCharacters.status, 400);
+    assert.deepEqual(nineCharacters.data.passwordErrorCodes, ['min_length']);
+    assert.match(nineCharacters.data.error, /10/);
+
+    const tenCharacters = await requestJson(port, '/api/auth/register', {
+        method: 'POST',
+        body: {
+            username: 'envvalid',
+            email: 'envvalid@example.com',
+            password: 'mintleafxy',
+            mode: 'create',
+            acceptedTerms: true,
+            acknowledgedPrivacyNotice: true
+        }
+    });
+    assert.equal(tenCharacters.status, 201);
+});
+
+test('login attempts use a short account-based progressive delay without a hard lockout', async (t) => {
     const { port, directDb } = await startTestServer(t);
 
     const registerResponse = await requestJson(port, '/api/auth/register', {
@@ -504,8 +585,32 @@ test('login attempts lock the account after repeated failures', async (t) => {
     });
     assert.equal(registerResponse.status, 201);
 
-    for (let attempt = 0; attempt < 10; attempt += 1) {
-        await requestJson(port, '/api/auth/login', {
+    directDb.prepare(`
+        UPDATE users
+        SET login_locked_until = DATETIME('now', '+1 hour')
+        WHERE id = ?
+    `).run(registerResponse.data.user.id);
+
+    const legacyLock = await requestJson(port, '/api/auth/login', {
+        method: 'POST',
+        body: {
+            username: 'lockuser',
+            password: 'Stronger!Pass123'
+        }
+    });
+    assert.equal(legacyLock.status, 429);
+    assert.equal(legacyLock.data.code, 'LOGIN_THROTTLED');
+    assert.ok(legacyLock.data.retryAfterSeconds <= 60);
+
+    directDb.prepare(`
+        UPDATE users
+        SET login_locked_until = NULL
+        WHERE id = ?
+    `).run(registerResponse.data.user.id);
+
+    let throttledFailure;
+    for (let attempt = 0; attempt < 4; attempt += 1) {
+        throttledFailure = await requestJson(port, '/api/auth/login', {
             method: 'POST',
             body: {
                 username: 'lockuser',
@@ -514,7 +619,12 @@ test('login attempts lock the account after repeated failures', async (t) => {
         });
     }
 
-    const lockedLogin = await requestJson(port, '/api/auth/login', {
+    assert.equal(throttledFailure.status, 429);
+    assert.equal(throttledFailure.data.code, 'LOGIN_THROTTLED');
+    assert.ok(throttledFailure.data.retryAfterSeconds >= 1);
+    assert.ok(Number(throttledFailure.headers.get('retry-after')) >= 1);
+
+    const throttledLogin = await requestJson(port, '/api/auth/login', {
         method: 'POST',
         headers: {
             'accept-language': 'en'
@@ -525,12 +635,12 @@ test('login attempts lock the account after repeated failures', async (t) => {
         }
     });
 
-    assert.equal(lockedLogin.status, 429);
-    assert.equal(lockedLogin.data.code, 'LOGIN_LOCKED');
-    assert.ok(lockedLogin.data.retryAfterMinutes >= 1);
-    assert.ok(lockedLogin.data.retryAfterMinutes <= 60);
-    assert.match(lockedLogin.data.error, /too many failed login attempts/i);
-    assert.ok(Number(lockedLogin.headers.get('retry-after')) > 0);
+    assert.equal(throttledLogin.status, 429);
+    assert.equal(throttledLogin.data.code, 'LOGIN_THROTTLED');
+    assert.ok(throttledLogin.data.retryAfterSeconds >= 1);
+    assert.ok(throttledLogin.data.retryAfterSeconds <= 2);
+    assert.match(throttledLogin.data.error, /too many failed login attempts/i);
+    assert.ok(Number(throttledLogin.headers.get('retry-after')) > 0);
 
     const loginState = directDb.prepare(`
         SELECT failed_login_count, login_locked_until
@@ -538,8 +648,31 @@ test('login attempts lock the account after repeated failures', async (t) => {
         WHERE id = ?
     `).get(registerResponse.data.user.id);
 
-    assert.ok(loginState.failed_login_count >= 10);
+    assert.equal(loginState.failed_login_count, 4);
     assert.ok(loginState.login_locked_until);
+
+    directDb.prepare(`
+        UPDATE users
+        SET login_locked_until = DATETIME('now', '-1 second')
+        WHERE id = ?
+    `).run(registerResponse.data.user.id);
+
+    const recoveredLogin = await requestJson(port, '/api/auth/login', {
+        method: 'POST',
+        body: {
+            username: 'lockuser',
+            password: 'Stronger!Pass123'
+        }
+    });
+    assert.equal(recoveredLogin.status, 200);
+
+    const clearedState = directDb.prepare(`
+        SELECT failed_login_count, login_locked_until
+        FROM users
+        WHERE id = ?
+    `).get(registerResponse.data.user.id);
+    assert.equal(clearedState.failed_login_count, 0);
+    assert.equal(clearedState.login_locked_until, null);
 });
 
 test('auth rate-limit responses follow the requested language', async (t) => {

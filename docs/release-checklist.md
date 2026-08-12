@@ -1,4 +1,4 @@
-# HomeInventory v2.6.2 Release Checklist
+# HomeInventory v2.7.0 Release Checklist
 
 Use this checklist for public HomeInventory source and launcher releases. Local/private branding is deliberately outside this workflow.
 
@@ -12,7 +12,7 @@ Use this checklist for public HomeInventory source and launcher releases. Local/
 
 ## 2. Deterministic validation
 
-Use the Node.js version configured in CI (Node 22.22.0 for v2.6.2):
+Use the Node.js version configured in CI (Node 22.22.0 for v2.7.0):
 
 ```bash
 npm ci
@@ -38,17 +38,20 @@ npm audit --audit-level=moderate --prefix apps/launcher
 - [ ] In a multi-user household, verify personal boxes and labels remain creator-only (including from the household-owner inventory view), private items remain hidden inside shared boxes, and a public item inside another member's personal box does not reveal that box or its exact placement.
 - [ ] Scan and print box QR labels through the existing QR flow; verify both the compact single-label layout and multi-label sheet.
 - [ ] On a real HTTPS mobile browser, verify barcode and QR camera start/close/reopen, rear-camera selection, one visible scan frame, detected-code feedback, supported zoom presets, torch shutdown on close, and **Scan again** without replaying the previous result.
+- [ ] With WAN access disabled, enable launcher mobile HTTPS and enroll one iOS Safari and one Android Chrome device. Confirm the CA name, warning-free HTTPS IP URL, camera permission, live scan persistence, enrollment-link expiry, IP-change leaf renewal, disable behavior, and CA rotation/re-enrollment.
+- [ ] Confirm launcher CA/server private keys are absent from database/media backups, managed-app archives, logs, QR payloads, and public release assets. Only the public CA may be downloaded by an enrolled phone.
 - [ ] Confirm a barcode scan checks only the signed-in household inventory until the user chooses online search. Verify the consent copy, public-source result attribution, timeout/cancellation behavior, and that an online miss does not replay success/error sound or vibration.
 - [ ] Import a catalogue image, remove it on a touch viewport, and verify box-scoped quick add creates the minimal barcode item while keeping batch scanning available.
 - [ ] Round-trip standard and full encrypted owner backups. Verify box visibility, archive state, assignments, room/location, and full-backup media restore correctly.
 - [ ] Test keyboard focus, reduced motion, long translations, text zoom, and horizontal overflow.
 - [ ] Review English and Turkish release copy manually, then confirm all 103 locale packs pass parity, key-shape, replacement-character, and translation-artifact checks.
+- [ ] Regenerate the seven README screenshots from an isolated HomeInventory-only database. Confirm they contain synthetic data, no private/local brand assets, no localhost/secret values, consistent English UI text, and no horizontal overflow at 1920×1080.
 
 ## 3. Signing and integrity
 
 - [ ] Verify the GitHub Actions publishing environment contains `HOMEINVENTORY_APP_MANIFEST_PRIVATE_KEY_PEM`.
 - [ ] Verify `TAURI_SIGNING_PRIVATE_KEY` and its optional password are configured; updater artifacts are mandatory for public releases.
-- [ ] If a trusted macOS release is expected, configure the Developer ID and notarization secrets listed in [`github-actions-release.md`](github-actions-release.md).
+- [ ] Configure every Developer ID and notarization secret listed in [`github-actions-release.md`](github-actions-release.md); public macOS publication fails closed when any value is missing.
 - [ ] Confirm `homeinventory-app-manifest.json` contains a non-empty `signatureV2` that is not `unsigned`; the legacy `signature` field remains `unsigned` for pre-v2.5 launcher compatibility.
 - [ ] Confirm the manifest SHA-256 matches `homeinventory-app.tar.gz`.
 - [ ] Confirm the launcher Rust signature tests pass and reject both tampered and unsigned manifests.
@@ -65,3 +68,4 @@ npm audit --audit-level=moderate --prefix apps/launcher
 - [ ] Start a fresh launcher profile, verify dependency/port checks, open the browser handoff, create an account and home, restart services, and confirm data isolation.
 - [ ] Test backup creation and confirm no secret or private-brand files are present in the archive.
 - [ ] Record any platform limitation in the release notes before announcement.
+- [ ] Until a physical iPhone/iPad is available, keep the iOS Safari certificate/camera validation limitation visible in the release notes; simulator-only validation is not equivalent to a real-device trust and camera test.

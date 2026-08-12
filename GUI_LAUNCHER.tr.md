@@ -17,6 +17,8 @@ CLI ve Docker hâlâ birinci sınıf kurulum yollarıdır. Launcher, masaüstü 
 - **Profil yalıtımı:** Launcher tarafından yönetilen profiller ayrı veri, SQLite, upload ve şifreli medya yolları kullanır.
 - **Bağımlılık doğrulama:** Node.js ve npm'i algılar; macOS/Linux GUI PATH ve Windows path çözümleme sorunlarını hesaba katar.
 - **Port ve LAN kontrolü:** Başlatmadan önce yerel portları doğrular, aynı ağdaki cihazlar için QR kod gösterir.
+- **İsteğe bağlı offline mobil HTTPS:** Desteklenen telefon tarayıcılarının alan adı veya harici sertifika servisi olmadan kamera izni alabilmesi için launcher'a özel CA, süreli kurulum bağlantıları ve HTTPS LAN geçidi oluşturur. Normal HTTP varsayılan olarak kullanılmaya devam eder.
+- **Beş launcher dili:** İngilizce, Türkçe, Almanca, İspanyolca ve Fransızca doğrudan launcher içinden seçilir ve yerel olarak hatırlanır.
 - **Otomatik yerel geçiş:** Servisler hazır olduğunda yerel HomeInventory URL'sini tarayıcıda açabilir.
 - **Entegre loglar:** Kurulum, backend, frontend ve launcher loglarını tek panelde toplar.
 - **Yedekleme:** Launcher tarafından yönetilen profiller için yerel yedek oluşturur.
@@ -29,6 +31,7 @@ CLI ve Docker hâlâ birinci sınıf kurulum yollarıdır. Launcher, masaüstü 
 - **Minimal yetkiler:** Launcher, frontend tarafında geniş shell/dosya sistemi izinleri kullanmaz.
 - **Süreç temizliği:** Launcher tarafından yönetilen servis process group'ları servis durdurulduğunda veya launcher kapandığında temizlenir.
 - **İzole runtime yolları:** Profiller ayrı `HOMEINVENTORY_DATA_DIR`, `HOMEINVENTORY_DB_PATH` ve `HOMEINVENTORY_UPLOADS_DIR` değerleri kullanır.
+- **Özel sertifika saklama:** CA ve sunucu özel anahtarları launcher uygulama-verisi dizininde, yönetilen uygulama arşivleri ile HomeInventory yedeklerinin dışında kalır. Telefona yalnızca herkese açık CA sunulur.
 
 ## Kurulum
 
@@ -39,6 +42,8 @@ CLI ve Docker hâlâ birinci sınıf kurulum yollarıdır. Launcher, masaüstü 
 - **Linux:** `.AppImage`, `.deb` veya `.rpm`
 
 Launcher açıldıktan sonra **Launch HomeInventory** butonuna tıklayın. Başlatıcı bağımlılıkları ve portları kontrol eder, backend ile frontend'i başlatır, ardından yerel URL ve aynı ağdaki cihazlar için QR kod gösterir.
+
+LAN IP adresinde canlı mobil kamera erişimi güvenli tarayıcı bağlamı gerektirir. İsteğe bağlı, alan adsız kurulum ile güven/rotasyon sınırları [Offline Mobil HTTPS](docs/offline-mobile-https.md) belgesinde açıklanır.
 
 ## Kaynak Koddan Derleme
 
@@ -93,14 +98,14 @@ Bu yapı, kullanıcı açıkça yolları değiştirmediği sürece launcher tara
 Launcher, kaynak kod arşivinden ayrı release artifact'ları olarak paylaşılır:
 
 ```text
-GitHub Release v2.6.2
+GitHub Release v2.7.0
 ├── HomeInventory.Launcher-macos.dmg
 ├── HomeInventory.Launcher-macos.app.zip
-├── HomeInventory.Launcher_2.6.2_x64-setup.exe
-├── HomeInventory.Launcher_2.6.2_x64_en-US.msi
-├── HomeInventory.Launcher_2.6.2_amd64.AppImage
-├── HomeInventory.Launcher_2.6.2_amd64.deb
-└── HomeInventory.Launcher-2.6.2-1.x86_64.rpm
+├── HomeInventory.Launcher_2.7.0_x64-setup.exe
+├── HomeInventory.Launcher_2.7.0_x64_en-US.msi
+├── HomeInventory.Launcher_2.7.0_amd64.AppImage
+├── HomeInventory.Launcher_2.7.0_amd64.deb
+└── HomeInventory.Launcher-2.7.0-1.x86_64.rpm
 ```
 
 `Launcher Packages` GitHub Actions workflow'u bu paketleri native macOS, Windows ve Linux runner'larında üretilir. Tag push edildiğinde paketler normal kaynak kod arşivinin yanında eşleşen GitHub Release'e otomatik eklenir. Linux paketleri, Tauri patched GLib zincirine geçene kadar Tauri'nin mevcut GTK3/GLib bağımlılık hattını miras almaya devam eder.

@@ -12,7 +12,7 @@ on:
           - "false"
           - "true"
       release_tag:
-        description: "Release tag to use when publish_release is true, for example v2.6.2"
+        description: "Release tag to use when publish_release is true, for example v2.7.0"
         required: false
         default: ""
   push:
@@ -159,10 +159,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
@@ -235,7 +235,11 @@ jobs:
             echo "can_notarize=true" >> "${GITHUB_OUTPUT}"
           else
             echo "can_notarize=false" >> "${GITHUB_OUTPUT}"
-            echo "::warning::Apple notarization secrets are missing. macOS DMG will not be notarized."
+            if [[ "${{ needs.managed-app.outputs.should_publish }}" == "true" ]]; then
+              echo "::error::All Apple Developer ID and notarization secrets are required for a public macOS release."
+              exit 1
+            fi
+            echo "::warning::Apple notarization secrets are missing. This non-release macOS package will not be notarized."
           fi
 
       - name: Import Apple Developer ID certificate
@@ -415,7 +419,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Download launcher artifacts
         uses: actions/download-artifact@v4
@@ -483,9 +487,11 @@ jobs:
           tag_name: ${{ needs.managed-app.outputs.release_tag }}
           name: HomeInventory ${{ needs.managed-app.outputs.release_tag }}
           body: |
-            ## HomeInventory v2.6.2
+            ## HomeInventory v2.7.0
 
-            This security patch release resolves 7 Dependabot vulnerability alerts across undici and ip-address dependencies, keeping the v2.6 box-management model, mobile camera scanner improvements, and launcher synchronization intact.
+            This feature release adds optional domain-free LAN HTTPS for mobile camera access, platform-specific certificate enrollment, larger QR codes, five launcher languages, random-port selection, practical password rules, offline weak-password blocking, progressive account throttling, and the v2.7 interface and Personal Vault polish.
+
+            Android Chrome camera access was verified on a physical device. iOS enrollment guidance and simulator behavior were reviewed, but physical-device Safari validation remains a documented limitation for this release.
 
             ## Recommended downloads
 

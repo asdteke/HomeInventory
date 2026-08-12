@@ -2,6 +2,34 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.7.0 - Offline Mobile HTTPS, Launcher Localization, and Security Polish
+
+### Highlights
+
+- **Optional offline mobile HTTPS:** The launcher can create an installation-specific private CA, short-lived LAN-IP server certificates, token-protected iOS/Android enrollment links, and a single-origin HTTPS gateway for camera permission without a domain, public DNS, tunnel, or external certificate service. Normal HTTP remains the default.
+- **Launcher localization and setup clarity:** Added English, Turkish, German, Spanish, and French launcher interfaces; enlarged connection and certificate QR codes; clarified platform-specific certificate enrollment; and added optional random API/UI port selection.
+- **Practical password policy:** HomeInventory accepts passwords from 8 characters while recommending 12 or more. Deployments may set `APP_MIN_PASSWORD_LENGTH` to a stricter value. Composition rules no longer force uppercase, lowercase, number, and symbol combinations.
+- **Offline weak-password blocking:** Common, predictable, repeated, product-name, punctuation-only, and common leetspeak variants remain blocked without sending password material to an external service.
+- **Account-aware brute-force protection:** Replaced the legacy one-hour hard account lock with a progressive account delay beginning on the fourth failed login and capped at 60 seconds. The existing per-IP authentication limiter remains as a secondary layer.
+- **Safer upgrade behavior:** Active legacy one-hour locks are capped to the new 60-second maximum, successful login clears the account failure state, and unknown-account checks perform a fixed bcrypt comparison to reduce timing differences.
+- **Consistent guidance:** Registration, recovery, reset, and settings surfaces show the same minimum and 12+ recommendation across all 103 locale packs.
+- **Cleaner workspace rhythm:** Removed duplicate and mismatched dividers across Categories, admin summaries, Shopping List, Settings/About, and inventory controls; added breathing room around purchased-item actions and strengthened the Boxes Active/Archived contrast.
+- **Modern Personal Vault:** Reworked setup, unlock, record, filter, note, and invoice surfaces into a lighter editorial flow without the oversized enclosing rectangle or the hard left-edge callout.
+- **Consistent disclosures and focus:** Replaced nested rectangular focus/hover chrome on dashboard search and both Invoice Details disclosures with restrained theme-aware focus traces and matching rounded surfaces.
+- **Photo and scanner parity:** Box photos now use the same full-size image viewer as item photos, and barcode scanner surfaces consistently inherit brand theme tokens.
+- **Correct admin status:** Active filtering and badges now include every non-banned account, including administrators, while the dedicated Admin filter remains available.
+- **Clear request privacy copy:** Request Item now explains policy-gated Borrow Center delivery without implying inventory browsing or promising a notification.
+- **Layering fixes:** Room edit/delete tooltips rise above neighboring rows and remain readable without changing the compact action layout.
+- **Synchronized release version:** Kept the public server, client, managed app, desktop launcher, Tauri, Rust, lockfiles, and client fallbacks aligned at `2.7.0`.
+
+### Upgrade notes
+
+- No database migration is required.
+- Rebuild the client and refresh the PWA/service worker to replace cached interface and scanner assets.
+- Existing password hashes remain valid and no password reset is required.
+- Offline mobile HTTPS is opt-in. Enrolled phones must trust the launcher-generated public CA before the HTTPS IP address is warning-free.
+- Back up the SQLite database and uploads before upgrading a self-hosted installation.
+
 ## v2.6.2 - Dependency Security Patch
 
 ### Highlights

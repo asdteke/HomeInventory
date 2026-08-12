@@ -20,7 +20,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { BRAND_KEY, BRAND_NAME, SUPPORT_CONTACT_URL } from '../constants/branding';
 import '../auth-landing-v25.css';
-import { validatePasswordStrengthClient } from '../utils/passwordValidation';
+import { getPasswordGuidanceMessage, MIN_PASSWORD_LENGTH, validatePasswordStrengthClient } from '../utils/passwordValidation';
 import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
 import BrandLogo from './BrandLogo';
 import HouseKeyModal from './HouseKeyModal';
@@ -77,6 +77,7 @@ export default function Register() {
     const isTurkish = String(i18n.resolvedLanguage || i18n.language || 'en').toLowerCase().startsWith('tr');
     const legalLanguage = resolveVerifiedLegalTranslationLanguage(i18n, LEGAL_REGISTER_KEYS);
     const legalT = i18n.getFixedT(legalLanguage);
+    const passwordGuidance = getPasswordGuidanceMessage(t);
 
     const pageClass = isDark
         ? (isCustomBrand ? 'bg-[var(--hi-bg-strong)] text-white' : 'bg-[#1a1f1c] text-white')
@@ -597,6 +598,7 @@ export default function Register() {
                                                 placeholder={t('auth.register.password_placeholder') || undefined}
                                                 autoComplete="new-password"
                                                 aria-describedby="register-password-hint"
+                                                minLength={MIN_PASSWORD_LENGTH}
                                                 required
                                             />
                                             <button
@@ -609,7 +611,7 @@ export default function Register() {
                                             </button>
                                         </div>
                                         <p id="register-password-hint" className={`mt-2 text-xs leading-5 ${subtleTextClass}`}>
-                                            {t('auth.register.password_hint')}
+                                            {passwordGuidance}
                                         </p>
                                     </div>
 

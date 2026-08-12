@@ -5,6 +5,8 @@ import test from 'node:test';
 const lockfile = JSON.parse(readFileSync(new URL('../package-lock.json', import.meta.url), 'utf8'));
 const clientLockfile = JSON.parse(readFileSync(new URL('../client/package-lock.json', import.meta.url), 'utf8'));
 const launcherLockfile = JSON.parse(readFileSync(new URL('../apps/launcher/package-lock.json', import.meta.url), 'utf8'));
+const launcherRust = readFileSync(new URL('../apps/launcher/src-tauri/src/lib.rs', import.meta.url), 'utf8');
+const storeBuildScript = readFileSync(new URL('../scripts/build-store-windows.mjs', import.meta.url), 'utf8');
 
 function numericVersion(version) {
     return String(version || '').split('.').map((part) => Number.parseInt(part, 10) || 0);
@@ -65,4 +67,13 @@ test('security-sensitive dependencies stay above patched versions', () => {
     assert.ok(isAtLeast(reactRouterVersion, '8.3.0'), `react-router ${reactRouterVersion} is below patched 8.3.0`);
     assert.equal(reactRouterDomVersion, undefined, 'react-router-dom should not reintroduce the vulnerable React Router 7 line');
     assert.equal(i18nextFsBackendVersion, undefined, 'i18next-fs-backend should not be reintroduced');
+});
+
+test('portable Node.js archives are pinned to official SHA-256 values before extraction', () => {
+    const windowsNodeHash = 'c97fa376d2becdc8863fcd3ca2dd9a83a9f3468ee7ccf7a6d076ec66a645c77a';
+    assert.match(launcherRust, new RegExp(windowsNodeHash));
+    assert.match(storeBuildScript, new RegExp(windowsNodeHash));
+    assert.match(launcherRust, /verify_file_sha256\(\s*&bundled_node,/s);
+    assert.match(launcherRust, /downloaded portable Node\.js archive SHA-256 mismatch/);
+    assert.match(storeBuildScript, /actualNodeZipSha256 !== nodeZipSha256/);
 });

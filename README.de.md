@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.6.2 release line. -->
+<!-- Release status: v2.7.0 release line. -->
 
 <p align="center">
   <strong>Private, selbst hostbare Haushaltsinventur für gemeinsam genutzte Zuhause.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory ist für Familien, Wohngemeinschaften und kleine Haushalte gedacht, die ein praktisches Inventar brauchen, ohne private Datensätze in eine gemeinsame Tabelle zu verwandeln.
 
 > [!NOTE]
-> **v2.6.2 ist die aktuelle Release-Linie.** Sie behebt Sicherheitslücken in den Abhängigkeiten und hält Managed App und Desktop Launcher versionsgleich.
+> **v2.7.0 ist die aktuelle Release-Linie.** Sie ergänzt praxisnahe Passwortregeln, progressive Anmeldeverzögerung, offline Schwachpasswortschutz, optionales LAN-HTTPS für mobile Kameras und einen lokalisierten Desktop Launcher.
 
 ## Warum HomeInventory
 
@@ -105,7 +105,7 @@ HomeInventory ist für Familien, Wohngemeinschaften und kleine Haushalte gedacht
 | Labels und Scan | Barcode-Scan, Gegenstands-QR-Etiketten und mobiler Schnellzugriff |
 | Backup und Restore | Standard-/Vollexport und -import nur für Eigentümer, mit Passphrasenverschlüsselung, Boxmetadaten, -zuordnungen und Archivstatus sowie optionalen Medien/Anhängen |
 | Auth und Wiederherstellung | JWT, Google OAuth, E-Mail-Verifizierung, TOTP 2FA, vertrauenswürdige Geräte und Recovery Keys |
-| Desktop Launcher | Optionales Tauri-GUI für lokale Einrichtung, Abhängigkeitsprüfungen, Profil-Start/Stopp, automatisches Browser-Öffnen, Backups, Logs, erweiterte Einstellungen, Portprüfungen und QR/LAN-Zugriff |
+| Desktop Launcher | Optionales Tauri-GUI für lokale Einrichtung, Abhängigkeitsprüfungen, Profil-Start/Stopp, Backups, Logs, feste oder zufällige Ports, QR/LAN-Zugriff und [optionales Offline-HTTPS für mobile Kameras](docs/offline-mobile-https.md) |
 | Internationalisierung | 100+ auswählbare UI-Locale-Pakete mit Fallback-Verhalten und automatisierten Prüfungen |
 
 ## Sicherheit & Datenschutz

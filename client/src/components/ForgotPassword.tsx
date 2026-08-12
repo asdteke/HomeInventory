@@ -7,7 +7,7 @@ import { Sun, Moon, AlertCircle, Loader2, ArrowRight, KeyRound, Mail, ShieldChec
 import BrandLogo from './BrandLogo';
 import LanguageSwitcher from './LanguageSwitcher';
 import RecoveryKeyModal from './RecoveryKeyModal';
-import { validatePasswordStrengthClient } from '../utils/passwordValidation';
+import { getPasswordGuidanceMessage, MIN_PASSWORD_LENGTH, validatePasswordStrengthClient } from '../utils/passwordValidation';
 import '../auth-onboarding-v25.css';
 
 export default function ForgotPassword() {
@@ -26,6 +26,7 @@ export default function ForgotPassword() {
     const [rotatedRecoveryKey, setRotatedRecoveryKey] = useState('');
 
     const isTurkish = (i18n.resolvedLanguage || i18n.language || 'en').startsWith('tr');
+    const passwordGuidance = getPasswordGuidanceMessage(t);
 
     const handleRequestReset = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -228,8 +229,11 @@ export default function ForgotPassword() {
                                         className="auth-flow-input-v25"
                                         placeholder={t('auth.forgot_password.new_password_placeholder')}
                                         autoComplete="new-password"
+                                        minLength={MIN_PASSWORD_LENGTH}
+                                        aria-describedby="recovery-password-guidance"
                                         required
                                     />
+                                    <p id="recovery-password-guidance" className="auth-flow-hint-v25">{passwordGuidance}</p>
                                 </div>
 
                                 <div className="auth-flow-field-v25">
@@ -243,6 +247,7 @@ export default function ForgotPassword() {
                                         className="auth-flow-input-v25"
                                         placeholder={t('auth.forgot_password.confirm_password_placeholder')}
                                         autoComplete="new-password"
+                                        minLength={MIN_PASSWORD_LENGTH}
                                         required
                                     />
                                 </div>

@@ -88,7 +88,15 @@ const __dirname = dirname(__filename);
 const router = express.Router();
 const SALT_ROUNDS = 10;
 const HOUSE_KEY_REGEX = /^[a-f0-9]{64}$/i;
-const MIN_PASSWORD_LENGTH = 10;
+const DEFAULT_MIN_PASSWORD_LENGTH = String(process.env.APP_BRAND_KEY || '').trim().toLowerCase() === 'envanterim'
+    ? 10
+    : 8;
+const configuredMinPasswordLength = Number.parseInt(String(process.env.APP_MIN_PASSWORD_LENGTH || ''), 10);
+const MIN_PASSWORD_LENGTH = Number.isInteger(configuredMinPasswordLength)
+    && configuredMinPasswordLength >= 8
+    && configuredMinPasswordLength <= 128
+    ? configuredMinPasswordLength
+    : DEFAULT_MIN_PASSWORD_LENGTH;
 const PENDING_REGISTRATION_HOUSE_KEY_PURPOSE = 'pending_registration.house_key';
 const USER_RECOVERY_KEY_PURPOSE = 'user.recovery_key';
 const TOTP_SECRET_PURPOSE = 'user.totp_secret';
@@ -98,10 +106,13 @@ const GOOGLE_OAUTH_STATE_COOKIE = 'google_oauth_state';
 const GOOGLE_OAUTH_STATE_TTL_MS = 10 * 60 * 1000;
 const LEGAL_TERMS_VERSION = '2026-04-16-selfhost';
 const PRIVACY_NOTICE_VERSION = '2026-04-17-privacy';
-const LOGIN_MAX_FAILURES = 10;
 const LOGIN_FAILURE_WINDOW_MINUTES = 15;
-const LOGIN_LOCK_DURATION_MINUTES = 60;
-const LOGIN_LOCKED_MESSAGE = 'Too many failed login attempts. Please try again later.';
+const LOGIN_DELAY_START_FAILURE = 4;
+const LOGIN_MAX_DELAY_SECONDS = 60;
+const LOGIN_THROTTLED_MESSAGE = 'Too many failed login attempts. Please wait briefly and try again.';
+// A fixed hash keeps unknown-account checks close to the cost of a real bcrypt lookup.
+// It is not a credential and can safely be stored in source control.
+const DUMMY_PASSWORD_HASH = '$2b$10$sD52pIq3x4OPOHRszHWK1uxyhkY1EPzi.gsmyqKbG4Pd846nvx6Yu';
 const BOOTSTRAP_ADMIN_EMAIL = String(process.env.BOOTSTRAP_ADMIN_EMAIL || '').trim().toLowerCase();
 const SITE_URL = String(
     process.env.SITE_URL ||
@@ -126,8 +137,28 @@ const COMMON_PASSWORDS = new Set([
     'qwerty', 'qwerty123', 'abc123', '111111', '000000', '123123',
     'iloveyou', 'admin', 'admin123', 'letmein', 'welcome', 'test123',
     'asdfgh', 'asdf1234', 'zaq12wsx', '1q2w3e4r', '654321', '987654321',
-    '123456a', 'turkiye123', 'ev123456', 'sifre123'
+    '123456a', 'turkiye123', 'ev123456', 'sifre', 'sifre123', 'parola',
+    'benimsifrem', 'homeinventory', 'envanterim'
 ]);
+
+function getCommonPasswordCandidates(password) {
+    const normalized = String(password || '')
+        .normalize('NFKD')
+        .replace(/\p{Mark}/gu, '')
+        .toLowerCase()
+        .replace(/ı/g, 'i');
+    const compact = normalized.replace(/[^a-z0-9]/g, '');
+    const leetspeak = normalized
+        .replace(/[@4]/g, 'a')
+        .replace(/3/g, 'e')
+        .replace(/[1|]/g, 'i')
+        .replace(/0/g, 'o')
+        .replace(/[5$]/g, 's')
+        .replace(/[7+]/g, 't')
+        .replace(/[^a-z0-9]/g, '');
+
+    return new Set([normalized, compact, leetspeak]);
+}
 
 function translateAuth(req, key, fallback, options = {}) {
     try {
@@ -501,25 +532,13 @@ function validatePasswordStrength(password, context = {}) {
     if (value.length < MIN_PASSWORD_LENGTH) {
         checks.push(passwordError('min_length', 'Password must be at least {{min}} characters long', { min: MIN_PASSWORD_LENGTH }));
     }
-    if (!/[a-z]/.test(value)) {
-        checks.push(passwordError('lowercase_required', 'Password must include at least one lowercase letter'));
-    }
-    if (!/[A-Z]/.test(value)) {
-        checks.push(passwordError('uppercase_required', 'Password must include at least one uppercase letter'));
-    }
-    if (!/[0-9]/.test(value)) {
-        checks.push(passwordError('number_required', 'Password must include at least one number'));
-    }
-    if (!/[^a-zA-Z0-9]/.test(value)) {
-        checks.push(passwordError('symbol_required', 'Password must include at least one symbol'));
-    }
     if (/(.)\1{3,}/.test(value)) {
         checks.push(passwordError('repeated_chars', 'Do not use repeated characters in your password'));
     }
     if (/1234|2345|3456|4567|5678|6789|7890|qwerty|asdf|zxcv/i.test(value)) {
         checks.push(passwordError('predictable_sequence', 'Do not use easy-to-guess sequences in your password'));
     }
-    if (COMMON_PASSWORDS.has(lowered)) {
+    if ([...getCommonPasswordCandidates(value)].some((candidate) => COMMON_PASSWORDS.has(candidate))) {
         checks.push(passwordError('common_password', 'This password is too common and unsafe'));
     }
 
@@ -751,38 +770,32 @@ function recordLoginFailure(userId) {
         return null;
     }
 
-    const loginFailureWindow = `-${LOGIN_FAILURE_WINDOW_MINUTES} minutes`;
-    const lockDuration = `+${LOGIN_LOCK_DURATION_MINUTES} minutes`;
+    const previous = db.prepare(`
+        SELECT failed_login_count, login_failed_at
+        FROM users
+        WHERE id = ?
+    `).get(userId);
+    const previousFailureAt = parseSqliteUtcTimestamp(previous?.login_failed_at);
+    const withinFailureWindow = typeof previousFailureAt === 'number'
+        && previousFailureAt > Date.now() - (LOGIN_FAILURE_WINDOW_MINUTES * 60 * 1000);
+    const failedLoginCount = withinFailureWindow
+        ? Number(previous?.failed_login_count || 0) + 1
+        : 1;
+    const delayExponent = failedLoginCount - LOGIN_DELAY_START_FAILURE;
+    const retryAfterSeconds = delayExponent >= 0
+        ? Math.min(LOGIN_MAX_DELAY_SECONDS, 2 ** (delayExponent + 1))
+        : 0;
+    const retryAt = retryAfterSeconds > 0
+        ? toSqliteUtcTimestamp(Date.now() + (retryAfterSeconds * 1000))
+        : null;
 
     db.prepare(`
         UPDATE users
-        SET failed_login_count = CASE
-                WHEN login_failed_at IS NOT NULL AND login_failed_at > DATETIME('now', ?)
-                    THEN COALESCE(failed_login_count, 0) + 1
-                ELSE 1
-            END,
+        SET failed_login_count = ?,
             login_failed_at = CURRENT_TIMESTAMP,
-            login_locked_until = CASE
-                WHEN login_locked_until IS NOT NULL AND login_locked_until > CURRENT_TIMESTAMP
-                    THEN login_locked_until
-                WHEN (
-                    CASE
-                        WHEN login_failed_at IS NOT NULL AND login_failed_at > DATETIME('now', ?)
-                            THEN COALESCE(failed_login_count, 0) + 1
-                        ELSE 1
-                    END
-                ) >= ?
-                    THEN DATETIME('now', ?)
-                ELSE NULL
-            END
+            login_locked_until = ?
         WHERE id = ?
-    `).run(
-        loginFailureWindow,
-        loginFailureWindow,
-        LOGIN_MAX_FAILURES,
-        lockDuration,
-        userId
-    );
+    `).run(failedLoginCount, retryAt, userId);
 
     return db.prepare(`
         SELECT failed_login_count, login_failed_at, login_locked_until
@@ -814,31 +827,39 @@ function touchAuthenticatedActivity(userId) {
     `).run(userId);
 }
 
-function isLoginLocked(userRow) {
+function isLoginThrottled(userRow) {
     if (!userRow?.login_locked_until) {
         return false;
     }
 
-    const lockedUntil = parseSqliteUtcTimestamp(userRow.login_locked_until);
+    let lockedUntil = parseSqliteUtcTimestamp(userRow.login_locked_until);
+    const maximumAllowedUntil = Date.now() + (LOGIN_MAX_DELAY_SECONDS * 1000);
+    if (typeof lockedUntil === 'number' && lockedUntil > maximumAllowedUntil && userRow.id) {
+        const cappedUntil = toSqliteUtcTimestamp(maximumAllowedUntil);
+        db.prepare('UPDATE users SET login_locked_until = ? WHERE id = ?').run(cappedUntil, userRow.id);
+        userRow.login_locked_until = cappedUntil;
+        lockedUntil = parseSqliteUtcTimestamp(cappedUntil);
+    }
+
     return typeof lockedUntil === 'number' && lockedUntil > Date.now();
 }
 
-function sendLoginLocked(req, res, userRow) {
+function sendLoginThrottled(req, res, userRow) {
     const lockedUntil = parseSqliteUtcTimestamp(userRow?.login_locked_until);
-    const retryAfterMinutes = typeof lockedUntil === 'number'
-        ? Math.max(1, Math.ceil((lockedUntil - Date.now()) / 60000))
-        : LOGIN_LOCK_DURATION_MINUTES;
+    const retryAfterSeconds = typeof lockedUntil === 'number'
+        ? Math.max(1, Math.ceil((lockedUntil - Date.now()) / 1000))
+        : LOGIN_MAX_DELAY_SECONDS;
 
-    res.setHeader('Retry-After', String(retryAfterMinutes * 60));
+    res.setHeader('Retry-After', String(retryAfterSeconds));
     return res.status(429).json({
         error: translateAuth(
             req,
-            'auth.account_locked',
-            LOGIN_LOCKED_MESSAGE,
-            { minutes: retryAfterMinutes }
+            'auth.login_throttled',
+            LOGIN_THROTTLED_MESSAGE,
+            { seconds: retryAfterSeconds }
         ),
-        code: 'LOGIN_LOCKED',
-        retryAfterMinutes
+        code: 'LOGIN_THROTTLED',
+        retryAfterSeconds
     });
 }
 
@@ -1187,6 +1208,7 @@ router.post('/login', async (req, res) => {
         const user = getUserByLoginIdentifier(loginIdentifier);
 
         if (!user) {
+            await bcrypt.compare(String(password), DUMMY_PASSWORD_HASH);
             return res.status(401).json({ error: translateAuth(req, 'auth.invalid_credentials', 'Kullanıcı adı veya şifre hatalı') });
         }
 
@@ -1196,8 +1218,8 @@ router.post('/login', async (req, res) => {
             return res.status(403).json({ error: translateAuth(req, 'auth.account_banned', 'Hesabınız askıya alınmış. Destek ile iletişime geçin.') });
         }
 
-        if (isLoginLocked(user)) {
-            return sendLoginLocked(req, res, user);
+        if (isLoginThrottled(user)) {
+            return sendLoginThrottled(req, res, user);
         }
 
         // Verify password
@@ -1205,8 +1227,8 @@ router.post('/login', async (req, res) => {
 
         if (!validPassword) {
             const updatedLoginState = recordLoginFailure(user.id);
-            if (isLoginLocked(updatedLoginState)) {
-                return sendLoginLocked(req, res, updatedLoginState);
+            if (isLoginThrottled(updatedLoginState)) {
+                return sendLoginThrottled(req, res, updatedLoginState);
             }
             return res.status(401).json({ error: translateAuth(req, 'auth.invalid_credentials', 'Kullanıcı adı veya şifre hatalı') });
         }

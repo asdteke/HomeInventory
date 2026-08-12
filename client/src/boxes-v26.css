@@ -88,16 +88,16 @@
   min-height: 2.25rem;
   padding: 0 0.85rem;
   border-radius: 0.72rem;
-  color: var(--hi-text-soft);
+  color: var(--hi-text);
   font-size: 0.8rem;
   font-weight: 700;
   transition: 160ms ease;
 }
 
 .box-archive-tabs-v26 button.is-active {
-  color: var(--hi-text);
-  background: var(--hi-panel-strong);
-  box-shadow: var(--hi-shadow-soft);
+  color: white;
+  background: linear-gradient(145deg, var(--hi-accent-strong), var(--hi-accent));
+  box-shadow: 0 8px 22px -14px color-mix(in srgb, var(--hi-accent) 72%, transparent);
 }
 
 .box-filter-dot-v26 {
@@ -162,6 +162,13 @@
   border-radius: 0 0 1.4rem 1.4rem;
 }
 
+/* A one-row list is both the first and last row. The later :last-child rule
+   used to zero its top radii, so the translucent hover fill became a sharp
+   rectangle inside the rounded list frame. */
+.box-list-v26 > article:only-child {
+  border-radius: inherit;
+}
+
 .box-list-v26 > article:hover {
   background: color-mix(in srgb, var(--hi-accent-soft) 48%, transparent);
 }
@@ -195,6 +202,11 @@
   background:
     linear-gradient(135deg, var(--hi-accent-soft), transparent),
     var(--hi-panel-muted);
+}
+
+.box-list-photo-v26 > img {
+  display: block;
+  border-radius: inherit;
 }
 
 .box-list-copy-v26 {
@@ -1291,6 +1303,22 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.box-photo-preview-v26.fullscreen-image-v25-trigger {
+  padding: 0;
+  text-align: initial;
+}
+
+.box-photo-preview-v26 .fullscreen-image-v25-open {
+  top: .45rem;
+  right: .45rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.box-photo-preview-empty-v27 {
+  cursor: default;
 }
 
 .box-photo-actions-v26 {

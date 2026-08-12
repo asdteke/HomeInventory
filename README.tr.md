@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Sürüm durumu: v2.6.2 release line. -->
+<!-- Sürüm durumu: v2.7.0 release line. -->
 
 <p align="center">
   <strong>Paylaşımlı evler için özel, self-host edilebilir ev envanteri.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
 
 > [!NOTE]
-> **v2.6.2 güncel release hattıdır.** undici ve ip-address bağımlılık güvenlik zafiyetlerini yamalar; v2.6 kutu yönetimini ve v2.6.1 tarayıcı/gizlilik özelliklerini korur, yönetilen uygulama ile masaüstü Launcher sürümünü eşit tutar.
+> **v2.7.0 güncel release hattıdır.** Pratik parola kuralları, hesap bazlı kademeli giriş gecikmesi, offline zayıf parola koruması, mobil kamera için isteğe bağlı LAN HTTPS, beş launcher dili, rastgele port seçimi ve senkron yönetilen uygulama/Launcher güncellemeleri getirir.
 
 ## Neden HomeInventory
 
@@ -110,7 +110,7 @@ HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtl
 | Yedekleme ve geri yükleme | Sadece ev sahibine açık standart/tam dışa ve içe aktarma; parola ile şifreleme, kutu metadata'sı, atamaları ve arşiv durumu ile isteğe bağlı medya/ek dosya kapsamı |
 | Aktivite geçmişi | Düzenleme, stok değişimi, ek dosya, ödünç ve toplu işlemler için korumalı eşya aktivite kaydı |
 | Kimlik doğrulama | JWT, Google OAuth, e-posta doğrulama, TOTP 2FA, güvenilen cihaz ve recovery key |
-| Masaüstü Başlatıcı | Yerel kurulum, bağımlılık kontrolü, profil başlatma/durdurma, otomatik tarayıcı açma, yedekleme, log, gelişmiş ayarlar, port kontrolü ve QR/LAN erişimi için opsiyonel Tauri GUI ve release paketleri |
+| Masaüstü Başlatıcı | Yerel kurulum, bağımlılık kontrolü, profil başlatma/durdurma, otomatik tarayıcı açma, yedekleme, log, gelişmiş ayarlar, port kontrolü, QR/LAN erişimi ve [mobil kamera için isteğe bağlı offline HTTPS](docs/offline-mobile-https.md) sunan Tauri GUI ve release paketleri |
 | Çok dil | Fallback davranışı ve otomatik doğrulama kontrolleriyle 100+ seçilebilir arayüz locale paketi |
 
 ## Güvenlik & Gizlilik

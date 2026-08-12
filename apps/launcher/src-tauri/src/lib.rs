@@ -1,13 +1,17 @@
 use base64::prelude::*;
 use ed25519_dalek::Verifier;
+use rcgen::{
+    BasicConstraints, CertificateParams, DistinguishedName, DnType, ExtendedKeyUsagePurpose, IsCa,
+    KeyPair, KeyUsagePurpose, SanType,
+};
 use serde::{Deserialize, Serialize};
 use sha2::Digest;
 use std::{
     collections::HashMap,
     env,
     fs::{self, File},
-    io::{BufRead, BufReader},
-    net::{SocketAddr, TcpListener, TcpStream},
+    io::{BufRead, BufReader, Read},
+    net::{IpAddr, SocketAddr, TcpListener, TcpStream},
     path::{Path, PathBuf},
     process::{Child, Command as ProcessCommand, Stdio},
     sync::{
@@ -19,6 +23,7 @@ use std::{
 };
 use tauri::{Emitter, Manager, State};
 use tauri_plugin_updater::UpdaterExt;
+use time::{Duration as TimeDuration, OffsetDateTime};
 
 const PORTABLE_NODE_VERSION: &str = "22.22.0";
 const REQUIRED_NODE_MAJOR: u32 = 22;
@@ -62,6 +67,8 @@ struct ManagedProcess {
     backend_port: u16,
     frontend_port: u16,
     child: Child,
+    https_gateway: Option<Child>,
+    https_status: Option<HttpsStatus>,
     #[cfg(unix)]
     process_group_id: i32,
     #[cfg(windows)]
@@ -102,6 +109,14 @@ struct StartProfileRequest {
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
+struct EnableHttpsRequest {
+    profile_id: String,
+    overrides: Option<ToolOverrides>,
+    https_port: Option<u16>,
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct BackupRequest {
     profile_id: String,
 }
@@ -115,6 +130,13 @@ struct WriteEnvRequest {
 #[derive(Clone, Copy, Deserialize)]
 #[serde(rename_all = "camelCase")]
 struct CheckPortsRequest {
+    backend_port: u16,
+    frontend_port: u16,
+}
+
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct SuggestedPorts {
     backend_port: u16,
     frontend_port: u16,
 }
@@ -190,6 +212,7 @@ struct LauncherSnapshot {
     bundled_sync_required: bool,
     distribution: String,
     store_build: bool,
+    https_status: Option<HttpsStatus>,
 }
 
 #[derive(Clone, Serialize)]
@@ -231,6 +254,22 @@ struct LanAccessStatus {
     frontend_url: Option<String>,
     backend_url: Option<String>,
     message: String,
+}
+
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct HttpsStatus {
+    enabled: bool,
+    https_port: u16,
+    enrollment_port: u16,
+    https_url: String,
+    ios_enrollment_url: String,
+    android_enrollment_url: String,
+    ca_name: String,
+    ca_fingerprint: String,
+    enrollment_expires_at: u64,
+    certificate_expires_at: u64,
+    local_ip: String,
 }
 
 #[derive(Clone, Serialize)]
@@ -669,6 +708,8 @@ fn start_profile_internal(
         profile_id: profile.id.to_string(),
         backend_port,
         frontend_port,
+        https_gateway: None,
+        https_status: None,
         #[cfg(unix)]
         process_group_id: child.id() as i32,
         #[cfg(windows)]
@@ -712,6 +753,35 @@ async fn start_profile(
 #[tauri::command]
 async fn check_ports(request: CheckPortsRequest) -> Result<PortCheckResult, String> {
     check_ports_internal(request).await
+}
+
+#[tauri::command]
+fn suggest_random_ports() -> Result<SuggestedPorts, String> {
+    suggest_random_ports_internal()
+}
+
+fn suggest_random_ports_internal() -> Result<SuggestedPorts, String> {
+    let backend_listener = TcpListener::bind(("0.0.0.0", 0))
+        .map_err(|err| format!("Could not reserve a random API port: {err}"))?;
+    let frontend_listener = TcpListener::bind(("0.0.0.0", 0))
+        .map_err(|err| format!("Could not reserve a random UI port: {err}"))?;
+
+    let backend_port = backend_listener
+        .local_addr()
+        .map_err(|err| format!("Could not inspect the random API port: {err}"))?
+        .port();
+    let frontend_port = frontend_listener
+        .local_addr()
+        .map_err(|err| format!("Could not inspect the random UI port: {err}"))?
+        .port();
+
+    validate_port(backend_port, "API")?;
+    validate_port(frontend_port, "UI")?;
+
+    Ok(SuggestedPorts {
+        backend_port,
+        frontend_port,
+    })
 }
 
 async fn check_ports_internal(request: CheckPortsRequest) -> Result<PortCheckResult, String> {
@@ -899,16 +969,32 @@ fn stop_all(state: State<LauncherState>) -> Result<CommandResult, String> {
 #[tauri::command]
 fn open_app(url: String) -> Result<CommandResult, String> {
     let normalized = url.trim();
-    if !(normalized.starts_with("http://localhost:") || normalized.starts_with("http://127.0.0.1:"))
-    {
-        return Err("Launcher can only open local HomeInventory URLs.".into());
-    }
+    validate_local_app_url(normalized)?;
 
     open_url(normalized)?;
     Ok(CommandResult {
         ok: true,
         message: format!("Opening {normalized}"),
     })
+}
+
+fn validate_local_app_url(value: &str) -> Result<(), String> {
+    let parsed = reqwest::Url::parse(value)
+        .map_err(|_| "Launcher can only open a valid local HomeInventory URL.".to_string())?;
+    let local_host = matches!(parsed.host_str(), Some("localhost" | "127.0.0.1"));
+    let valid_port = parsed
+        .port()
+        .map(|port| (1024..=65535).contains(&port))
+        .unwrap_or(false);
+    if parsed.scheme() != "http"
+        || !local_host
+        || !valid_port
+        || !parsed.username().is_empty()
+        || parsed.password().is_some()
+    {
+        return Err("Launcher can only open local HomeInventory URLs.".into());
+    }
+    Ok(())
 }
 
 #[tauri::command]
@@ -955,6 +1041,7 @@ fn write_env(
         fs::write(&env_path, "# HomeInventory Environment\n")
             .map_err(|err| format!("Could not create .env: {err}"))?;
     }
+    set_private_permissions(&env_path, false)?;
 
     let content =
         fs::read_to_string(&env_path).map_err(|err| format!("Could not read .env: {err}"))?;
@@ -983,6 +1070,7 @@ fn write_env(
 
     let merged = lines.join("\n") + "\n";
     fs::write(&env_path, merged).map_err(|err| format!("Could not write .env: {err}"))?;
+    set_private_permissions(&env_path, false)?;
 
     Ok(CommandResult {
         ok: true,
@@ -1012,6 +1100,350 @@ async fn is_server_ready(port: u16) -> bool {
     }
 }
 
+struct HttpsMaterial {
+    ca_name: String,
+    ca_fingerprint: String,
+    ca_cert_path: PathBuf,
+    server_cert_path: PathBuf,
+    server_key_path: PathBuf,
+}
+
+fn set_private_permissions(path: &Path, directory: bool) -> Result<(), String> {
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        let mode = if directory { 0o700 } else { 0o600 };
+        fs::set_permissions(path, fs::Permissions::from_mode(mode))
+            .map_err(|err| format!("Could not protect {}: {err}", path_string(path)))?;
+    }
+    Ok(())
+}
+
+fn write_private_file(path: &Path, contents: &str) -> Result<(), String> {
+    fs::write(path, contents)
+        .map_err(|err| format!("Could not write {}: {err}", path_string(path)))?;
+    set_private_permissions(path, false)
+}
+
+fn local_ca_params(name: &str) -> Result<CertificateParams, String> {
+    let mut params = CertificateParams::new(Vec::<String>::new())
+        .map_err(|err| format!("Could not create CA parameters: {err}"))?;
+    params.not_before = OffsetDateTime::now_utc() - TimeDuration::days(1);
+    params.not_after = OffsetDateTime::now_utc() + TimeDuration::days(3650);
+    params.is_ca = IsCa::Ca(BasicConstraints::Constrained(0));
+    params.key_usages = vec![
+        KeyUsagePurpose::DigitalSignature,
+        KeyUsagePurpose::KeyCertSign,
+        KeyUsagePurpose::CrlSign,
+    ];
+    let mut distinguished_name = DistinguishedName::new();
+    distinguished_name.push(DnType::OrganizationName, "HomeInventory");
+    distinguished_name.push(DnType::CommonName, name);
+    params.distinguished_name = distinguished_name;
+    Ok(params)
+}
+
+fn ensure_https_material(profile_root: &Path, local_ip: IpAddr) -> Result<HttpsMaterial, String> {
+    let https_dir = profile_root.join("https");
+    fs::create_dir_all(&https_dir).map_err(|err| err.to_string())?;
+    set_private_permissions(&https_dir, true)?;
+
+    let ca_cert_path = https_dir.join("homeinventory-local-ca.pem");
+    let ca_key_path = https_dir.join("homeinventory-local-ca-key.pem");
+    let ca_name_path = https_dir.join("homeinventory-local-ca-name.txt");
+    let server_cert_path = https_dir.join("homeinventory-lan-chain.pem");
+    let server_key_path = https_dir.join("homeinventory-lan-key.pem");
+
+    let existing_ca = ca_cert_path.exists() && ca_key_path.exists() && ca_name_path.exists();
+    let (ca_name, ca_pem, ca_key) = if existing_ca {
+        let name = fs::read_to_string(&ca_name_path)
+            .map_err(|err| format!("Could not read CA name: {err}"))?
+            .trim()
+            .to_string();
+        let pem = fs::read_to_string(&ca_cert_path)
+            .map_err(|err| format!("Could not read public CA certificate: {err}"))?;
+        let key_pem = fs::read_to_string(&ca_key_path)
+            .map_err(|err| format!("Could not read private CA key: {err}"))?;
+        let key = KeyPair::from_pem(&key_pem)
+            .map_err(|err| format!("Could not parse the private CA key: {err}"))?;
+        (name, pem, key)
+    } else {
+        let instance_id = random_hex(4)?.to_uppercase();
+        let name = format!("HomeInventory Local CA {instance_id}");
+        let key = KeyPair::generate().map_err(|err| format!("Could not create CA key: {err}"))?;
+        let params = local_ca_params(&name)?;
+        let certificate = params
+            .self_signed(&key)
+            .map_err(|err| format!("Could not create CA certificate: {err}"))?;
+        let pem = certificate.pem();
+        write_private_file(&ca_key_path, &key.serialize_pem())?;
+        fs::write(&ca_cert_path, &pem)
+            .map_err(|err| format!("Could not write public CA certificate: {err}"))?;
+        fs::write(&ca_name_path, &name)
+            .map_err(|err| format!("Could not write CA metadata: {err}"))?;
+        (name, pem, key)
+    };
+
+    set_private_permissions(&ca_key_path, false)?;
+    let ca_params = local_ca_params(&ca_name)?;
+    let ca_certificate = ca_params
+        .self_signed(&ca_key)
+        .map_err(|err| format!("Could not load the CA signer: {err}"))?;
+
+    let server_key =
+        KeyPair::generate().map_err(|err| format!("Could not create HTTPS server key: {err}"))?;
+    let mut server_params = CertificateParams::new(Vec::<String>::new())
+        .map_err(|err| format!("Could not create HTTPS certificate parameters: {err}"))?;
+    server_params.not_before = OffsetDateTime::now_utc() - TimeDuration::days(1);
+    server_params.not_after = OffsetDateTime::now_utc() + TimeDuration::days(90);
+    server_params.is_ca = IsCa::ExplicitNoCa;
+    server_params.subject_alt_names = vec![SanType::IpAddress(local_ip)];
+    server_params.key_usages = vec![KeyUsagePurpose::DigitalSignature];
+    server_params.extended_key_usages = vec![ExtendedKeyUsagePurpose::ServerAuth];
+    let mut server_name = DistinguishedName::new();
+    server_name.push(DnType::OrganizationName, "HomeInventory");
+    server_name.push(DnType::CommonName, format!("HomeInventory LAN {local_ip}"));
+    server_params.distinguished_name = server_name;
+    let server_certificate = server_params
+        .signed_by(&server_key, &ca_certificate, &ca_key)
+        .map_err(|err| format!("Could not sign HTTPS certificate: {err}"))?;
+    write_private_file(&server_key_path, &server_key.serialize_pem())?;
+    fs::write(
+        &server_cert_path,
+        format!("{}\n{}", server_certificate.pem(), ca_pem),
+    )
+    .map_err(|err| format!("Could not write HTTPS certificate chain: {err}"))?;
+
+    let ca_der_base64 = ca_pem
+        .lines()
+        .filter(|line| !line.starts_with("-----"))
+        .collect::<String>();
+    let ca_der = BASE64_STANDARD
+        .decode(ca_der_base64)
+        .map_err(|err| format!("Could not decode the public CA certificate: {err}"))?;
+    let digest = sha2::Sha256::digest(ca_der);
+    let ca_fingerprint = digest
+        .iter()
+        .map(|byte| format!("{byte:02X}"))
+        .collect::<Vec<_>>()
+        .join(":");
+    Ok(HttpsMaterial {
+        ca_name,
+        ca_fingerprint,
+        ca_cert_path,
+        server_cert_path,
+        server_key_path,
+    })
+}
+
+#[tauri::command]
+fn enable_https(
+    app: tauri::AppHandle,
+    state: State<LauncherState>,
+    request: EnableHttpsRequest,
+) -> Result<HttpsStatus, String> {
+    let profile = profile_config(&request.profile_id)?;
+    let app_data_dir = app_data_dir(&app)?;
+    let project_root = project_root_handle(&app, &request.overrides.clone().unwrap_or_default())?;
+    let envs = resolved_command_env();
+    let tools = resolve_tools(&app, &envs, &request.overrides.unwrap_or_default());
+    let node = tools
+        .node_path
+        .ok_or_else(|| "node was not found. Configure the Node path in Settings.".to_string())?;
+    let local_ip_string = get_local_ip().ok_or_else(|| {
+        "No private LAN IPv4 address was found. Connect this computer and phone to the same Wi-Fi network.".to_string()
+    })?;
+    let local_ip: IpAddr = local_ip_string
+        .parse()
+        .map_err(|_| "The detected LAN address is invalid.".to_string())?;
+    if !matches!(local_ip, IpAddr::V4(ip) if ip.is_private()) {
+        return Err("Mobile HTTPS setup currently requires a private LAN IPv4 address.".into());
+    }
+
+    let mut active = state
+        .active
+        .lock()
+        .map_err(|_| "Process state is locked".to_string())?;
+    let process = active
+        .as_mut()
+        .ok_or_else(|| "Start HomeInventory before enabling mobile HTTPS.".to_string())?;
+    if process.profile_id != profile.id {
+        return Err("The requested profile is not running.".into());
+    }
+    if let Some(mut gateway) = process.https_gateway.take() {
+        let _ = gateway.kill();
+        let _ = gateway.wait();
+        process.https_status = None;
+    }
+
+    let preferred_https_port = request.https_port.unwrap_or(5443);
+    validate_port(preferred_https_port, "HTTPS")?;
+    let https_port = if is_port_available(preferred_https_port) {
+        preferred_https_port
+    } else {
+        next_free_port(preferred_https_port)
+    };
+    let enrollment_port = next_free_port(https_port);
+    if enrollment_port == https_port || !is_port_available(enrollment_port) {
+        return Err("Could not find a free certificate-enrollment port.".into());
+    }
+
+    let paths = profile_paths(&app_data_dir, profile);
+    let material = ensure_https_material(&paths.profile_root, local_ip)?;
+    let token = random_hex(32)?;
+    let expires_at = now() + 10 * 60;
+    let https_url = format!("https://{local_ip_string}:{https_port}");
+    let enrollment_base = format!("http://{local_ip_string}:{enrollment_port}/enroll/{token}");
+    let status = HttpsStatus {
+        enabled: true,
+        https_port,
+        enrollment_port,
+        https_url: https_url.clone(),
+        ios_enrollment_url: format!("{enrollment_base}/ios.mobileconfig"),
+        android_enrollment_url: format!("{enrollment_base}/android.crt"),
+        ca_name: material.ca_name.clone(),
+        ca_fingerprint: material.ca_fingerprint.clone(),
+        enrollment_expires_at: expires_at,
+        certificate_expires_at: now() + 89 * 24 * 60 * 60,
+        local_ip: local_ip_string.clone(),
+    };
+
+    let mut command = ProcessCommand::new(node);
+    command
+        .arg(project_root.join("scripts").join("https-gateway.mjs"))
+        .current_dir(&project_root)
+        .env("HOMEINVENTORY_HTTPS_PORT", https_port.to_string())
+        .env("HOMEINVENTORY_ENROLLMENT_PORT", enrollment_port.to_string())
+        .env(
+            "HOMEINVENTORY_HTTPS_TARGET_PORT",
+            process.frontend_port.to_string(),
+        )
+        .env("HOMEINVENTORY_HTTPS_LOCAL_IP", &local_ip_string)
+        .env("HOMEINVENTORY_ENROLLMENT_TOKEN", token)
+        .env("HOMEINVENTORY_CA_NAME", &material.ca_name)
+        .env("HOMEINVENTORY_HTTPS_KEY_PATH", material.server_key_path)
+        .env("HOMEINVENTORY_HTTPS_CERT_PATH", material.server_cert_path)
+        .env("HOMEINVENTORY_CA_CERT_PATH", material.ca_cert_path)
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped());
+    #[cfg(unix)]
+    command.process_group(0);
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        command.creation_flags(0x08000000);
+    }
+    let mut gateway = command
+        .spawn()
+        .map_err(|err| format!("Could not start the HTTPS gateway: {err}"))?;
+    #[cfg(windows)]
+    if let Some(job) = process.job.as_ref() {
+        if let Err(err) = assign_windows_job(job, &gateway) {
+            let _ = gateway.kill();
+            let _ = gateway.wait();
+            return Err(err);
+        }
+    }
+    stream_process_output(
+        &state,
+        profile.id,
+        gateway.stdout.take(),
+        "info",
+        Some(paths.log_dir.clone()),
+    );
+    stream_process_output(
+        &state,
+        profile.id,
+        gateway.stderr.take(),
+        "error",
+        Some(paths.log_dir),
+    );
+    for _ in 0..30 {
+        if tcp_reachable(&local_ip_string, https_port) {
+            process.https_status = Some(status.clone());
+            process.https_gateway = Some(gateway);
+            append_log(
+                &state,
+                profile.id,
+                "success",
+                &format!("Optional mobile HTTPS gateway started at {https_url}."),
+            );
+            return Ok(status);
+        }
+        if matches!(gateway.try_wait(), Ok(Some(_))) {
+            return Err("The HTTPS gateway stopped during startup. Check launcher logs.".into());
+        }
+        thread::sleep(Duration::from_millis(100));
+    }
+    let _ = gateway.kill();
+    let _ = gateway.wait();
+    Err("The HTTPS gateway did not become ready in time.".into())
+}
+
+#[tauri::command]
+fn disable_https(state: State<LauncherState>) -> Result<CommandResult, String> {
+    let mut active = state
+        .active
+        .lock()
+        .map_err(|_| "Process state is locked".to_string())?;
+    let process = active
+        .as_mut()
+        .ok_or_else(|| "HomeInventory is not running.".to_string())?;
+    if let Some(mut gateway) = process.https_gateway.take() {
+        let _ = gateway.kill();
+        let _ = gateway.wait();
+    }
+    process.https_status = None;
+    Ok(CommandResult {
+        ok: true,
+        message: "Optional mobile HTTPS gateway stopped. Normal HTTP access is unchanged.".into(),
+    })
+}
+
+#[tauri::command]
+fn rotate_https_ca(
+    app: tauri::AppHandle,
+    state: State<LauncherState>,
+    request: BackupRequest,
+) -> Result<CommandResult, String> {
+    {
+        let active = state
+            .active
+            .lock()
+            .map_err(|_| "Process state is locked".to_string())?;
+        if active
+            .as_ref()
+            .and_then(|process| process.https_status.as_ref())
+            .is_some()
+        {
+            return Err("Disable mobile HTTPS before rotating its private CA.".into());
+        }
+    }
+    let profile = profile_config(&request.profile_id)?;
+    let app_data_dir = app_data_dir(&app)?;
+    let https_dir = profile_paths(&app_data_dir, profile)
+        .profile_root
+        .join("https");
+    for name in [
+        "homeinventory-local-ca.pem",
+        "homeinventory-local-ca-key.pem",
+        "homeinventory-local-ca-name.txt",
+        "homeinventory-lan-chain.pem",
+        "homeinventory-lan-key.pem",
+    ] {
+        let path = https_dir.join(name);
+        if path.exists() {
+            fs::remove_file(&path)
+                .map_err(|err| format!("Could not remove {}: {err}", path_string(&path)))?;
+        }
+    }
+    let _ = fs::remove_dir(&https_dir);
+    Ok(CommandResult {
+        ok: true,
+        message: "Local CA rotated. Previously enrolled phones must remove the old HomeInventory CA and install the new one.".into(),
+    })
+}
+
 pub fn run() {
     tauri::Builder::default()
         .manage(LauncherState::default())
@@ -1022,6 +1454,7 @@ pub fn run() {
             install_dependencies,
             start_profile,
             check_ports,
+            suggest_random_ports,
             choose_path,
             reveal_path,
             stop_profile,
@@ -1033,7 +1466,10 @@ pub fn run() {
             check_updates,
             update_all,
             sync_bundled_managed_app,
-            is_server_ready
+            is_server_ready,
+            enable_https,
+            disable_https,
+            rotate_https_ca
         ])
         .on_window_event(|window, event| {
             if matches!(
@@ -1129,6 +1565,12 @@ fn build_snapshot(
     let active_profile_id = active_process
         .as_ref()
         .map(|(profile_id, _, _)| profile_id.clone());
+    let https_status = state
+        .active
+        .lock()
+        .map_err(|_| "Process state is locked".to_string())?
+        .as_ref()
+        .and_then(|process| process.https_status.clone());
 
     let profiles = PROFILE_CONFIGS
         .iter()
@@ -1302,6 +1744,7 @@ fn build_snapshot(
         bundled_sync_required,
         distribution: distribution().to_string(),
         store_build,
+        https_status,
     })
 }
 
@@ -1926,6 +2369,40 @@ fn portable_node_download_url() -> String {
     )
 }
 
+fn portable_node_expected_sha256() -> &'static str {
+    if cfg!(target_os = "windows") {
+        "c97fa376d2becdc8863fcd3ca2dd9a83a9f3468ee7ccf7a6d076ec66a645c77a"
+    } else if cfg!(target_os = "macos") && cfg!(target_arch = "aarch64") {
+        "5ed4db0fcf1eaf84d91ad12462631d73bf4576c1377e192d222e48026a902640"
+    } else if cfg!(target_os = "macos") {
+        "5ea50c9d6dea3dfa3abb66b2656f7a4e1c8cef23432b558d45fb538c7b5dedce"
+    } else {
+        "c33c39ed9c80deddde77c960d00119918b9e352426fd604ba41638d6526a4744"
+    }
+}
+
+fn verify_file_sha256(path: &Path, expected: &str, label: &str) -> Result<(), String> {
+    let mut file = File::open(path).map_err(|err| format!("Could not open {label}: {err}"))?;
+    let mut hasher = sha2::Sha256::new();
+    let mut buffer = [0u8; 64 * 1024];
+    loop {
+        let count = file
+            .read(&mut buffer)
+            .map_err(|err| format!("Could not read {label}: {err}"))?;
+        if count == 0 {
+            break;
+        }
+        hasher.update(&buffer[..count]);
+    }
+    let actual = format!("{:x}", hasher.finalize());
+    if actual != expected {
+        return Err(format!(
+            "Security check failed: {label} SHA-256 mismatch. Expected {expected}, got {actual}."
+        ));
+    }
+    Ok(())
+}
+
 fn resolve_tools(
     app: &tauri::AppHandle,
     envs: &HashMap<String, String>,
@@ -2015,6 +2492,11 @@ async fn ensure_portable_node(app: &tauri::AppHandle, state: &LauncherState) -> 
                 path_string(&bundled_node)
             ));
         }
+        verify_file_sha256(
+            &bundled_node,
+            portable_node_expected_sha256(),
+            "bundled portable Node.js archive",
+        )?;
 
         append_log(
             state,
@@ -2070,6 +2552,7 @@ async fn ensure_portable_node(app: &tauri::AppHandle, state: &LauncherState) -> 
     }
 
     let mut file = File::create(&temp_archive_path).map_err(|e| e.to_string())?;
+    let mut sha_hasher = sha2::Sha256::new();
     while let Some(chunk) = resp
         .chunk()
         .await
@@ -2077,8 +2560,18 @@ async fn ensure_portable_node(app: &tauri::AppHandle, state: &LauncherState) -> 
     {
         use std::io::Write;
         file.write_all(&chunk).map_err(|e| e.to_string())?;
+        sha_hasher.update(&chunk);
     }
     drop(file);
+
+    let calculated_hash = format!("{:x}", sha_hasher.finalize());
+    let expected_hash = portable_node_expected_sha256();
+    if calculated_hash != expected_hash {
+        let _ = fs::remove_file(&temp_archive_path);
+        return Err(format!(
+            "Security check failed: downloaded portable Node.js archive SHA-256 mismatch. Expected {expected_hash}, got {calculated_hash}."
+        ));
+    }
 
     append_log(state, "setup", "info", "Extracting Node.js package...");
     let dest_dir = app_data.join("bin");
@@ -2200,6 +2693,10 @@ fn ensure_profile_secrets(
     paths: &ProfilePaths,
 ) -> Result<HashMap<String, String>, String> {
     if paths.secrets_path.exists() {
+        if let Some(parent) = paths.secrets_path.parent() {
+            set_private_permissions(parent, true)?;
+        }
+        set_private_permissions(&paths.secrets_path, false)?;
         let mut values = read_simple_env_file(&paths.secrets_path)?;
         let mut changed = false;
 
@@ -2259,6 +2756,7 @@ fn read_simple_env_file(path: &Path) -> Result<HashMap<String, String>, String> 
 fn write_profile_secrets(path: &Path, values: &HashMap<String, String>) -> Result<(), String> {
     if let Some(parent) = path.parent() {
         fs::create_dir_all(parent).map_err(|err| err.to_string())?;
+        set_private_permissions(parent, true)?;
     }
 
     let mut contents =
@@ -2269,7 +2767,8 @@ fn write_profile_secrets(path: &Path, values: &HashMap<String, String>) -> Resul
             contents.push_str(&format!("{key}={value}\n"));
         }
     }
-    fs::write(path, contents).map_err(|err| format!("Could not write launcher secrets: {err}"))
+    write_private_file(path, &contents)
+        .map_err(|err| format!("Could not write launcher secrets: {err}"))
 }
 
 fn quarantine_legacy_launcher_db(
@@ -2319,6 +2818,7 @@ fn write_launcher_brand_env(
 ) -> Result<PathBuf, String> {
     let env_dir = profile_paths.profile_root.join("env");
     fs::create_dir_all(&env_dir).map_err(|err| err.to_string())?;
+    set_private_permissions(&env_dir, true)?;
     let env_file = env_dir.join("env.local");
     let example_path = project_root
         .join("local-brands")
@@ -2327,10 +2827,10 @@ fn write_launcher_brand_env(
     let mut contents = fs::read_to_string(&example_path)
         .map_err(|err| format!("Could not read brand env example: {err}"))?;
     contents.push_str("\n# Managed by HomeInventory Launcher\n");
-    contents.push_str(&format!("NODE_ENV=development\n"));
-    contents.push_str(&format!("HOST=0.0.0.0\n"));
-    contents.push_str(&format!("FRONTEND_HOST=0.0.0.0\n"));
-    contents.push_str(&format!("VITE_HOST=0.0.0.0\n"));
+    contents.push_str("NODE_ENV=development\n");
+    contents.push_str("HOST=0.0.0.0\n");
+    contents.push_str("FRONTEND_HOST=0.0.0.0\n");
+    contents.push_str("VITE_HOST=0.0.0.0\n");
     contents.push_str(&format!("PORT={}\n", backend_port));
     contents.push_str(&format!("FRONTEND_PORT={}\n", frontend_port));
     contents.push_str(&format!("VITE_PORT={}\n", frontend_port));
@@ -2356,7 +2856,7 @@ fn write_launcher_brand_env(
             contents.push_str(&format!("{key}={value}\n"));
         }
     }
-    fs::write(&env_file, contents).map_err(|err| err.to_string())?;
+    write_private_file(&env_file, &contents)?;
     Ok(env_file)
 }
 
@@ -2373,7 +2873,7 @@ fn stream_process_output(
     let logs = state.logs.clone();
     thread::spawn(move || {
         let reader = BufReader::new(pipe);
-        for line in reader.lines().flatten() {
+        for line in reader.lines().map_while(Result::ok) {
             if let Some(ref dir) = log_dir {
                 let log_file_path = dir.join(format!("{}.log", source));
                 if let Ok(mut file) = std::fs::OpenOptions::new()
@@ -2439,6 +2939,33 @@ fn reconcile_active(state: &LauncherState) {
     };
 
     if let Some(process) = active.as_mut() {
+        if let Some(gateway) = process.https_gateway.as_mut() {
+            match gateway.try_wait() {
+                Ok(Some(status)) => {
+                    let profile_id = process.profile_id.clone();
+                    process.https_gateway = None;
+                    process.https_status = None;
+                    append_log(
+                        state,
+                        &profile_id,
+                        "error",
+                        &format!("Optional HTTPS gateway exited with status {status}. Normal HTTP access is still available."),
+                    );
+                }
+                Ok(None) => {}
+                Err(err) => {
+                    let profile_id = process.profile_id.clone();
+                    process.https_gateway = None;
+                    process.https_status = None;
+                    append_log(
+                        state,
+                        &profile_id,
+                        "error",
+                        &format!("Could not check HTTPS gateway state: {err}"),
+                    );
+                }
+            }
+        }
         match process.child.try_wait() {
             Ok(Some(status)) => {
                 let profile_id = process.profile_id.clone();
@@ -2480,6 +3007,17 @@ fn stop_all_internal(state: &LauncherState) -> Result<(), String> {
         "info",
         &format!("Stopping {}...", process.profile_id),
     );
+    if let Some(gateway) = process.https_gateway.as_mut() {
+        #[cfg(unix)]
+        unsafe {
+            libc::kill(-(gateway.id() as i32), libc::SIGTERM);
+        }
+        #[cfg(not(unix))]
+        {
+            let _ = gateway.kill();
+        }
+        wait_or_kill(gateway);
+    }
     terminate_process_tree(&mut process);
     wait_or_kill(&mut process.child);
     append_log(
@@ -2561,6 +3099,17 @@ fn create_windows_job(child: &Child) -> Option<WindowsJob> {
         }
 
         Some(WindowsJob(job))
+    }
+}
+
+#[cfg(windows)]
+fn assign_windows_job(job: &WindowsJob, child: &Child) -> Result<(), String> {
+    use windows_sys::Win32::System::JobObjects::AssignProcessToJobObject;
+    let assigned = unsafe { AssignProcessToJobObject(job.0, child.as_raw_handle() as _) };
+    if assigned == 0 {
+        Err("Could not attach the HTTPS gateway to the launcher process job.".into())
+    } else {
+        Ok(())
     }
 }
 
@@ -4325,8 +4874,10 @@ fn perform_mandatory_backup(app: &tauri::AppHandle) -> Result<PathBuf, String> {
     if paths.secrets_path.exists() {
         let dest_env = destination.join("env");
         fs::create_dir_all(&dest_env).map_err(|e| e.to_string())?;
-        fs::copy(&paths.secrets_path, dest_env.join("launcher-secrets.env"))
-            .map_err(|e| e.to_string())?;
+        set_private_permissions(&dest_env, true)?;
+        let backup_secrets = dest_env.join("launcher-secrets.env");
+        fs::copy(&paths.secrets_path, &backup_secrets).map_err(|e| e.to_string())?;
+        set_private_permissions(&backup_secrets, false)?;
     }
 
     let metadata_path = app_data.join("managed-app").join("updater-metadata.json");
@@ -4550,6 +5101,16 @@ mod updater_tests {
     }
 
     #[test]
+    fn test_random_port_suggestions_are_distinct_and_available() {
+        let suggested = suggest_random_ports_internal().unwrap();
+        assert_ne!(suggested.backend_port, suggested.frontend_port);
+        assert!((1024..=65535).contains(&suggested.backend_port));
+        assert!((1024..=65535).contains(&suggested.frontend_port));
+        assert!(is_port_available(suggested.backend_port));
+        assert!(is_port_available(suggested.frontend_port));
+    }
+
+    #[test]
     fn test_server_info_ports_accept_numbers_and_strings() {
         assert_eq!(json_port(&serde_json::json!(3001)), Some(3001));
         assert_eq!(json_port(&serde_json::json!("5173")), Some(5173));
@@ -4620,6 +5181,69 @@ mod updater_tests {
                 portable_node_archive_file_name()
             )
         );
+        let expected_hash = portable_node_expected_sha256();
+        assert_eq!(expected_hash.len(), 64);
+        assert!(expected_hash
+            .chars()
+            .all(|character| character.is_ascii_hexdigit()));
+    }
+
+    #[test]
+    fn test_file_hash_verification_rejects_tampering() {
+        let root = std::env::temp_dir().join(format!(
+            "homeinventory-hash-test-{}-{}",
+            std::process::id(),
+            now()
+        ));
+        fs::create_dir_all(&root).unwrap();
+        let archive = root.join("runtime.tar.gz");
+        fs::write(&archive, b"trusted runtime").unwrap();
+        let expected = format!("{:x}", sha2::Sha256::digest(b"trusted runtime"));
+        assert!(verify_file_sha256(&archive, &expected, "test runtime").is_ok());
+        fs::write(&archive, b"tampered runtime").unwrap();
+        assert!(verify_file_sha256(&archive, &expected, "test runtime").is_err());
+        let _ = fs::remove_dir_all(root);
+    }
+
+    #[test]
+    fn test_local_app_url_rejects_userinfo_and_external_hosts() {
+        assert!(validate_local_app_url("http://127.0.0.1:5173").is_ok());
+        assert!(validate_local_app_url("http://localhost:3001/path").is_ok());
+        assert!(validate_local_app_url("http://127.0.0.1:5173@evil.example/path").is_err());
+        assert!(validate_local_app_url("https://127.0.0.1:5173").is_err());
+        assert!(validate_local_app_url("http://example.com:5173").is_err());
+        assert!(validate_local_app_url("http://127.0.0.1").is_err());
+    }
+
+    #[test]
+    fn test_launcher_secret_files_are_private_on_unix() {
+        let root = std::env::temp_dir().join(format!(
+            "homeinventory-secret-mode-test-{}-{}",
+            std::process::id(),
+            now()
+        ));
+        let secret_path = root.join("env/launcher-secrets.env");
+        let values = HashMap::from([
+            ("JWT_SECRET".to_string(), "test-jwt".to_string()),
+            ("APP_ENCRYPTION_KEY".to_string(), "test-key".to_string()),
+            ("APP_ENCRYPTION_KEY_ID".to_string(), "test-id".to_string()),
+        ]);
+        write_profile_secrets(&secret_path, &values).unwrap();
+
+        #[cfg(unix)]
+        {
+            use std::os::unix::fs::PermissionsExt;
+            let file_mode = fs::metadata(&secret_path).unwrap().permissions().mode() & 0o777;
+            let directory_mode = fs::metadata(secret_path.parent().unwrap())
+                .unwrap()
+                .permissions()
+                .mode()
+                & 0o777;
+            assert_eq!(file_mode, 0o600);
+            assert_eq!(directory_mode, 0o700);
+        }
+
+        let _ = fs::remove_dir_all(root);
     }
 
     #[test]
@@ -4839,7 +5463,76 @@ mod updater_tests {
 
     #[test]
     fn test_allowlisted_commands() {
-        let allowed_args = vec!["ci", "--prefix", "client"];
+        let allowed_args = ["ci", "--prefix", "client"];
         assert_eq!(allowed_args[0], "ci");
+    }
+
+    #[test]
+    fn test_https_ca_stays_stable_while_leaf_rotates_for_new_lan_ip() {
+        let root = std::env::temp_dir().join(format!(
+            "homeinventory-https-material-{}-{}",
+            std::process::id(),
+            random_hex(6).unwrap()
+        ));
+        fs::create_dir_all(&root).unwrap();
+
+        let first = ensure_https_material(&root, "192.168.1.20".parse().unwrap()).unwrap();
+        let first_ca = fs::read(&first.ca_cert_path).unwrap();
+        let first_ca_key = fs::read(root.join("https/homeinventory-local-ca-key.pem")).unwrap();
+        let first_leaf = fs::read(&first.server_cert_path).unwrap();
+
+        let second = ensure_https_material(&root, "192.168.1.21".parse().unwrap()).unwrap();
+        let second_ca = fs::read(&second.ca_cert_path).unwrap();
+        let second_ca_key = fs::read(root.join("https/homeinventory-local-ca-key.pem")).unwrap();
+        let second_leaf = fs::read(&second.server_cert_path).unwrap();
+
+        assert_eq!(first_ca, second_ca);
+        assert_eq!(first_ca_key, second_ca_key);
+        assert_eq!(first.ca_name, second.ca_name);
+        assert_eq!(first.ca_fingerprint, second.ca_fingerprint);
+        assert_ne!(first_leaf, second_leaf);
+        assert_eq!(first.ca_fingerprint.split(':').count(), 32);
+
+        if let Ok(verify) = ProcessCommand::new("openssl")
+            .args([
+                "verify",
+                "-CAfile",
+                &path_string(&second.ca_cert_path),
+                &path_string(&second.server_cert_path),
+            ])
+            .output()
+        {
+            assert!(
+                verify.status.success(),
+                "openssl verify failed: {}",
+                String::from_utf8_lossy(&verify.stderr)
+            );
+            let san = ProcessCommand::new("openssl")
+                .args([
+                    "x509",
+                    "-in",
+                    &path_string(&second.server_cert_path),
+                    "-noout",
+                    "-ext",
+                    "subjectAltName",
+                ])
+                .output()
+                .unwrap();
+            assert!(san.status.success());
+            assert!(String::from_utf8_lossy(&san.stdout).contains("IP Address:192.168.1.21"));
+        }
+
+        #[cfg(unix)]
+        {
+            use std::os::unix::fs::PermissionsExt;
+            let key_mode = fs::metadata(root.join("https/homeinventory-local-ca-key.pem"))
+                .unwrap()
+                .permissions()
+                .mode()
+                & 0o777;
+            assert_eq!(key_mode, 0o600);
+        }
+
+        fs::remove_dir_all(root).unwrap();
     }
 }

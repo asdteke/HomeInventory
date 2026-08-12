@@ -146,6 +146,7 @@ export function ShellLink({ item, compact = false, onClick, tone = 'default', cl
     const resolvedClassName = isDrawerLink
         ? `mobile-drawer-nav-item ${isActive ? 'is-active' : ''} ${drawerToneClass} ${className}`.trim()
         : `
+            shell-link-v27 ${compact ? 'is-compact' : 'is-expanded'} ${isActive ? 'is-active' : ''} ${tone !== 'default' ? `is-${tone}` : ''}
             group flex items-center gap-3 rounded-full transition-all duration-200
             ${compact ? `mx-auto ${COMPACT_ICON_BUTTON_SIZE} justify-center px-0 py-0` : `${expandedButtonSize} px-4 py-3`}
             ${isActive ? activeClasses : inactiveClasses}
@@ -164,7 +165,7 @@ export function ShellLink({ item, compact = false, onClick, tone = 'default', cl
         >
             <span className={isDrawerLink
                 ? 'mobile-drawer-nav-icon'
-                : `shell-link-icon flex ${compact ? 'h-full w-full' : expandedIconSize} shrink-0 items-center justify-center ${compact ? 'mx-auto rounded-full' : 'rounded-full'} ${isActive ? activeIconClasses : inactiveIconClasses}`
+                : `shell-link-icon shell-link-icon-v27 flex ${compact ? 'h-full w-full' : expandedIconSize} shrink-0 items-center justify-center ${compact ? 'mx-auto rounded-full' : 'rounded-full'} ${isActive ? activeIconClasses : inactiveIconClasses}`
             }>
                 <Icon className={isDrawerLink ? 'h-5 w-5' : `${compact ? 'h-5 w-5' : spacious ? 'h-5 w-5' : 'h-[18px] w-[18px]'}`} />
             </span>
@@ -393,13 +394,14 @@ export default function Layout() {
 
             <aside
                 className={`
+                    desktop-sidebar-v27 ${sidebarOpen ? 'is-expanded' : 'is-compact'}
                     fixed inset-y-0 left-0 z-40 hidden lg:flex flex-col border-r border-[var(--hi-border)]
                     bg-[var(--hi-bg-elevated)] backdrop-blur-2xl transition-all duration-300
                     ${sidebarOpen ? 'w-[288px]' : 'w-[112px]'}
                 `}
             >
-                <div className={`flex items-center ${sidebarOpen ? 'gap-4 px-5 pb-[clamp(0.75rem,1.2vh,1rem)] pt-[clamp(1rem,2vh,1.5rem)]' : 'justify-center px-0 pb-4 pt-6'}`}>
-                    <Link to="/" aria-label={BRAND_NAME} className={`min-w-0 ${sidebarOpen ? 'flex-1 pr-3' : 'mx-auto'}`}>
+                <div className={`sidebar-brand-row-v27 flex items-center ${sidebarOpen ? 'gap-4 px-5 pb-[clamp(0.75rem,1.2vh,1rem)] pt-[clamp(1rem,2vh,1.5rem)]' : 'justify-center px-0 pb-4 pt-6'}`}>
+                    <Link to="/" aria-label={BRAND_NAME} className={`sidebar-brand-link-v27 min-w-0 ${sidebarOpen ? 'flex-1 pr-3' : 'mx-auto'}`}>
                         {sidebarOpen ? (
                             <BrandLogo
                                 variant="full"
@@ -407,7 +409,7 @@ export default function Layout() {
                                 className={isCustomBrand ? 'max-h-[44px] max-w-[190px] object-contain' : 'max-h-[62px]'}
                             />
                         ) : (
-                            <span className={`mx-auto flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center overflow-hidden rounded-[1.35rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] shadow-[var(--hi-shadow-soft)]`}>
+                            <span className={`sidebar-brand-symbol-v27 mx-auto flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center overflow-hidden rounded-[1.35rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] shadow-[var(--hi-shadow-soft)]`}>
                                 <BrandLogo variant="symbol" size="sm" className={isCustomBrand ? 'max-h-[50px]' : 'max-h-[42px]'} />
                             </span>
                         )}
@@ -417,7 +419,7 @@ export default function Layout() {
                             type="button"
                             onClick={() => setSidebarOpen(false)}
                             aria-label={t('layout.collapse_sidebar', { defaultValue: 'Collapse sidebar' }) || undefined}
-                            className="ml-2 shrink-0 rounded-full border border-[var(--hi-border)] bg-white/50 p-2 text-[var(--hi-text-soft)] transition hover:text-[var(--hi-text)] dark:bg-white/5"
+                            className="sidebar-resize-control-v27 ml-2 shrink-0 rounded-full border border-[var(--hi-border)] bg-white/50 p-2 text-[var(--hi-text-soft)] transition hover:text-[var(--hi-text)] dark:bg-white/5"
                         >
                             <ChevronLeft className="h-4 w-4" />
                         </button>
@@ -430,7 +432,7 @@ export default function Layout() {
                             type="button"
                             onClick={() => setSidebarOpen(true)}
                             aria-label={t('layout.expand_sidebar', { defaultValue: 'Expand sidebar' }) || undefined}
-                            className={`mx-auto flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center rounded-full border border-[var(--hi-border)] bg-white/50 text-[var(--hi-text-soft)] transition hover:text-[var(--hi-text)] dark:bg-white/5`}
+                            className={`sidebar-resize-control-v27 sidebar-expand-control-v27 mx-auto flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center rounded-full border border-[var(--hi-border)] bg-white/50 text-[var(--hi-text-soft)] transition hover:text-[var(--hi-text)] dark:bg-white/5`}
                         >
                             <ChevronRight className="h-5 w-5" />
                         </button>
@@ -448,9 +450,9 @@ export default function Layout() {
                                 name: user?.username || t('settings.account_overview.title', { defaultValue: 'Account overview' }),
                                 defaultValue: 'Open account menu for {{name}}'
                             }) || undefined}
-                            className="group flex w-full items-center gap-3 rounded-[1.15rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] px-3 py-2.5 text-left transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]"
+                            className="sidebar-account-trigger-v27 group flex w-full items-center gap-3 rounded-[1.15rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] px-3 py-2.5 text-left transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]"
                         >
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-sm font-extrabold text-white shadow-[var(--hi-shadow-soft)]">
+                            <div className="sidebar-account-avatar-v27 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-sm font-extrabold text-white shadow-[var(--hi-shadow-soft)]">
                                 {userInitial}
                             </div>
                             <div className="min-w-0 flex-1">
@@ -475,7 +477,7 @@ export default function Layout() {
                                     name: user?.username || t('settings.account_overview.title', { defaultValue: 'Account overview' }),
                                     defaultValue: 'Open account menu for {{name}}'
                                 }) || undefined}
-                                className={`flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text)] transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]`}
+                                className={`sidebar-compact-account-v27 flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text)] transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]`}
                             >
                                 <span className={`flex ${COMPACT_ICON_INNER_SIZE} items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-[1.125rem] font-extrabold text-white shadow-[var(--hi-shadow-soft)]`}>
                                     {userInitial}
@@ -489,41 +491,41 @@ export default function Layout() {
                             role="dialog"
                             aria-modal="false"
                             aria-label={t('layout.account_menu_title', { defaultValue: 'Account menu' }) || undefined}
-                            className={`absolute z-50 overflow-hidden rounded-[1.2rem] border border-[var(--hi-border)] bg-[var(--hi-bg-elevated)] p-3 shadow-[var(--hi-shadow)] backdrop-blur-2xl ${sidebarOpen ? 'left-0 right-0 top-full mt-3' : 'left-full top-0 ml-3 w-[18rem]'}`}
+                            className={`sidebar-account-menu-v27 absolute z-50 rounded-[1.2rem] border border-[var(--hi-border)] bg-[var(--hi-bg-elevated)] p-3 shadow-[var(--hi-shadow)] backdrop-blur-2xl ${sidebarOpen ? 'left-0 right-0 top-full mt-3' : 'left-full top-0 ml-3 w-[18rem]'}`}
                         >
-                            <div className="space-y-2">
+                            <div className="sidebar-account-menu-stack-v27 space-y-2">
                                 <Link
                                     to="/settings#settings-account"
                                     onClick={() => setProfileMenuOpen(false)}
                                     aria-label={t('settings.account_overview.title', { defaultValue: 'Account overview' }) || undefined}
-                                    className="flex w-full items-center gap-3 rounded-[0.95rem] border border-transparent px-3 py-2.5 text-left text-sm font-medium text-[var(--hi-text)] transition hover:border-[var(--hi-border)] hover:bg-[var(--hi-panel-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]"
+                                    className="sidebar-account-overview-v27 flex w-full items-center gap-3 rounded-[0.95rem] border border-transparent px-3 py-2.5 text-left text-sm font-medium text-[var(--hi-text)] transition hover:border-[var(--hi-border)] hover:bg-[var(--hi-panel-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]"
                                 >
-                                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]">
+                                    <span className="sidebar-account-overview-icon-v27 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]">
                                         <User className="h-4 w-4" />
                                     </span>
                                     <span>{t('settings.account_overview.title', { defaultValue: 'Account overview' })}</span>
                                 </Link>
 
-                                <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-3">
-                                    <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
+                                <div className="sidebar-account-group-v27 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-3">
+                                    <p className="sidebar-account-label-v27 mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
                                         {t('settings.language', { defaultValue: 'Language' })}
                                     </p>
                                     <LanguageSwitcher
                                         showCodeBadge={false}
-                                        className="!h-11 !rounded-[0.95rem] !border-[var(--hi-border)] !bg-[var(--hi-panel-strong)] !px-3 !py-0 !text-[var(--hi-text)] hover:!bg-[var(--hi-panel-muted)]"
+                                        className="sidebar-account-language-v27 !h-11 !rounded-[0.95rem] !border-[var(--hi-border)] !bg-[var(--hi-panel-strong)] !px-3 !py-0 !text-[var(--hi-text)] hover:!bg-[var(--hi-panel-muted)]"
                                     />
                                 </div>
 
-                                <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-3">
+                                <div className="sidebar-account-group-v27 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-3">
                                     <div className="mb-3 flex items-center justify-between gap-3">
-                                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
+                                        <p className="sidebar-account-label-v27 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
                                             {t('settings.theme.title')}
                                         </p>
                                         <Link
                                             to="/settings#settings-preferences"
                                             onClick={() => setProfileMenuOpen(false)}
                                             aria-label={t('settings.theme.title') || undefined}
-                                            className="text-xs font-medium text-[var(--hi-accent)] transition hover:text-[var(--hi-accent-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel)]"
+                                            className="sidebar-account-manage-v27 text-xs font-medium text-[var(--hi-accent)] transition hover:text-[var(--hi-accent-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel)]"
                                         >
                                             {t('common.manage')}
                                         </Link>
@@ -533,6 +535,7 @@ export default function Layout() {
                                         value={theme}
                                         onChange={setTheme as any}
                                         fullWidth
+                                        className="sidebar-account-theme-v27"
                                         buttonClassName="min-h-[40px] px-3 py-2 text-sm"
                                         activeClassName="bg-[var(--hi-panel-strong)] text-[var(--hi-text)] shadow-[var(--hi-shadow-soft)]"
                                         options={[
@@ -558,7 +561,7 @@ export default function Layout() {
                                     type="button"
                                     onClick={openLogoutConfirm}
                                     aria-label={t('navigation.logout_aria', { defaultValue: 'Log out of your account' }) || undefined}
-                                    className="flex w-full items-center gap-3 rounded-[0.95rem] border border-red-500/18 bg-red-500/6 px-3 py-2.5 text-left text-sm font-medium text-red-400 transition hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]"
+                                    className="sidebar-account-logout-v27 flex w-full items-center gap-3 rounded-[0.95rem] border border-red-500/18 bg-red-500/6 px-3 py-2.5 text-left text-sm font-medium text-red-400 transition hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]"
                                 >
                                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-red-500/12 text-current">
                                         <LogOut className="h-4 w-4" />
@@ -571,7 +574,7 @@ export default function Layout() {
                 </div>
 
                 <nav
-                    className={`overflow-y-auto ${sidebarOpen ? 'flex-1 space-y-[clamp(0.5rem,0.9vh,0.75rem)] px-4 pb-[clamp(0.75rem,1.3vh,1.1rem)] pt-[clamp(0.5rem,0.9vh,0.75rem)]' : 'flex flex-col items-center gap-2 px-0 pb-3 pt-2'}`}
+                    className={`desktop-sidebar-nav-v27 overflow-y-auto ${sidebarOpen ? 'flex-1 space-y-[clamp(0.5rem,0.9vh,0.75rem)] px-4 pb-[clamp(0.75rem,1.3vh,1.1rem)] pt-[clamp(0.5rem,0.9vh,0.75rem)]' : 'flex flex-col items-center gap-2 px-0 pb-3 pt-2'}`}
                     style={compactSidebar ? { scrollbarWidth: 'none' } : undefined}
                 >
                     {navItems.map((item) => (

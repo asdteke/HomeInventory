@@ -28,6 +28,7 @@ const portableNodeVersion = '22.22.0';
 const nodeFileName = `node-v${portableNodeVersion}-win-x64.zip`;
 const nodeZipUrl = `https://nodejs.org/dist/v${portableNodeVersion}/${nodeFileName}`;
 const nodeZipPath = resolve(resourcesDir, nodeFileName);
+const nodeZipSha256 = 'c97fa376d2becdc8863fcd3ca2dd9a83a9f3468ee7ccf7a6d076ec66a645c77a';
 const storeTauriConfigPath = resolve(storeRoot, 'tauri.store.conf.json');
 const rootPackage = JSON.parse(readFileSync(resolve(repoRoot, 'package.json'), 'utf8'));
 const launcherPackage = JSON.parse(readFileSync(resolve(launcherDir, 'package.json'), 'utf8'));
@@ -285,6 +286,11 @@ async function main() {
   } else if (!existsSync(nodeZipPath)) {
     console.log(`Downloading ${nodeZipUrl}`);
     await download(nodeZipUrl, nodeZipPath);
+  }
+  const actualNodeZipSha256 = sha256(nodeZipPath);
+  if (actualNodeZipSha256 !== nodeZipSha256) {
+    rmSync(nodeZipPath, { force: true });
+    fail(`Portable Node.js SHA-256 mismatch: expected ${nodeZipSha256}, got ${actualNodeZipSha256}`);
   }
   copyFileSync(
     resolve(repoRoot, 'THIRD_PARTY_NOTICES.md'),

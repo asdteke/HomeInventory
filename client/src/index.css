@@ -6690,15 +6690,17 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
   align-items: center;
   gap: .55rem;
   padding: .35rem .38rem .35rem 1rem;
-  border: 1px solid var(--settings-border-v2);
+  border: 1px solid var(--hi-border);
   border-radius: 999px;
   background: var(--dashboard-control);
   transition: border-color .18s ease, box-shadow .18s ease;
 }
 
 .dashboard-search-form:focus-within {
-  border-color: color-mix(in srgb, var(--hi-accent) 64%, var(--settings-border-v2));
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--hi-accent) 15%, transparent);
+  border-color: color-mix(in srgb, var(--hi-text-soft) 62%, var(--hi-accent-border));
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--hi-accent) 16%, transparent),
+    0 10px 28px color-mix(in srgb, var(--hi-accent) 9%, transparent);
 }
 
 .dashboard-search-icon {
@@ -7310,6 +7312,17 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
   color: var(--hi-text-muted);
 }
 
+/* The field shell owns the focus treatment. Keep the native input visually
+   transparent so it cannot draw a second rectangular focus surface inside
+   the rounded search control. */
+.inventory-search-field input:focus,
+.inventory-search-field input:focus-visible {
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
 .inventory-tool-row {
   display: flex;
   min-width: 0;
@@ -7370,6 +7383,23 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
   text-overflow: ellipsis;
 }
 
+/* Native select arrows sit too close to pill corners and their placement
+   varies between browsers. Use one app-wide chevron with a deliberate inset
+   so every rounded dropdown keeps the same optical spacing. */
+:where(select:not([multiple]):not([size])) {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-inline-end: 3rem !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'%3E%3Cpath d='m4.5 6.75 4.5 4.5 4.5-4.5' stroke='%239AA39C' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 1.35rem center !important;
+  background-size: 1rem 1rem !important;
+}
+
+html[dir='rtl'] :where(select:not([multiple]):not([size])) {
+  background-position: left 1.35rem center !important;
+}
+
 .inventory-filter-select:focus {
   border-color: var(--hi-accent-border);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--hi-accent) 10%, transparent);
@@ -7383,6 +7413,17 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
   color: var(--hi-accent);
   font-size: .74rem;
   font-weight: 760;
+}
+
+/* Let framed workspace surfaces reach into the desktop content gutter while
+   keeping their controls aligned with the page copy. This prevents the left
+   border from reading as a stray vertical line trapped inside the layout. */
+@media (min-width: 768px) {
+  .inventory-controls {
+    --inventory-frame-bleed: clamp(1rem, 1.8vw, 1.5rem);
+    margin-inline: calc(var(--inventory-frame-bleed) * -1);
+    padding-inline: calc(.8rem + var(--inventory-frame-bleed));
+  }
 }
 
 .inventory-page .bulk-action-bar {
@@ -9000,6 +9041,94 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
   min-width: 0;
 }
 
+/* v2.7 visual corrections: keep list rules singular and let row actions rise
+   above adjacent rows while their tooltips are visible. */
+.category-manager-v25 .manager-list-v25 {
+  margin-top: -1.35rem;
+  border-top: 0;
+}
+
+.room-manager-v25 .manager-row-v25 {
+  position: relative;
+}
+
+.room-manager-v25 .manager-row-v25:hover,
+.room-manager-v25 .manager-row-v25:focus-within {
+  z-index: 2;
+}
+
+.shopping-completed-section-v25 {
+  padding-bottom: 1.35rem;
+}
+
+.shopping-completed-section-v25 > div:first-child {
+  min-height: 2.9rem;
+  padding-block: .25rem;
+}
+
+.shopping-completed-section-v25 > div:nth-child(2) {
+  margin-top: .65rem;
+}
+
+.shopping-section-heading-v27 {
+  border-color: var(--hi-border-strong) !important;
+}
+
+/* The dashboard search now uses the same continuous pill outline and soft
+   focus halo as the inventory search field. The input itself stays clear so
+   the browser cannot draw a second rectangle inside the shell. */
+.dashboard-search-form input:focus-visible {
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Invoice details now reads as a soft disclosure instead of a rectangular
+   hover target nested inside another differently shaped rectangle. */
+.item-invoice-accordion-v27 {
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.item-invoice-toggle-v27 {
+  border: 1px solid color-mix(in srgb, var(--hi-border-strong) 74%, transparent);
+  border-radius: 1.35rem !important;
+  background: color-mix(in srgb, var(--hi-panel-muted) 70%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 10%, transparent);
+  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease !important;
+}
+
+.item-invoice-toggle-v27:hover {
+  border-color: color-mix(in srgb, var(--hi-accent) 34%, var(--hi-border));
+  background: color-mix(in srgb, var(--hi-accent-soft) 42%, var(--hi-panel-muted));
+  transform: translateY(-1px);
+}
+
+.item-invoice-toggle-v27:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--hi-accent) 14%, transparent) !important;
+}
+
+.item-invoice-accordion-v27 > div:last-child {
+  margin-top: .65rem;
+  border: 1px solid var(--hi-border) !important;
+  border-radius: 1.35rem;
+}
+
+/* Native select arrows must remain wholly inside the rounded filter so a
+   clipped fourth edge cannot appear at the right of the filter grid. */
+.inventory-primary-filters,
+.inventory-detail-filters {
+  overflow: clip;
+}
+
+.inventory-filter-select {
+  background-clip: padding-box;
+}
+
 @media (max-width: 767px) {
   .app-tooltip-panel {
     display: none;
@@ -9327,4 +9456,656 @@ select.input-field:not([multiple]) {
 
 [dir='rtl'] select.input-field:not([multiple]) {
   background-position: left 1rem center !important;
+}
+
+/* v2.7 liquid-glass account menu: one luminous shell with softly layered
+   controls instead of a stack of hard, unrelated rectangles. */
+.sidebar-account-trigger-v27 {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-color: color-mix(in srgb, var(--hi-accent) 11%, var(--hi-border)) !important;
+  border-radius: 1.45rem !important;
+  background:
+    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--hi-accent) 7%, transparent), transparent 48%),
+    color-mix(in srgb, var(--hi-panel-strong) 74%, transparent) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 8%, transparent),
+    0 9px 22px color-mix(in srgb, var(--hi-shadow-color, #07110c) 8%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+  backdrop-filter: blur(18px) saturate(125%);
+}
+
+.sidebar-account-trigger-v27:hover {
+  border-color: color-mix(in srgb, var(--hi-accent) 28%, var(--hi-border-strong)) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 10%, transparent),
+    0 0 0 2px color-mix(in srgb, var(--hi-accent) 5%, transparent),
+    0 11px 26px color-mix(in srgb, var(--hi-shadow-color, #07110c) 10%, transparent);
+}
+
+.sidebar-account-trigger-v27:focus-visible {
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 8%, transparent),
+    0 0 0 2px color-mix(in srgb, var(--hi-accent) 18%, transparent),
+    0 10px 24px color-mix(in srgb, var(--hi-shadow-color, #07110c) 9%, transparent) !important;
+}
+
+.sidebar-account-avatar-v27 {
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 20%, transparent),
+    0 0 0 2px color-mix(in srgb, var(--hi-accent) 7%, transparent),
+    0 7px 16px color-mix(in srgb, var(--hi-accent) 10%, transparent) !important;
+}
+
+.sidebar-account-menu-v27 {
+  isolation: isolate;
+  overflow: visible;
+  padding: .65rem !important;
+  border-color: color-mix(in srgb, var(--hi-accent) 12%, var(--hi-border-strong)) !important;
+  border-radius: 2rem !important;
+  background:
+    radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--hi-accent) 8%, transparent), transparent 38%),
+    radial-gradient(circle at 92% 72%, color-mix(in srgb, var(--hi-secondary) 5%, transparent), transparent 44%),
+    linear-gradient(155deg, color-mix(in srgb, var(--hi-panel-strong) 88%, transparent), color-mix(in srgb, var(--hi-bg-elevated) 78%, transparent)) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 9%, transparent),
+    0 18px 44px color-mix(in srgb, var(--hi-shadow-color, #07110c) 22%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--hi-accent) 3%, transparent) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(135%) !important;
+  backdrop-filter: blur(24px) saturate(135%) !important;
+}
+
+.sidebar-account-menu-stack-v27 {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: .55rem;
+}
+
+.sidebar-account-overview-v27 {
+  min-height: 3.65rem;
+  padding: .7rem .8rem !important;
+  border-color: color-mix(in srgb, var(--hi-accent) 10%, var(--hi-border)) !important;
+  border-radius: 1.45rem !important;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--hi-accent-soft) 30%, transparent), color-mix(in srgb, var(--hi-panel-muted) 52%, transparent)) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 6%, transparent);
+}
+
+.sidebar-account-overview-v27:hover {
+  border-color: color-mix(in srgb, var(--hi-accent) 24%, var(--hi-border)) !important;
+  transform: translateY(-1px);
+}
+
+.sidebar-account-overview-icon-v27 {
+  background: color-mix(in srgb, var(--hi-accent-soft) 46%, transparent) !important;
+  color: var(--hi-accent) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 7%, transparent);
+}
+
+.sidebar-account-group-v27 {
+  position: relative;
+  padding: .8rem !important;
+  border-color: color-mix(in srgb, var(--hi-border-strong) 52%, transparent) !important;
+  border-radius: 1.55rem !important;
+  background:
+    radial-gradient(circle at 0% 0%, color-mix(in srgb, white 2%, transparent), transparent 40%),
+    color-mix(in srgb, var(--hi-panel) 50%, transparent) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 4%, transparent);
+}
+
+.sidebar-account-label-v27 {
+  color: var(--hi-text-muted) !important;
+  font-size: .68rem !important;
+  letter-spacing: .16em !important;
+}
+
+.sidebar-account-language-v27 {
+  border-color: color-mix(in srgb, var(--hi-accent) 11%, var(--hi-border)) !important;
+  border-radius: 999px !important;
+  background: color-mix(in srgb, var(--hi-panel-strong) 68%, transparent) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 5%, transparent);
+}
+
+.sidebar-account-language-v27:hover {
+  border-color: color-mix(in srgb, var(--hi-accent) 28%, var(--hi-border-strong)) !important;
+  background: color-mix(in srgb, var(--hi-accent-soft) 26%, var(--hi-panel-strong)) !important;
+}
+
+.sidebar-account-manage-v27 {
+  padding: .25rem .55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--hi-accent-soft) 32%, transparent);
+}
+
+.sidebar-account-theme-v27.segmented-toggle-v25.is-sliding {
+  border-color: color-mix(in srgb, var(--hi-accent) 20%, var(--hi-border)) !important;
+  background: color-mix(in srgb, var(--hi-bg-strong) 36%, transparent) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 4%, transparent);
+}
+
+.sidebar-account-theme-v27 .segmented-toggle-thumb-v25 {
+  border-color: color-mix(in srgb, var(--hi-accent) 48%, var(--hi-border)) !important;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--hi-accent) 64%, white), var(--hi-accent-strong)) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 14%, transparent),
+    0 7px 18px color-mix(in srgb, var(--hi-accent) 13%, transparent) !important;
+}
+
+.sidebar-account-theme-v27 .segmented-toggle-thumb-v25::after {
+  opacity: .38;
+}
+
+.sidebar-account-logout-v27 {
+  min-height: 3.25rem;
+  border-color: color-mix(in srgb, #f87171 22%, var(--hi-border)) !important;
+  border-radius: 1.4rem !important;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, #ef4444 8%, transparent), color-mix(in srgb, var(--hi-panel) 54%, transparent)) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 4%, transparent);
+}
+
+.sidebar-account-logout-v27:hover {
+  border-color: color-mix(in srgb, #f87171 42%, var(--hi-border)) !important;
+  background: color-mix(in srgb, #ef4444 12%, var(--hi-panel)) !important;
+  transform: translateY(-1px);
+}
+
+/* The desktop navigation shares the account menu's calmer liquid-glass
+   language in both expanded and compact modes. */
+.desktop-sidebar-v27 {
+  border-color: color-mix(in srgb, var(--hi-border-strong) 58%, transparent) !important;
+  background:
+    radial-gradient(circle at 18% 8%, color-mix(in srgb, var(--hi-accent) 5%, transparent), transparent 30%),
+    linear-gradient(180deg, color-mix(in srgb, var(--hi-bg-elevated) 95%, transparent), color-mix(in srgb, var(--hi-bg-strong) 96%, transparent)) !important;
+  box-shadow: inset -1px 0 0 color-mix(in srgb, white 3%, transparent);
+  -webkit-backdrop-filter: blur(24px) saturate(125%) !important;
+  backdrop-filter: blur(24px) saturate(125%) !important;
+}
+
+.sidebar-brand-row-v27 {
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar-brand-symbol-v27 {
+  width: 3.6rem !important;
+  height: 3.6rem !important;
+  border-color: color-mix(in srgb, var(--hi-border-strong) 66%, transparent) !important;
+  border-radius: 1.35rem !important;
+  background: color-mix(in srgb, var(--hi-panel) 62%, transparent) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 6%, transparent) !important;
+}
+
+.sidebar-resize-control-v27 {
+  width: 2.55rem;
+  height: 2.55rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  border-color: color-mix(in srgb, var(--hi-border-strong) 58%, transparent) !important;
+  background: color-mix(in srgb, var(--hi-panel) 48%, transparent) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 5%, transparent);
+}
+
+.sidebar-resize-control-v27:hover {
+  border-color: color-mix(in srgb, var(--hi-accent) 24%, var(--hi-border)) !important;
+  background: color-mix(in srgb, var(--hi-accent-soft) 24%, var(--hi-panel)) !important;
+}
+
+.sidebar-expand-control-v27 {
+  width: 2.8rem !important;
+  height: 2.8rem !important;
+  border-radius: 1.1rem !important;
+}
+
+.desktop-sidebar-nav-v27 {
+  scrollbar-color: color-mix(in srgb, var(--hi-border-strong) 48%, transparent) transparent;
+}
+
+.shell-link-v27.is-expanded {
+  position: relative;
+  min-height: 3.55rem !important;
+  padding: .5rem .7rem !important;
+  border-color: transparent !important;
+  border-radius: 1.3rem !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--hi-text-soft) !important;
+}
+
+.shell-link-v27.is-expanded:hover {
+  border-color: color-mix(in srgb, var(--hi-border-strong) 56%, transparent) !important;
+  background: color-mix(in srgb, var(--hi-panel) 48%, transparent) !important;
+  color: var(--hi-text) !important;
+  transform: translateX(2px);
+}
+
+.shell-link-v27.is-expanded.is-active {
+  border-color: color-mix(in srgb, var(--hi-accent) 18%, var(--hi-border)) !important;
+  background:
+    linear-gradient(105deg, color-mix(in srgb, var(--hi-accent-soft) 60%, transparent), color-mix(in srgb, var(--hi-panel) 44%, transparent)) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 6%, transparent),
+    0 8px 20px color-mix(in srgb, var(--hi-shadow-color, #07110c) 6%, transparent) !important;
+  color: var(--hi-text) !important;
+}
+
+.shell-link-v27.is-expanded.is-active::before {
+  position: absolute;
+  top: 1rem;
+  bottom: 1rem;
+  left: -.08rem;
+  width: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--hi-accent) 72%, white);
+  content: '';
+}
+
+.shell-link-icon-v27 {
+  width: 2.6rem !important;
+  height: 2.6rem !important;
+  border: 1px solid color-mix(in srgb, var(--hi-border) 62%, transparent);
+  border-radius: 1rem !important;
+  background: color-mix(in srgb, var(--hi-panel-muted) 48%, transparent) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 4%, transparent);
+}
+
+.shell-link-v27.is-expanded.is-active .shell-link-icon-v27 {
+  border-color: color-mix(in srgb, var(--hi-accent) 18%, var(--hi-border)) !important;
+  background: color-mix(in srgb, var(--hi-accent-soft) 54%, transparent) !important;
+  color: var(--hi-accent) !important;
+}
+
+.shell-link-v27.is-admin {
+  border-color: color-mix(in srgb, var(--hi-secondary) 12%, transparent) !important;
+  background: color-mix(in srgb, var(--hi-secondary-soft) 24%, transparent) !important;
+}
+
+.shell-link-v27.is-admin .shell-link-icon-v27 {
+  border-color: color-mix(in srgb, var(--hi-secondary) 15%, var(--hi-border)) !important;
+  background: color-mix(in srgb, var(--hi-secondary-soft) 42%, transparent) !important;
+  color: var(--hi-secondary-strong) !important;
+}
+
+.desktop-sidebar-v27.is-compact .desktop-sidebar-nav-v27 {
+  gap: .35rem !important;
+}
+
+.shell-link-v27.is-compact {
+  width: 3.55rem !important;
+  height: 3.55rem !important;
+  min-height: 3.55rem !important;
+  border-color: transparent !important;
+  border-radius: 1.3rem !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.shell-link-v27.is-compact .shell-link-icon-v27 {
+  width: 100% !important;
+  height: 100% !important;
+  border-color: color-mix(in srgb, var(--hi-border-strong) 48%, transparent) !important;
+  border-radius: inherit !important;
+  background: color-mix(in srgb, var(--hi-panel) 42%, transparent) !important;
+}
+
+.shell-link-v27.is-compact:hover .shell-link-icon-v27 {
+  border-color: color-mix(in srgb, var(--hi-accent) 20%, var(--hi-border)) !important;
+  background: color-mix(in srgb, var(--hi-accent-soft) 24%, var(--hi-panel)) !important;
+  transform: translateY(-1px);
+}
+
+.shell-link-v27.is-compact.is-active .shell-link-icon-v27 {
+  border-color: color-mix(in srgb, var(--hi-accent) 20%, var(--hi-border)) !important;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--hi-accent-soft) 58%, transparent), color-mix(in srgb, var(--hi-panel) 46%, transparent)) !important;
+  color: var(--hi-accent) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 6%, transparent),
+    0 7px 18px color-mix(in srgb, var(--hi-accent) 7%, transparent) !important;
+}
+
+.sidebar-compact-account-v27 {
+  width: 3.6rem !important;
+  height: 3.6rem !important;
+  border-color: color-mix(in srgb, var(--hi-border-strong) 54%, transparent) !important;
+  border-radius: 1.35rem !important;
+  background: color-mix(in srgb, var(--hi-panel) 46%, transparent) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 5%, transparent) !important;
+}
+
+.sidebar-compact-account-v27 > span {
+  width: 2.75rem !important;
+  height: 2.75rem !important;
+}
+
+/* Dark mode stays architectural and neutral. Accent color is reserved for
+   state and icons instead of outlining every glass surface. */
+html.dark .desktop-sidebar-v27 {
+  border-color: rgba(255, 255, 255, .075) !important;
+  background:
+    linear-gradient(180deg, rgba(27, 32, 29, .985), rgba(22, 27, 24, .99)) !important;
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, .018);
+  -webkit-backdrop-filter: blur(20px) saturate(108%) !important;
+  backdrop-filter: blur(20px) saturate(108%) !important;
+}
+
+html.dark .sidebar-account-trigger-v27 {
+  border-color: rgba(255, 255, 255, .105) !important;
+  background: rgba(255, 255, 255, .028) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .035), 0 8px 20px rgba(0, 0, 0, .12) !important;
+}
+
+html.dark .sidebar-account-trigger-v27:hover,
+html.dark .sidebar-account-trigger-v27:focus-visible {
+  border-color: rgba(255, 255, 255, .16) !important;
+  background: rgba(255, 255, 255, .042) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .045), 0 9px 22px rgba(0, 0, 0, .14) !important;
+}
+
+html.dark .sidebar-account-avatar-v27 {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), 0 6px 14px rgba(0, 0, 0, .16) !important;
+}
+
+html.dark .sidebar-account-menu-v27 {
+  border-color: rgba(255, 255, 255, .09) !important;
+  background:
+    linear-gradient(155deg, rgba(35, 41, 37, .965), rgba(25, 30, 27, .975)) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .045), 0 18px 42px rgba(0, 0, 0, .3) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(112%) !important;
+  backdrop-filter: blur(22px) saturate(112%) !important;
+}
+
+html.dark .sidebar-account-overview-v27,
+html.dark .sidebar-account-group-v27 {
+  border-color: rgba(255, 255, 255, .075) !important;
+  background: rgba(255, 255, 255, .022) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .025) !important;
+}
+
+html.dark .sidebar-account-overview-v27:hover {
+  border-color: rgba(255, 255, 255, .13) !important;
+  background: rgba(255, 255, 255, .035) !important;
+}
+
+html.dark .sidebar-account-overview-icon-v27,
+html.dark .shell-link-v27.is-expanded.is-active .shell-link-icon-v27 {
+  border-color: rgba(255, 255, 255, .07) !important;
+  background: rgba(255, 255, 255, .038) !important;
+  box-shadow: none !important;
+}
+
+html.dark .sidebar-account-language-v27,
+html.dark .sidebar-account-theme-v27.segmented-toggle-v25.is-sliding {
+  border-color: rgba(255, 255, 255, .085) !important;
+  background: rgba(0, 0, 0, .12) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .025) !important;
+}
+
+html.dark .sidebar-account-theme-v27 .segmented-toggle-thumb-v25 {
+  border-color: rgba(255, 255, 255, .11) !important;
+  background: linear-gradient(145deg, rgba(93, 132, 112, .78), rgba(62, 96, 78, .84)) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 6px 14px rgba(0, 0, 0, .16) !important;
+}
+
+html.dark .sidebar-account-manage-v27 {
+  background: rgba(255, 255, 255, .035);
+}
+
+html.dark .shell-link-v27.is-expanded:hover {
+  border-color: rgba(255, 255, 255, .07) !important;
+  background: rgba(255, 255, 255, .025) !important;
+}
+
+html.dark .shell-link-v27.is-expanded.is-active {
+  border-color: rgba(255, 255, 255, .09) !important;
+  background: rgba(255, 255, 255, .035) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .025) !important;
+}
+
+html.dark .shell-link-v27.is-expanded.is-active::before {
+  background: color-mix(in srgb, var(--hi-accent) 48%, #b6beb9);
+}
+
+html.dark .shell-link-icon-v27,
+html.dark .shell-link-v27.is-compact .shell-link-icon-v27,
+html.dark .sidebar-brand-symbol-v27,
+html.dark .sidebar-resize-control-v27,
+html.dark .sidebar-compact-account-v27 {
+  border-color: rgba(255, 255, 255, .07) !important;
+  background: rgba(255, 255, 255, .025) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .022) !important;
+}
+
+html.dark .shell-link-v27.is-compact:hover .shell-link-icon-v27,
+html.dark .shell-link-v27.is-compact.is-active .shell-link-icon-v27 {
+  border-color: rgba(255, 255, 255, .105) !important;
+  background: rgba(255, 255, 255, .045) !important;
+  box-shadow: none !important;
+}
+
+html.dark .shell-link-v27.is-admin,
+html.dark .shell-link-v27.is-admin .shell-link-icon-v27 {
+  border-color: rgba(184, 153, 104, .11) !important;
+  background: rgba(184, 153, 104, .045) !important;
+}
+
+/* Final sidebar pass: intentionally simple. One shell, one account surface,
+   thin separators, and a single active-state cue. */
+.desktop-sidebar-v27,
+html.dark .desktop-sidebar-v27 {
+  border-color: var(--hi-border) !important;
+  background: var(--hi-bg-elevated) !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.sidebar-account-trigger-v27,
+html.dark .sidebar-account-trigger-v27 {
+  border-color: var(--hi-border) !important;
+  background: var(--hi-panel) !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.sidebar-account-trigger-v27:hover,
+.sidebar-account-trigger-v27:focus-visible,
+html.dark .sidebar-account-trigger-v27:hover,
+html.dark .sidebar-account-trigger-v27:focus-visible {
+  border-color: var(--hi-border-strong) !important;
+  background: var(--hi-panel-muted) !important;
+  box-shadow: none !important;
+}
+
+.sidebar-account-avatar-v27,
+html.dark .sidebar-account-avatar-v27 {
+  box-shadow: none !important;
+}
+
+.sidebar-account-menu-v27,
+html.dark .sidebar-account-menu-v27 {
+  padding: .6rem !important;
+  border-color: var(--hi-border-strong) !important;
+  border-radius: 1.45rem !important;
+  background: color-mix(in srgb, var(--hi-bg-elevated) 96%, transparent) !important;
+  box-shadow: 0 16px 36px color-mix(in srgb, var(--hi-shadow-color, #07110c) 18%, transparent) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+.sidebar-account-menu-stack-v27 {
+  gap: 0 !important;
+}
+
+.sidebar-account-overview-v27,
+html.dark .sidebar-account-overview-v27 {
+  min-height: 3.2rem;
+  padding: .55rem .65rem !important;
+  border: 0 !important;
+  border-radius: 1rem !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.sidebar-account-overview-v27:hover,
+html.dark .sidebar-account-overview-v27:hover {
+  background: var(--hi-panel-muted) !important;
+  transform: none;
+}
+
+.sidebar-account-overview-icon-v27,
+html.dark .sidebar-account-overview-icon-v27 {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--hi-text-muted) !important;
+}
+
+.sidebar-account-group-v27,
+html.dark .sidebar-account-group-v27 {
+  padding: .75rem .65rem !important;
+  border: 0 !important;
+  border-top: 1px solid var(--hi-border) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.sidebar-account-label-v27 {
+  margin-bottom: .55rem !important;
+  font-size: .64rem !important;
+  letter-spacing: .13em !important;
+}
+
+.sidebar-account-language-v27,
+html.dark .sidebar-account-language-v27 {
+  height: 2.65rem !important;
+  border-color: var(--hi-border) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.sidebar-account-manage-v27,
+html.dark .sidebar-account-manage-v27 {
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.sidebar-account-theme-v27.segmented-toggle-v25,
+html.dark .sidebar-account-theme-v27.segmented-toggle-v25 {
+  padding: .25rem !important;
+  border-color: var(--hi-border) !important;
+  border-radius: 1rem !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.sidebar-account-theme-v27 .segmented-toggle-option-v25 {
+  min-height: 2.55rem !important;
+  border-radius: .75rem !important;
+  box-shadow: none !important;
+}
+
+.sidebar-account-theme-v27 .segmented-toggle-option-v25.is-active {
+  background: var(--hi-panel-muted) !important;
+  color: var(--hi-text) !important;
+  box-shadow: none !important;
+}
+
+.sidebar-account-logout-v27,
+html.dark .sidebar-account-logout-v27 {
+  min-height: 3rem;
+  padding: .65rem !important;
+  border: 0 !important;
+  border-top: 1px solid var(--hi-border) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.sidebar-account-logout-v27:hover,
+html.dark .sidebar-account-logout-v27:hover {
+  background: color-mix(in srgb, #ef4444 6%, transparent) !important;
+  transform: none;
+}
+
+.sidebar-brand-symbol-v27,
+.sidebar-resize-control-v27,
+.sidebar-compact-account-v27,
+html.dark .sidebar-brand-symbol-v27,
+html.dark .sidebar-resize-control-v27,
+html.dark .sidebar-compact-account-v27 {
+  border-color: var(--hi-border) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.shell-link-v27.is-expanded,
+.shell-link-v27.is-expanded:hover,
+html.dark .shell-link-v27.is-expanded,
+html.dark .shell-link-v27.is-expanded:hover {
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none;
+}
+
+.shell-link-v27.is-expanded.is-active,
+html.dark .shell-link-v27.is-expanded.is-active {
+  border-color: transparent !important;
+  background: var(--hi-panel-muted) !important;
+  box-shadow: none !important;
+}
+
+.shell-link-v27.is-expanded.is-active::before {
+  display: none;
+}
+
+.shell-link-icon-v27,
+.shell-link-v27.is-expanded.is-active .shell-link-icon-v27,
+html.dark .shell-link-icon-v27,
+html.dark .shell-link-v27.is-expanded.is-active .shell-link-icon-v27 {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.shell-link-v27.is-expanded.is-active .shell-link-icon-v27 {
+  color: var(--hi-accent) !important;
+}
+
+.shell-link-v27.is-admin,
+html.dark .shell-link-v27.is-admin {
+  border-color: transparent !important;
+  background: transparent !important;
+}
+
+.shell-link-v27.is-admin .shell-link-icon-v27,
+html.dark .shell-link-v27.is-admin .shell-link-icon-v27 {
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--hi-secondary-strong) !important;
+}
+
+.shell-link-v27.is-compact .shell-link-icon-v27,
+html.dark .shell-link-v27.is-compact .shell-link-icon-v27 {
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.shell-link-v27.is-compact:hover .shell-link-icon-v27,
+.shell-link-v27.is-compact.is-active .shell-link-icon-v27,
+html.dark .shell-link-v27.is-compact:hover .shell-link-icon-v27,
+html.dark .shell-link-v27.is-compact.is-active .shell-link-icon-v27 {
+  border-color: transparent !important;
+  background: var(--hi-panel-muted) !important;
+  box-shadow: none !important;
+  transform: none;
 }

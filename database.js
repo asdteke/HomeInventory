@@ -352,6 +352,16 @@ try {
   emitDatabaseLog('[Database] login_locked_until column added to users table');
 } catch (e) { /* Column exists */ }
 
+// v2.7 replaces the legacy one-hour login lock with a short progressive delay.
+// Cap any still-active legacy value so upgrading cannot leave an account hard-locked.
+try {
+  db.prepare(`
+    UPDATE users
+    SET login_locked_until = DATETIME('now', '+60 seconds')
+    WHERE login_locked_until > DATETIME('now', '+60 seconds')
+  `).run();
+} catch (e) { /* Users table is initialized above */ }
+
 try {
   db.exec(`ALTER TABLE users ADD COLUMN last_login DATETIME`);
   emitDatabaseLog('[Database] last_login column added to users table');
