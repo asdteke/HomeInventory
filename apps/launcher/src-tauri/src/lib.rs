@@ -4356,6 +4356,11 @@ async fn run_update_flow(
     fs::rename(&staging_dir, &target_version_dir)
         .map_err(|e| format!("Atomic switch failed: {e}"))?;
 
+    // Dependency installation must run under the pinned portable Node.js
+    // runtime. A newer system Node may lack prebuilt native modules
+    // (e.g. better-sqlite3) and fails the update with a bare npm status.
+    ensure_portable_node(app, state).await?;
+
     emit_progress(
         app,
         "Installing",
