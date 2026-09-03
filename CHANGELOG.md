@@ -2,6 +2,20 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.7.2 - Launcher Update-Flow Portable Node Fix
+
+### Highlights
+
+- **Hermetic update installs:** The launcher now ensures the pinned portable Node.js `22.22.0` runtime before running managed-app `npm ci`, instead of using whatever system Node happens to be installed.
+- **Update failure fix:** Resolves managed-app updates stalling at dependency installation on machines with a newer system Node (for example v26), where `better-sqlite3` has no prebuilt binary and the source build fails.
+- **Synchronized patch version:** Kept the server, client, managed app, desktop launcher, Tauri, Rust, and lockfile metadata aligned at `2.7.2`.
+
+### Upgrade notes
+
+- No database migration or application configuration change is required.
+- Update the launcher first; the managed-app update then proceeds automatically.
+- Back up the SQLite database and uploads before upgrading a self-hosted installation.
+
 ## v2.7.1 - Dependency Security Patch
 
 ### Highlights
