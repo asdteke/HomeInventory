@@ -12,7 +12,7 @@ on:
           - "false"
           - "true"
       release_tag:
-        description: "Release tag to use when publish_release is true, for example v2.7.0"
+        description: "Release tag to use when publish_release is true, for example v2.7.1"
         required: false
         default: ""
   push:
@@ -483,11 +483,9 @@ jobs:
           tag_name: ${{ needs.managed-app.outputs.release_tag }}
           name: HomeInventory ${{ needs.managed-app.outputs.release_tag }}
           body: |
-            ## HomeInventory v2.7.0
+            ## HomeInventory v2.7.1
 
-            This feature release adds optional domain-free LAN HTTPS for mobile camera access, platform-specific certificate enrollment, larger QR codes, five launcher languages, random-port selection, practical password rules, offline weak-password blocking, progressive account throttling, and the v2.7 interface and Personal Vault polish.
-
-            Android Chrome camera access was verified on a physical device. iOS enrollment guidance and simulator behavior were reviewed, but physical-device Safari validation remains a documented limitation for this release.
+            This patch release resolves two new moderate-severity qs advisories in the Express request-parser chain, two high-severity Browserslist advisories, and one low-severity postcss-selector-parser advisory. It contains no database migration or application feature change.
 
             ## Recommended downloads
 

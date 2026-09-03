@@ -2,6 +2,22 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.7.1 - Dependency Security Patch
+
+### Highlights
+
+- **Request parser security fixes:** Pinned `qs 6.16.0` across the Express/body-parser dependency chain, resolving GHSA-x5fp-wj9c-mxmx and GHSA-4mjr-xmp4-gh2g. The fixes prevent array-limit bypass and attacker-controlled `isBuffer` denial-of-service paths.
+- **Browserslist security fixes:** Upgraded the client lockfile from `browserslist 4.28.1` to `4.28.8`, resolving GHSA-c83g-rgw3-j3cx and GHSA-73wf-gq98-2v4g. The fixes prevent unbounded cache growth and unsafe handling of untrusted custom statistics that could crash build or long-running tooling.
+- **Selector parser security fix:** Upgraded `postcss-selector-parser` from `6.1.2` to `6.1.4`, resolving GHSA-w9m9-85wc-3x92 and its uncontrolled AST recursion denial-of-service path.
+- **Regression coverage:** Dependency security tests now reject future lockfiles that resolve `qs` below `6.16.0`, `browserslist` below `4.28.7`, or `postcss-selector-parser` below `6.1.3`.
+- **Synchronized patch version:** Kept the server, client, managed app, desktop launcher, Tauri, Rust, and lockfile metadata aligned at `2.7.1`.
+
+### Upgrade notes
+
+- No database migration or application configuration change is required.
+- Rebuild the client or pull the new image so the patched frontend toolchain dependencies replace the older lockfile resolutions.
+- Back up the SQLite database and uploads before upgrading a self-hosted installation.
+
 ## v2.7.0 - Offline Mobile HTTPS, Launcher Localization, and Security Polish
 
 ### Highlights
