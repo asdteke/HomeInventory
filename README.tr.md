@@ -211,11 +211,15 @@ npm start
 
 ### Seçenek C: Docker Kurulumu
 
-HomeInventory'yi önceden yapılandırılmış konteynerler ile hızlıca dağıtın:
+HomeInventory'yi önceden derlenmiş imaj ile dağıtın; kaynak kodu indirmenize veya yerel derleme yapmanıza gerek yoktur:
 
 ```bash
+curl -O https://raw.githubusercontent.com/schms27/HomeInventory/main/docker-compose.yml
 docker compose up -d
 ```
+
+Compose, `main` dalına yapılan her push'ta otomatik olarak yayınlanan `ghcr.io/schms27/homeinventory:latest` imajını çeker.
+
 Gelişmiş yapılandırma, reverse proxy kurulumu ve canlı ortam dağıtımları için [DOCKER.md](DOCKER.md) dosyasına bakın.
 
 ## Dokümantasyon

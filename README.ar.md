@@ -239,15 +239,18 @@ npm start
 
 ### الخيار C: إعداد Docker
 
-انشر HomeInventory بسرعة باستخدام حاويات معدة مسبقاً:
+انشر HomeInventory من الصورة الجاهزة، دون الحاجة إلى نسخ الكود المصدري أو البناء محلياً:
 
 <div dir="ltr">
 
 ```bash
+curl -O https://raw.githubusercontent.com/schms27/HomeInventory/main/docker-compose.yml
 docker compose up -d
 ```
 
 </div>
+
+يسحب Compose الصورة `ghcr.io/schms27/homeinventory:latest` التي تُنشر تلقائياً مع كل دفعة إلى `main`.
 
 للتكوين المتقدم، reverse proxy، ونشر الإنتاج، راجع [DOCKER.md](DOCKER.md).
 

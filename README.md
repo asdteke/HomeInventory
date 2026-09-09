@@ -211,11 +211,15 @@ npm start
 
 ### Option C: Docker Setup
 
-Deploy HomeInventory quickly using pre-configured containers:
+Deploy HomeInventory from the pre-built image — no source checkout and no local build required:
 
 ```bash
+curl -O https://raw.githubusercontent.com/schms27/HomeInventory/main/docker-compose.yml
 docker compose up -d
 ```
+
+Compose pulls `ghcr.io/schms27/homeinventory:latest`, which is published automatically on every push to `main`.
+
 For advanced configuration, reverse proxy setup, and production deployment, see [DOCKER.md](DOCKER.md).
 
 ## Documentation

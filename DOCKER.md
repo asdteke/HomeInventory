@@ -2,22 +2,28 @@
 
 Deploy HomeInventory using Docker for easy self-hosting.
 
-This guide targets the public v2.7.0 release line and later patch releases. Docker upgrades should rebuild the image rather than only restarting an old container.
+This guide targets the public v2.7.0 release line and later patch releases. Docker upgrades should pull the latest image rather than only restarting an old container.
+
+A pre-built image is published to `ghcr.io/schms27/homeinventory` by [`.github/workflows/docker-image.yml`](.github/workflows/docker-image.yml) on every push to `main`, so running HomeInventory needs neither the source code nor a local build.
+
+| Tag | Meaning |
+|-----|---------|
+| `latest` | Newest build from `main` |
+| `sha-<short-sha>` | Immutable build of one specific commit, useful for pinning and rollback |
 
 ## Quick Start
 
-### 1. Clone the Repository
+### 1. Get the Compose File
 
 ```bash
-git clone https://github.com/asdteke/HomeInventory.git
-cd HomeInventory
+mkdir -p homeinventory && cd homeinventory
+curl -O https://raw.githubusercontent.com/schms27/HomeInventory/main/docker-compose.yml
+curl -o .env https://raw.githubusercontent.com/schms27/HomeInventory/main/.env.example
 ```
 
-### 2. Create Environment File
+If you plan to modify the application, clone the repository instead — the Compose file behaves identically either way.
 
-```bash
-cp .env.example .env
-```
+### 2. Configure Environment File
 
 Edit `.env` for non-secret settings:
 
@@ -66,7 +72,15 @@ If you want to keep the secret files elsewhere on the host, set `HOMEINVENTORY_S
 docker compose up -d
 ```
 
+Compose pulls `ghcr.io/schms27/homeinventory:latest` on first run; no image is built locally.
+
 The app will be available at `http://localhost:3001`
+
+To pin a specific build instead of tracking `latest`, set `HOMEINVENTORY_IMAGE` before starting the stack:
+
+```bash
+HOMEINVENTORY_IMAGE=ghcr.io/schms27/homeinventory:sha-1a2b3c4 docker compose up -d
+```
 
 ### 5. Verify
 
@@ -138,7 +152,7 @@ docker cp "$CONTAINER_ID":/app/uploads ./uploads-backup-$(date +%Y%m%d)
 ```bash
 # Stop and recreate the service container without starting it
 docker compose down
-docker compose build
+docker compose pull
 docker compose create
 CONTAINER_ID=$(docker compose ps -q homeinventory)
 
@@ -199,12 +213,17 @@ ingress:
 ## Updating
 
 ```bash
-# Pull latest code
-git pull
-
-# Rebuild and restart
-docker compose build --no-cache
+# Fetch the newest published image and restart
+docker compose pull
 docker compose up -d
+```
+
+Compose recreates the container only when the pulled image actually changed, so this pair of commands is safe to run on a schedule.
+
+To roll back, pin the previous commit's tag:
+
+```bash
+HOMEINVENTORY_IMAGE=ghcr.io/schms27/homeinventory:sha-1a2b3c4 docker compose up -d
 ```
 
 ## Troubleshooting
@@ -244,11 +263,11 @@ For Unraid users:
 
 1. SSH into Unraid or use the terminal in the WebUI
 2. Choose a location for the app (e.g., your appdata share)
-3. Clone the repo:
+3. Download the Compose file:
    ```bash
    mkdir -p /your/chosen/path/homeinventory
    cd /your/chosen/path/homeinventory
-   git clone https://github.com/asdteke/HomeInventory.git .
+   curl -O https://raw.githubusercontent.com/schms27/HomeInventory/main/docker-compose.yml
    ```
 4. Create `.env` file with secrets (see Configuration above)
 5. If using bind mounts instead of Docker volumes, edit `docker-compose.yml`:
@@ -259,13 +278,9 @@ For Unraid users:
    ```
 6. Run: `docker compose up -d`
 
-## Building Locally
+## Running Without Compose
 
 ```bash
-# Build image
-docker build -t homeinventory:local .
-
-# Run without compose
 docker run -d \
   --name homeinventory \
   -p 3001:3001 \
@@ -274,5 +289,18 @@ docker run -d \
   -e APP_ENCRYPTION_KEY_ID=2026-local \
   -v homeinventory_data:/app/data \
   -v homeinventory_uploads:/app/uploads \
-  homeinventory:local
+  ghcr.io/schms27/homeinventory:latest
+```
+
+## Building From Source (Optional)
+
+Only needed when developing changes to the application itself — normal deployments use the published image.
+
+```bash
+git clone https://github.com/schms27/HomeInventory.git
+cd HomeInventory
+docker build -t homeinventory:local .
+
+# Run your local build through the same Compose file
+HOMEINVENTORY_IMAGE=homeinventory:local docker compose up -d
 ```

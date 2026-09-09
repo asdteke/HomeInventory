@@ -1,8 +1,8 @@
 services:
   homeinventory:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    # Pre-built image published by .github/workflows/docker-image.yml on every push to main.
+    # Pin a specific build by setting HOMEINVENTORY_IMAGE, e.g. ghcr.io/schms27/homeinventory:sha-1a2b3c4
+    image: ${HOMEINVENTORY_IMAGE:-ghcr.io/schms27/homeinventory:latest}
     restart: unless-stopped
     env_file:
       - .env
