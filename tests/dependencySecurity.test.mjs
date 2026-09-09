@@ -50,7 +50,7 @@ test('security-sensitive dependencies stay above patched versions', () => {
     const reactRouterVersion = clientLockfile.packages?.['node_modules/react-router']?.version;
     const reactRouterDomVersion = clientLockfile.packages?.['node_modules/react-router-dom']?.version;
 
-    assert.ok(isAtLeast(multerVersion, '2.2.0'), `multer ${multerVersion} is below patched 2.2.0`);
+    assert.ok(isAtLeast(multerVersion, '2.3.0'), `multer ${multerVersion} is below patched 2.3.0`);
     assert.ok(isAtLeast(undiciVersion, '7.28.0'), `undici ${undiciVersion} is below patched 7.28.0`);
     assert.ok(isAtLeast(bodyParserVersion, '1.20.6'), `body-parser ${bodyParserVersion} is below patched 1.20.6`);
     assert.ok(isAtLeast(shellQuoteVersion, '1.10.0'), `shell-quote ${shellQuoteVersion} is below patched 1.10.0`);
@@ -65,7 +65,7 @@ test('security-sensitive dependencies stay above patched versions', () => {
         isAtLeast(i18nextHttpMiddlewareVersion, '3.9.7'),
         `i18next-http-middleware ${i18nextHttpMiddlewareVersion} is below patched 3.9.7`
     );
-    assert.ok(isAtLeast(sharpVersion, '0.35.3'), `sharp ${sharpVersion} is below patched 0.35.3`);
+    assert.ok(isAtLeast(sharpVersion, '0.35.4'), `sharp ${sharpVersion} is below patched 0.35.4`);
     assert.ok(isAtLeast(clientPostcssVersion, '8.5.18'), `client postcss ${clientPostcssVersion} is below patched 8.5.18`);
     assert.ok(
         isAtLeast(clientBrowserslistVersion, '4.28.7'),
