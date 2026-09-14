@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 const lockfile = JSON.parse(readFileSync(new URL('../package-lock.json', import.meta.url), 'utf8'));
+const packageManifest = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
 const clientLockfile = JSON.parse(readFileSync(new URL('../client/package-lock.json', import.meta.url), 'utf8'));
 const launcherLockfile = JSON.parse(readFileSync(new URL('../apps/launcher/package-lock.json', import.meta.url), 'utf8'));
 const launcherRust = readFileSync(new URL('../apps/launcher/src-tauri/src/lib.rs', import.meta.url), 'utf8');
@@ -79,6 +80,11 @@ test('security-sensitive dependencies stay above patched versions', () => {
     assert.ok(isAtLeast(reactRouterVersion, '8.3.0'), `react-router ${reactRouterVersion} is below patched 8.3.0`);
     assert.equal(reactRouterDomVersion, undefined, 'react-router-dom should not reintroduce the vulnerable React Router 7 line');
     assert.equal(i18nextFsBackendVersion, undefined, 'i18next-fs-backend should not be reintroduced');
+});
+
+test('direct image and multipart dependencies stay pinned to audited releases', () => {
+    assert.equal(packageManifest.dependencies?.multer, '2.3.0');
+    assert.equal(packageManifest.dependencies?.sharp, '0.35.4');
 });
 
 test('portable Node.js archives are pinned to official SHA-256 values before extraction', () => {

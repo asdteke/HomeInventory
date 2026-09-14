@@ -12,7 +12,7 @@ on:
           - "false"
           - "true"
       release_tag:
-        description: "Release tag to use when publish_release is true, for example v2.7.2"
+        description: "Release tag to use when publish_release is true, for example v2.7.3"
         required: false
         default: ""
   push:
@@ -483,9 +483,9 @@ jobs:
           tag_name: ${{ needs.managed-app.outputs.release_tag }}
           name: HomeInventory ${{ needs.managed-app.outputs.release_tag }}
           body: |
-            ## HomeInventory v2.7.2
+            ## HomeInventory v2.7.3
 
-            This security patch release resolves the high-severity Multer file descriptor leak vulnerability (CVE-2026-77078 / GHSA-wc9g-mqfw-jrwm) by upgrading multer to 2.3.0, and resolves high-severity libheif vulnerabilities in sharp (GHSA-rgj7-g3m4-5g8c) by upgrading sharp to 0.35.4. It also keeps all managed app, desktop launcher, and client fallback versions synchronized at v2.7.2. It contains no database migration or application feature change.
+            This security patch release closes all four open Dependabot findings by pinning Multer 2.3.0 (GHSA-535w-7cp7-47q4, GHSA-wc9g-mqfw-jrwm, and GHSA-qvfw-j98x-7q72) and Sharp 0.35.4 (GHSA-rgj7-g3m4-5g8c). It also keeps all managed app, desktop launcher, and client fallback versions synchronized at v2.7.3. It contains no database migration or application feature change.
 
             ## Recommended downloads
 

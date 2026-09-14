@@ -2,6 +2,20 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.7.3 - Dependency Security Patch
+
+### Highlights
+
+- **Multer security fixes:** Pinned `multer` to `2.3.0`, closing GHSA-535w-7cp7-47q4 / CVE-2026-82333 (oversized array-index denial of service), GHSA-wc9g-mqfw-jrwm / CVE-2026-77078 (crafted field-name denial of service), and GHSA-qvfw-j98x-7q72 / CVE-2026-77063 (asynchronous file-filter size-limit bypass).
+- **Sharp security fix:** Pinned `sharp` to `0.35.4`, closing GHSA-rgj7-g3m4-5g8c and its bundled libheif findings.
+- **Regression coverage:** Dependency security tests now require the audited direct dependency pins as well as safe resolved lockfile versions.
+- **Synchronized patch version:** Kept the server, client, managed app, desktop launcher, Tauri, Rust, lockfiles, and client fallbacks aligned at `2.7.3`.
+
+### Upgrade notes
+
+- No database migration or application configuration change is required.
+- Back up the SQLite database and uploads before upgrading a self-hosted installation.
+
 ## v2.7.2 - Dependency Security Patch
 
 ### Highlights
