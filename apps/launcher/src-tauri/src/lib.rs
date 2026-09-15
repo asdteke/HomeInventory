@@ -5106,13 +5106,14 @@ mod updater_tests {
     }
 
     #[test]
-    fn test_random_port_suggestions_are_distinct_and_available() {
+    fn test_random_port_suggestions_are_distinct_and_valid() {
         let suggested = suggest_random_ports_internal().unwrap();
         assert_ne!(suggested.backend_port, suggested.frontend_port);
         assert!((1024..=65535).contains(&suggested.backend_port));
         assert!((1024..=65535).contains(&suggested.frontend_port));
-        assert!(is_port_available(suggested.backend_port));
-        assert!(is_port_available(suggested.frontend_port));
+        // The listeners used to choose both ports are intentionally released
+        // before this function returns. Rebinding here would race every other
+        // process on the runner and does not test a guarantee made to callers.
     }
 
     #[test]
