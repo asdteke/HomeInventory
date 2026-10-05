@@ -52,6 +52,16 @@ On the first run the launcher shows **Install HomeInventory**. It installs the H
 - User data, profile data, and launcher configuration stay in the same launcher application-data locations as before.
 - Every server process started by the launcher gets `UPDATE_CHECK=false`, so the app's own GitHub release check is skipped; the launcher handles updates.
 
+### Optional Updates
+
+Updates never block or replace **Launch HomeInventory**: Start always runs the installed version. When an update is available, the launcher shows a separate update card with three choices:
+
+- **Update Now** installs it. For a verified online release this creates a backup, installs the managed app, and then applies the matching launcher update (the app and launcher are released together). For a newer app bundled with an updated launcher, it only replaces the app files and finishes stopped; the next Start runs the new version.
+- **Later** hides the offer until the launcher is opened again.
+- **Skip This Version** hides that version permanently (saved in the launcher settings). A newer version is offered again. **Show Update** on the card, or **Developer Tools > Updates**, brings a skipped or postponed update back.
+
+The launcher still checks for updates when it opens, but it only checks; nothing is downloaded or installed until you choose **Update Now**.
+
 Live mobile camera access over a LAN IP requires a secure browser context. The opt-in, domain-free setup and its trust/rotation limits are documented in [Optional Offline Mobile HTTPS](docs/offline-mobile-https.md).
 
 ## Building from Source

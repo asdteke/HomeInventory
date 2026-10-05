@@ -52,6 +52,16 @@ CLI ve Docker hâlâ birinci sınıf kurulum yollarıdır. Launcher, masaüstü 
 - Kullanıcı verileri, profil verileri ve launcher yapılandırması önceki launcher uygulama-verisi konumlarında kalır.
 - Launcher'ın başlattığı her sunucu sürecine `UPDATE_CHECK=false` verilir; böylece uygulamanın kendi GitHub sürüm kontrolü atlanır ve güncellemeleri launcher yönetir.
 
+### İsteğe Bağlı Güncellemeler
+
+Güncellemeler **HomeInventory'yi Başlat** butonunu hiçbir zaman engellemez veya onun yerine geçmez: Başlat her zaman kurulu sürümü çalıştırır. Güncelleme varsa launcher ayrı bir güncelleme kartında üç seçenek sunar:
+
+- **Şimdi Güncelle** güncellemeyi kurar. Doğrulanmış çevrim içi bir sürümde önce yedek alır, yönetilen uygulamayı kurar ve ardından eşleşen launcher güncellemesini uygular (uygulama ve launcher birlikte yayımlanır). Güncellenmiş bir launcher ile gelen daha yeni uygulamada yalnızca uygulama dosyalarını değiştirir ve durmuş halde biter; bir sonraki Başlat yeni sürümü çalıştırır.
+- **Daha Sonra** öneriyi launcher yeniden açılana kadar gizler.
+- **Bu Sürümü Atla** o sürümü kalıcı olarak gizler (launcher ayarlarına kaydedilir). Daha yeni bir sürüm yine önerilir. Karttaki **Güncellemeyi Göster** veya **Geliştirici Araçları > Güncellemeler**, atlanan ya da ertelenen güncellemeyi geri getirir.
+
+Launcher açılırken güncellemeleri yine kontrol eder, ancak yalnızca kontrol eder; **Şimdi Güncelle** seçilmeden hiçbir şey indirilmez veya kurulmaz.
+
 LAN IP adresinde canlı mobil kamera erişimi güvenli tarayıcı bağlamı gerektirir. İsteğe bağlı, alan adsız kurulum ile güven/rotasyon sınırları [Offline Mobil HTTPS](docs/offline-mobile-https.md) belgesinde açıklanır.
 
 ## Kaynak Koddan Derleme

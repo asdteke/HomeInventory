@@ -132,7 +132,11 @@ type SuggestedPorts = { backendPort: number; frontendPort: number };
 
 type LauncherSettings = {
   projectPath: string; nodePath: string; npmPath: string; autoOpen: boolean; mobileHttps: boolean;
+  /** Update version the user chose to skip; newer versions are offered again. */
+  skippedUpdateVersion: string;
 };
+
+type UpdateOffer = { kind: 'bundled' | 'online'; version: string; blockedByNode: boolean };
 
 type PathKind = 'project' | 'node' | 'npm';
 type AndroidGuideBrand = 'samsung' | 'pixel' | 'other';
@@ -141,6 +145,7 @@ const LAUNCHER_VERSION = launcherPackage.version;
 
 const defaultSettings: LauncherSettings = {
   projectPath: '', nodePath: '', npmPath: '', autoOpen: true, mobileHttps: false,
+  skippedUpdateVersion: '',
 };
 
 const hasTauriRuntime = () =>
@@ -316,9 +321,9 @@ function AppContent() {
   const [updateNotice, setUpdateNotice] = useState('');
   const [initialUpdateCheckStarted, setInitialUpdateCheckStarted] = useState(false);
   const [updateListenerReady, setUpdateListenerReady] = useState(false);
-  const [bundledSyncStarted, setBundledSyncStarted] = useState(false);
   const [bundledSyncRetryAvailable, setBundledSyncRetryAvailable] = useState(false);
-  const bundledSyncStartedRef = useRef(false);
+  // "Later" hides an update offer for this session only.
+  const [deferredUpdateVersion, setDeferredUpdateVersion] = useState('');
   const bundledSyncInFlightRef = useRef(false);
   const httpsActivationRef = useRef(false);
 
@@ -472,138 +477,6 @@ function AppContent() {
 
   useEffect(() => {
     if (
-      bundledSyncStartedRef.current
-      || !updateListenerReady
-      || !hasTauriRuntime()
-      || !snapshot?.bundledSyncRequired
-      || snapshot.appSource !== 'managed'
-      || snapshot.storeBuild
-      || snapshot.activeProfileId
-      || settings.projectPath.trim()
-      || bundledSyncRetryAvailable
-    ) {
-      return;
-    }
-
-    const managedProfile = snapshot.profiles.find(profile => profile.id === 'homeinventory')
-      || snapshot.profiles[0];
-    if (!managedProfile || (!singlePort && validatePortInputs(portApi, portUi, managedProfile, t))) {
-      return;
-    }
-    const requestedBackendPort = parsePort(portApi, managedProfile.backendPort);
-    const requestedFrontendPort = singlePort
-      ? requestedBackendPort
-      : parsePort(portUi, managedProfile.frontendPort);
-    const portCheckIsCurrent = portCheck
-      && portCheck.backendPort === requestedBackendPort
-      && portCheck.frontendPort === requestedFrontendPort;
-    if (!portCheckIsCurrent) {
-      return;
-    }
-
-    const pauseBundledSync = (message: string) => {
-      bundledSyncStartedRef.current = true;
-      bundledSyncInFlightRef.current = false;
-      setBundledSyncStarted(true);
-      setBundledSyncRetryAvailable(true);
-      setUpdateNotice(message);
-      setUpdateProgress(null);
-      setBusy(null);
-    };
-
-    if (portCheck.existingHomeInventory) {
-      pauseBundledSync(
-        `${portCheck.message} Stop the running instance, then choose Retry Sync.`,
-      );
-      return;
-    }
-
-    if (
-      !portCheck.ok
-      && portCheck.suggestedBackendPort === requestedBackendPort
-      && portCheck.suggestedFrontendPort === requestedFrontendPort
-    ) {
-      pauseBundledSync(
-        portCheck.message || t('update.previousAvailable'),
-      );
-      return;
-    }
-
-    const backendPort = portCheck.ok
-      ? requestedBackendPort
-      : portCheck.suggestedBackendPort;
-    const frontendPort = portCheck.ok
-      ? requestedFrontendPort
-      : portCheck.suggestedFrontendPort;
-    const suggestedPortError = singlePort
-      ? (backendPort < 1024 || backendPort > 65535 ? t('status.localPortRange') : '')
-      : validatePortInputs(
-        String(backendPort),
-        String(frontendPort),
-        managedProfile,
-        t,
-      );
-    if (suggestedPortError) {
-      pauseBundledSync(suggestedPortError);
-      return;
-    }
-
-    bundledSyncStartedRef.current = true;
-    bundledSyncInFlightRef.current = true;
-    setBundledSyncStarted(true);
-    setUpdateNotice('');
-    setBusy('bundled-sync');
-    setUpdateProgress({
-      state: 'Starting',
-      message: t('setup.installing'),
-      progress: 0.01,
-    });
-    invoke<CommandResult>('sync_bundled_managed_app', {
-      request: {
-        overrides: overrides(settings),
-        backendPort,
-        frontendPort,
-      },
-    }).catch((err) => {
-      bundledSyncInFlightRef.current = false;
-      setBundledSyncRetryAvailable(true);
-      setUpdateNotice(err instanceof Error ? err.message : String(err));
-      setUpdateProgress(null);
-      setBusy(null);
-      refresh();
-    });
-  }, [
-    bundledSyncRetryAvailable,
-    bundledSyncStarted,
-    portApi,
-    portCheck,
-    portUi,
-    refresh,
-    settings,
-    singlePort,
-    snapshot?.activeProfileId,
-    snapshot?.appSource,
-    snapshot?.bundledSyncRequired,
-    snapshot?.profiles,
-    snapshot?.storeBuild,
-    updateListenerReady,
-  ]);
-
-  const retryBundledSync = () => {
-    bundledSyncStartedRef.current = false;
-    bundledSyncInFlightRef.current = false;
-    setBundledSyncStarted(false);
-    setBundledSyncRetryAvailable(false);
-    setUpdateNotice('');
-    setUpdateResult(null);
-    setUpdateProgress(null);
-    setBusy(null);
-    setPortCheck(null);
-    setPortCheckRevision(current => current + 1);
-  };
-
-  useEffect(() => {
-    if (
       initialUpdateCheckStarted
       || !updateListenerReady
       || !hasTauriRuntime()
@@ -614,17 +487,16 @@ function AppContent() {
       || busy === 'bundled-sync'
       || busy === 'first-install'
       || Boolean(updateProgress)
-      || (snapshot.bundledSyncRequired && !bundledSyncStarted)
       || bundledSyncRetryAvailable
     ) {
       return;
     }
 
+    // Only checks. Updates are offered, never installed automatically.
     setInitialUpdateCheckStarted(true);
     checkForUpdates();
   }, [
     bundledSyncRetryAvailable,
-    bundledSyncStarted,
     busy,
     initialUpdateCheckStarted,
     snapshot?.activeProfileId,
@@ -714,6 +586,78 @@ function AppContent() {
 
   const updateAvailable = Boolean(updateResult?.appUpdateAvailable || updateResult?.launcherUpdateAvailable);
   const updateBlockedByNode = Boolean(updateResult?.requiredActions.includes('nodeMajorUpgrade'));
+
+  // One optional update offer at a time. The version bundled with this
+  // launcher comes first; otherwise the verified online release (managed app
+  // and launcher are released together, so one version covers both).
+  const updateOffer: UpdateOffer | null = isStoreBuild || !snapshot
+    ? null
+    : snapshot.bundledSyncRequired && snapshot.appSource === 'managed' && !settings.projectPath.trim()
+      ? { kind: 'bundled', version: snapshot.launcherVersion, blockedByNode: false }
+      : updateResult && updateAvailable
+        ? {
+          kind: 'online',
+          version: updateResult.appUpdateAvailable ? updateResult.latestAppVersion : updateResult.latestLauncherVersion,
+          blockedByNode: updateBlockedByNode,
+        }
+        : null;
+  const updateOfferSkipped = Boolean(updateOffer && settings.skippedUpdateVersion === updateOffer.version);
+  const updateOfferHidden = Boolean(updateOffer && (updateOfferSkipped || deferredUpdateVersion === updateOffer.version));
+
+  const deferUpdate = () => {
+    if (updateOffer) setDeferredUpdateVersion(updateOffer.version);
+    setUpdateNotice('');
+  };
+
+  const skipUpdate = () => {
+    if (!updateOffer) return;
+    const version = updateOffer.version;
+    setSettings(current => ({ ...current, skippedUpdateVersion: version }));
+    setNotice(t('update.skippedNotice', { version }));
+  };
+
+  const reviewUpdateOffer = () => {
+    setDeferredUpdateVersion('');
+    setSettings(current => current.skippedUpdateVersion ? { ...current, skippedUpdateVersion: '' } : current);
+  };
+
+  // Installs the newer app bundled with this launcher. It only replaces the
+  // app files and finishes stopped; the next Start runs the new version.
+  const startBundledSync = () => {
+    if (!hasTauriRuntime() || bundledSyncInFlightRef.current || busy) return;
+    bundledSyncInFlightRef.current = true;
+    setBundledSyncRetryAvailable(false);
+    setUpdateNotice('');
+    setBusy('bundled-sync');
+    setUpdateProgress({
+      state: 'Starting',
+      message: t('update.bundledInstalling', { version: snapshot?.launcherVersion || '' }),
+      progress: 0.01,
+    });
+    invoke<CommandResult>('sync_bundled_managed_app', {
+      request: {
+        overrides: overrides(settings),
+        backendPort: launchBackendPort,
+        frontendPort: launchFrontendPort,
+      },
+    }).catch((err) => {
+      bundledSyncInFlightRef.current = false;
+      setBundledSyncRetryAvailable(true);
+      setUpdateNotice(err instanceof Error ? err.message : String(err));
+      setUpdateProgress(null);
+      setBusy(null);
+      refresh();
+    });
+  };
+
+  const applyUpdateOffer = () => {
+    if (!updateOffer) return;
+    if (updateOffer.kind === 'bundled') {
+      startBundledSync();
+      return;
+    }
+    triggerUpdate();
+  };
   // A standard launcher with nothing installed yet offers the first install
   // of the app that ships with it instead of asking for a folder.
   const firstInstallAvailable = !isStoreBuild
@@ -768,68 +712,102 @@ function AppContent() {
       return null;
     }
 
-    const title = bundledSyncRetryAvailable
-      ? t('update.syncPaused')
-      : updateProgress
-      ? t('update.inProgress')
+    // Updates are always optional: the card offers Update now / Later /
+    // Skip this version, and Start keeps launching the installed version.
+    if (updateProgress) {
+      return (
+        <div className="prelaunch-update-card" role="status" aria-live="polite">
+          <div className="prelaunch-update-copy">
+            <span className="prelaunch-update-kicker">{t('update.kicker')}</span>
+            <strong>{t('update.inProgress')}</strong>
+            <p>{updateProgress.message}</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (bundledSyncRetryAvailable) {
+      return (
+        <div className="prelaunch-update-card">
+          <div className="prelaunch-update-copy">
+            <span className="prelaunch-update-kicker">{t('update.kicker')}</span>
+            <strong>{t('update.syncPaused')}</strong>
+            <p>{updateNotice || t('update.previousAvailable')}</p>
+          </div>
+          <div className="update-offer-actions">
+            <button type="button" className="btn-primary" onClick={startBundledSync} disabled={Boolean(busy)}>
+              <RefreshCw size={13} />
+              {t('update.retrySync')}
+            </button>
+            <button type="button" className="btn-secondary" onClick={() => { setBundledSyncRetryAvailable(false); deferUpdate(); }} disabled={Boolean(busy)}>
+              {t('update.later')}
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (updateOffer && !updateOfferHidden) {
+      return (
+        <div className="prelaunch-update-card update-offer">
+          <div className="prelaunch-update-copy">
+            <span className="prelaunch-update-kicker">{t('update.kicker')}</span>
+            <strong>{t('update.offerTitle', { version: updateOffer.version })}</strong>
+            <p>
+              {updateOffer.blockedByNode
+                ? t('update.nodeUpgradeBeforeInstall')
+                : updateOffer.kind === 'bundled' ? t('update.offerBundled') : t('update.offerOnline')}
+            </p>
+          </div>
+          <div className="update-offer-actions">
+            <button
+              type="button"
+              className="btn-primary"
+              onClick={applyUpdateOffer}
+              disabled={Boolean(busy) || updateOffer.blockedByNode}
+            >
+              <Download size={13} />
+              {t('update.updateNow')}
+            </button>
+            <button type="button" className="btn-secondary" onClick={deferUpdate} disabled={Boolean(busy)}>
+              {t('update.later')}
+            </button>
+            <button type="button" className="btn-secondary" onClick={skipUpdate} disabled={Boolean(busy)}>
+              {t('update.skipVersion')}
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    const title = updateOffer
+      ? updateOfferSkipped
+        ? t('update.skippedTitle', { version: updateOffer.version })
+        : t('update.postponedTitle', { version: updateOffer.version })
       : checkingUpdates
         ? t('update.checking')
         : updateResult
-          ? updateAvailable
-            ? t('update.availableBeforeLaunch')
-            : t('update.checkedBeforeLaunch')
-          : t('update.checkBeforeLaunch');
-
-    const detail = bundledSyncRetryAvailable
-      ? updateNotice || t('update.previousAvailable')
-      : updateProgress
-      ? updateProgress.message
-      : checkingUpdates
-        ? t('update.lookingForReleases')
-        : updateResult
-          ? updateBlockedByNode
-            ? t('update.nodeUpgradeBeforeInstall')
-            : updateAvailable
-              ? t('update.installBeforeStart')
-              : t('update.noneAvailable')
-          : t('update.verifyBeforeStart');
-
-    const buttonLabel = bundledSyncRetryAvailable
-      ? t('update.retrySync')
-      : checkingUpdates
-      ? t('common.checking')
-      : updateAvailable
-        ? t('update.updateFirst')
-        : updateResult
-          ? t('common.checkAgain')
-          : t('update.checkUpdates');
-
-    const buttonIcon = bundledSyncRetryAvailable
-      ? <RefreshCw size={13} />
-      : checkingUpdates
-      ? <Loader2 size={13} className="spin" />
-      : updateAvailable
-        ? <Download size={13} />
-        : <RefreshCw size={13} />;
+          ? t('update.noneAvailable')
+          : t('update.checkForUpdates');
 
     return (
       <div className="prelaunch-update-card">
         <div className="prelaunch-update-copy">
           <span className="prelaunch-update-kicker">{t('update.kicker')}</span>
           <strong>{title}</strong>
-          <p>{detail}</p>
+          <p>{updateOffer ? t('update.postponedBody') : checkingUpdates ? t('update.lookingForReleases') : t('update.optionalHelp')}</p>
         </div>
-        <button
-          type="button"
-          className={bundledSyncRetryAvailable || updateAvailable ? 'btn-primary' : 'btn-secondary'}
-          onClick={bundledSyncRetryAvailable ? retryBundledSync : updateAvailable ? triggerUpdate : checkForUpdates}
-          disabled={bundledSyncRetryAvailable
-            ? Boolean(busy)
-            : checkingUpdates || Boolean(updateProgress) || (updateAvailable && (updateBlockedByNode || busy === 'update'))}
-        >
-          {buttonIcon}
-          {buttonLabel}
-        </button>
+        {updateOffer ? (
+          <button type="button" className="btn-secondary" onClick={reviewUpdateOffer} disabled={Boolean(busy)}>
+            <Download size={13} />
+            {t('update.review')}
+          </button>
+        ) : (
+          <button type="button" className="btn-secondary" onClick={checkForUpdates} disabled={checkingUpdates || Boolean(busy)}>
+            {checkingUpdates ? <Loader2 size={13} className="spin" /> : <RefreshCw size={13} />}
+            {checkingUpdates ? t('common.checking') : updateResult ? t('common.checkAgain') : t('update.checkUpdates')}
+          </button>
+        )}
       </div>
     );
   };
@@ -1703,27 +1681,21 @@ function AppContent() {
 
           <button
             className="btn-primary"
-            disabled={Boolean(busy) || checkingUpdates || checkingPorts || Boolean(updateProgress) || !selProfile || portBlocked || (updateAvailable && updateBlockedByNode)}
+            disabled={Boolean(busy) || checkingPorts || Boolean(updateProgress) || !selProfile || portBlocked}
             onClick={() => {
               if (projectRootBlocked) {
                 chooseInstallFolder();
                 return;
               }
-              if (updateAvailable) {
-                triggerUpdate();
-                return;
-              }
+              // Start always runs the installed version; updates are offered
+              // separately and never replace this action.
               if (selProfile) doLaunch(selProfile);
             }}
           >
-            {busy?.startsWith('start-') || checkingUpdates || checkingPorts ? <Loader2 size={16} className="spin" /> : updateAvailable ? <Download size={16} /> : <Play size={16} />}
+            {busy?.startsWith('start-') || checkingPorts ? <Loader2 size={16} className="spin" /> : <Play size={16} />}
             {checkingPorts
               ? t('setup.checkingLocalPorts')
-              : checkingUpdates
-              ? t('setup.checkingUpdates')
-              : updateAvailable
-                ? t('setup.updateApp', { version: updateResult?.latestAppVersion || '' })
-                : isStoreBuild
+              : isStoreBuild
                   ? startButtonLabel
                   : projectRootBlocked
                     ? t('setup.chooseInstallFolder')

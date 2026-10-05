@@ -774,6 +774,28 @@ button:disabled { cursor: not-allowed; opacity: 0.5; }
   box-shadow: none;
 }
 
+/* Optional update offer: Update now / Later / Skip this version */
+.prelaunch-update-card.update-offer,
+.prelaunch-update-card:has(.update-offer-actions) {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.update-offer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.update-offer-actions .btn-primary,
+.update-offer-actions .btn-secondary {
+  flex: 1 1 auto;
+}
+
+.first-install .field-hint {
+  text-align: center;
+}
+
 /* ==========================================================================
    RUNNING STATE
    ========================================================================== */
