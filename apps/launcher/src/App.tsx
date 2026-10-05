@@ -138,7 +138,7 @@ type LauncherSettings = {
   appMode: boolean;
 };
 
-type UpdateOffer = { kind: 'bundled' | 'online'; version: string; blockedByNode: boolean };
+type UpdateOffer = { kind: 'online'; version: string; blockedByNode: boolean };
 
 type PathKind = 'project' | 'node' | 'npm';
 type AndroidGuideBrand = 'samsung' | 'pixel' | 'other';
@@ -614,14 +614,19 @@ function AppContent() {
   const updateAvailable = Boolean(updateResult?.appUpdateAvailable || updateResult?.launcherUpdateAvailable);
   const updateBlockedByNode = Boolean(updateResult?.requiredActions.includes('nodeMajorUpgrade'));
 
-  // One optional update offer at a time. The version bundled with this
-  // launcher comes first; otherwise the verified online release (managed app
-  // and launcher are released together, so one version covers both).
-  const updateOffer: UpdateOffer | null = isStoreBuild || !snapshot
+  // The app bundled with this launcher is not optional: the user already
+  // chose this launcher version, and launcher and app are released together,
+  // so it is installed automatically (see the effect after startBundledSync).
+  // Only the verified online release is offered as an optional update.
+  const bundledSyncPending = Boolean(
+    !isStoreBuild
+    && snapshot?.bundledSyncRequired
+    && snapshot.appSource === 'managed'
+    && !settings.projectPath.trim()
+  );
+  const updateOffer: UpdateOffer | null = isStoreBuild || !snapshot || bundledSyncPending
     ? null
-    : snapshot.bundledSyncRequired && snapshot.appSource === 'managed' && !settings.projectPath.trim()
-      ? { kind: 'bundled', version: snapshot.launcherVersion, blockedByNode: false }
-      : updateResult && updateAvailable
+    : updateResult && updateAvailable
         ? {
           kind: 'online',
           version: updateResult.appUpdateAvailable ? updateResult.latestAppVersion : updateResult.latestLauncherVersion,
@@ -677,12 +682,27 @@ function AppContent() {
     });
   };
 
-  const applyUpdateOffer = () => {
-    if (!updateOffer) return;
-    if (updateOffer.kind === 'bundled') {
-      startBundledSync();
+  // Brings the managed app up to the version bundled with this launcher as
+  // soon as nothing is running, once per launcher session. A failure leaves
+  // the retry card (bundledSyncRetryAvailable) instead of looping.
+  const bundledSyncAttemptedRef = useRef(false);
+  useEffect(() => {
+    if (
+      !bundledSyncPending
+      || bundledSyncAttemptedRef.current
+      || !hasTauriRuntime()
+      || snapshot?.activeProfileId
+      || busy
+      || bundledSyncRetryAvailable
+    ) {
       return;
     }
+    bundledSyncAttemptedRef.current = true;
+    startBundledSync();
+  });
+
+  const applyUpdateOffer = () => {
+    if (!updateOffer) return;
     triggerUpdate();
   };
   // A standard launcher with nothing installed yet offers the first install
@@ -783,7 +803,7 @@ function AppContent() {
             <p>
               {updateOffer.blockedByNode
                 ? t('update.nodeUpgradeBeforeInstall')
-                : updateOffer.kind === 'bundled' ? t('update.offerBundled') : t('update.offerOnline')}
+                : t('update.offerOnline')}
             </p>
           </div>
           <div className="update-offer-actions">

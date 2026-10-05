@@ -27,11 +27,17 @@ test('update offers can be applied, postponed, or skipped', () => {
   assert.match(appSource, /skippedUpdateVersion: version/);
 });
 
-test('the bundled app sync only runs when the user asks for it', () => {
+test('the app bundled with a newer launcher is installed automatically, not offered', () => {
   const call = "invoke<CommandResult>('sync_bundled_managed_app'";
   const invokeIndex = appSource.indexOf(call);
   assert.notEqual(invokeIndex, -1, 'bundled sync command is no longer invoked');
   const owner = appSource.lastIndexOf('const startBundledSync = () => {', invokeIndex);
   assert.notEqual(owner, -1, 'bundled sync must be started from startBundledSync');
   assert.equal(appSource.indexOf("'sync_bundled_managed_app'", invokeIndex + call.length), -1);
+
+  // Launcher and managed app ship together: a pending bundled sync runs on
+  // its own once nothing is running, and is never a skippable offer.
+  assert.match(appSource, /bundledSyncAttemptedRef\.current = true;\s*startBundledSync\(\);/);
+  assert.match(appSource, /isStoreBuild \|\| !snapshot \|\| bundledSyncPending\s*\? null/);
+  assert.doesNotMatch(appSource, /kind: 'bundled'/);
 });

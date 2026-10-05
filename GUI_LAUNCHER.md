@@ -56,9 +56,11 @@ On the first run the launcher shows **Install HomeInventory**. It installs the H
 
 Updates never block or replace **Launch HomeInventory**: Start always runs the installed version. When an update is available, the launcher shows a separate update card with three choices:
 
-- **Update Now** installs it. For a verified online release this creates a backup, installs the managed app, and then applies the matching launcher update (the app and launcher are released together). For a newer app bundled with an updated launcher, it only replaces the app files and finishes stopped; the next Start runs the new version.
+- **Update Now** installs it. For a verified online release this creates a backup, installs the managed app, and then applies the matching launcher update (the app and launcher are released together).
 - **Later** hides the offer until the launcher is opened again.
 - **Skip This Version** hides that version permanently (saved in the launcher settings). A newer version is offered again. **Show Update** on the card, or **Developer Tools > Updates**, brings a skipped or postponed update back.
+
+The app that ships inside the launcher is not optional. After you install a newer launcher, it brings the managed app to the same version automatically as soon as nothing is running (it replaces the app files and finishes stopped), so the launcher and the app always match.
 
 The launcher still checks for updates when it opens, but it only checks; nothing is downloaded or installed until you choose **Update Now**.
 
