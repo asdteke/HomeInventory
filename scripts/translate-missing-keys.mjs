@@ -13,6 +13,11 @@ const BATCH_DELAY_MS = Number(process.env.TRANSLATION_BATCH_DELAY_MS || 1500);
 const LANGUAGE_DELAY_MS = Number(process.env.TRANSLATION_LANGUAGE_DELAY_MS || 2000);
 const LANGUAGE_CONCURRENCY = Math.max(1, Number(process.env.TRANSLATION_LANGUAGE_CONCURRENCY || 1));
 
+// MyMemory rejects queries over 500 bytes, and reports that (and quota
+// problems) as text inside an otherwise successful response.
+const MYMEMORY_MAX_QUERY_BYTES = 500;
+const MYMEMORY_ERROR_TEXT_PATTERN = /QUERY LENGTH LIMIT|MYMEMORY WARNING|INVALID LANGUAGE PAIR|PLEASE SELECT TWO DISTINCT LANGUAGES/i;
+
 const MYMEMORY_TRANSLATION_LANGS = {
     jv: 'jw',
     no: 'nb',
@@ -125,6 +130,12 @@ async function translateBatchWithMyMemory(batch, targetLang) {
 
     for (let itemIndex = 0; itemIndex < batch.length; itemIndex += 1) {
         const item = batch[itemIndex];
+        if (Buffer.byteLength(item.text, 'utf8') > MYMEMORY_MAX_QUERY_BYTES) {
+            // Left untranslated rather than saving MyMemory's error text; use Azure for long strings.
+            console.warn(`  ${targetLang}: skipping ${item.keyPath} (longer than MyMemory's ${MYMEMORY_MAX_QUERY_BYTES}-byte limit)`);
+            continue;
+        }
+
         const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(item.text)}&langpair=en|${encodeURIComponent(mappedMyMemoryTargetLang)}`;
         let myMemoryResponseData = null;
 
@@ -155,6 +166,11 @@ async function translateBatchWithMyMemory(batch, targetLang) {
         const translatedText = String(myMemoryResponseData?.responseData?.translatedText || '').trim();
         if (!translatedText) {
             throw new Error('MyMemory returned an empty translation.');
+        }
+
+        const responseStatus = Number(myMemoryResponseData?.responseStatus);
+        if ((Number.isFinite(responseStatus) && responseStatus !== 200) || MYMEMORY_ERROR_TEXT_PATTERN.test(translatedText)) {
+            throw new Error(`MyMemory rejected ${item.keyPath}: ${translatedText}`);
         }
 
         translatedEntries.push({
