@@ -214,11 +214,11 @@ npm start
 Deploy HomeInventory from the pre-built image — no source checkout and no local build required:
 
 ```bash
-curl -O https://raw.githubusercontent.com/schms27/HomeInventory/main/docker-compose.yml
+curl -O https://raw.githubusercontent.com/asdteke/HomeInventory/main/docker-compose.yml
 docker compose up -d
 ```
 
-Compose pulls `ghcr.io/schms27/homeinventory:latest`, which is published automatically on every push to `main`.
+Compose pulls `ghcr.io/asdteke/homeinventory:latest`, the newest release, available for amd64, arm64 and armv7.
 
 For advanced configuration, reverse proxy setup, and production deployment, see [DOCKER.md](DOCKER.md).
 

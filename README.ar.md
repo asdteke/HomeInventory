@@ -244,13 +244,13 @@ npm start
 <div dir="ltr">
 
 ```bash
-curl -O https://raw.githubusercontent.com/schms27/HomeInventory/main/docker-compose.yml
+curl -O https://raw.githubusercontent.com/asdteke/HomeInventory/main/docker-compose.yml
 docker compose up -d
 ```
 
 </div>
 
-يسحب Compose الصورة `ghcr.io/schms27/homeinventory:latest` التي تُنشر تلقائياً مع كل دفعة إلى `main`.
+يسحب Compose الصورة `ghcr.io/asdteke/homeinventory:latest` وهي أحدث إصدار (لمعماريات amd64 وarm64 وarmv7).
 
 للتكوين المتقدم، reverse proxy، ونشر الإنتاج، راجع [DOCKER.md](DOCKER.md).
 

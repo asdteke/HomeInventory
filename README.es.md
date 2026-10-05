@@ -214,11 +214,11 @@ npm start
 Despliega HomeInventory desde la imagen precompilada, sin clonar el código ni compilar en local:
 
 ```bash
-curl -O https://raw.githubusercontent.com/schms27/HomeInventory/main/docker-compose.yml
+curl -O https://raw.githubusercontent.com/asdteke/HomeInventory/main/docker-compose.yml
 docker compose up -d
 ```
 
-Compose descarga `ghcr.io/schms27/homeinventory:latest`, publicada automáticamente en cada push a `main`.
+Compose descarga `ghcr.io/asdteke/homeinventory:latest`, la versión más reciente (para amd64, arm64 y armv7).
 
 Para configuración avanzada, reverse proxy y despliegue en producción, consulta [DOCKER.md](DOCKER.md).
 

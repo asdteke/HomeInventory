@@ -2,13 +2,15 @@
 
 Deploy HomeInventory using Docker for easy self-hosting.
 
-This guide targets the public v2.7.0 release line and later patch releases. Docker upgrades should pull the latest image rather than only restarting an old container.
+This guide targets the v2.8.0 release line and later releases. Docker upgrades should pull the latest image rather than only restarting an old container.
 
-A pre-built image is published to `ghcr.io/schms27/homeinventory` by [`.github/workflows/docker-image.yml`](.github/workflows/docker-image.yml) on every push to `main`, so running HomeInventory needs neither the source code nor a local build.
+A pre-built image is published to `ghcr.io/asdteke/homeinventory` by [`.github/workflows/docker-image.yml`](.github/workflows/docker-image.yml) for every release and every push to `main`, so running HomeInventory needs neither the source code nor a local build. Each tag is a multi-architecture image for `linux/amd64`, `linux/arm64` (Raspberry Pi 4/5, Apple Silicon hosts, ARM servers) and `linux/arm/v7` (32-bit Raspberry Pi OS); Docker picks the right one automatically. All dependencies are bundled, so the container starts without internet access.
 
 | Tag | Meaning |
 |-----|---------|
-| `latest` | Newest build from `main` |
+| `latest` | Newest release (recommended) |
+| `2.8.0`, `2.8` | A specific release, or the newest patch of a minor line |
+| `edge` | Newest build from `main`; may contain unreleased changes |
 | `sha-<short-sha>` | Immutable build of one specific commit, useful for pinning and rollback |
 
 ## Quick Start
@@ -17,8 +19,8 @@ A pre-built image is published to `ghcr.io/schms27/homeinventory` by [`.github/w
 
 ```bash
 mkdir -p homeinventory && cd homeinventory
-curl -O https://raw.githubusercontent.com/schms27/HomeInventory/main/docker-compose.yml
-curl -o .env https://raw.githubusercontent.com/schms27/HomeInventory/main/.env.example
+curl -O https://raw.githubusercontent.com/asdteke/HomeInventory/main/docker-compose.yml
+curl -o .env https://raw.githubusercontent.com/asdteke/HomeInventory/main/.env.example
 ```
 
 If you plan to modify the application, clone the repository instead — the Compose file behaves identically either way.
@@ -72,14 +74,14 @@ If you want to keep the secret files elsewhere on the host, set `HOMEINVENTORY_S
 docker compose up -d
 ```
 
-Compose pulls `ghcr.io/schms27/homeinventory:latest` on first run; no image is built locally.
+Compose pulls `ghcr.io/asdteke/homeinventory:latest` on first run; no image is built locally.
 
 The app will be available at `http://localhost:3001`
 
-To pin a specific build instead of tracking `latest`, set `HOMEINVENTORY_IMAGE` before starting the stack:
+To pin a specific release or build instead of tracking `latest`, set `HOMEINVENTORY_IMAGE` before starting the stack:
 
 ```bash
-HOMEINVENTORY_IMAGE=ghcr.io/schms27/homeinventory:sha-1a2b3c4 docker compose up -d
+HOMEINVENTORY_IMAGE=ghcr.io/asdteke/homeinventory:2.8.0 docker compose up -d
 ```
 
 ### 5. Verify
@@ -220,10 +222,10 @@ docker compose up -d
 
 Compose recreates the container only when the pulled image actually changed, so this pair of commands is safe to run on a schedule.
 
-To roll back, pin the previous commit's tag:
+To roll back, pin the previous release (or a `sha-` tag):
 
 ```bash
-HOMEINVENTORY_IMAGE=ghcr.io/schms27/homeinventory:sha-1a2b3c4 docker compose up -d
+HOMEINVENTORY_IMAGE=ghcr.io/asdteke/homeinventory:2.8.0 docker compose up -d
 ```
 
 ## Troubleshooting
@@ -267,7 +269,7 @@ For Unraid users:
    ```bash
    mkdir -p /your/chosen/path/homeinventory
    cd /your/chosen/path/homeinventory
-   curl -O https://raw.githubusercontent.com/schms27/HomeInventory/main/docker-compose.yml
+   curl -O https://raw.githubusercontent.com/asdteke/HomeInventory/main/docker-compose.yml
    ```
 4. Create `.env` file with secrets (see Configuration above)
 5. If using bind mounts instead of Docker volumes, edit `docker-compose.yml`:
@@ -289,7 +291,7 @@ docker run -d \
   -e APP_ENCRYPTION_KEY_ID=2026-local \
   -v homeinventory_data:/app/data \
   -v homeinventory_uploads:/app/uploads \
-  ghcr.io/schms27/homeinventory:latest
+  ghcr.io/asdteke/homeinventory:latest
 ```
 
 ## Building From Source (Optional)
@@ -297,7 +299,7 @@ docker run -d \
 Only needed when developing changes to the application itself — normal deployments use the published image.
 
 ```bash
-git clone https://github.com/schms27/HomeInventory.git
+git clone https://github.com/asdteke/HomeInventory.git
 cd HomeInventory
 docker build -t homeinventory:local .
 
