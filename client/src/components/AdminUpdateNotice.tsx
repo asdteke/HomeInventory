@@ -96,7 +96,7 @@ export default function AdminUpdateNotice() {
                 <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                     {t('updateNotice.docker_hint', { defaultValue: 'Running with Docker Compose? Upgrade with:' })}
                 </p>
-                <code className="mt-2 block w-full break-all rounded-2xl border border-(--hi-border) bg-(--hi-bg-strong) px-3 py-2 font-mono text-sm text-(--hi-text-soft)">
+                <code className="mt-2 block w-full wrap-anywhere rounded-2xl border border-(--hi-border) bg-(--hi-bg-strong) px-3 py-2 font-mono text-sm text-(--hi-text-soft)">
                     {DOCKER_UPGRADE_COMMAND}
                 </code>
                 <a

@@ -435,11 +435,11 @@ export default function AdminBackupsSection({ onToast }: AdminBackupsSectionProp
                                     <div className="min-w-0">
                                         <p className="text-sm font-semibold text-(--hi-text)">{formatBackupDate(entry.createdAt, locale)}</p>
                                         <p className="mt-1 flex flex-wrap items-center gap-2 text-xs text-(--hi-text-muted)">
-                                            <span className={`app-meta-pill ${entry.kind === 'prerestore' ? 'app-meta-pill-warning' : ''}`}>
+                                            <span className={`app-meta-pill whitespace-nowrap ${entry.kind === 'prerestore' ? 'app-meta-pill-warning' : ''}`}>
                                                 {t(`autoBackup.kind_${entry.kind}`)}
                                             </span>
                                             <span>{formatBytes(entry.size, locale)}</span>
-                                            <span className="truncate font-mono">{entry.name}</span>
+                                            <span className="truncate font-mono" title={entry.name}>{entry.name}</span>
                                         </p>
                                     </div>
                                     <div className="flex shrink-0 flex-wrap gap-2">
