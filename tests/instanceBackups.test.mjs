@@ -276,6 +276,27 @@ test('scheduler runs an overdue backup after the startup delay, prunes, and resp
     assert.equal(outcomes.filter((outcome) => outcome.status === 'rejected' && outcome.reason.code === 'BACKUP_BUSY').length, 1);
 });
 
+test('a manual backup moves the next automatic run a full interval out', async (t) => {
+    const root = makeTempDir(t);
+    const live = createHomeInventoryDb(join(root, 'inventory.db'));
+    t.after(() => live.close());
+    const backupDir = join(root, 'backups');
+    const scheduler = createBackupScheduler({ db: live, backupDir, env: { BACKUP_SCHEDULE: 'weekly' }, logger: quietLogger });
+    t.after(() => scheduler.stop());
+
+    // No snapshot yet: the first automatic run is due after the startup delay.
+    scheduler.start({ startupDelayMs: 3600000 });
+    assert.ok(Date.parse(scheduler.getNextRunAt()) <= Date.now() + 3600000);
+
+    await scheduler.runBackup({ kind: 'manual' });
+    assert.ok(Date.parse(scheduler.getNextRunAt()) > Date.now() + 6 * 86400000);
+
+    // With the schedule off there is still no timer after a manual backup.
+    scheduler.updateSettings({ schedule: 'off', keepLast: 3 });
+    await scheduler.runBackup({ kind: 'manual' });
+    assert.equal(scheduler.getNextRunAt(), null);
+});
+
 test('scheduler failures are recorded and never throw out of the timer', async (t) => {
     const root = makeTempDir(t);
     const backupDir = join(root, 'backups');

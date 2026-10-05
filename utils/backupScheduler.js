@@ -115,11 +115,18 @@ export function createBackupScheduler({
             }
         })();
 
+        let entry;
         try {
-            return await running;
+            entry = await running;
         } finally {
             running = null;
         }
+        // A manual snapshot resets the cadence, as it would after a restart;
+        // otherwise a pending timer takes a redundant automatic copy right after it.
+        if (kind !== 'auto' && timer) {
+            reschedule();
+        }
+        return entry;
     };
 
     async function runScheduled() {
