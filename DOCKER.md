@@ -42,29 +42,34 @@ SUPPORT_EMAIL=privacy@your-domain.com
 
 ### 3. Create Docker Secret Files
 
-`docker-compose.yml` expects the required runtime secrets as files in `${HOMEINVENTORY_SECRETS_DIR:-./secrets}` on the host.
+`docker-compose.yml` expects the required runtime secrets as files in `${HOMEINVENTORY_SECRETS_DIR:-./secrets}` on the host. The setup command generates all three with strong random values. It needs nothing but the published image:
 
 ```bash
 mkdir -p secrets
+docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/secrets:/secrets" \
+  ghcr.io/asdteke/homeinventory:latest node scripts/setup.mjs --docker --out /secrets
 ```
 
-Generate secure values:
+`--user` makes the files belong to you instead of the image's built-in user (uid 1001), which could not write to your `secrets/` folder. On Docker Desktop for Windows (PowerShell), use `docker run --rm -v "${PWD}/secrets:/secrets" ghcr.io/asdteke/homeinventory:latest node scripts/setup.mjs --docker --out /secrets`. With a source checkout, `npm run setup -- --docker` does the same without Docker.
+
+The command creates `jwt_secret.txt`, `app_encryption_key.txt` and `app_encryption_key_id.txt`, never overwrites a file that already has a value, and is safe to run again. The folder is restricted to your user (`700`); the files stay readable (`644`) because Compose mounts each one into the container, where HomeInventory reads it as uid 1001.
+
+> [!WARNING]
+> Back up `app_encryption_key.txt` and `app_encryption_key_id.txt` somewhere outside this machine. Encrypted data, including uploaded photos, cannot be recovered without them; a database backup alone is not enough.
+
+<details>
+<summary>Manual alternative with openssl</summary>
 
 ```bash
-# Generate JWT_SECRET
-openssl rand -hex 32
-
-# Generate APP_ENCRYPTION_KEY
-openssl rand -base64 32
+mkdir -p secrets
+printf '%s' "$(openssl rand -hex 32)" > secrets/jwt_secret.txt
+printf '%s' "$(openssl rand -base64 32)" > secrets/app_encryption_key.txt
+printf '%s' "$(date +%Y-%m)-primary" > secrets/app_encryption_key_id.txt
 ```
 
-Save them into files:
+`APP_ENCRYPTION_KEY` must decode to exactly 32 bytes (base64) or be 64 hex characters. `APP_ENCRYPTION_KEY_ID` is any stable label of 1-64 letters, numbers, dots, underscores or hyphens; do not change it after data has been encrypted.
 
-```bash
-printf '%s' 'your-random-secret-at-least-32-characters' > secrets/jwt_secret.txt
-printf '%s' 'your-32-byte-base64-key' > secrets/app_encryption_key.txt
-printf '%s' '2026-docker' > secrets/app_encryption_key_id.txt
-```
+</details>
 
 If you want to keep the secret files elsewhere on the host, set `HOMEINVENTORY_SECRETS_DIR=/absolute/path/to/secrets` before running Compose.
 
@@ -237,7 +242,7 @@ HOMEINVENTORY_IMAGE=ghcr.io/asdteke/homeinventory:2.8.0 docker compose up -d
 docker compose logs homeinventory
 
 # Common issues:
-# - Missing JWT_SECRET or APP_ENCRYPTION_KEY
+# - Missing JWT_SECRET or APP_ENCRYPTION_KEY (create them with the setup command in step 3)
 # - Port 3001 already in use
 ```
 
@@ -271,7 +276,7 @@ For Unraid users:
    cd /your/chosen/path/homeinventory
    curl -O https://raw.githubusercontent.com/asdteke/HomeInventory/main/docker-compose.yml
    ```
-4. Create `.env` file with secrets (see Configuration above)
+4. Download `.env.example` as `.env` and create the secret files as in [step 3](#3-create-docker-secret-files)
 5. If using bind mounts instead of Docker volumes, edit `docker-compose.yml`:
    ```yaml
    volumes:

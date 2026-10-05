@@ -75,6 +75,8 @@ COPY middleware/ ./middleware/
 COPY routes/ ./routes/
 COPY utils/ ./utils/
 COPY locales/ ./locales/
+# scripts/ includes setup.mjs, which generates Docker secret files from the
+# published image without a source checkout (see DOCKER.md).
 COPY scripts/ ./scripts/
 COPY vendor/ ./vendor/
 COPY package.json ./

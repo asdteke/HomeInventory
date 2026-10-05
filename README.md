@@ -180,19 +180,18 @@ npm run install-all
 
 #### 2. Create a local environment file
 ```bash
-cp .env.example .env
+npm run setup
 ```
-Set at least these values inside `.env`:
+This creates `.env` from `.env.example` (if it does not exist yet) and fills `JWT_SECRET`, `APP_ENCRYPTION_KEY` and `APP_ENCRYPTION_KEY_ID` with strong random values. Existing values are never overwritten. For local development, also set:
 ```env
 NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
-JWT_SECRET=replace-with-a-long-random-secret
-APP_ENCRYPTION_KEY=replace-with-32-byte-base64-or-64-char-hex-key
-APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
-> [!TIP]
-> Generate secure secrets using `openssl rand -hex 32` for `JWT_SECRET` and `openssl rand -base64 32` for `APP_ENCRYPTION_KEY`.
+> [!WARNING]
+> Back up `APP_ENCRYPTION_KEY` and `APP_ENCRYPTION_KEY_ID`: encrypted data, including photos, cannot be recovered without them.
+>
+> Prefer to do it by hand? Use `openssl rand -hex 32` for `JWT_SECRET` and `openssl rand -base64 32` for `APP_ENCRYPTION_KEY`.
 
 #### 3. Run the app
 ```bash
@@ -215,10 +214,14 @@ Deploy HomeInventory from the pre-built image — no source checkout and no loca
 
 ```bash
 curl -O https://raw.githubusercontent.com/asdteke/HomeInventory/main/docker-compose.yml
+touch .env  # optional settings, see .env.example
+mkdir -p secrets
+docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/secrets:/secrets" \
+  ghcr.io/asdteke/homeinventory:latest node scripts/setup.mjs --docker --out /secrets
 docker compose up -d
 ```
 
-Compose pulls `ghcr.io/asdteke/homeinventory:latest`, the newest release, available for amd64, arm64 and armv7.
+Compose pulls `ghcr.io/asdteke/homeinventory:latest`, the newest release, available for amd64, arm64 and armv7. The `docker run` line generates the three secret files in `secrets/` without overwriting existing ones; back them up, because encrypted data cannot be recovered without the encryption key.
 
 For advanced configuration, reverse proxy setup, and production deployment, see [DOCKER.md](DOCKER.md).
 

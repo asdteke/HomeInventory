@@ -188,12 +188,12 @@ npm run install-all
 <div dir="ltr">
 
 ```bash
-cp .env.example .env
+npm run setup
 ```
 
 </div>
 
-اضبط هذه القيم على الأقل داخل `.env`:
+ينشئ هذا الأمر الملف `.env` من `.env.example` (إن لم يكن موجوداً) ويملأ `JWT_SECRET` و`APP_ENCRYPTION_KEY` و`APP_ENCRYPTION_KEY_ID` بقيم عشوائية قوية، ولا يستبدل أي قيمة موجودة. للتطوير المحلي، اضبط أيضاً:
 
 <div dir="ltr">
 
@@ -201,15 +201,14 @@ cp .env.example .env
 NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
-JWT_SECRET=replace-with-a-long-random-secret
-APP_ENCRYPTION_KEY=replace-with-32-byte-base64-or-64-char-hex-key
-APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
 
 </div>
 
-> [!TIP]
-> أنشئ أسراراً آمنة باستخدام `openssl rand -hex 32` لقيمة `JWT_SECRET` و`openssl rand -base64 32` لقيمة `APP_ENCRYPTION_KEY`.
+> [!WARNING]
+> احتفظ بنسخة احتياطية من `APP_ENCRYPTION_KEY` و`APP_ENCRYPTION_KEY_ID`: لا يمكن استعادة البيانات المشفرة، بما فيها الصور، من دونهما.
+>
+> تفضّل الطريقة اليدوية؟ استخدم `openssl rand -hex 32` لقيمة `JWT_SECRET` و`openssl rand -base64 32` لقيمة `APP_ENCRYPTION_KEY`.
 
 #### 3. تشغيل التطبيق
 
@@ -245,12 +244,16 @@ npm start
 
 ```bash
 curl -O https://raw.githubusercontent.com/asdteke/HomeInventory/main/docker-compose.yml
+touch .env  # optional settings, see .env.example
+mkdir -p secrets
+docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/secrets:/secrets" \
+  ghcr.io/asdteke/homeinventory:latest node scripts/setup.mjs --docker --out /secrets
 docker compose up -d
 ```
 
 </div>
 
-يسحب Compose الصورة `ghcr.io/asdteke/homeinventory:latest` وهي أحدث إصدار (لمعماريات amd64 وarm64 وarmv7).
+يسحب Compose الصورة `ghcr.io/asdteke/homeinventory:latest` وهي أحدث إصدار (لمعماريات amd64 وarm64 وarmv7). ينشئ سطر `docker run` ملفات الأسرار الثلاثة في `secrets/` دون استبدال الملفات الموجودة. احتفظ بنسخة احتياطية منها، إذ لا يمكن استعادة البيانات المشفرة من دون مفتاح التشفير.
 
 للتكوين المتقدم، reverse proxy، ونشر الإنتاج، راجع [DOCKER.md](DOCKER.md).
 

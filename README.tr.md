@@ -180,19 +180,18 @@ npm run install-all
 
 #### 2. Yerel ortam dosyasını oluştur
 ```bash
-cp .env.example .env
+npm run setup
 ```
-`.env` dosyasının içine en az şu değerleri tanımlayın:
+Bu komut `.env` dosyası yoksa `.env.example` dosyasından oluşturur ve `JWT_SECRET`, `APP_ENCRYPTION_KEY` ile `APP_ENCRYPTION_KEY_ID` değerlerini güçlü rastgele değerlerle doldurur. Mevcut değerlerin üzerine asla yazılmaz. Yerel geliştirme için ayrıca şunları ayarlayın:
 ```env
 NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
-JWT_SECRET=uzun-ve-rastgele-bir-secret
-APP_ENCRYPTION_KEY=32-byte-base64-veya-64-char-hex-key
-APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
-> [!TIP]
-> Güvenli secret'lar oluşturmak için `JWT_SECRET` tarafında `openssl rand -hex 32`, `APP_ENCRYPTION_KEY` tarafında `openssl rand -base64 32` kullanabilirsiniz.
+> [!WARNING]
+> `APP_ENCRYPTION_KEY` ve `APP_ENCRYPTION_KEY_ID` değerlerini yedekleyin: bunlar olmadan fotoğraflar dahil şifrelenmiş veriler kurtarılamaz.
+>
+> Elle oluşturmayı mı tercih edersiniz? `JWT_SECRET` için `openssl rand -hex 32`, `APP_ENCRYPTION_KEY` için `openssl rand -base64 32` kullanın.
 
 #### 3. Uygulamayı çalıştır
 ```bash
@@ -215,10 +214,14 @@ HomeInventory'yi önceden derlenmiş imaj ile dağıtın; kaynak kodu indirmeniz
 
 ```bash
 curl -O https://raw.githubusercontent.com/asdteke/HomeInventory/main/docker-compose.yml
+touch .env  # isteğe bağlı ayarlar, bkz. .env.example
+mkdir -p secrets
+docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/secrets:/secrets" \
+  ghcr.io/asdteke/homeinventory:latest node scripts/setup.mjs --docker --out /secrets
 docker compose up -d
 ```
 
-Compose, en yeni sürüm olan `ghcr.io/asdteke/homeinventory:latest` imajını çeker (amd64, arm64 ve armv7).
+Compose, en yeni sürüm olan `ghcr.io/asdteke/homeinventory:latest` imajını çeker (amd64, arm64 ve armv7). `docker run` satırı `secrets/` klasöründe üç secret dosyasını, mevcut olanların üzerine yazmadan oluşturur. Bu dosyaları yedekleyin; şifreleme anahtarı olmadan şifrelenmiş veriler kurtarılamaz.
 
 Gelişmiş yapılandırma, reverse proxy kurulumu ve canlı ortam dağıtımları için [DOCKER.md](DOCKER.md) dosyasına bakın.
 

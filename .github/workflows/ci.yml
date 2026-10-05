@@ -205,12 +205,24 @@ jobs:
               .catch((error) => { console.error(error); process.exit(1); });
           "
 
+      - name: Generate secret files with the setup command
+        run: |
+          mkdir -p secrets
+          docker run --rm --network none --platform ${{ matrix.platform }} \
+            --user "$(id -u):$(id -g)" -v "$PWD/secrets:/secrets" \
+            homeinventory:ci node scripts/setup.mjs --docker --out /secrets
+          test -s secrets/jwt_secret.txt
+          test -s secrets/app_encryption_key.txt
+          test -s secrets/app_encryption_key_id.txt
+
+      # Mounts the generated files the way Compose does, so the container's
+      # uid 1001 must be able to read them.
       - name: Start container without network and check health
         run: |
           docker run -d --name hi-smoke --network none --platform ${{ matrix.platform }} \
-            -e JWT_SECRET="$(openssl rand -hex 32)" \
-            -e APP_ENCRYPTION_KEY="$(openssl rand -base64 32)" \
-            -e APP_ENCRYPTION_KEY_ID=ci \
+            -v "$PWD/secrets/jwt_secret.txt:/run/secrets/jwt_secret:ro" \
+            -v "$PWD/secrets/app_encryption_key.txt:/run/secrets/app_encryption_key:ro" \
+            -v "$PWD/secrets/app_encryption_key_id.txt:/run/secrets/app_encryption_key_id:ro" \
             homeinventory:ci
           for attempt in $(seq 1 60); do
             if docker exec hi-smoke node -e "fetch('http://127.0.0.1:3001/api/health').then((r) => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"; then

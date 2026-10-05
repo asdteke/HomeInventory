@@ -23,8 +23,9 @@ Getting the project running locally is easy:
 
 2. **Set up your local environment:**
    ```bash
-   cp .env.example .env
+   npm run setup
    ```
+   This creates `.env` from `.env.example` and fills in random development secrets. Existing values are kept.
 
 3. **Fire it up:**
    ```bash

@@ -176,20 +176,19 @@ npm run install-all
 #### 2. Lokale Umgebungsdatei erstellen
 
 ```bash
-cp .env.example .env
+npm run setup
 ```
 
-Setze mindestens diese Werte in `.env`:
+Der Befehl legt `.env` aus `.env.example` an (falls noch nicht vorhanden) und füllt `JWT_SECRET`, `APP_ENCRYPTION_KEY` und `APP_ENCRYPTION_KEY_ID` mit starken Zufallswerten. Vorhandene Werte werden nie überschrieben. Für die lokale Entwicklung setze zusätzlich:
 ```env
 NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
-JWT_SECRET=ein-langer-zufaelliger-secret-wert
-APP_ENCRYPTION_KEY=32-byte-base64-oder-64-char-hex-key
-APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
-> [!TIP]
-> Sichere Secrets kannst du mit `openssl rand -hex 32` für `JWT_SECRET` und `openssl rand -base64 32` für `APP_ENCRYPTION_KEY` erzeugen.
+> [!WARNING]
+> Sichere `APP_ENCRYPTION_KEY` und `APP_ENCRYPTION_KEY_ID`: Ohne sie lassen sich verschlüsselte Daten, auch Fotos, nicht wiederherstellen.
+>
+> Lieber von Hand? Nutze `openssl rand -hex 32` für `JWT_SECRET` und `openssl rand -base64 32` für `APP_ENCRYPTION_KEY`.
 
 #### 3. App starten
 
@@ -215,10 +214,14 @@ Stelle HomeInventory mit dem vorgefertigten Image bereit, ohne Quellcode-Checkou
 
 ```bash
 curl -O https://raw.githubusercontent.com/asdteke/HomeInventory/main/docker-compose.yml
+touch .env  # optionale Einstellungen, siehe .env.example
+mkdir -p secrets
+docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/secrets:/secrets" \
+  ghcr.io/asdteke/homeinventory:latest node scripts/setup.mjs --docker --out /secrets
 docker compose up -d
 ```
 
-Compose lädt `ghcr.io/asdteke/homeinventory:latest`, das neueste Release (für amd64, arm64 und armv7).
+Compose lädt `ghcr.io/asdteke/homeinventory:latest`, das neueste Release (für amd64, arm64 und armv7). Die `docker run`-Zeile erzeugt die drei Secret-Dateien in `secrets/`, ohne vorhandene zu überschreiben. Sichere sie, denn ohne den Verschlüsselungsschlüssel lassen sich verschlüsselte Daten nicht wiederherstellen.
 
 Für erweiterte Konfiguration, Reverse Proxy und Production-Deployment siehe [DOCKER.md](DOCKER.md).
 

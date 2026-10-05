@@ -176,20 +176,19 @@ npm run install-all
 #### 2. Crear el archivo de entorno local
 
 ```bash
-cp .env.example .env
+npm run setup
 ```
 
-Configura al menos estos valores en `.env`:
+Esto crea `.env` a partir de `.env.example` (si aún no existe) y rellena `JWT_SECRET`, `APP_ENCRYPTION_KEY` y `APP_ENCRYPTION_KEY_ID` con valores aleatorios seguros. Nunca sobrescribe valores existentes. Para desarrollo local, configura también:
 ```env
 NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
-JWT_SECRET=un-secret-largo-y-aleatorio
-APP_ENCRYPTION_KEY=32-byte-base64-o-64-char-hex-key
-APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
-> [!TIP]
-> Genera secretos seguros con `openssl rand -hex 32` para `JWT_SECRET` y `openssl rand -base64 32` para `APP_ENCRYPTION_KEY`.
+> [!WARNING]
+> Guarda una copia de `APP_ENCRYPTION_KEY` y `APP_ENCRYPTION_KEY_ID`: sin ellos no se pueden recuperar los datos cifrados, incluidas las fotos.
+>
+> ¿Prefieres hacerlo a mano? Usa `openssl rand -hex 32` para `JWT_SECRET` y `openssl rand -base64 32` para `APP_ENCRYPTION_KEY`.
 
 #### 3. Ejecutar la app
 
@@ -215,10 +214,14 @@ Despliega HomeInventory desde la imagen precompilada, sin clonar el código ni c
 
 ```bash
 curl -O https://raw.githubusercontent.com/asdteke/HomeInventory/main/docker-compose.yml
+touch .env  # ajustes opcionales, ver .env.example
+mkdir -p secrets
+docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/secrets:/secrets" \
+  ghcr.io/asdteke/homeinventory:latest node scripts/setup.mjs --docker --out /secrets
 docker compose up -d
 ```
 
-Compose descarga `ghcr.io/asdteke/homeinventory:latest`, la versión más reciente (para amd64, arm64 y armv7).
+Compose descarga `ghcr.io/asdteke/homeinventory:latest`, la versión más reciente (para amd64, arm64 y armv7). La línea `docker run` genera los tres archivos de secretos en `secrets/` sin sobrescribir los existentes. Guarda una copia: sin la clave de cifrado no se pueden recuperar los datos cifrados.
 
 Para configuración avanzada, reverse proxy y despliegue en producción, consulta [DOCKER.md](DOCKER.md).
 

@@ -16,8 +16,11 @@ These settings match the public v2.7.0 release line.
 1. Install Node.js `22.23.3` or newer, then install dependencies:
    - `npm install`
    - `npm install --prefix client`
-2. Create local env file:
-   - `cp .env.example .env`
+2. Create the local env file and its secrets:
+   - `npm run setup` (creates `.env` from `.env.example` and generates
+     `JWT_SECRET`, `APP_ENCRYPTION_KEY` and `APP_ENCRYPTION_KEY_ID`; existing
+     values are never overwritten. Use `npm run setup -- --docker` for the
+     Docker secret files, see `DOCKER.md`.)
 3. Set at least:
    - `NODE_ENV`
    - `PORT`
