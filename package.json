@@ -14,6 +14,8 @@
     "client": "npm run dev --prefix client",
     "build": "npm run build --prefix client",
     "build:homeinventory": "npm run build --prefix client",
+    "test": "npm run build && npm run test:node",
+    "test:node": "node --test --test-concurrency=1 tests/*.test.mjs",
     "start": "NODE_ENV=production node server.js",
     "install-all": "npm install && cd client && npm install",
     "launcher:install": "npm install --prefix apps/launcher",

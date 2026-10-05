@@ -42,9 +42,8 @@ We love tests! Whenever possible, please run tests to ensure your changes are so
 ```bash
 npm run version:check
 npm run i18n:check
-npm run build
 npm run build --prefix apps/launcher
-node --test --test-concurrency=1 tests/*.test.mjs
+npm test
 npm audit --audit-level=moderate
 npm audit --audit-level=moderate --prefix client
 npm audit --audit-level=moderate --prefix apps/launcher

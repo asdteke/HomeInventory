@@ -145,7 +145,7 @@ jobs:
           node scripts/verify-managed-app-archive.mjs
 
       - name: Test Node application
-        run: node --test --test-concurrency=1 tests/*.test.mjs
+        run: npm run test:node
 
       - name: Test Rust launcher
         env:
