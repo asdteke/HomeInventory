@@ -13,7 +13,7 @@ CLI and Docker remain first-class setup paths. The launcher is a convenience lay
 
 ## Key Features
 
-- **One-click local start/stop:** starts and stops the HomeInventory API and Vite client together.
+- **One-click local start/stop:** starts and stops HomeInventory. Launcher-managed installs run the production server with the prebuilt UI on one port; custom source folders keep the API plus Vite development setup.
 - **Profile isolation:** launcher-managed profiles receive separate data, SQLite, uploads, and encrypted media paths.
 - **Dependency verifier:** detects Node.js and npm, including macOS/Linux GUI PATH handling and Windows path lookup.
 - **Port and LAN checks:** validates local ports before launch and shows a QR code for devices on the same network.
@@ -41,7 +41,16 @@ For most users, there is no need to compile the launcher from source. Go to the 
 - **Windows:** `.exe` or `.msi`
 - **Linux:** `.AppImage`, `.deb`, or `.rpm`
 
-After opening the launcher, click **Launch HomeInventory**. The launcher checks dependencies and ports, starts the backend and frontend, then shows the local URL plus a QR code for devices on the same network.
+On the first run the launcher shows **Install HomeInventory**. It installs the HomeInventory version that ships with the launcher, then starts it once. After that, click **Launch HomeInventory**: the launcher checks ports, starts the app, waits until the UI is actually served, and then shows the local URL plus a QR code for devices on the same network.
+
+### First Install and Run Modes
+
+- **First install:** the launcher unpacks its bundled app into the launcher data folder (`managed-app/versions/<version>`), downloads the portable Node.js runtime, and runs `npm ci --omit=dev` for the server only. The UI ships prebuilt in the archive (`client/dist`), so no client dependencies or Vite build are needed. This needs an internet connection once and usually takes one to three minutes. The app is not started and stopped during the install; it is started once after the install succeeds.
+- **Production mode (default for launcher-managed installs and HomeInventory Local):** `NODE_ENV=production node server.js` serves the API and the prebuilt UI on a single port (default 3001). The launcher waits up to 120 seconds for `/api/health` and the app shell before it reports the app as ready or opens the browser.
+- **Development mode (custom install folders and older managed installs without `client/dist`):** the launcher keeps running `scripts/dev.mjs` with separate API and UI ports, as before. `npm run dev` from the repository is unchanged.
+- **Custom folder:** **Use a custom install folder** on the first-install screen (or **Developer Tools > Settings > Install folder**) keeps the previous behaviour of installing into, or running from, a folder you choose.
+- User data, profile data, and launcher configuration stay in the same launcher application-data locations as before.
+- Every server process started by the launcher gets `UPDATE_CHECK=false`, so the app's own GitHub release check is skipped; the launcher handles updates.
 
 Live mobile camera access over a LAN IP requires a secure browser context. The opt-in, domain-free setup and its trust/rotation limits are documented in [Optional Offline Mobile HTTPS](docs/offline-mobile-https.md).
 

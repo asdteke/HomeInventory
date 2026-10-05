@@ -3,6 +3,7 @@ mod commands;
 mod config;
 mod health;
 mod https;
+mod install;
 mod logs;
 mod managed;
 mod manifest;
@@ -36,6 +37,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             commands::detect_tools,
             setup::install_dependencies,
+            install::install_managed_app,
             process::start_profile,
             ports::check_ports,
             ports::suggest_random_ports,

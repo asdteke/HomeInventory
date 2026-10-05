@@ -10,7 +10,10 @@ use crate::managed::{
 use crate::network::{check_lan_access_status, get_local_ip};
 use crate::node::{resolve_tools, resolved_command_env};
 use crate::paths::{app_data_dir, profile_paths};
-use crate::project::{is_empty_dir, is_valid_project_root, project_root_for_snapshot};
+use crate::project::{
+    has_prebuilt_client, is_empty_dir, is_valid_project_root, project_root_for_snapshot,
+    project_run_mode, RunMode,
+};
 use crate::setup::bundled_app_archive_path;
 use crate::state::LauncherState;
 use crate::types::{LauncherSnapshot, ProfileStatus, SetupStatus, ToolOverrides, ToolStatus};
@@ -22,6 +25,8 @@ pub(crate) fn build_snapshot(
     overrides: ToolOverrides,
 ) -> Result<LauncherSnapshot, String> {
     let project_root = project_root_for_snapshot(app, &overrides)?;
+    let run_mode = project_run_mode(app, project_root.as_deref());
+    let single_port = run_mode.single_port();
     let app_data_dir = app_data_dir(app)?;
     let envs = resolved_command_env();
     let tools = resolve_tools(app, &envs, &overrides);
@@ -70,7 +75,7 @@ pub(crate) fn build_snapshot(
                 .filter(|(profile_id, _, _)| profile_id == profile.id)
                 .map(|(_, _, frontend_port)| *frontend_port)
                 .unwrap_or(profile.frontend_port);
-            let display_frontend_port = if is_store_distribution() {
+            let display_frontend_port = if single_port {
                 backend_port
             } else {
                 frontend_port
@@ -112,10 +117,15 @@ pub(crate) fn build_snapshot(
             .as_ref()
             .map(|root| root.join("node_modules").exists())
             .unwrap_or(false),
+        // Production installs serve the prebuilt client and need no client
+        // dependencies at all.
         client_dependencies: store_build
             || project_root
                 .as_ref()
-                .map(|root| root.join("client").join("node_modules").exists())
+                .map(|root| {
+                    (run_mode == RunMode::Production && has_prebuilt_client(root))
+                        || root.join("client").join("node_modules").exists()
+                })
                 .unwrap_or(false),
         env_file: project_root
             .as_ref()
@@ -133,7 +143,7 @@ pub(crate) fn build_snapshot(
     let lan_status = active_process
         .as_ref()
         .and_then(|(_, backend_port, frontend_port)| {
-            let actual_frontend_port = if is_store_distribution() {
+            let actual_frontend_port = if single_port {
                 *backend_port
             } else {
                 *frontend_port
@@ -217,6 +227,7 @@ pub(crate) fn build_snapshot(
         app_version,
         app_source,
         bundled_sync_required,
+        run_mode: run_mode.as_str().to_string(),
         distribution: distribution().to_string(),
         store_build,
         https_status,

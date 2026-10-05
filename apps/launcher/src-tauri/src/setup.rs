@@ -22,8 +22,8 @@ use crate::node::{
 };
 use crate::paths::app_data_dir;
 use crate::project::{
-    is_empty_dir, is_valid_project_root, project_root_handle, read_version_from_package_json,
-    seed_env_file, validate_project_root,
+    is_empty_dir, is_valid_project_root, project_root_handle, project_run_mode,
+    read_version_from_package_json, seed_env_file, validate_project_root, RunMode,
 };
 use crate::snapshot::{build_snapshot, ready_setup_count};
 use crate::state::{InstallFlagGuard, LauncherState};
@@ -109,12 +109,17 @@ pub(crate) async fn install_dependencies(
             .ok_or_else(|| "npm was not found. Configure the npm path in Settings.".to_string())?
     };
 
+    // A managed install that ships the prebuilt client only needs the
+    // server's production dependencies.
+    let production = project_run_mode(&app, Some(&project_root)) == RunMode::Production;
     append_log(&state, "setup", "info", "Installing root dependencies...");
     let mut command = ProcessCommand::new(&npm);
-    command
-        .arg("install")
-        .current_dir(&project_root)
-        .envs(&envs);
+    if production {
+        command.args(["ci", "--omit=dev", "--no-audit", "--no-fund"]);
+    } else {
+        command.arg("install");
+    }
+    command.current_dir(&project_root).envs(&envs);
     #[cfg(windows)]
     {
         use std::os::windows::process::CommandExt;
@@ -132,6 +137,23 @@ pub(crate) async fn install_dependencies(
             "Root dependency install failed with exit code {:?}. Check Logs for details.",
             output.status.code()
         ));
+    }
+
+    if production {
+        let snapshot = build_snapshot(&app, &state, overrides)?;
+        append_log(
+            &state,
+            "setup",
+            "success",
+            "Server dependencies installed. The prebuilt app needs no client dependencies.",
+        );
+        return Ok(CommandResult {
+            ok: true,
+            message: format!(
+                "Dependencies installed. {} setup checks are now ready.",
+                ready_setup_count(&snapshot.setup)
+            ),
+        });
     }
 
     append_log(&state, "setup", "info", "Installing client dependencies...");

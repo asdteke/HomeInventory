@@ -2,7 +2,7 @@
 
 use std::{net::TcpListener, time::Duration};
 
-use crate::config::{is_store_distribution, ProfileConfig};
+use crate::config::ProfileConfig;
 use crate::types::{CheckPortsRequest, PortCheckResult, SuggestedPorts};
 
 #[tauri::command]
@@ -43,6 +43,45 @@ pub(crate) async fn check_ports_internal(
     request: CheckPortsRequest,
 ) -> Result<PortCheckResult, String> {
     validate_port(request.backend_port, "API")?;
+
+    if request.single_port {
+        // Production installs serve the app and the API on one port.
+        let ok = is_port_available(request.backend_port);
+        let existing_frontend_url = if !ok {
+            detect_existing_homeinventory(request.backend_port).await
+        } else {
+            None
+        };
+        let existing_home_inventory = existing_frontend_url.is_some();
+        let suggested_port = if ok {
+            request.backend_port
+        } else {
+            next_free_port(request.backend_port)
+        };
+        let message = if existing_home_inventory {
+            "HomeInventory is already running on the selected port. Open the existing session instead of starting a duplicate.".to_string()
+        } else if ok {
+            "Port is available.".to_string()
+        } else {
+            format!(
+                "Port {} is busy. Suggested: {suggested_port}.",
+                request.backend_port
+            )
+        };
+        return Ok(PortCheckResult {
+            ok,
+            backend_port: request.backend_port,
+            frontend_port: request.backend_port,
+            backend_ok: ok,
+            frontend_ok: ok,
+            suggested_backend_port: suggested_port,
+            suggested_frontend_port: suggested_port,
+            existing_home_inventory,
+            existing_frontend_url,
+            message,
+        });
+    }
+
     validate_port(request.frontend_port, "UI")?;
 
     if request.backend_port == request.frontend_port {
@@ -189,16 +228,17 @@ pub(crate) fn requested_ports(
     profile: &ProfileConfig,
     backend_port: Option<u16>,
     frontend_port: Option<u16>,
+    single_port: bool,
 ) -> Result<(u16, u16), String> {
     let backend_port = backend_port.unwrap_or(profile.backend_port);
-    let frontend_port = if is_store_distribution() {
+    let frontend_port = if single_port {
         backend_port
     } else {
         frontend_port.unwrap_or(profile.frontend_port)
     };
     validate_port(backend_port, "API")?;
     validate_port(frontend_port, "UI")?;
-    if !is_store_distribution() && backend_port == frontend_port {
+    if !single_port && backend_port == frontend_port {
         return Err("API and UI ports must be different.".into());
     }
     Ok((backend_port, frontend_port))

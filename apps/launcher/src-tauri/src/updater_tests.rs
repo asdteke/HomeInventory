@@ -5,7 +5,9 @@ use std::{
 
 use crate::commands::validate_local_app_url;
 use crate::config::profile_config;
+use crate::health::{health_wait_progress, looks_like_app_shell, STARTUP_HEALTH_TIMEOUT};
 use crate::https::ensure_https_material;
+use crate::install::first_install_allowed;
 use crate::managed::{
     bundled_reconciliation_required, clean_old_versions, installed_app_version,
     managed_version_dir, resolve_current_app_version, resolve_rollback_target, AppUpdaterMetadata,
@@ -23,6 +25,7 @@ use crate::ports::{
     suggest_random_ports_internal,
 };
 use crate::process::profile_start_is_blocked;
+use crate::project::{has_prebuilt_client, is_managed_project_root, run_mode_for, RunMode};
 use crate::secrets::write_profile_secrets;
 use crate::setup::{bundled_app_is_same_or_newer, should_prefer_bundled_app_version};
 use crate::types::PortCheckResult;
@@ -181,10 +184,73 @@ fn test_only_bundled_reconciliation_finishes_stopped() {
 fn test_bundled_reconciliation_uses_validated_requested_ports() {
     let profile = profile_config("homeinventory").unwrap();
     assert_eq!(
-        requested_ports(profile, Some(4101), Some(6101)).unwrap(),
+        requested_ports(profile, Some(4101), Some(6101), false).unwrap(),
         (4101, 6101),
     );
-    assert!(requested_ports(profile, Some(4101), Some(4101)).is_err());
+    assert!(requested_ports(profile, Some(4101), Some(4101), false).is_err());
+}
+
+#[test]
+fn test_production_installs_use_one_port() {
+    let profile = profile_config("homeinventory").unwrap();
+    assert_eq!(
+        requested_ports(profile, Some(4101), Some(6101), true).unwrap(),
+        (4101, 4101),
+    );
+    assert_eq!(
+        requested_ports(profile, None, None, true).unwrap(),
+        (profile.backend_port, profile.backend_port),
+    );
+    assert!(requested_ports(profile, Some(80), None, true).is_err());
+}
+
+#[test]
+fn test_run_mode_prefers_the_prebuilt_client_only_for_managed_installs() {
+    let root = std::env::temp_dir().join(format!(
+        "homeinventory-run-mode-{}-{}",
+        std::process::id(),
+        random_hex(4).unwrap()
+    ));
+    fs::create_dir_all(&root).unwrap();
+    assert!(!has_prebuilt_client(&root));
+    assert_eq!(run_mode_for(false, true, &root), RunMode::Development);
+    assert_eq!(run_mode_for(true, false, &root), RunMode::Production);
+
+    fs::create_dir_all(root.join("client/dist")).unwrap();
+    fs::write(
+        root.join("client/dist/index.html"),
+        "<div id=\"root\"></div>",
+    )
+    .unwrap();
+    assert!(has_prebuilt_client(&root));
+    assert_eq!(run_mode_for(false, true, &root), RunMode::Production);
+    // A custom or development folder keeps the developer entrypoint even
+    // when someone built the client there.
+    assert_eq!(run_mode_for(false, false, &root), RunMode::Development);
+
+    let app_data = root.join("app-data");
+    let version_dir = managed_version_dir(&app_data, "2.8.0");
+    fs::create_dir_all(&version_dir).unwrap();
+    assert!(is_managed_project_root(&app_data, &version_dir));
+    assert!(!is_managed_project_root(&app_data, &root));
+
+    let _ = fs::remove_dir_all(root);
+}
+
+#[test]
+fn test_readiness_requires_the_app_shell() {
+    assert!(looks_like_app_shell(
+        "text/html; charset=utf-8",
+        "<!doctype html><div id=\"root\"></div>"
+    ));
+    assert!(!looks_like_app_shell(
+        "application/json",
+        "{\"status\":\"ok\"}"
+    ));
+    assert!(!looks_like_app_shell("text/html", "<h1>Cannot GET /</h1>"));
+    assert!(health_wait_progress(0.9, 0.95, 0) >= 0.9);
+    assert!(health_wait_progress(0.9, 0.95, 10_000) <= 0.95);
+    assert!(STARTUP_HEALTH_TIMEOUT.as_secs() >= 120);
 }
 
 #[test]
@@ -654,4 +720,14 @@ fn test_https_ca_stays_stable_while_leaf_rotates_for_new_lan_ip() {
     }
 
     fs::remove_dir_all(root).unwrap();
+}
+
+#[test]
+fn test_first_install_is_only_offered_for_a_fresh_standard_install() {
+    assert!(first_install_allowed(false, false, None).is_ok());
+    assert!(first_install_allowed(true, false, None).is_err());
+    assert!(first_install_allowed(false, true, None).is_err());
+    assert!(first_install_allowed(false, false, Some("2.7.4"))
+        .unwrap_err()
+        .contains("already installed"));
 }

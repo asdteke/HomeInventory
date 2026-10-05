@@ -13,7 +13,7 @@ CLI ve Docker hâlâ birinci sınıf kurulum yollarıdır. Launcher, masaüstü 
 
 ## Öne Çıkan Özellikler
 
-- **Tek tıkla yerel başlat/durdur:** HomeInventory API ve Vite istemcisini birlikte başlatır ve durdurur.
+- **Tek tıkla yerel başlat/durdur:** HomeInventory'yi başlatır ve durdurur. Launcher tarafından yönetilen kurulumlar, hazır derlenmiş arayüzle production sunucusunu tek portta çalıştırır; özel kaynak klasörleri API ve Vite geliştirme düzenini korur.
 - **Profil yalıtımı:** Launcher tarafından yönetilen profiller ayrı veri, SQLite, upload ve şifreli medya yolları kullanır.
 - **Bağımlılık doğrulama:** Node.js ve npm'i algılar; macOS/Linux GUI PATH ve Windows path çözümleme sorunlarını hesaba katar.
 - **Port ve LAN kontrolü:** Başlatmadan önce yerel portları doğrular, aynı ağdaki cihazlar için QR kod gösterir.
@@ -41,7 +41,16 @@ CLI ve Docker hâlâ birinci sınıf kurulum yollarıdır. Launcher, masaüstü 
 - **Windows:** `.exe` veya `.msi`
 - **Linux:** `.AppImage`, `.deb` veya `.rpm`
 
-Launcher açıldıktan sonra **Launch HomeInventory** butonuna tıklayın. Başlatıcı bağımlılıkları ve portları kontrol eder, backend ile frontend'i başlatır, ardından yerel URL ve aynı ağdaki cihazlar için QR kod gösterir.
+İlk açılışta launcher **HomeInventory'yi Kur** butonunu gösterir. Launcher ile birlikte gelen HomeInventory sürümünü kurar ve ardından bir kez başlatır. Sonrasında **HomeInventory'yi Başlat** butonuna tıklayın: launcher portları kontrol eder, uygulamayı başlatır, arayüz gerçekten sunulana kadar bekler ve ardından yerel URL ile aynı ağdaki cihazlar için QR kod gösterir.
+
+### İlk Kurulum ve Çalışma Modları
+
+- **İlk kurulum:** Launcher, paketli uygulamayı launcher veri klasörüne (`managed-app/versions/<sürüm>`) açar, taşınabilir Node.js çalışma ortamını indirir ve yalnızca sunucu için `npm ci --omit=dev` çalıştırır. Arayüz arşivde hazır derlenmiş olarak gelir (`client/dist`); bu yüzden istemci bağımlılıklarına veya Vite derlemesine gerek yoktur. Bu adım bir kez internet bağlantısı ister ve genellikle bir ila üç dakika sürer. Kurulum sırasında uygulama başlatılıp durdurulmaz; kurulum başarılı olduktan sonra bir kez başlatılır.
+- **Production modu (launcher tarafından yönetilen kurulumlar ve HomeInventory Local için varsayılan):** `NODE_ENV=production node server.js`, API'yi ve hazır arayüzü tek portta (varsayılan 3001) sunar. Launcher, uygulamayı hazır saymadan veya tarayıcıyı açmadan önce `/api/health` ve uygulama kabuğu için 120 saniyeye kadar bekler.
+- **Geliştirme modu (özel kurulum klasörleri ve `client/dist` içermeyen eski yönetilen kurulumlar):** Launcher, daha önce olduğu gibi ayrı API ve arayüz portlarıyla `scripts/dev.mjs` çalıştırmaya devam eder. Repository içindeki `npm run dev` değişmez.
+- **Özel klasör:** İlk kurulum ekranındaki **Özel bir kurulum klasörü kullan** seçeneği (veya **Geliştirici Araçları > Ayarlar > Kurulum klasörü**), seçtiğiniz bir klasöre kurma veya oradan çalıştırma davranışını korur.
+- Kullanıcı verileri, profil verileri ve launcher yapılandırması önceki launcher uygulama-verisi konumlarında kalır.
+- Launcher'ın başlattığı her sunucu sürecine `UPDATE_CHECK=false` verilir; böylece uygulamanın kendi GitHub sürüm kontrolü atlanır ve güncellemeleri launcher yönetir.
 
 LAN IP adresinde canlı mobil kamera erişimi güvenli tarayıcı bağlamı gerektirir. İsteğe bağlı, alan adsız kurulum ile güven/rotasyon sınırları [Offline Mobil HTTPS](docs/offline-mobile-https.md) belgesinde açıklanır.
 

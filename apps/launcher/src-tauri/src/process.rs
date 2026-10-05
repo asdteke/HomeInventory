@@ -20,7 +20,9 @@ use crate::logs::{append_log, stream_process_output};
 use crate::node::{resolve_tools, resolved_command_env};
 use crate::paths::{app_data_dir, profile_paths};
 use crate::ports::{is_port_available, next_free_port, requested_ports};
-use crate::project::{project_root_handle, seed_env_file, validate_project_root};
+use crate::project::{
+    project_root_handle, project_run_mode, seed_env_file, validate_project_root, RunMode,
+};
 use crate::secrets::{ensure_profile_secrets, write_launcher_brand_env};
 use crate::setup::sync_store_project_root;
 #[cfg(windows)]
@@ -48,7 +50,10 @@ pub(crate) fn start_profile_internal(
     validate_project_root(&project_root)?;
     let app_data_dir = app_data_dir(app)?;
     let profile = profile_config(profile_id)?;
-    let (backend_port, frontend_port) = requested_ports(profile, backend_port, frontend_port)?;
+    let run_mode = project_run_mode(app, Some(&project_root));
+    let production = run_mode == RunMode::Production;
+    let (backend_port, frontend_port) =
+        requested_ports(profile, backend_port, frontend_port, run_mode.single_port())?;
 
     if !allow_during_update {
         let updating = state
@@ -81,7 +86,7 @@ pub(crate) fn start_profile_internal(
         ));
     }
 
-    if !is_port_available(frontend_port) {
+    if !run_mode.single_port() && !is_port_available(frontend_port) {
         return Err(format!(
             "Frontend port {} is busy. Suggested next frontend port: {}.",
             frontend_port,
@@ -138,7 +143,7 @@ pub(crate) fn start_profile_internal(
     let mut command_env = envs;
     command_env.insert(
         "NODE_ENV".into(),
-        if is_store_distribution() {
+        if production {
             "production"
         } else {
             "development"
@@ -150,7 +155,7 @@ pub(crate) fn start_profile_internal(
     command_env.insert("VITE_HOST".into(), "0.0.0.0".into());
     command_env.insert("PORT".into(), backend_port.to_string());
 
-    let actual_frontend_port = if is_store_distribution() {
+    let actual_frontend_port = if production {
         backend_port
     } else {
         frontend_port
@@ -158,7 +163,7 @@ pub(crate) fn start_profile_internal(
 
     command_env.insert("FRONTEND_PORT".into(), actual_frontend_port.to_string());
     command_env.insert("VITE_PORT".into(), actual_frontend_port.to_string());
-    if is_store_distribution() {
+    if production {
         command_env.insert("HOMEINVENTORY_LOCAL_HTTP".into(), "true".into());
         command_env.insert("APP_COOKIE_SECURE".into(), "false".into());
     }
@@ -171,6 +176,9 @@ pub(crate) fn start_profile_internal(
         format!("http://127.0.0.1:{}", actual_frontend_port),
     );
     command_env.insert("EXPOSE_SERVER_INFO".into(), "true".into());
+    // The launcher manages app updates itself; skip the server's own
+    // GitHub "new version" check for launcher-managed processes.
+    command_env.insert("UPDATE_CHECK".into(), "false".into());
     if !npm.is_empty() {
         command_env.insert("HOMEINVENTORY_NPM_EXEC".into(), npm);
     }
@@ -188,12 +196,12 @@ pub(crate) fn start_profile_internal(
     );
     command_env.extend(ensure_profile_secrets(state, profile.id, &profile_paths)?);
 
-    let mut args = if is_store_distribution() {
+    let mut args = if production {
         vec!["server.js".to_string()]
     } else {
         vec!["scripts/dev.mjs".to_string()]
     };
-    if let Some(brand_key) = profile.brand_key {
+    if let Some(brand_key) = profile.brand_key.filter(|_| !production) {
         let env_file = write_launcher_brand_env(
             &project_root,
             &profile_paths,
@@ -209,10 +217,17 @@ pub(crate) fn start_profile_internal(
         state,
         profile.id,
         "info",
-        &format!(
-            "Starting {} on ports {backend_port}/{frontend_port}...",
-            profile.name
-        ),
+        &if production {
+            format!(
+                "Starting {} (production build) on port {backend_port}...",
+                profile.name
+            )
+        } else {
+            format!(
+                "Starting {} (development server) on ports {backend_port}/{frontend_port}...",
+                profile.name
+            )
+        },
     );
 
     let mut command = ProcessCommand::new(&node);

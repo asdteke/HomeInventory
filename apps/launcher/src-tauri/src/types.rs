@@ -45,6 +45,9 @@ pub(crate) struct WriteEnvRequest {
 pub(crate) struct CheckPortsRequest {
     pub(crate) backend_port: u16,
     pub(crate) frontend_port: u16,
+    /// Production installs use one port for the app and the API.
+    #[serde(default)]
+    pub(crate) single_port: bool,
 }
 
 #[derive(Clone, Serialize)]
@@ -123,6 +126,8 @@ pub(crate) struct LauncherSnapshot {
     pub(crate) app_version: String,
     pub(crate) app_source: String,
     pub(crate) bundled_sync_required: bool,
+    /// "production" (prebuilt client, one port) or "development" (dev.mjs).
+    pub(crate) run_mode: String,
     pub(crate) distribution: String,
     pub(crate) store_build: bool,
     pub(crate) https_status: Option<HttpsStatus>,

@@ -158,3 +158,65 @@ pub(crate) fn project_root_for_snapshot(
 
     Ok(None)
 }
+
+/// How the launcher runs a HomeInventory install folder.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum RunMode {
+    /// `node server.js` with NODE_ENV=production serving the prebuilt
+    /// `client/dist` on one port. Used by the Store package and by managed
+    /// installs whose archive ships the prebuilt client.
+    Production,
+    /// The developer entrypoint `scripts/dev.mjs` (API + Vite dev server on
+    /// two ports). Kept for custom/development folders and for managed
+    /// installs created before the archive shipped a prebuilt client.
+    Development,
+}
+
+impl RunMode {
+    pub(crate) fn as_str(self) -> &'static str {
+        match self {
+            RunMode::Production => "production",
+            RunMode::Development => "development",
+        }
+    }
+
+    pub(crate) fn single_port(self) -> bool {
+        self == RunMode::Production
+    }
+}
+
+pub(crate) fn has_prebuilt_client(project_root: &Path) -> bool {
+    project_root
+        .join("client")
+        .join("dist")
+        .join("index.html")
+        .is_file()
+}
+
+pub(crate) fn is_managed_project_root(app_data_dir: &Path, project_root: &Path) -> bool {
+    let versions_dir = app_data_dir.join("managed-app").join("versions");
+    let versions_dir = fs::canonicalize(&versions_dir).unwrap_or(versions_dir);
+    let project_root =
+        fs::canonicalize(project_root).unwrap_or_else(|_| project_root.to_path_buf());
+    project_root.starts_with(versions_dir)
+}
+
+pub(crate) fn run_mode_for(store_build: bool, managed: bool, project_root: &Path) -> RunMode {
+    if store_build || (managed && has_prebuilt_client(project_root)) {
+        RunMode::Production
+    } else {
+        RunMode::Development
+    }
+}
+
+/// Resolves the run mode of an install folder. Without a folder (nothing is
+/// installed yet) the next managed install runs in production mode.
+pub(crate) fn project_run_mode(app: &tauri::AppHandle, project_root: Option<&Path>) -> RunMode {
+    let Some(project_root) = project_root else {
+        return RunMode::Production;
+    };
+    let managed = app_data_dir(app)
+        .map(|app_data| is_managed_project_root(&app_data, project_root))
+        .unwrap_or(false);
+    run_mode_for(is_store_distribution(), managed, project_root)
+}

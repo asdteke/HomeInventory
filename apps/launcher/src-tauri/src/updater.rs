@@ -3,17 +3,19 @@
 use serde::Serialize;
 use sha2::Digest;
 use std::{
+    collections::HashMap,
     env,
     fs::{self, File},
     path::{Path, PathBuf},
+    process::Stdio,
 };
 use tauri::{Emitter, Manager};
 use tauri_plugin_updater::UpdaterExt;
 
 use crate::archive::extract_archive;
 use crate::config::{is_store_distribution, profile_config};
-use crate::health::run_health_checks;
-use crate::logs::append_log;
+use crate::health::{health_wait_progress, run_health_checks};
+use crate::logs::{append_log, stream_process_output};
 use crate::managed::{
     bundled_reconciliation_required, clean_old_versions, managed_installed_app_version,
     managed_version_dir, managed_version_exists, read_updater_metadata,
@@ -30,7 +32,9 @@ use crate::node::{
 use crate::paths::{app_data_dir, profile_paths};
 use crate::ports::{bundled_sync_port_preflight_error, check_ports_internal, requested_ports};
 use crate::process::{reconcile_active, start_profile_internal, stop_all_internal};
-use crate::project::{project_root_handle, read_version_from_package_json};
+use crate::project::{
+    has_prebuilt_client, project_root_handle, read_version_from_package_json, run_mode_for,
+};
 use crate::setup::{
     bundled_app_archive_path, bundled_app_is_same_or_newer, normalized_extracted_project_dir,
     should_prefer_bundled_app_version,
@@ -304,10 +308,12 @@ pub(crate) async fn sync_bundled_managed_app(
         backend_port: request.backend_port,
         frontend_port: request.frontend_port,
     };
+    // The bundled archive ships the prebuilt client, so it runs on one port.
     let (backend_port, frontend_port) = requested_ports(
         profile_config("homeinventory")?,
         ports.backend_port,
         ports.frontend_port,
+        true,
     )?;
     let custom_project_path = overrides
         .project_path
@@ -342,6 +348,7 @@ pub(crate) async fn sync_bundled_managed_app(
     let initial_port_check = check_ports_internal(CheckPortsRequest {
         backend_port,
         frontend_port,
+        single_port: true,
     })
     .await?;
     if let Some(error) = bundled_sync_port_preflight_error(&initial_port_check) {
@@ -424,7 +431,7 @@ pub(crate) fn start_update_task(
                         &app_clone,
                         "RollbackComplete",
                         if update_finishes_stopped(mode) {
-                            "Previous managed app restored and stopped safely. You can retry synchronization."
+                            "The previous HomeInventory version was kept. You can retry the installation."
                         } else {
                             "System successfully rolled back to the previous version."
                         },
@@ -446,7 +453,7 @@ pub(crate) fn start_update_task(
                 &app_clone,
                 "Completed",
                 if mode == UpdateFlowMode::BundledOnly {
-                    "Bundled HomeInventory app synchronized and verified. Ready to launch."
+                    "HomeInventory is installed. Press Start to open it."
                 } else {
                     "Update complete! Application is running."
                 },
@@ -491,10 +498,13 @@ pub(crate) async fn run_update_flow(
     let bundled_path = bundled_app_archive_path(app)?;
     let bundled_version = env!("CARGO_PKG_VERSION").to_string();
     let launcher_version = env!("CARGO_PKG_VERSION").to_string();
-    let (backend_port, frontend_port) = requested_ports(
+    // Only the API port is validated up front; the UI port depends on whether
+    // the installed archive ships a prebuilt client (see below).
+    let (backend_port, _) = requested_ports(
         profile_config("homeinventory")?,
         ports.backend_port,
         ports.frontend_port,
+        true,
     )?;
 
     let (manifest, bundled_archive, launcher_update) = if mode == UpdateFlowMode::BundledOnly {
@@ -523,7 +533,7 @@ pub(crate) async fn run_update_flow(
         emit_progress(
             app,
             "Checking",
-            "Preparing the managed app included with this launcher...",
+            &format!("Preparing HomeInventory {bundled_version} included with this launcher..."),
             0.05,
             None,
         );
@@ -537,7 +547,7 @@ pub(crate) async fn run_update_flow(
             "updater",
             "info",
             &format!(
-                "Synchronizing the existing managed install with bundled HomeInventory {bundled_version}."
+                "Installing HomeInventory {bundled_version} included with this launcher over the existing managed install."
             ),
         );
         (
@@ -667,17 +677,6 @@ pub(crate) async fn run_update_flow(
         ));
     }
 
-    if mode == UpdateFlowMode::BundledOnly {
-        let final_port_check = check_ports_internal(CheckPortsRequest {
-            backend_port,
-            frontend_port,
-        })
-        .await?;
-        if let Some(error) = bundled_sync_port_preflight_error(&final_port_check) {
-            return Err(error);
-        }
-    }
-
     emit_progress(app, "Stopping", "Stopping active services...", 0.1, None);
     let _ = stop_all_internal(state);
 
@@ -805,8 +804,8 @@ pub(crate) async fn run_update_flow(
     emit_progress(
         app,
         "Installing",
-        if mode == UpdateFlowMode::BundledOnly {
-            "Installing dependencies (npm ci; internet access may be required)..."
+        if has_prebuilt_client(&target_version_dir) {
+            "Installing server dependencies (npm ci --omit=dev; internet access may be required)..."
         } else {
             "Installing project dependencies (npm ci)..."
         },
@@ -815,7 +814,13 @@ pub(crate) async fn run_update_flow(
     );
     let mut managed_overrides = overrides.clone();
     managed_overrides.project_path = Some(path_string(&target_version_dir));
-    run_dependency_install(app, &target_version_dir, &manifest, &managed_overrides)?;
+    run_dependency_install(
+        app,
+        state,
+        &target_version_dir,
+        &manifest,
+        &managed_overrides,
+    )?;
 
     let previous_current = metadata.current_version.clone();
     if let Some(previous) =
@@ -827,25 +832,46 @@ pub(crate) async fn run_update_flow(
     metadata.current_version = Some(manifest.version.clone());
     write_updater_metadata(&app_data, &metadata)?;
 
-    emit_progress(app, "Starting", "Starting updated services...", 0.8, None);
-    start_profile_internal(
-        app,
-        state,
-        "homeinventory",
-        Some(backend_port),
-        Some(frontend_port),
-        Some(managed_overrides.clone()),
-        true,
-    )?;
+    // Installing the version bundled with the launcher only replaces files.
+    // It never starts HomeInventory behind the user's back; the next Start
+    // runs the new version.
+    if !update_finishes_stopped(mode) {
+        let run_mode = run_mode_for(false, true, &target_version_dir);
+        let (backend_port, frontend_port) = requested_ports(
+            profile_config("homeinventory")?,
+            Some(backend_port),
+            ports.frontend_port,
+            run_mode.single_port(),
+        )?;
+        emit_progress(app, "Starting", "Starting updated services...", 0.8, None);
+        start_profile_internal(
+            app,
+            state,
+            "homeinventory",
+            Some(backend_port),
+            Some(frontend_port),
+            Some(managed_overrides.clone()),
+            true,
+        )?;
 
-    emit_progress(
-        app,
-        "Verifying",
-        "Running startup health checks...",
-        0.9,
-        None,
-    );
-    run_health_checks(app, backend_port, frontend_port).await?;
+        emit_progress(
+            app,
+            "Verifying",
+            "Waiting for HomeInventory to serve its app...",
+            0.9,
+            None,
+        );
+        run_health_checks(state, backend_port, frontend_port, |seconds| {
+            emit_progress(
+                app,
+                "Verifying",
+                &format!("Waiting for HomeInventory to serve its app ({seconds}s)..."),
+                health_wait_progress(0.9, 0.95, seconds),
+                None,
+            );
+        })
+        .await?;
+    }
 
     metadata.last_known_good_version = Some(manifest.version.clone());
     if let Some(prev) = previous_current.filter(|prev| prev != &manifest.version) {
@@ -858,14 +884,6 @@ pub(crate) async fn run_update_flow(
     write_updater_metadata(&app_data, &metadata)?;
 
     if update_finishes_stopped(mode) {
-        emit_progress(
-            app,
-            "Stopping",
-            "Health verification passed. Returning HomeInventory to its stopped state...",
-            0.97,
-            None,
-        );
-        stop_all_internal(state)?;
         return Ok(());
     }
 
@@ -922,11 +940,7 @@ pub(crate) async fn run_rollback_flow(
 
     let app_data = app_data_dir(app)?;
     let mut metadata = read_updater_metadata(&app_data);
-    let (backend_port, frontend_port) = requested_ports(
-        profile_config("homeinventory")?,
-        ports.backend_port,
-        ports.frontend_port,
-    )?;
+    let restart = !update_finishes_stopped(mode);
 
     let target_version = match resolve_rollback_target(&app_data, &mut metadata) {
         Some(v) => v,
@@ -934,6 +948,9 @@ pub(crate) async fn run_rollback_flow(
             metadata.current_version = None;
             metadata.last_known_good_version = None;
             let _ = write_updater_metadata(&app_data, &metadata);
+            if !restart {
+                return Ok(());
+            }
             emit_progress(
                 app,
                 "RollingBack",
@@ -941,6 +958,12 @@ pub(crate) async fn run_rollback_flow(
                 0.5,
                 None,
             );
+            let (backend_port, frontend_port) = requested_ports(
+                profile_config("homeinventory")?,
+                ports.backend_port,
+                ports.frontend_port,
+                false,
+            )?;
             start_profile_internal(
                 app,
                 state,
@@ -950,9 +973,6 @@ pub(crate) async fn run_rollback_flow(
                 Some(overrides),
                 true,
             )?;
-            if update_finishes_stopped(mode) {
-                stop_all_internal(state)?;
-            }
             return Ok(());
         }
     };
@@ -972,6 +992,9 @@ pub(crate) async fn run_rollback_flow(
             .previous_versions
             .retain(|version| version != &target_version);
         let _ = write_updater_metadata(&app_data, &metadata);
+        if !restart {
+            return Ok(());
+        }
         emit_progress(
             app,
             "RollingBack",
@@ -979,6 +1002,12 @@ pub(crate) async fn run_rollback_flow(
             0.5,
             None,
         );
+        let (backend_port, frontend_port) = requested_ports(
+            profile_config("homeinventory")?,
+            ports.backend_port,
+            ports.frontend_port,
+            false,
+        )?;
         start_profile_internal(
             app,
             state,
@@ -988,14 +1017,18 @@ pub(crate) async fn run_rollback_flow(
             Some(overrides),
             true,
         )?;
-        if update_finishes_stopped(mode) {
-            stop_all_internal(state)?;
-        }
         return Ok(());
     }
     metadata.current_version = Some(target_version.clone());
     metadata.last_known_good_version = Some(target_version.clone());
     write_updater_metadata(&app_data, &metadata)?;
+
+    // The previous version directory and its dependencies were not touched
+    // by an install that only replaces files, so restoring the metadata is
+    // enough. A coordinated update reinstalls and restarts it as before.
+    if !restart {
+        return Ok(());
+    }
 
     emit_progress(
         app,
@@ -1014,8 +1047,15 @@ pub(crate) async fn run_rollback_flow(
         signature: "".into(),
         signature_v2: "".into(),
     };
-    run_dependency_install(app, &target_dir, &mock_manifest, &overrides)?;
+    run_dependency_install(app, state, &target_dir, &mock_manifest, &overrides)?;
 
+    let run_mode = run_mode_for(false, true, &target_dir);
+    let (backend_port, frontend_port) = requested_ports(
+        profile_config("homeinventory")?,
+        ports.backend_port,
+        ports.frontend_port,
+        run_mode.single_port(),
+    )?;
     emit_progress(
         app,
         "RollingBack",
@@ -1034,16 +1074,26 @@ pub(crate) async fn run_rollback_flow(
     )?;
 
     emit_progress(app, "RollingBack", "Running health checks...", 0.9, None);
-    run_health_checks(app, backend_port, frontend_port).await?;
-    if update_finishes_stopped(mode) {
-        stop_all_internal(state)?;
-    }
+    run_health_checks(state, backend_port, frontend_port, |seconds| {
+        emit_progress(
+            app,
+            "RollingBack",
+            &format!("Waiting for the restored version to respond ({seconds}s)..."),
+            health_wait_progress(0.9, 0.97, seconds),
+            None,
+        );
+    })
+    .await?;
 
     Ok(())
 }
 
+/// Installs the dependencies of an extracted app folder. A folder with a
+/// prebuilt client only needs the server's production dependencies; older
+/// archives without `client/dist` keep the full root and client install.
 pub(crate) fn run_dependency_install(
     app: &tauri::AppHandle,
+    state: &LauncherState,
     target_dir: &Path,
     manifest: &AppManifest,
     overrides: &ToolOverrides,
@@ -1075,56 +1125,78 @@ pub(crate) fn run_dependency_install(
             .to_string()
     })?;
 
+    let production = has_prebuilt_client(target_dir);
+    let client_install = manifest.client_install && !production;
+
     if !target_dir.join("package-lock.json").exists() {
         return Err("Missing root package-lock.json in release archive".into());
     }
-    if manifest.client_install && !target_dir.join("client").join("package-lock.json").exists() {
+    if client_install && !target_dir.join("client").join("package-lock.json").exists() {
         return Err("Missing client package-lock.json in release archive".into());
     }
 
     if manifest.root_install {
-        let mut command = std::process::Command::new(&npm);
-        command.arg("ci").current_dir(target_dir).envs(&envs);
-        #[cfg(windows)]
-        {
-            use std::os::windows::process::CommandExt;
-            command.creation_flags(0x08000000); // CREATE_NO_WINDOW
+        let mut args = vec!["ci"];
+        if production {
+            args.extend(["--omit=dev", "--no-audit", "--no-fund"]);
         }
-        let status = command
-            .status()
-            .map_err(|e| format!("Failed to execute npm ci at root: {e}"))?;
-        if !status.success() {
-            return Err(format!(
-                "npm ci at root failed with status: {:?}. Dependency installation may require internet access; check npm and network configuration.",
-                status.code()
-            ));
-        }
+        run_npm(state, &npm, &args, target_dir, &envs, "at root")?;
     }
 
-    if manifest.client_install {
-        let mut command = std::process::Command::new(&npm);
-        command
-            .arg("ci")
-            .arg("--prefix")
-            .arg("client")
-            .current_dir(target_dir)
-            .envs(&envs);
-        #[cfg(windows)]
-        {
-            use std::os::windows::process::CommandExt;
-            command.creation_flags(0x08000000); // CREATE_NO_WINDOW
-        }
-        let status = command
-            .status()
-            .map_err(|e| format!("Failed to execute npm ci in client: {e}"))?;
-        if !status.success() {
-            return Err(format!(
-                "npm ci in client failed with status: {:?}. Dependency installation may require internet access; check npm and network configuration.",
-                status.code()
-            ));
-        }
+    if client_install {
+        run_npm(
+            state,
+            &npm,
+            &["ci", "--prefix", "client"],
+            target_dir,
+            &envs,
+            "in client",
+        )?;
     }
 
+    Ok(())
+}
+
+fn run_npm(
+    state: &LauncherState,
+    npm: &str,
+    args: &[&str],
+    target_dir: &Path,
+    envs: &HashMap<String, String>,
+    label: &str,
+) -> Result<(), String> {
+    append_log(
+        state,
+        "setup",
+        "info",
+        &format!("Running npm {} {label}...", args.join(" ")),
+    );
+    let mut command = std::process::Command::new(npm);
+    command
+        .args(args)
+        .current_dir(target_dir)
+        .envs(envs)
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped());
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        command.creation_flags(0x08000000); // CREATE_NO_WINDOW
+    }
+    let mut child = command
+        .spawn()
+        .map_err(|e| format!("Failed to execute npm ci {label}: {e}"))?;
+    stream_process_output(state, "setup", child.stdout.take(), "info", None);
+    stream_process_output(state, "setup", child.stderr.take(), "warning", None);
+    let status = child
+        .wait()
+        .map_err(|e| format!("Failed to wait for npm ci {label}: {e}"))?;
+    if !status.success() {
+        return Err(format!(
+            "npm ci {label} failed with status: {:?}. Dependency installation may require internet access; check npm and network configuration.",
+            status.code()
+        ));
+    }
     Ok(())
 }
 
