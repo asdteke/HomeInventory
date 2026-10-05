@@ -103,6 +103,10 @@ const runtimeVersions = new Map([
       'scripts/build-store-windows.mjs',
       /const portableNodeVersion\s*=\s*'(\d+\.\d+\.\d+)'/
     )
+  ],
+  [
+    'Dockerfile',
+    readMatch('Dockerfile', /ARG NODE_IMAGE=node:(\d+\.\d+\.\d+)/)
   ]
 ]);
 const mismatchedRuntimeVersions = [...runtimeVersions]

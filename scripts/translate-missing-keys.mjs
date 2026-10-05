@@ -1,7 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { translate } from 'bing-translate-api';
-import { translate as googleTranslate } from '@vitalets/google-translate-api';
 import { translateWithAzure } from './azure-translator.mjs';
 import { isAllowedIdenticalTranslation, isProtectedTranslationKey } from './i18n-helpers.mjs';
 
@@ -9,26 +7,11 @@ const LOCALES_DIR = path.join(process.cwd(), 'client', 'public', 'locales');
 const BASE_LANG = 'en';
 const SKIP_LANGS = new Set(['en']);
 const BATCH_SEPARATOR = '<<<__HI_MISSING_SEP__>>>';
-const RETRYABLE_ERROR_PATTERN = /Too Many Requests|429|ENOTFOUND|ECONNRESET|ETIMEDOUT|maximum text length/i;
-const UNSUPPORTED_LANG_PATTERN = /not supported/i;
 const MAX_BATCH_CHARS = Number(process.env.TRANSLATION_MAX_BATCH_CHARS || 650);
 const MAX_BATCH_ITEMS = Number(process.env.TRANSLATION_MAX_BATCH_ITEMS || 4);
 const BATCH_DELAY_MS = Number(process.env.TRANSLATION_BATCH_DELAY_MS || 1500);
 const LANGUAGE_DELAY_MS = Number(process.env.TRANSLATION_LANGUAGE_DELAY_MS || 2000);
 const LANGUAGE_CONCURRENCY = Math.max(1, Number(process.env.TRANSLATION_LANGUAGE_CONCURRENCY || 1));
-
-const TRANSLATION_LANGS = {
-    no: 'nb',
-    'sr-Cyrl': 'sr',
-    'zh-Hans': 'zh-Hans',
-    'zh-Hant': 'zh-Hant'
-};
-
-const GOOGLE_TRANSLATION_LANGS = {
-    'sr-Cyrl': 'sr',
-    'zh-Hans': 'zh-CN',
-    'zh-Hant': 'zh-TW'
-};
 
 const MYMEMORY_TRANSLATION_LANGS = {
     jv: 'jw',
@@ -134,15 +117,62 @@ function buildBatches(entries) {
     return batches;
 }
 
-async function translateBatch(batch, targetLang) {
-    const mappedTargetLang = TRANSLATION_LANGS[targetLang] || targetLang;
-    const mappedGoogleTargetLang = GOOGLE_TRANSLATION_LANGS[targetLang] || targetLang;
+// Only official or openly offered translation APIs are used: Azure Translator
+// (with your own key) and the public MyMemory API (anonymous, daily quota).
+async function translateBatchWithMyMemory(batch, targetLang) {
     const mappedMyMemoryTargetLang = MYMEMORY_TRANSLATION_LANGS[targetLang] || targetLang;
-    const mappedAzureTargetLang = AZURE_TRANSLATION_LANGS[targetLang] || targetLang;
-    const payload = batch.map((item) => item.text).join(` ${BATCH_SEPARATOR} `);
-    let lastError;
+    const translatedEntries = [];
 
+    for (let itemIndex = 0; itemIndex < batch.length; itemIndex += 1) {
+        const item = batch[itemIndex];
+        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(item.text)}&langpair=en|${encodeURIComponent(mappedMyMemoryTargetLang)}`;
+        let myMemoryResponseData = null;
+
+        for (let myMemoryAttempt = 0; myMemoryAttempt < 4; myMemoryAttempt += 1) {
+            try {
+                const response = await fetch(url);
+                if (response.ok) {
+                    myMemoryResponseData = await response.json();
+                    break;
+                }
+
+                if (response.status !== 429 && response.status < 500) {
+                    throw new Error(`MyMemory request failed with status ${response.status}`);
+                }
+
+                if (myMemoryAttempt === 3) {
+                    throw new Error(`MyMemory request failed with status ${response.status}`);
+                }
+            } catch (error) {
+                if (myMemoryAttempt === 3) {
+                    throw error;
+                }
+            }
+
+            await delay(2500 * (myMemoryAttempt + 1));
+        }
+
+        const translatedText = String(myMemoryResponseData?.responseData?.translatedText || '').trim();
+        if (!translatedText) {
+            throw new Error('MyMemory returned an empty translation.');
+        }
+
+        translatedEntries.push({
+            keyPath: item.keyPath,
+            value: translatedText
+        });
+
+        if (itemIndex < batch.length - 1) {
+            await delay(250);
+        }
+    }
+
+    return translatedEntries;
+}
+
+async function translateBatch(batch, targetLang) {
     if (USE_AZURE_TRANSLATOR) {
+        const mappedAzureTargetLang = AZURE_TRANSLATION_LANGS[targetLang] || targetLang;
         try {
             const azureResults = await translateWithAzure(
                 batch.map((item) => item.text),
@@ -154,103 +184,11 @@ async function translateBatch(batch, targetLang) {
                 value: azureResults[index] || item.text
             }));
         } catch (error) {
-            lastError = error;
-            console.warn(`Azure translation failed for ${targetLang}, falling back to public providers.`);
+            console.warn(`Azure translation failed for ${targetLang}, falling back to MyMemory: ${error.message}`);
         }
     }
 
-    for (let attempt = 0; attempt < 5; attempt += 1) {
-        try {
-            const result = await translate(payload, null, mappedTargetLang);
-            const translatedValues = result.translation.split(
-                new RegExp(`\\s*${BATCH_SEPARATOR}\\s*`, 'g')
-            );
-
-            return batch.map((item, index) => ({
-                keyPath: item.keyPath,
-                value: translatedValues[index] || item.text
-            }));
-        } catch (error) {
-            lastError = error;
-            const isRetryableError = RETRYABLE_ERROR_PATTERN.test(String(error.message || ''));
-            const isUnsupportedError = UNSUPPORTED_LANG_PATTERN.test(String(error.message || ''));
-
-            if (isUnsupportedError || isRetryableError) {
-                try {
-                    const googleResult = await googleTranslate(payload, { to: mappedGoogleTargetLang });
-                    const translatedValues = googleResult.text.split(
-                        new RegExp(`\\s*${BATCH_SEPARATOR}\\s*`, 'g')
-                    );
-
-                    return batch.map((item, index) => ({
-                        keyPath: item.keyPath,
-                        value: translatedValues[index] || item.text
-                    }));
-                } catch (googleError) {
-                    lastError = googleError;
-                }
-            }
-
-            if (attempt === 4 || isRetryableError || isUnsupportedError) {
-                    const translatedEntries = [];
-
-                for (let itemIndex = 0; itemIndex < batch.length; itemIndex += 1) {
-                    const item = batch[itemIndex];
-                    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(item.text)}&langpair=en|${encodeURIComponent(mappedMyMemoryTargetLang)}`;
-                    let myMemoryResponseData = null;
-
-                    for (let myMemoryAttempt = 0; myMemoryAttempt < 4; myMemoryAttempt += 1) {
-                        try {
-                            const response = await fetch(url);
-                            if (response.ok) {
-                                myMemoryResponseData = await response.json();
-                                break;
-                            }
-
-                            if (response.status !== 429 && response.status < 500) {
-                                throw new Error(`MyMemory request failed with status ${response.status}`);
-                            }
-
-                            if (myMemoryAttempt === 3) {
-                                throw new Error(`MyMemory request failed with status ${response.status}`);
-                            }
-                        } catch (error) {
-                            lastError = error;
-                            if (myMemoryAttempt === 3) {
-                                throw error;
-                            }
-                        }
-
-                        await delay(2500 * (myMemoryAttempt + 1));
-                    }
-
-                    const translatedText = String(myMemoryResponseData?.responseData?.translatedText || '').trim();
-                    if (!translatedText) {
-                        throw new Error('MyMemory returned an empty translation.');
-                    }
-
-                    translatedEntries.push({
-                        keyPath: item.keyPath,
-                        value: translatedText
-                    });
-
-                    if (itemIndex < batch.length - 1) {
-                        await delay(250);
-                    }
-                }
-
-                return translatedEntries;
-            }
-
-            if (!isRetryableError || attempt === 4) {
-                throw error;
-            }
-
-            await delay(3500 * (attempt + 1));
-        }
-    }
-
-    throw lastError;
+    return translateBatchWithMyMemory(batch, targetLang);
 }
 
 async function translateEntries(entries, targetLang, { onBatchTranslated } = {}) {

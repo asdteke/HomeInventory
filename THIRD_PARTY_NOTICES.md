@@ -18,7 +18,7 @@ The primary application source is distributed under the repository license in `L
 Some user-triggered features may contact third-party services:
 
 - Google Sign-In, when configured and selected by the user.
-- Barcode and product lookup providers such as Open Food Facts, Open Products Facts, Open Beauty Facts, and Google Search.
+- Barcode and product lookup providers: Open Food Facts, Open Products Facts, and Open Beauty Facts (open data under the Open Database License). The optional "Search on Google" button opens a normal Google search in the user's own browser; the server does not query Google.
 - Microsoft Store, for HomeInventory Local updates.
 
 These services are not used for advertising or non-essential analytics by default.
