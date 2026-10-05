@@ -2,6 +2,24 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.7.4 - Dependency and Runtime Security Update
+
+### Highlights
+
+- **Security fixes:** Resolved 13 open Dependabot alerts by pinning Multer `2.4.0`, Undici `7.30.0`, and ip-address `10.7.3`, covering aborted uploads, TLS validation, WebSocket denial of service, shared-cache cookie disclosure, decompression, retry handling, and NAT64 classification.
+- **Build-tool security:** Migrated to Tailwind CSS `4.3.3` to remove the unpatched braces recursion vulnerability (GHSA-vfj7-8cjw-p6xm), preserving theme values and adapting existing utilities with the official migration tool. Supported browsers require Safari 16.4+, Chrome 111+, or Firefox 128+.
+- **Dependency refresh:** Updated compatible server, client, launcher, and translation-script dependencies, including Sharp `0.35.5`.
+- **Portable runtime:** Updated the managed installation runtime, CI, and Windows store builder to Node.js `22.23.3`, with official SHA-256 pins for all four launcher platforms.
+- **Coordinated release:** Server, client, managed app, desktop launcher, Tauri, Rust, lockfiles, and client fallbacks all target `2.7.4`.
+- **Regression coverage:** Raised minimum patched dependency versions and added ip-address coverage.
+
+### Upgrade notes
+
+- No database migration is required. Back up SQLite and uploads before upgrading.
+- Managed app and launcher updates must both complete before restarting.
+- macOS packages use ad-hoc signing when Apple Developer ID/notarization credentials are unavailable.
+- Physical iOS Safari certificate and camera validation remains a separate device check.
+
 ## v2.7.3 - Dependency Security Patch
 
 ### Highlights

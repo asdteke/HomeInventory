@@ -1,4 +1,4 @@
-# HomeInventory v2.7.0 Release Checklist
+# HomeInventory v2.7.4 Release Checklist
 
 Use this checklist for public HomeInventory source and launcher releases. Local/private branding is deliberately outside this workflow.
 
@@ -12,7 +12,7 @@ Use this checklist for public HomeInventory source and launcher releases. Local/
 
 ## 2. Deterministic validation
 
-Use the Node.js version configured in CI (Node 22.22.0 for v2.7.0):
+Use the Node.js version configured in CI (Node 22.23.3 for v2.7.4):
 
 ```bash
 npm ci

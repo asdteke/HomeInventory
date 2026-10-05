@@ -110,22 +110,22 @@ export default function ActivityPage() {
                                 </span>
                                 <div className="min-w-0 flex-1">
                                     <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                                        <h2 className="font-semibold text-[var(--hi-text)]">{actionLabel(entry.action, t)}</h2>
-                                        <span className="text-sm text-[var(--hi-text-soft)]">
+                                        <h2 className="font-semibold text-(--hi-text)">{actionLabel(entry.action, t)}</h2>
+                                        <span className="text-sm text-(--hi-text-soft)">
                                             {entry.actor_name || t('activity.unknown_actor', { defaultValue: 'Bilinmeyen kullanıcı' })}
                                         </span>
                                     </div>
-                                    <p className="mt-1 text-sm text-[var(--hi-text-soft)]">
+                                    <p className="mt-1 text-sm text-(--hi-text-soft)">
                                         {activitySubject(entry, t)}
                                     </p>
-                                    <p className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[var(--hi-text-muted)]">
+                                    <p className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-(--hi-text-muted)">
                                         <Clock3 className="h-3.5 w-3.5" />
                                         {new Date(entry.created_at).toLocaleString(i18n.language)}
                                     </p>
                                 </div>
                                 {entry.action.startsWith('box.')
-                                    ? <Box className="mt-1 h-4 w-4 shrink-0 text-[var(--hi-text-muted)]" />
-                                    : <Package className="mt-1 h-4 w-4 shrink-0 text-[var(--hi-text-muted)]" />}
+                                    ? <Box className="mt-1 h-4 w-4 shrink-0 text-(--hi-text-muted)" />
+                                    : <Package className="mt-1 h-4 w-4 shrink-0 text-(--hi-text-muted)" />}
                             </article>
                         ))}
                     </div>

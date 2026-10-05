@@ -29,10 +29,10 @@ import {
 import { EmptyState, LoadingState, NoticeBanner } from './ProductUI';
 
 const EMPTY_STATE_BUTTON_CLASS = 'btn-secondary min-w-[170px] justify-center';
-const REQUEST_EMPTY_STATE_CLASS = 'h-[17rem] justify-center';
-const POSITIVE_ACTION_BUTTON_CLASS = 'inline-flex items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 transition-colors hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] dark:bg-emerald-500/10 dark:text-emerald-300 dark:hover:bg-emerald-500/20';
-const NEGATIVE_ACTION_BUTTON_CLASS = 'inline-flex items-center justify-center rounded-xl border border-rose-500/20 bg-rose-50 px-4 py-2 text-sm font-medium text-rose-700 transition-colors hover:bg-rose-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/20';
-const MUTED_ACTION_BUTTON_CLASS = 'inline-flex items-center justify-center rounded-[12px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-2 text-sm font-medium text-[var(--hi-text-soft)] transition-colors hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]';
+const REQUEST_EMPTY_STATE_CLASS = 'h-68 justify-center';
+const POSITIVE_ACTION_BUTTON_CLASS = 'inline-flex items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 transition-colors hover:bg-emerald-100 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel-strong) dark:bg-emerald-500/10 dark:text-emerald-300 dark:hover:bg-emerald-500/20';
+const NEGATIVE_ACTION_BUTTON_CLASS = 'inline-flex items-center justify-center rounded-xl border border-rose-500/20 bg-rose-50 px-4 py-2 text-sm font-medium text-rose-700 transition-colors hover:bg-rose-100 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel-strong) dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/20';
+const MUTED_ACTION_BUTTON_CLASS = 'inline-flex items-center justify-center rounded-[12px] border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-2 text-sm font-medium text-(--hi-text-soft) transition-colors hover:bg-(--hi-panel-strong) hover:text-(--hi-text) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel-strong)';
 
 interface StatCardProps {
     icon: React.ComponentType<any>;
@@ -41,13 +41,13 @@ interface StatCardProps {
     accent?: string;
 }
 
-function StatCard({ icon: Icon, label, value, accent = 'text-[var(--hi-accent)] bg-[var(--hi-accent-soft)]' }: StatCardProps) {
+function StatCard({ icon: Icon, label, value, accent = 'text-(--hi-accent) bg-(--hi-accent-soft)' }: StatCardProps) {
     return (
         <div className="borrow-stat-v25">
             <div className="flex items-center justify-between gap-4">
                 <div>
-                    <p className="text-sm text-[var(--hi-text-soft)]">{label}</p>
-                    <p className="mt-1 text-2xl font-semibold text-[var(--hi-text)]">{value}</p>
+                    <p className="text-sm text-(--hi-text-soft)">{label}</p>
+                    <p className="mt-1 text-2xl font-semibold text-(--hi-text)">{value}</p>
                 </div>
                 <div className={`borrow-stat-icon-v25 ${accent}`}>
                     <Icon className="w-5 h-5" />
@@ -68,9 +68,9 @@ function BorrowPanel({ title, description, children, className = '' }: BorrowPan
     return (
         <section className={`borrow-panel-v25 ${className}`.trim()}>
             <div className="borrow-panel-heading-v25">
-                <h2 className="section-title text-xl text-[var(--hi-text)]">{title}</h2>
+                <h2 className="section-title text-xl text-(--hi-text)">{title}</h2>
                 {description && (
-                    <p className="mt-1.5 text-sm leading-6 text-[var(--hi-text-soft)]">
+                    <p className="mt-1.5 text-sm leading-6 text-(--hi-text-soft)">
                         {description}
                     </p>
                 )}
@@ -141,32 +141,32 @@ function RequestCard({ request, t, i18n, onAccept, onReject, onCancel }: Request
             <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                     <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-[var(--hi-text-soft)]">
+                        <span className="text-sm font-medium text-(--hi-text-soft)">
                             {request.direction === 'offer'
                                 ? t('borrow_requests.labels.offer')
                                 : t('borrow_requests.labels.request')}
                         </span>
                         <StatusBadge status={effectiveStatus} t={t} />
                     </div>
-                    <h3 className="mt-2 text-lg font-semibold text-[var(--hi-text)] [overflow-wrap:anywhere]">
+                    <h3 className="mt-2 text-lg font-semibold text-(--hi-text) wrap-anywhere">
                         {request.item?.name || request.requested_item_label || t('borrow_requests.labels.unspecified_item')}
                     </h3>
-                    <p className="mt-1 text-sm text-[var(--hi-text-soft)]">
+                    <p className="mt-1 text-sm text-(--hi-text-soft)">
                         {t('borrow_requests.labels.counterparty', { name: request.counterparty_display_name })}
                     </p>
                 </div>
-                <div className="text-xs text-[var(--hi-text-muted)]">
+                <div className="text-xs text-(--hi-text-muted)">
                     {t('borrow_requests.labels.created_at', { date: formatBorrowDateTime(request.created_at, i18n.language) })}
                 </div>
             </div>
 
             {request.note && (
-                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text-soft)]">
+                <div className="rounded-xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3 text-sm text-(--hi-text-soft)">
                     {request.note}
                 </div>
             )}
 
-            <div className="flex flex-wrap gap-3 text-sm text-[var(--hi-text-soft)]">
+            <div className="flex flex-wrap gap-3 text-sm text-(--hi-text-soft)">
                 {request.due_date && (
                     <span className="inline-flex items-center gap-1">
                         <Clock3 className="w-4 h-4" />
@@ -179,8 +179,8 @@ function RequestCard({ request, t, i18n, onAccept, onReject, onCancel }: Request
             </div>
 
             {request.borrow && (
-                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                    <p className="text-sm font-medium text-[var(--hi-text)]">
+                <div className="rounded-xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                    <p className="text-sm font-medium text-(--hi-text)">
                         {request.borrow.returned_at
                             ? t('borrow_requests.labels.returned_on', { date: formatBorrowDateTime(request.borrow.returned_at, i18n.language) })
                             : t('borrow_requests.labels.borrow_started', { date: formatBorrowDateTime(request.borrow.borrowed_at, i18n.language) })}
@@ -243,11 +243,11 @@ function ActiveBorrowCard({ borrow, t, i18n, onReturn }: ActiveBorrowCardProps) 
                 <div>
                     <div className="flex items-center gap-2">
                         <span className="text-xl">{borrow.item?.category_icon || '📦'}</span>
-                        <h3 className="text-lg font-semibold text-[var(--hi-text)] [overflow-wrap:anywhere]">
+                        <h3 className="text-lg font-semibold text-(--hi-text) wrap-anywhere">
                             {borrow.item?.name || t('borrow_requests.labels.unspecified_item')}
                         </h3>
                     </div>
-                    <p className="mt-2 text-sm text-[var(--hi-text-soft)]">
+                    <p className="mt-2 text-sm text-(--hi-text-soft)">
                         {borrow.role === 'borrower'
                             ? t('borrow_requests.active.borrowed_from', { name: borrow.counterpart_display_name })
                             : t('borrow_requests.active.lent_to', { name: borrow.counterpart_display_name })}
@@ -256,7 +256,7 @@ function ActiveBorrowCard({ borrow, t, i18n, onReturn }: ActiveBorrowCardProps) 
                 <StatusBadge status={isReturnPending ? 'return_pending' : (overdue ? 'expired' : 'accepted')} t={t} />
             </div>
 
-            <div className="flex flex-wrap gap-3 text-sm text-[var(--hi-text-soft)]">
+            <div className="flex flex-wrap gap-3 text-sm text-(--hi-text-soft)">
                 <span className="inline-flex items-center gap-1">
                     <ArrowRightLeft className="w-4 h-4" />
                     {t('borrow_requests.labels.borrow_started', { date: formatBorrowDateTime(borrow.borrowed_at, i18n.language) })}
@@ -270,7 +270,7 @@ function ActiveBorrowCard({ borrow, t, i18n, onReturn }: ActiveBorrowCardProps) 
             </div>
 
             {borrow.note && (
-                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text-soft)]">
+                <div className="rounded-xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3 text-sm text-(--hi-text-soft)">
                     {borrow.note}
                 </div>
             )}
@@ -644,8 +644,8 @@ export default function BorrowRequestsPage() {
             )}
 
             {refreshing && (
-                <div aria-live="polite" className="flex items-center gap-2 text-sm text-[var(--hi-text-soft)]">
-                    <RefreshCcw className="h-4 w-4 animate-spin text-[var(--hi-accent)]" />
+                <div aria-live="polite" className="flex items-center gap-2 text-sm text-(--hi-text-soft)">
+                    <RefreshCcw className="h-4 w-4 animate-spin text-(--hi-accent)" />
                     <span>{t('borrow_requests.refreshing', { defaultValue: 'Refreshing requests and active borrows...' })}</span>
                 </div>
             )}
@@ -653,8 +653,8 @@ export default function BorrowRequestsPage() {
             <div aria-busy={refreshing} className={`borrow-content-v25 transition-opacity ${refreshing ? 'opacity-80' : 'opacity-100'}`}>
                 <div className={`borrow-stats-v25 ${refreshing ? 'animate-pulse' : ''}`}>
                     <StatCard icon={Package} label={t('borrow_requests.stats.active')} value={sectionCounts.active} accent="bg-[rgba(111,153,120,0.16)] text-[#6f9978]" />
-                    <StatCard icon={Inbox} label={t('borrow_requests.stats.incoming')} value={sectionCounts.incoming} accent="bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)]" />
-                    <StatCard icon={Send} label={t('borrow_requests.stats.outgoing')} value={sectionCounts.outgoing} accent="bg-[var(--hi-panel-muted)] text-[var(--hi-accent)]" />
+                    <StatCard icon={Inbox} label={t('borrow_requests.stats.incoming')} value={sectionCounts.incoming} accent="bg-(--hi-secondary-soft) text-(--hi-secondary-strong)" />
+                    <StatCard icon={Send} label={t('borrow_requests.stats.outgoing')} value={sectionCounts.outgoing} accent="bg-(--hi-panel-muted) text-(--hi-accent)" />
                 </div>
 
                 <BorrowPanel
@@ -666,7 +666,7 @@ export default function BorrowRequestsPage() {
                             icon={CheckCircle2}
                             title={t('borrow_requests.active.empty_title', { defaultValue: 'Nothing is currently out' })}
                             description={t('borrow_requests.active.empty_description', { defaultValue: 'As soon as an item is borrowed or lent, it will appear here with due date and return status details.' })}
-                            className="min-h-[17.5rem]"
+                            className="min-h-70"
                             actions={(
                                 <Link to="/items" className={EMPTY_STATE_BUTTON_CLASS}>
                                     <Package className="w-4 h-4" />

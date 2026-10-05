@@ -224,18 +224,18 @@ export default function CategoryManager() {
             {showForm && (
                 <section className="manager-form-v25">
                     <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-lg font-semibold text-[var(--hi-text)]">{editingId ? t('categories.edit_title') : t('categories.new_title')}</h3>
-                        <button type="button" onClick={resetForm} aria-label={t('common.close') || undefined} className="rounded-xl p-2 text-[var(--hi-text-soft)] transition hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]">
+                        <h3 className="text-lg font-semibold text-(--hi-text)">{editingId ? t('categories.edit_title') : t('categories.new_title')}</h3>
+                        <button type="button" onClick={resetForm} aria-label={t('common.close') || undefined} className="rounded-xl p-2 text-(--hi-text-soft) transition hover:bg-(--hi-panel-muted) hover:text-(--hi-text) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel-strong)">
                             <X className="w-5 h-5" />
                         </button>
                     </div>
-                    <form onSubmit={handleSubmit} noValidate className="space-y-4">
+                    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-y-4">
                         <div>
-                            <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('categories.name_label')}</label>
+                            <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('categories.name_label')}</label>
                             <input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="input-field" aria-required="true" />
                         </div>
                         <div>
-                            <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('categories.icon_label')}</label>
+                            <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('categories.icon_label')}</label>
                             <div className="flex flex-wrap gap-2">
                                 {CATEGORY_ICON_OPTIONS.map(({ value, icon: Icon, label }) => (
                                     <button
@@ -244,7 +244,7 @@ export default function CategoryManager() {
                                         onClick={() => setFormData({ ...formData, icon: value })}
                                         aria-label={label}
                                         title={label}
-                                        className={`flex h-11 w-11 items-center justify-center rounded-lg transition-all ${formData.icon === value ? 'border border-[var(--hi-border-strong)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)] shadow-[var(--hi-shadow-soft)]' : 'border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]'}`}
+                                        className={`flex h-11 w-11 items-center justify-center rounded-lg transition-all ${formData.icon === value ? 'border border-(--hi-border-strong) bg-(--hi-accent-soft) text-(--hi-accent) shadow-(--hi-shadow-soft)' : 'border border-(--hi-border) bg-(--hi-panel-muted) text-(--hi-text-soft) hover:bg-(--hi-panel-strong) hover:text-(--hi-text)'}`}
                                     >
                                         <Icon className="h-5 w-5" strokeWidth={1.9} />
                                     </button>
@@ -252,9 +252,9 @@ export default function CategoryManager() {
                             </div>
                         </div>
                         <div>
-                            <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('categories.color_label')}</label>
-                            <div className="inline-flex max-w-full items-center gap-3 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-2 pr-3">
-                                <label className="relative h-12 w-12 shrink-0 cursor-pointer overflow-hidden rounded-[0.85rem] border border-[var(--hi-border)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                            <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('categories.color_label')}</label>
+                            <div className="inline-flex max-w-full items-center gap-3 rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) p-2 pr-3">
+                                <label className="relative h-12 w-12 shrink-0 cursor-pointer overflow-hidden rounded-[0.85rem] border border-(--hi-border) shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
                                     <span
                                         className="block h-full w-full"
                                         style={{ backgroundColor: isValidHexColor(formData.color) ? formData.color : DEFAULT_CATEGORY_COLOR }}
@@ -275,7 +275,7 @@ export default function CategoryManager() {
                                     inputMode="text"
                                     pattern="#[0-9a-fA-F]{6}"
                                     aria-label={t('categories.color_label') || undefined}
-                                    className="h-10 w-[8.5rem] rounded-[0.8rem] border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] px-3 font-mono text-sm font-semibold text-[var(--hi-text)] outline-none transition focus:border-[var(--hi-accent)] focus:ring-2 focus:ring-[rgba(45,82,65,0.18)]"
+                                    className="h-10 w-34 rounded-[0.8rem] border border-(--hi-border) bg-(--hi-bg-strong) px-3 font-mono text-sm font-semibold text-(--hi-text) outline-hidden transition focus:border-(--hi-accent) focus:ring-2 focus:ring-[rgba(45,82,65,0.18)]"
                                 />
                             </div>
                         </div>
@@ -319,7 +319,7 @@ export default function CategoryManager() {
                                     <CategoryIcon className="h-6 w-6" strokeWidth={1.9} />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h3 className="truncate font-medium text-[var(--hi-text)]">{categoryPresentation.name}</h3>
+                                    <h3 className="truncate font-medium text-(--hi-text)">{categoryPresentation.name}</h3>
                                 </div>
                                 <div className="flex gap-1">
                                     <IconActionButton
@@ -352,11 +352,11 @@ export default function CategoryManager() {
                 onClose={() => !deleteSubmitting && setPendingDeleteCategory(null)}
                 onConfirm={handleDelete}
             >
-                <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                    <p className="font-medium text-[var(--hi-text)]">
+                <div className="rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                    <p className="font-medium text-(--hi-text)">
                         {pendingDeleteCategory ? getCategoryPresentation(pendingDeleteCategory, i18n.resolvedLanguage || i18n.language).name : ''}
                     </p>
-                    <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                    <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                         {t('categories.delete_warning', { defaultValue: 'Items already using this category may need to be reassigned to keep filters and counts clear.' })}
                     </p>
                 </div>

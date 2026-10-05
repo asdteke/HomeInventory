@@ -36,13 +36,13 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
         }
 
         return (
-            <main className="flex min-h-screen items-center justify-center bg-[var(--hi-bg)] px-4 py-10 text-[var(--hi-text)]">
-                <section className="w-full max-w-xl rounded-[1.5rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-6 text-center shadow-[var(--hi-shadow-lift)] sm:p-8">
-                    <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--hi-danger-soft)] text-[var(--hi-danger)]">
+            <main className="flex min-h-screen items-center justify-center bg-(--hi-bg) px-4 py-10 text-(--hi-text)">
+                <section className="w-full max-w-xl rounded-3xl border border-(--hi-border) bg-(--hi-panel) p-6 text-center shadow-(--hi-shadow-lift) sm:p-8">
+                    <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-(--hi-danger-soft) text-(--hi-danger)">
                         <span className="text-2xl font-black leading-none">!</span>
                     </span>
-                    <h1 className="section-title mt-5 text-2xl text-[var(--hi-text)]">{i18next.t('error_boundary.title', { defaultValue: 'Something needs a refresh' })}</h1>
-                    <p className="mt-3 text-sm leading-6 text-[var(--hi-text-soft)]">
+                    <h1 className="section-title mt-5 text-2xl text-(--hi-text)">{i18next.t('error_boundary.title', { defaultValue: 'Something needs a refresh' })}</h1>
+                    <p className="mt-3 text-sm leading-6 text-(--hi-text-soft)">
                         {i18next.t('error_boundary.description', { defaultValue: 'The interface hit an unexpected rendering problem. Your saved inventory data is not changed by this screen.' })}
                     </p>
                     <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">

@@ -15,21 +15,21 @@ function DialogShell({ title, subtitle, children, onClose }: DialogShellProps) {
     const { t } = useTranslation();
 
     return (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/55 p-4 backdrop-blur-sm" onClick={onClose}>
+        <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/55 p-4 backdrop-blur-xs" onClick={onClose}>
             <div
                 className="app-modal-dialog w-full max-w-lg overflow-hidden"
                 onClick={(event) => event.stopPropagation()}
             >
-                <div className="flex items-start justify-between gap-4 border-b border-[var(--hi-border)] px-6 py-5">
+                <div className="flex items-start justify-between gap-4 border-b border-(--hi-border) px-6 py-5">
                     <div>
-                        <h2 className="text-xl font-semibold text-[var(--hi-text)]">{title}</h2>
-                        {subtitle && <p className="mt-1 text-sm text-[var(--hi-text-soft)]">{subtitle}</p>}
+                        <h2 className="text-xl font-semibold text-(--hi-text)">{title}</h2>
+                        {subtitle && <p className="mt-1 text-sm text-(--hi-text-soft)">{subtitle}</p>}
                     </div>
                     <button
                         type="button"
                         onClick={onClose}
                         aria-label={t('common.close', { defaultValue: 'Kapat' }) || undefined}
-                        className="rounded-xl p-2 text-[var(--hi-text-soft)] transition-colors hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)]"
+                        className="rounded-xl p-2 text-(--hi-text-soft) transition-colors hover:bg-(--hi-panel-muted) hover:text-(--hi-text)"
                     >
                         <X className="w-5 h-5" />
                     </button>
@@ -131,14 +131,14 @@ export function BorrowItemDialog({
             subtitle={t('inventory.borrow.dialog_lend_subtitle', { item: item.name }) || ''}
             onClose={onClose}
         >
-            <form onSubmit={handleSubmit} noValidate className="space-y-4">
+            <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-y-4">
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                     <button
                         type="button"
                         onClick={() => setFormData((prev) => ({ ...prev, borrower_type: 'member' }))}
                         className={`rounded-2xl border px-4 py-3 text-sm font-medium transition-colors ${formData.borrower_type === 'member'
-                            ? 'border-[var(--hi-border-strong)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
-                            : 'border-[var(--hi-border)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-muted)]'
+                            ? 'border-(--hi-border-strong) bg-(--hi-accent-soft) text-(--hi-accent)'
+                            : 'border-(--hi-border) text-(--hi-text-soft) hover:bg-(--hi-panel-muted)'
                             }`}
                         disabled={selectableMembers.length === 0}
                     >
@@ -148,8 +148,8 @@ export function BorrowItemDialog({
                         type="button"
                         onClick={() => setFormData((prev) => ({ ...prev, borrower_type: 'site_member' }))}
                         className={`rounded-2xl border px-4 py-3 text-sm font-medium transition-colors ${formData.borrower_type === 'site_member'
-                            ? 'border-[var(--hi-border-strong)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
-                            : 'border-[var(--hi-border)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-muted)]'
+                            ? 'border-(--hi-border-strong) bg-(--hi-accent-soft) text-(--hi-accent)'
+                            : 'border-(--hi-border) text-(--hi-text-soft) hover:bg-(--hi-panel-muted)'
                             }`}
                     >
                         {t('inventory.borrow.site_member')}
@@ -158,8 +158,8 @@ export function BorrowItemDialog({
                         type="button"
                         onClick={() => setFormData((prev) => ({ ...prev, borrower_type: 'external' }))}
                         className={`rounded-2xl border px-4 py-3 text-sm font-medium transition-colors ${formData.borrower_type === 'external'
-                            ? 'border-[var(--hi-border-strong)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
-                            : 'border-[var(--hi-border)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-muted)]'
+                            ? 'border-(--hi-border-strong) bg-(--hi-accent-soft) text-(--hi-accent)'
+                            : 'border-(--hi-border) text-(--hi-text-soft) hover:bg-(--hi-panel-muted)'
                             }`}
                     >
                         {t('inventory.borrow.external')}
@@ -321,9 +321,9 @@ export function ReturnItemDialog({ item, submitting = false, onClose, onSubmit }
                 : t('borrow_requests.dialogs.return_subtitle_lender', { item: item.name }) || ''}
             onClose={onClose}
         >
-            <form onSubmit={handleSubmit} noValidate className="space-y-4">
-                <div className="rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                    <p className="text-sm text-[var(--hi-text-soft)]">
+            <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-y-4">
+                <div className="rounded-[20px] border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                    <p className="text-sm text-(--hi-text-soft)">
                         {isBorrowerReturn
                             ? t('borrow_requests.dialogs.return_target_borrower', { name: activeBorrow.counterpart_display_name || activeBorrow.lender_display_name || t('inventory.borrow.unknown') })
                             : t('borrow_requests.dialogs.return_target_lender', { name: activeBorrow.borrower_display_name || activeBorrow.counterpart_display_name || t('inventory.borrow.unknown') })}
@@ -424,7 +424,7 @@ export function BorrowOfferDialog({
                 : t('borrow_requests.dialogs.offer_subtitle_general') || ''}
             onClose={onClose}
         >
-            <form onSubmit={handleSubmit} noValidate className="space-y-4">
+            <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-y-4">
                 {!item && (
                     <div>
                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
@@ -444,7 +444,7 @@ export function BorrowOfferDialog({
                             ))}
                         </select>
                         {!hasSelectableItems && (
-                            <div className="mt-3 rounded-[20px] border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-4 py-3 text-sm text-[var(--hi-secondary-strong)]">
+                            <div className="mt-3 rounded-[20px] border border-[rgba(184,153,104,0.22)] bg-(--hi-secondary-soft) px-4 py-3 text-sm text-(--hi-secondary-strong)">
                                 {t('borrow_requests.dialogs.no_available_items')}
                             </div>
                         )}
@@ -463,7 +463,7 @@ export function BorrowOfferDialog({
                         placeholder={t('borrow_requests.dialogs.target_placeholder') || ''}
                         required
                     />
-                    <p className="mt-2 text-xs text-[var(--hi-text-soft)]">
+                    <p className="mt-2 text-xs text-(--hi-text-soft)">
                         {t('borrow_requests.dialogs.target_help')}
                     </p>
                 </div>
@@ -561,7 +561,7 @@ export function BorrowRequestCreateDialog({
             subtitle={t('borrow_requests.dialogs.request_subtitle') || ''}
             onClose={onClose}
         >
-            <form onSubmit={handleSubmit} noValidate className="space-y-4">
+            <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-y-4">
                 <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                         {t('borrow_requests.dialogs.target_label')}
@@ -673,9 +673,9 @@ export function FulfillBorrowRequestDialog({
             subtitle={t('borrow_requests.dialogs.fulfill_subtitle', { item: request.requested_item_label }) || ''}
             onClose={onClose}
         >
-            <form onSubmit={handleSubmit} noValidate className="space-y-4">
-                <div className="rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                    <p className="text-sm text-[var(--hi-text-soft)]">
+            <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-y-4">
+                <div className="rounded-[20px] border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                    <p className="text-sm text-(--hi-text-soft)">
                         {t('borrow_requests.dialogs.fulfill_target', { name: request.counterparty_display_name })}
                     </p>
                 </div>
@@ -774,9 +774,9 @@ export function ReturnBorrowRecordDialog({
                 : t('borrow_requests.dialogs.return_subtitle_lender', { item: borrow.item?.name || '' }) || ''}
             onClose={onClose}
         >
-            <form onSubmit={handleSubmit} noValidate className="space-y-4">
-                <div className="rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                    <p className="text-sm text-[var(--hi-text-soft)]">
+            <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-y-4">
+                <div className="rounded-[20px] border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                    <p className="text-sm text-(--hi-text-soft)">
                         {isBorrowerReturn
                             ? t('borrow_requests.dialogs.return_target_borrower', { name: borrow.counterpart_display_name })
                             : t('borrow_requests.dialogs.return_target_lender', { name: borrow.counterpart_display_name })}
@@ -860,9 +860,9 @@ export function RejectBorrowRequestDialog({
             }) || ''}
             onClose={onClose}
         >
-            <form onSubmit={handleSubmit} noValidate className="space-y-4">
-                <div className="rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                    <p className="text-sm text-[var(--hi-text-soft)]">
+            <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-y-4">
+                <div className="rounded-[20px] border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                    <p className="text-sm text-(--hi-text-soft)">
                         {t('borrow_requests.dialogs.reject_target', { name: request.counterparty_display_name, defaultValue: '{{name}} tarafından gönderilen ödünç talebini reddetmek üzeresiniz.' })}
                     </p>
                 </div>
@@ -881,8 +881,8 @@ export function RejectBorrowRequestDialog({
                                 key={option.value}
                                 className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition
                                     ${reason === option.value
-                                        ? 'bg-[var(--hi-accent-soft)] border-[var(--hi-accent)] text-[var(--hi-accent)] font-semibold'
-                                        : 'bg-[var(--hi-panel-strong)] border-[var(--hi-border)] hover:border-[var(--hi-border-strong)] text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]'
+                                        ? 'bg-(--hi-accent-soft) border-(--hi-accent) text-(--hi-accent) font-semibold'
+                                        : 'bg-(--hi-panel-strong) border-(--hi-border) hover:border-(--hi-border-strong) text-(--hi-text-soft) hover:text-(--hi-text)'
                                     }`}
                             >
                                 <input
@@ -891,7 +891,7 @@ export function RejectBorrowRequestDialog({
                                     value={option.value}
                                     checked={reason === option.value}
                                     onChange={() => setReason(option.value)}
-                                    className="accent-[var(--hi-accent)]"
+                                    className="accent-(--hi-accent)"
                                 />
                                 <span className="text-sm font-medium">{option.label}</span>
                             </label>

@@ -1334,7 +1334,7 @@ export default function PersonalVault() {
                         </span>
                         <div>
                             <p className="vault-onboarding-eyebrow-v26">{t('vault.protection_title')}</p>
-                            <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.setup_title')}</h2>
+                            <h2 className="section-title text-2xl text-(--hi-text)">{t('vault.setup_title')}</h2>
                             <p className="vault-onboarding-description-v26">{t('vault.setup_description')}</p>
                         </div>
 
@@ -1354,7 +1354,7 @@ export default function PersonalVault() {
                         </div>
                     </div>
 
-                    <form onSubmit={handleSetup} className="vault-setup-form vault-setup-form-v26 space-y-5">
+                    <form onSubmit={handleSetup} className="flex flex-col vault-setup-form vault-setup-form-v26 gap-y-5">
                         <div className="vault-setup-form-heading-v26">
                             <span aria-hidden="true"><KeyRound className="h-5 w-5" /></span>
                             <div>
@@ -1365,7 +1365,7 @@ export default function PersonalVault() {
 
                         <div className="vault-passphrase-fields-v26 space-y-4">
                             <div>
-                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text-soft)]">{t('vault.passphrase')}</label>
+                                <label className="mb-2 block text-sm font-medium text-(--hi-text-soft)">{t('vault.passphrase')}</label>
                                 <input
                                     type="password"
                                     value={setupPassphrase}
@@ -1376,7 +1376,7 @@ export default function PersonalVault() {
                                 />
                             </div>
                             <div>
-                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text-soft)]">{t('vault.passphrase_confirm')}</label>
+                                <label className="mb-2 block text-sm font-medium text-(--hi-text-soft)">{t('vault.passphrase_confirm')}</label>
                                 <input
                                     type="password"
                                     value={setupPassphraseConfirm}
@@ -1404,24 +1404,24 @@ export default function PersonalVault() {
 
             {vaultConfigured && !vaultUnlocked && (
                 <div className="vault-unlock-layout grid gap-6 lg:grid-cols-[1fr_0.9fr]">
-                    <form onSubmit={handleUnlock} className="vault-unlock-panel space-y-5">
+                    <form onSubmit={handleUnlock} className="flex flex-col vault-unlock-panel gap-y-5">
                         <div>
-                            <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.unlock_title')}</h2>
-                            <p className="mt-2 text-sm text-[var(--hi-text-soft)]">{t('vault.unlock_description')}</p>
+                            <h2 className="section-title text-2xl text-(--hi-text)">{t('vault.unlock_title')}</h2>
+                            <p className="mt-2 text-sm text-(--hi-text-soft)">{t('vault.unlock_description')}</p>
                         </div>
 
                         <div className="flex flex-wrap gap-2">
                             <button
                                 type="button"
                                 onClick={() => setUnlockMode('passphrase')}
-                                className={`rounded-xl px-4 py-2 text-sm font-medium transition ${unlockMode === 'passphrase' ? 'bg-[var(--hi-accent)] text-white' : 'bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)]'}`}
+                                className={`rounded-xl px-4 py-2 text-sm font-medium transition ${unlockMode === 'passphrase' ? 'bg-(--hi-accent) text-white' : 'bg-(--hi-panel-muted) text-(--hi-text-soft)'}`}
                             >
                                 {t('vault.unlock_with_passphrase')}
                             </button>
                             <button
                                 type="button"
                                 onClick={() => setUnlockMode('recovery')}
-                                className={`rounded-xl px-4 py-2 text-sm font-medium transition ${unlockMode === 'recovery' ? 'bg-[var(--hi-accent)] text-white' : 'bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)]'}`}
+                                className={`rounded-xl px-4 py-2 text-sm font-medium transition ${unlockMode === 'recovery' ? 'bg-(--hi-accent) text-white' : 'bg-(--hi-panel-muted) text-(--hi-text-soft)'}`}
                             >
                                 {t('vault.unlock_with_recovery')}
                             </button>
@@ -1450,12 +1450,12 @@ export default function PersonalVault() {
 
                     <aside className="vault-security-panel space-y-5">
                         <div className="flex items-center gap-4">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-(--hi-accent-soft) text-(--hi-accent)">
                                 <ShieldAlert className="h-5 w-5" />
                             </div>
-                            <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.security_note_title')}</h2>
+                            <h2 className="section-title text-2xl text-(--hi-text)">{t('vault.security_note_title')}</h2>
                         </div>
-                        <div className="space-y-3 text-sm leading-7 text-[var(--hi-text-soft)]">
+                        <div className="space-y-3 text-sm leading-7 text-(--hi-text-soft)">
                             <p>{t('vault.security_note_1')}</p>
                             <p>{t('vault.security_note_2')}</p>
                         </div>
@@ -1467,8 +1467,8 @@ export default function PersonalVault() {
                 <div className="vault-recovery-panel space-y-4">
                     <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                         <div>
-                            <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.recovery_ready_title')}</h2>
-                            <p className="mt-2 text-sm text-[var(--hi-text-soft)]">{t('vault.recovery_ready_description')}</p>
+                            <h2 className="section-title text-2xl text-(--hi-text)">{t('vault.recovery_ready_title')}</h2>
+                            <p className="mt-2 text-sm text-(--hi-text-soft)">{t('vault.recovery_ready_description')}</p>
                         </div>
                         <div className="flex flex-wrap gap-2">
                             <button
@@ -1492,8 +1492,8 @@ export default function PersonalVault() {
                             </button>
                         </div>
                     </div>
-                    <p className="text-sm text-[var(--hi-text-soft)]">{t('vault.recovery_visible_once')}</p>
-                    <div className="rounded-2xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] px-4 py-4 font-mono text-sm tracking-[0.2em] text-[var(--hi-text)]">
+                    <p className="text-sm text-(--hi-text-soft)">{t('vault.recovery_visible_once')}</p>
+                    <div className="rounded-2xl border border-(--hi-border) bg-(--hi-panel-strong) px-4 py-4 font-mono text-sm tracking-[0.2em] text-(--hi-text)">
                         {setupSuccessKey}
                     </div>
                 </div>
@@ -1501,13 +1501,13 @@ export default function PersonalVault() {
 
             {vaultConfigured && vaultUnlocked && (
                 <div className="vault-secure-reveal vault-secure-workspace grid gap-6 xl:grid-cols-[1fr_1.05fr]">
-                    <form onSubmit={handleSubmitItem} className="vault-record-form space-y-6">
+                    <form onSubmit={handleSubmitItem} className="flex flex-col vault-record-form gap-y-6">
                         <div className="flex items-center justify-between gap-3">
                             <div>
-                                <h2 className="section-title text-2xl text-[var(--hi-text)]">
+                                <h2 className="section-title text-2xl text-(--hi-text)">
                                     {editingId ? t('vault.record_edit_title') : t('vault.record_new_title')}
                                 </h2>
-                                <p className="mt-2 text-sm text-[var(--hi-text-soft)]">{t('vault.record_form_subtitle')}</p>
+                                <p className="mt-2 text-sm text-(--hi-text-soft)">{t('vault.record_form_subtitle')}</p>
                             </div>
                             {editingId && (
                                 <button type="button" onClick={resetForm} className="btn-secondary inline-flex items-center gap-2">
@@ -1519,7 +1519,7 @@ export default function PersonalVault() {
 
                         <div className="space-y-5">
                             <div>
-                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">
+                                <label className="mb-2 block text-sm font-medium text-(--hi-text)">
                                     {t('items.form.name')} <span className="text-red-500">{t('items.form.required')}</span>
                                 </label>
                                 <input
@@ -1534,7 +1534,7 @@ export default function PersonalVault() {
                             </div>
 
                             <div>
-                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.description')}</label>
+                                <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('items.form.description')}</label>
                                 <textarea
                                     name="description"
                                     value={formState.description}
@@ -1547,7 +1547,7 @@ export default function PersonalVault() {
 
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 <div>
-                                    <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.quantity')}</label>
+                                    <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('items.form.quantity')}</label>
                                     <input
                                         type="number"
                                         name="quantity"
@@ -1559,7 +1559,7 @@ export default function PersonalVault() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.barcode')}</label>
+                                    <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('items.form.barcode')}</label>
                                     <input
                                         type="text"
                                         name="barcode"
@@ -1568,13 +1568,13 @@ export default function PersonalVault() {
                                         className="input-field font-mono"
                                         placeholder={t('items.form.barcode_placeholder')}
                                     />
-                                    <p className="mt-2 text-xs text-[var(--hi-text-soft)]">{t('vault.barcode_privacy_hint')}</p>
+                                    <p className="mt-2 text-xs text-(--hi-text-soft)">{t('vault.barcode_privacy_hint')}</p>
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 <div>
-                                    <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.category')}</label>
+                                    <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('items.form.category')}</label>
                                     <select
                                         name="category_id"
                                         value={formState.category_id}
@@ -1591,7 +1591,7 @@ export default function PersonalVault() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.room')}</label>
+                                    <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('items.form.room')}</label>
                                     <select
                                         name="room_id"
                                         value={formState.room_id}
@@ -1610,7 +1610,7 @@ export default function PersonalVault() {
                             </div>
 
                             <div>
-                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.location_details')}</label>
+                                <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('items.form.location_details')}</label>
                                 <input
                                     type="text"
                                     name="location_details"
@@ -1624,8 +1624,8 @@ export default function PersonalVault() {
                             <section className="vault-form-section vault-photo-control">
                                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                                     <div className="min-w-0">
-                                        <p className="text-sm font-medium text-[var(--hi-text)]">{t('items.form.photo')}</p>
-                                        <p className="mt-1 text-xs text-[var(--hi-text-soft)]">{photoCopy.hint}</p>
+                                        <p className="text-sm font-medium text-(--hi-text)">{t('items.form.photo')}</p>
+                                        <p className="mt-1 text-xs text-(--hi-text-soft)">{photoCopy.hint}</p>
                                     </div>
                                     <div className="flex flex-wrap gap-2">
                                         <input
@@ -1676,11 +1676,11 @@ export default function PersonalVault() {
                                 </div>
 
                                 {photoProcessing && (
-                                    <p className="mt-3 text-xs text-[var(--hi-text-soft)]">{photoCopy.processing}</p>
+                                    <p className="mt-3 text-xs text-(--hi-text-soft)">{photoCopy.processing}</p>
                                 )}
 
                                 {showPendingPhotoRemoval && (
-                                    <p className="mt-3 rounded-2xl border border-[rgba(184,153,104,0.24)] bg-[var(--hi-secondary-soft)] px-3 py-2 text-xs text-[var(--hi-secondary-strong)]">
+                                    <p className="mt-3 rounded-2xl border border-[rgba(184,153,104,0.24)] bg-(--hi-secondary-soft) px-3 py-2 text-xs text-(--hi-secondary-strong)">
                                         {photoCopy.pendingRemoval}
                                     </p>
                                 )}
@@ -1713,13 +1713,13 @@ export default function PersonalVault() {
                                                     void openStoredPhotoViewer(editingItem);
                                                 }
                                             }}
-                                            className="text-xs font-medium text-[var(--hi-accent)] underline-offset-4 transition hover:text-[var(--hi-accent-strong)] hover:underline"
+                                            className="text-xs font-medium text-(--hi-accent) underline-offset-4 transition hover:text-(--hi-accent-strong) hover:underline"
                                         >
                                             {photoCopy.openFullAction}
                                         </button>
                                     </div>
                                 ) : (
-                                    <div className="vault-photo-empty mt-4 px-4 py-6 text-sm text-[var(--hi-text-soft)]">
+                                    <div className="vault-photo-empty mt-4 px-4 py-6 text-sm text-(--hi-text-soft)">
                                         {photoCopy.emptyState}
                                     </div>
                                 )}
@@ -1732,28 +1732,28 @@ export default function PersonalVault() {
                                     className="item-invoice-toggle-v27 flex w-full items-center justify-between gap-4 px-4 py-4 text-left transition-colors"
                                 >
                                     <div>
-                                        <p className="font-medium text-[var(--hi-text)]">{t('items.form.invoice_section')}</p>
-                                        <p className="text-sm text-[var(--hi-text-soft)]">
+                                        <p className="font-medium text-(--hi-text)">{t('items.form.invoice_section')}</p>
+                                        <p className="text-sm text-(--hi-text-soft)">
                                             {showInvoiceSection ? t('items.form.invoice_section_help') : t('items.form.invoice_section_collapsed')}
                                         </p>
                                     </div>
                                     <div className="flex items-center gap-3">
                                         {hasStructuredInvoiceContent && !showInvoiceSection && (
-                                            <span className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--hi-accent)]">
+                                            <span className="rounded-full border border-(--hi-border) bg-(--hi-accent-soft) px-2.5 py-1 text-xs font-medium text-(--hi-accent)">
                                                 {t('items.form.invoice_section_filled')}
                                             </span>
                                         )}
-                                        <CalendarDays className="h-5 w-5 text-[var(--hi-text-soft)]" />
+                                        <CalendarDays className="h-5 w-5 text-(--hi-text-soft)" />
                                     </div>
                                 </button>
 
                                 {showInvoiceSection && (
-                                    <div className="vault-invoice-fields space-y-4 border-t border-[var(--hi-border)] px-4 pb-4 pt-4">
-                                        <p className="text-xs text-[var(--hi-text-soft)]">{t('items.form.invoice_security')}</p>
+                                    <div className="vault-invoice-fields space-y-4 border-t border-(--hi-border) px-4 pb-4 pt-4">
+                                        <p className="text-xs text-(--hi-text-soft)">{t('items.form.invoice_security')}</p>
 
                                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                             <div>
-                                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.invoice_price')}</label>
+                                                <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('items.form.invoice_price')}</label>
                                                 <input
                                                     type="number"
                                                     name="invoice_price"
@@ -1766,7 +1766,7 @@ export default function PersonalVault() {
                                                 />
                                             </div>
                                             <div>
-                                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.invoice_currency')}</label>
+                                                <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('items.form.invoice_currency')}</label>
                                                 <select
                                                     name="invoice_currency"
                                                     value={formState.invoice_currency}
@@ -1798,7 +1798,7 @@ export default function PersonalVault() {
 
                                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                             <div>
-                                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.invoice_date')}</label>
+                                                <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('items.form.invoice_date')}</label>
                                                 <input
                                                     type="date"
                                                     name="invoice_date"
@@ -1808,7 +1808,7 @@ export default function PersonalVault() {
                                                 />
                                             </div>
                                             <div>
-                                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.warranty_start_date')}</label>
+                                                <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('items.form.warranty_start_date')}</label>
                                                 <input
                                                     type="date"
                                                     name="warranty_start_date"
@@ -1819,11 +1819,11 @@ export default function PersonalVault() {
                                             </div>
                                         </div>
 
-                                        <p className="text-xs text-[var(--hi-text-soft)]">{t('items.form.warranty_calculation_help')}</p>
+                                        <p className="text-xs text-(--hi-text-soft)">{t('items.form.warranty_calculation_help')}</p>
 
                                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                             <div>
-                                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.warranty_duration_value')}</label>
+                                                <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('items.form.warranty_duration_value')}</label>
                                                 <input
                                                     type="text"
                                                     name="warranty_duration_value"
@@ -1836,7 +1836,7 @@ export default function PersonalVault() {
                                                 />
                                             </div>
                                             <div>
-                                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.warranty_duration_unit')}</label>
+                                                <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('items.form.warranty_duration_unit')}</label>
                                                 <select
                                                     name="warranty_duration_unit"
                                                     value={formState.warranty_duration_unit}
@@ -1854,13 +1854,13 @@ export default function PersonalVault() {
                                         </div>
 
                                         <div>
-                                            <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.warranty_expiry_date')}</label>
+                                            <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('items.form.warranty_expiry_date')}</label>
                                             <input
                                                 type="date"
                                                 name="warranty_expiry_date"
                                                 value={displayedWarrantyExpiryDate}
                                                 onChange={handleFieldChange}
-                                                className={`input-field ${calculatedWarrantyExpiryDate ? 'cursor-not-allowed bg-[var(--hi-panel-muted)]' : ''}`}
+                                                className={`input-field ${calculatedWarrantyExpiryDate ? 'cursor-not-allowed bg-(--hi-panel-muted)' : ''}`}
                                                 readOnly={Boolean(calculatedWarrantyExpiryDate)}
                                             />
                                         </div>
@@ -1869,7 +1869,7 @@ export default function PersonalVault() {
                             </section>
                         </div>
 
-                        <div className="vault-inline-note px-4 py-3 text-sm text-[var(--hi-text-soft)]">
+                        <div className="vault-inline-note px-4 py-3 text-sm text-(--hi-text-soft)">
                             <p>{photoCopy.hint}</p>
                             <p className="mt-1">{photoCopy.privacyNote}</p>
                         </div>
@@ -1888,7 +1888,7 @@ export default function PersonalVault() {
                         <div className="vault-filter-bar space-y-4">
                             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                                 <div className="relative sm:col-span-2">
-                                    <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--hi-text-muted)]" />
+                                    <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-(--hi-text-muted)" />
                                     <input
                                         type="text"
                                         value={search}
@@ -1934,11 +1934,11 @@ export default function PersonalVault() {
                             <div className="vault-record-state flex justify-center py-16"><div className="spinner"></div></div>
                         ) : filteredItems.length === 0 ? (
                             <div className="vault-record-state p-8 text-center">
-                                <Package className="mx-auto mb-4 h-12 w-12 text-[var(--hi-text-muted)] opacity-45" />
-                                <h3 className="text-lg font-semibold text-[var(--hi-text)]">
+                                <Package className="mx-auto mb-4 h-12 w-12 text-(--hi-text-muted) opacity-45" />
+                                <h3 className="text-lg font-semibold text-(--hi-text)">
                                     {items.length === 0 ? t('vault.empty_title') : t('vault.empty_filter_title')}
                                 </h3>
-                                <p className="mt-2 text-sm text-[var(--hi-text-soft)]">
+                                <p className="mt-2 text-sm text-(--hi-text-soft)">
                                     {items.length === 0 ? t('vault.empty_description') : t('vault.empty_filter_description')}
                                 </p>
                             </div>
@@ -1949,10 +1949,10 @@ export default function PersonalVault() {
                                         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                                             <div className="min-w-0 flex-1">
                                                 <div className="flex flex-wrap items-start gap-2">
-                                                    <h3 className="min-w-0 flex-1 text-lg font-semibold text-[var(--hi-text)] [overflow-wrap:anywhere]">
+                                                    <h3 className="min-w-0 flex-1 text-lg font-semibold text-(--hi-text) wrap-anywhere">
                                                         {item.name}
                                                     </h3>
-                                                    <span className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-2.5 py-1 text-xs font-medium text-[var(--hi-text-soft)]">
+                                                    <span className="rounded-full border border-(--hi-border) bg-(--hi-panel-muted) px-2.5 py-1 text-xs font-medium text-(--hi-text-soft)">
                                                         x{item.quantity}
                                                     </span>
                                                 </div>
@@ -1976,7 +1976,7 @@ export default function PersonalVault() {
                                                         </span>
                                                     )}
                                                     {item.barcode && (
-                                                        <span className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-2.5 py-1 font-mono text-xs text-[var(--hi-text-soft)]">
+                                                        <span className="rounded-full border border-(--hi-border) bg-(--hi-panel-muted) px-2.5 py-1 font-mono text-xs text-(--hi-text-soft)">
                                                             {item.barcode}
                                                         </span>
                                                     )}
@@ -1999,7 +1999,7 @@ export default function PersonalVault() {
                                                         <button
                                                             type="button"
                                                             onClick={() => { void openStoredPhotoViewer(item); }}
-                                                            className="text-xs font-medium text-[var(--hi-accent)] underline-offset-4 transition hover:text-[var(--hi-accent-strong)] hover:underline"
+                                                            className="text-xs font-medium text-(--hi-accent) underline-offset-4 transition hover:text-(--hi-accent-strong) hover:underline"
                                                         >
                                                             {photoCopy.openFullAction}
                                                         </button>
@@ -2007,19 +2007,19 @@ export default function PersonalVault() {
                                                 )}
 
                                                 {item.description && (
-                                                    <p className="mt-3 whitespace-pre-wrap text-sm text-[var(--hi-text-soft)]">
+                                                    <p className="mt-3 whitespace-pre-wrap text-sm text-(--hi-text-soft)">
                                                         {item.description}
                                                     </p>
                                                 )}
 
                                                 {item.location_details && (
-                                                    <p className="mt-3 text-sm text-[var(--hi-text-soft)]">
+                                                    <p className="mt-3 text-sm text-(--hi-text-soft)">
                                                         {t('items.form.location_details')}: {item.location_details}
                                                     </p>
                                                 )}
 
                                                 {(item.invoice_price || item.invoice_date || item.warranty_expiry_date) && (
-                                                    <div className="vault-record-finance mt-4 px-4 py-3 text-sm text-[var(--hi-text-soft)]">
+                                                    <div className="vault-record-finance mt-4 px-4 py-3 text-sm text-(--hi-text-soft)">
                                                         {item.invoice_price && (
                                                             <p>
                                                                 {t('items.form.invoice_price')}: {item.invoice_price} {item.invoice_currency || ''}
@@ -2038,12 +2038,12 @@ export default function PersonalVault() {
                                                     </div>
                                                 )}
 
-                                                <p className="mt-4 text-xs text-[var(--hi-text-muted)]">
+                                                <p className="mt-4 text-xs text-(--hi-text-muted)">
                                                     {t('vault.updated_at')}: {formatLocalDateTime(item.updated_at || item.created_at, i18n.language)}
                                                 </p>
                                             </div>
 
-                                            <div className="flex gap-2 lg:flex-shrink-0">
+                                            <div className="flex gap-2 lg:shrink-0">
                                                 <button type="button" onClick={() => handleEdit(item)} className="btn-secondary">
                                                     {t('common.edit')}
                                                 </button>
@@ -2052,7 +2052,7 @@ export default function PersonalVault() {
                                                     onClick={() => setPendingDeleteItem(item)}
                                                     aria-haspopup="dialog"
                                                     disabled={deletingId === item.id}
-                                                    className="inline-flex items-center gap-2 rounded-[12px] border border-red-500/18 bg-red-500/6 px-4 py-2 text-sm font-medium text-red-400 transition-colors hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] disabled:cursor-not-allowed disabled:opacity-60"
+                                                    className="inline-flex items-center gap-2 rounded-[12px] border border-red-500/18 bg-red-500/6 px-4 py-2 text-sm font-medium text-red-400 transition-colors hover:bg-red-500/10 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel-strong) disabled:cursor-not-allowed disabled:opacity-60"
                                                 >
                                                     <Trash2 className="h-4 w-4" />
                                                     {deletingId === item.id ? t('common.deleting', { defaultValue: 'Deleting...' }) : t('common.delete')}
@@ -2079,9 +2079,9 @@ export default function PersonalVault() {
                 onClose={() => !deletingId && setPendingDeleteItem(null)}
                 onConfirm={handleDelete}
             >
-                <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                    <p className="font-medium text-[var(--hi-text)]">{pendingDeleteItem?.name}</p>
-                    <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                <div className="rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                    <p className="font-medium text-(--hi-text)">{pendingDeleteItem?.name}</p>
+                    <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                         {t('vault.delete_warning', { defaultValue: 'This action cannot be undone. Remove the record only if you no longer need it in your private vault.' })}
                     </p>
                 </div>
@@ -2106,13 +2106,13 @@ export default function PersonalVault() {
                     >
                         <div className="mb-4 flex items-start justify-between gap-4">
                             <div className="min-w-0">
-                                <h2 id="vault-photo-viewer-title" className="truncate text-lg font-semibold text-[var(--hi-text)]">
+                                <h2 id="vault-photo-viewer-title" className="truncate text-lg font-semibold text-(--hi-text)">
                                     {photoViewer.title || t('items.form.photo')}
                                 </h2>
                                 {photoViewer.caption && (
-                                    <p className="mt-1 truncate text-sm text-[var(--hi-text-soft)]">{photoViewer.caption}</p>
+                                    <p className="mt-1 truncate text-sm text-(--hi-text-soft)">{photoViewer.caption}</p>
                                 )}
-                                <p className="mt-1 text-xs text-[var(--hi-text-muted)]">{photoCopy.viewerHint}</p>
+                                <p className="mt-1 text-xs text-(--hi-text-muted)">{photoCopy.viewerHint}</p>
                             </div>
                             <button type="button" onClick={closePhotoViewer} className="btn-secondary inline-flex items-center gap-2">
                                 <XCircle className="h-4 w-4" />
@@ -2122,7 +2122,7 @@ export default function PersonalVault() {
 
                         <div className="vault-photo-stage flex min-h-[320px] max-h-[78vh] items-center justify-center overflow-auto p-3">
                             {photoViewer.loading ? (
-                                <div className="flex flex-col items-center gap-3 text-sm text-[var(--hi-text-soft)]">
+                                <div className="flex flex-col items-center gap-3 text-sm text-(--hi-text-soft)">
                                     <div className="spinner"></div>
                                     <p>{photoCopy.viewerLoading}</p>
                                 </div>

@@ -32,7 +32,7 @@ export default function LegalLanguageToggle({ className = '' }: LegalLanguageTog
     const activeLanguage = resolveLegalLanguage(i18n);
 
     return (
-        <div className={`inline-flex items-center rounded-full border p-1 shadow-sm backdrop-blur-xl ${isDark ? 'border-white/10 bg-white/4' : 'border-[var(--hi-border)] bg-[var(--hi-panel)]'} ${className}`.trim()}>
+        <div className={`inline-flex items-center rounded-full border p-1 shadow-xs backdrop-blur-xl ${isDark ? 'border-white/10 bg-white/4' : 'border-(--hi-border) bg-(--hi-panel)'} ${className}`.trim()}>
             {OPTIONS.map((option) => (
                 <button
                     key={option.code}
@@ -41,8 +41,8 @@ export default function LegalLanguageToggle({ className = '' }: LegalLanguageTog
                     aria-label={option.label}
                     className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
                         activeLanguage === option.code
-                            ? 'bg-[var(--hi-accent)] text-white shadow-[var(--hi-shadow-soft)]'
-                            : isDark ? 'text-white/56 hover:text-white' : 'text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]'
+                            ? 'bg-(--hi-accent) text-white shadow-(--hi-shadow-soft)'
+                            : isDark ? 'text-white/56 hover:text-white' : 'text-(--hi-text-soft) hover:text-(--hi-text)'
                     }`}
                 >
                     {option.label}

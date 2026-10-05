@@ -104,7 +104,7 @@ export default function ModalDialog({
 
     return createPortal(
         <div
-            className="app-modal-backdrop fixed inset-0 z-[80] flex items-center justify-center p-4"
+            className="app-modal-backdrop fixed inset-0 z-80 flex items-center justify-center p-4"
             onMouseDown={(event) => {
                 if (event.target === event.currentTarget) {
                     onClose?.();

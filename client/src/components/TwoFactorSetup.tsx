@@ -112,22 +112,22 @@ export default function TwoFactorSetup({ onClose, onEnabled }: TwoFactorSetupPro
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4 backdrop-blur-sm animate-fade-in">
-            <div className="app-modal-dialog max-h-[92vh] w-full max-w-4xl overflow-y-auto text-[var(--hi-text)]">
-                <div className="border-b border-[var(--hi-border)] px-6 py-6 sm:px-8">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4 backdrop-blur-xs animate-fade-in">
+            <div className="app-modal-dialog max-h-[92vh] w-full max-w-4xl overflow-y-auto text-(--hi-text)">
+                <div className="border-b border-(--hi-border) px-6 py-6 sm:px-8">
                     <div className="flex items-start justify-between gap-4">
                         <div className="flex items-start gap-4">
                             <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[24px] bg-[linear-gradient(135deg,var(--hi-accent-strong),var(--hi-accent))] text-white shadow-lg">
                                 <ShieldCheck className="h-8 w-8" />
                             </div>
                             <div className="min-w-0">
-                                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[var(--hi-text-muted)]">
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-(--hi-text-muted)">
                                     {step === 'loading' ? t('settings.two_factor.setup_title') : stepMeta[step]?.title}
                                 </p>
-                                <h2 className="section-title mt-2 text-3xl text-[var(--hi-text)] sm:text-4xl">
+                                <h2 className="section-title mt-2 text-3xl text-(--hi-text) sm:text-4xl">
                                     {t('settings.two_factor.setup_title')}
                                 </h2>
-                                <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--hi-text-soft)]">
+                                <p className="mt-2 max-w-2xl text-sm leading-6 text-(--hi-text-soft)">
                                     {step === 'qr' && t('settings.two_factor.scan_instruction')}
                                     {step === 'verify' && t('settings.two_factor.verify_instruction')}
                                     {step === 'backup' && t('settings.two_factor.backup_warning_text')}
@@ -136,7 +136,7 @@ export default function TwoFactorSetup({ onClose, onEnabled }: TwoFactorSetupPro
                             </div>
                         </div>
                         <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg transition-colors">
-                            <X className="h-6 w-6 text-[var(--hi-text-soft)]" />
+                            <X className="h-6 w-6 text-(--hi-text-soft)" />
                         </button>
                     </div>
 
@@ -152,10 +152,10 @@ export default function TwoFactorSetup({ onClose, onEnabled }: TwoFactorSetupPro
                                     key={stepKey}
                                     className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] ${
                                         isCurrent
-                                            ? 'bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
+                                            ? 'bg-(--hi-accent-soft) text-(--hi-accent)'
                                             : isComplete
-                                                ? 'bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)]'
-                                                : 'border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]'
+                                                ? 'bg-(--hi-secondary-soft) text-(--hi-secondary-strong)'
+                                                : 'border border-(--hi-border) bg-(--hi-panel-muted) text-(--hi-text-muted)'
                                     }`}
                                 >
                                     <span>{stepMeta[stepKey].index}</span>
@@ -169,51 +169,51 @@ export default function TwoFactorSetup({ onClose, onEnabled }: TwoFactorSetupPro
                 <div className="px-6 py-6 sm:px-8 sm:py-8">
                     {error && (
                         <div className="mb-6 flex items-start gap-3 rounded-[22px] border border-red-400/20 bg-red-500/10 px-4 py-4 text-sm text-red-300">
-                            <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0" />
+                            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
                             {error}
                         </div>
                     )}
 
                     {step === 'loading' && (
-                        <div className="flex flex-col items-center justify-center rounded-[28px] border border-[var(--hi-border)] bg-[var(--hi-panel)] px-6 py-16 text-center">
-                            <div className="flex h-16 w-16 items-center justify-center rounded-[24px] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+                        <div className="flex flex-col items-center justify-center rounded-[28px] border border-(--hi-border) bg-(--hi-panel) px-6 py-16 text-center">
+                            <div className="flex h-16 w-16 items-center justify-center rounded-[24px] bg-(--hi-accent-soft) text-(--hi-accent)">
                                 <Loader2 className="h-7 w-7 animate-spin" />
                             </div>
-                            <p className="mt-5 text-base font-semibold text-[var(--hi-text)]">{t('settings.two_factor.setup_title')}</p>
-                            <p className="mt-2 text-sm text-[var(--hi-text-soft)]">{t('settings.two_factor.preparing_setup', { defaultValue: 'Preparing your authenticator setup…' })}</p>
+                            <p className="mt-5 text-base font-semibold text-(--hi-text)">{t('settings.two_factor.setup_title')}</p>
+                            <p className="mt-2 text-sm text-(--hi-text-soft)">{t('settings.two_factor.preparing_setup', { defaultValue: 'Preparing your authenticator setup…' })}</p>
                         </div>
                     )}
 
                     {step === 'qr' && (
                         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
                             <div className="space-y-5">
-                                <div className="rounded-[28px] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-5">
+                                <div className="rounded-[28px] border border-(--hi-border) bg-(--hi-panel) p-5">
                                     <div className="flex items-start gap-3">
-                                        <span className="mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+                                        <span className="mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-(--hi-accent-soft) text-(--hi-accent)">
                                             <ShieldCheck className="h-5 w-5" />
                                         </span>
                                         <div>
-                                            <p className="text-lg font-semibold text-[var(--hi-text)]">{t('settings.two_factor.scan_instruction')}</p>
-                                            <p className="mt-2 text-sm leading-6 text-[var(--hi-text-soft)]">
+                                            <p className="text-lg font-semibold text-(--hi-text)">{t('settings.two_factor.scan_instruction')}</p>
+                                            <p className="mt-2 text-sm leading-6 text-(--hi-text-soft)">
                                                 Keep your authenticator app ready, then continue with the one-time code it generates.
                                             </p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="rounded-[28px] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-5">
-                                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-muted)]">
+                                <div className="rounded-[28px] border border-(--hi-border) bg-(--hi-panel) p-5">
+                                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-(--hi-text-muted)">
                                         {t('settings.two_factor.manual_entry')}
                                     </p>
-                                    <div className="mt-4 rounded-[22px] border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] px-4 py-4">
+                                    <div className="mt-4 rounded-[22px] border border-(--hi-border) bg-(--hi-bg-strong) px-4 py-4">
                                         <div className="flex items-start gap-3">
-                                            <KeyRound className="mt-1 h-5 w-5 shrink-0 text-[var(--hi-secondary)]" />
-                                            <code className="min-w-0 flex-1 break-all text-sm font-mono text-[var(--hi-text)]">
+                                            <KeyRound className="mt-1 h-5 w-5 shrink-0 text-(--hi-secondary)" />
+                                            <code className="min-w-0 flex-1 break-all text-sm font-mono text-(--hi-text)">
                                                 {secret}
                                             </code>
                                             <button
                                                 onClick={copySecret}
-                                                className="btn-secondary !rounded-[18px] !px-3 !py-2"
+                                                className="btn-secondary rounded-[18px]! px-3! py-2!"
                                                 title={t('settings.two_factor.copy_secret')}
                                             >
                                                 {copiedSecret ? <CheckCircle className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
@@ -233,7 +233,7 @@ export default function TwoFactorSetup({ onClose, onEnabled }: TwoFactorSetupPro
 
                             <div className="flex items-center justify-center">
                                 {qrDataUrl && (
-                                    <div className="rounded-[32px] border border-[var(--hi-border)] bg-white p-5 shadow-[var(--hi-shadow)]">
+                                    <div className="rounded-[32px] border border-(--hi-border) bg-white p-5 shadow-(--hi-shadow)">
                                         <img src={qrDataUrl} alt="QR Code" className="h-64 w-64 rounded-[20px]" />
                                     </div>
                                 )}
@@ -242,15 +242,15 @@ export default function TwoFactorSetup({ onClose, onEnabled }: TwoFactorSetupPro
                     )}
 
                     {step === 'verify' && (
-                        <form onSubmit={handleVerify} className="space-y-6">
-                            <div className="rounded-[28px] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-5">
-                                <p className="text-sm leading-6 text-[var(--hi-text-soft)]">
+                        <form onSubmit={handleVerify} className="flex flex-col gap-y-6">
+                            <div className="rounded-[28px] border border-(--hi-border) bg-(--hi-panel) p-5">
+                                <p className="text-sm leading-6 text-(--hi-text-soft)">
                                     {t('settings.two_factor.verify_instruction')}
                                 </p>
                             </div>
 
-                            <div className="rounded-[28px] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-5">
-                                <label className="mb-3 block text-sm font-medium text-[var(--hi-text)]">
+                            <div className="rounded-[28px] border border-(--hi-border) bg-(--hi-panel) p-5">
+                                <label className="mb-3 block text-sm font-medium text-(--hi-text)">
                                     {t('settings.two_factor.code_label')}
                                 </label>
                                 <input
@@ -290,11 +290,11 @@ export default function TwoFactorSetup({ onClose, onEnabled }: TwoFactorSetupPro
 
                     {step === 'backup' && (
                         <div className="space-y-6">
-                            <div className="rounded-[28px] border border-[rgba(184,153,104,0.24)] bg-[var(--hi-secondary-soft)] p-5">
-                                <p className="text-sm font-semibold text-[var(--hi-secondary-strong)] mb-1">
+                            <div className="rounded-[28px] border border-[rgba(184,153,104,0.24)] bg-(--hi-secondary-soft) p-5">
+                                <p className="text-sm font-semibold text-(--hi-secondary-strong) mb-1">
                                     {t('settings.two_factor.backup_warning_title')}
                                 </p>
-                                <p className="text-sm leading-6 text-[var(--hi-text-soft)]">
+                                <p className="text-sm leading-6 text-(--hi-text-soft)">
                                     {t('settings.two_factor.backup_warning_text')}
                                 </p>
                             </div>
@@ -303,7 +303,7 @@ export default function TwoFactorSetup({ onClose, onEnabled }: TwoFactorSetupPro
                                 {backupCodes.map((code, i) => (
                                     <div
                                         key={i}
-                                        className="rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel)] px-4 py-3 text-center font-mono text-sm text-[var(--hi-text)] select-all"
+                                        className="rounded-[20px] border border-(--hi-border) bg-(--hi-panel) px-4 py-3 text-center font-mono text-sm text-(--hi-text) select-all"
                                     >
                                         {code}
                                     </div>
@@ -318,12 +318,12 @@ export default function TwoFactorSetup({ onClose, onEnabled }: TwoFactorSetupPro
                                 {t('settings.two_factor.download_codes')}
                             </button>
 
-                            <label className="app-premium-checkbox-container flex cursor-pointer items-start gap-3 rounded-[22px] border border-[var(--hi-border)] bg-[var(--hi-panel)] px-4 py-4 hover:border-[var(--hi-border-strong)] transition-all">
+                            <label className="app-premium-checkbox-container flex cursor-pointer items-start gap-3 rounded-[22px] border border-(--hi-border) bg-(--hi-panel) px-4 py-4 hover:border-(--hi-border-strong) transition-all">
                                 <PremiumCheckbox
                                     checked={acknowledgedBackup}
                                     onChange={(e) => setAcknowledgedBackup(e.target.checked)}
                                 />
-                                <span className="text-sm leading-6 text-[var(--hi-text-soft)]">
+                                <span className="text-sm leading-6 text-(--hi-text-soft)">
                                     {t('settings.two_factor.backup_acknowledge')}
                                 </span>
                             </label>

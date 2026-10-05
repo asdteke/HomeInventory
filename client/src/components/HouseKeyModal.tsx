@@ -97,7 +97,7 @@ export default function HouseKeyModal({
                 <div className="house-key-modal-content">
                     <div className="house-key-modal-hero">
                         <div
-                            className="mb-4 inline-flex h-20 w-20 items-center justify-center rounded-[1.75rem] border shadow-[var(--hi-shadow-soft)]"
+                            className="mb-4 inline-flex h-20 w-20 items-center justify-center rounded-[1.75rem] border shadow-(--hi-shadow-soft)"
                             style={{
                                 background: 'linear-gradient(135deg, var(--hi-accent-strong), var(--hi-accent))',
                                 borderColor: 'rgba(255,255,255,0.18)'
@@ -124,7 +124,7 @@ export default function HouseKeyModal({
                     </div>
 
                     <div
-                        className="house-key-modal-warning mb-6 rounded-[1.5rem] border p-4 sm:mb-7 sm:p-5"
+                        className="house-key-modal-warning mb-6 rounded-3xl border p-4 sm:mb-7 sm:p-5"
                         style={{
                             background: 'var(--hi-warning-soft)',
                             borderColor: 'color-mix(in srgb, var(--hi-warning) 34%, transparent)'
@@ -132,7 +132,7 @@ export default function HouseKeyModal({
                     >
                         <div className="flex items-start gap-3">
                             <div
-                                className="mt-0.5 inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl"
+                                className="mt-0.5 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl"
                                 style={{
                                     background: 'color-mix(in srgb, var(--hi-warning) 14%, transparent)',
                                     color: 'var(--hi-warning)'

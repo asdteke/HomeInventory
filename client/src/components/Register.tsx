@@ -80,8 +80,8 @@ export default function Register() {
     const passwordGuidance = getPasswordGuidanceMessage(t);
 
     const pageClass = isDark
-        ? (isCustomBrand ? 'bg-[var(--hi-bg-strong)] text-white' : 'bg-[#1a1f1c] text-white')
-        : 'bg-[var(--hi-bg)] text-[var(--hi-text)]';
+        ? (isCustomBrand ? 'bg-(--hi-bg-strong) text-white' : 'bg-[#1a1f1c] text-white')
+        : 'bg-(--hi-bg) text-(--hi-text)';
     const pageGlow = isDark
         ? (isCustomBrand
             ? 'radial-gradient(circle_at_18%_16%,rgba(88,213,240,0.08),transparent_26%),radial-gradient(circle_at_82%_18%,rgba(100,168,255,0.10),transparent_30%),linear-gradient(180deg,#08111e_0%,#0d1726_52%,#10213a_100%)'
@@ -91,50 +91,50 @@ export default function Register() {
             : 'radial-gradient(circle_at_18%_18%,rgba(184,153,104,0.12),transparent_24%),radial-gradient(circle_at_82%_20%,rgba(45,82,65,0.10),transparent_28%),linear-gradient(180deg,#f7f2e8_0%,#f4ede2_48%,#efe6d9_100%)');
     const topChromeClass = isDark
         ? (isCustomBrand
-            ? 'border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] hover:text-white'
+            ? 'border-(--hi-border) bg-(--hi-panel) text-(--hi-text-soft) hover:border-(--hi-border-strong) hover:bg-(--hi-panel-muted) hover:text-white'
             : 'border-white/10 bg-white/4 text-white/84 hover:bg-white/8 hover:text-white')
-        : 'border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]';
+        : 'border-(--hi-border) bg-(--hi-panel) text-(--hi-text-soft) hover:bg-(--hi-panel-strong) hover:text-(--hi-text)';
     const cardClass = isDark
         ? (isCustomBrand
-            ? 'landing-surface border-[var(--hi-border)] bg-[linear-gradient(180deg,rgba(23,30,42,0.96),rgba(17,23,33,0.92))] shadow-[0_28px_72px_rgba(0,0,0,0.34)]'
+            ? 'landing-surface border-(--hi-border) bg-[linear-gradient(180deg,rgba(23,30,42,0.96),rgba(17,23,33,0.92))] shadow-[0_28px_72px_rgba(0,0,0,0.34)]'
             : 'landing-surface border-white/8 bg-[rgba(16,21,18,0.86)] shadow-[0_28px_72px_rgba(0,0,0,0.30)]')
         : (isCustomBrand
             ? 'landing-surface border-[rgba(176,193,216,0.28)] bg-[rgba(255,255,255,0.9)] shadow-[0_24px_60px_rgba(19,35,61,0.10)]'
             : 'landing-surface border-[rgba(18,32,22,0.06)] bg-[rgba(255,251,245,0.84)] shadow-[0_24px_60px_rgba(28,41,32,0.12)]');
-    const labelClass = isDark ? 'text-white/78' : 'text-[var(--hi-text-soft)]';
+    const labelClass = isDark ? 'text-white/78' : 'text-(--hi-text-soft)';
     const subtleTextClass = isDark
-        ? (isCustomBrand ? 'text-[var(--hi-text-muted)]' : 'text-white/55')
-        : 'text-[var(--hi-text-soft)]';
+        ? (isCustomBrand ? 'text-(--hi-text-muted)' : 'text-white/55')
+        : 'text-(--hi-text-soft)';
     const iconMutedClass = isDark
-        ? (isCustomBrand ? 'text-[var(--hi-text-muted)]' : 'text-white/28')
-        : 'text-[var(--hi-text-muted)]';
+        ? (isCustomBrand ? 'text-(--hi-text-muted)' : 'text-white/28')
+        : 'text-(--hi-text-muted)';
     const iconButtonClass = isDark
-        ? (isCustomBrand ? 'text-[var(--hi-text-muted)] hover:text-white' : 'text-white/32 hover:text-white/68')
-        : 'text-[var(--hi-text-muted)] hover:text-[var(--hi-text)]';
+        ? (isCustomBrand ? 'text-(--hi-text-muted) hover:text-white' : 'text-white/32 hover:text-white/68')
+        : 'text-(--hi-text-muted) hover:text-(--hi-text)';
     const inputClass = isDark
         ? (isCustomBrand
-            ? 'input-field h-14 border-[var(--hi-border)] bg-[rgba(22,30,43,0.92)] text-white placeholder:text-[var(--hi-text-muted)]'
+            ? 'input-field h-14 border-(--hi-border) bg-[rgba(22,30,43,0.92)] text-white placeholder:text-(--hi-text-muted)'
             : 'input-field h-14 border-white/8 bg-[rgba(10,14,12,0.62)] text-white placeholder:text-white/28')
-        : 'input-field h-14 border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.82)] text-[var(--hi-text)] placeholder:text-[var(--hi-text-muted)]';
-    const panelMutedClass = isDark ? 'text-white/46' : 'text-[var(--hi-text-soft)]';
+        : 'input-field h-14 border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.82)] text-(--hi-text) placeholder:text-(--hi-text-muted)';
+    const panelMutedClass = isDark ? 'text-white/46' : 'text-(--hi-text-soft)';
     const dividerClass = isDark
-        ? (isCustomBrand ? 'border-[var(--hi-border)]' : 'border-white/8')
+        ? (isCustomBrand ? 'border-(--hi-border)' : 'border-white/8')
         : 'border-[rgba(18,32,22,0.08)]';
     const trustSurfaceClass = isDark
         ? (isCustomBrand
-            ? 'border-[var(--hi-border-strong)] bg-[rgba(26,34,46,0.72)] text-[var(--hi-text-soft)]'
-            : 'border-white/8 bg-white/[0.045] text-white/62')
+            ? 'border-(--hi-border-strong) bg-[rgba(26,34,46,0.72)] text-(--hi-text-soft)'
+            : 'border-white/8 bg-white/4.5 text-white/62')
         : (isCustomBrand
-            ? 'border-[rgba(176,193,216,0.32)] bg-[rgba(248,251,255,0.88)] text-[var(--hi-text-soft)]'
-            : 'border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.66)] text-[var(--hi-text-soft)]');
+            ? 'border-[rgba(176,193,216,0.32)] bg-[rgba(248,251,255,0.88)] text-(--hi-text-soft)'
+            : 'border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.66)] text-(--hi-text-soft)');
     const panelSurfaceClass = isDark
-        ? (isCustomBrand ? 'border-[var(--hi-border)] bg-[rgba(24,31,44,0.72)]' : 'border-white/8 bg-white/[0.02]')
+        ? (isCustomBrand ? 'border-(--hi-border) bg-[rgba(24,31,44,0.72)]' : 'border-white/8 bg-white/2')
         : (isCustomBrand
             ? 'border-[rgba(176,193,216,0.22)] bg-[rgba(248,251,255,0.7)]'
             : 'border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.52)]');
     const segmentedSurfaceClass = isDark
         ? (isCustomBrand
-            ? 'overflow-hidden border-[var(--hi-border)] bg-[rgba(23,30,43,0.7)] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]'
+            ? 'overflow-hidden border-(--hi-border) bg-[rgba(23,30,43,0.7)] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]'
             : 'overflow-hidden border-white/10 bg-[rgba(255,255,255,0.04)] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]')
         : (isCustomBrand
             ? 'overflow-hidden border-[rgba(176,193,216,0.28)] bg-[rgba(248,251,255,0.82)] shadow-[inset_0_1px_0_rgba(255,255,255,0.84)]'
@@ -146,11 +146,11 @@ export default function Register() {
         : (isCustomBrand
             ? 'border-[rgba(139,171,216,0.34)] bg-[linear-gradient(180deg,rgba(124,165,227,0.94),rgba(89,144,221,0.9))] shadow-[0_14px_26px_rgba(44,84,146,0.16)]'
             : 'border-[rgba(111,153,120,0.18)] bg-[linear-gradient(180deg,rgba(123,164,132,0.96),rgba(97,137,108,0.94))] shadow-[0_14px_26px_rgba(68,96,75,0.16)]');
-    const footerLinkClass = isDark ? 'text-white/50 hover:text-white/82' : 'text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]';
+    const footerLinkClass = isDark ? 'text-white/50 hover:text-white/82' : 'text-(--hi-text-soft) hover:text-(--hi-text)';
     const activeModeTextClass = 'text-white';
     const inactiveModeClass = isDark
-        ? (isCustomBrand ? 'text-[var(--hi-text-muted)] hover:text-white/88' : 'text-white/54 hover:text-white/78')
-        : 'text-[rgba(32,53,40,0.58)] hover:text-[var(--hi-text)]';
+        ? (isCustomBrand ? 'text-(--hi-text-muted) hover:text-white/88' : 'text-white/54 hover:text-white/78')
+        : 'text-[rgba(32,53,40,0.58)] hover:text-(--hi-text)';
 
     const registerHeaderKicker = t('auth.register.eyebrow', {
         defaultValue: isTurkish ? 'Ev paylaşımına başlayın' : 'Shared household access'
@@ -397,11 +397,11 @@ export default function Register() {
             <div className={`absolute inset-0 ${isDark ? 'opacity-[0.14]' : 'opacity-[0.22]'}`}>
                 <div className="landing-grid absolute inset-0" />
             </div>
-            <div className={`absolute left-[-7rem] top-16 h-56 w-56 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.10)]' : 'bg-[rgba(205,176,136,0.10)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.16)]' : 'bg-[rgba(205,176,136,0.16)]')}`} />
-            <div className={`absolute bottom-8 right-[-5rem] h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.12)]' : 'bg-[rgba(74,125,100,0.14)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.10)]' : 'bg-[rgba(45,82,65,0.10)]')}`} />
+            <div className={`absolute -left-28 top-16 h-56 w-56 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.10)]' : 'bg-[rgba(205,176,136,0.10)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.16)]' : 'bg-[rgba(205,176,136,0.16)]')}`} />
+            <div className={`absolute bottom-8 -right-20 h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.12)]' : 'bg-[rgba(74,125,100,0.14)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.10)]' : 'bg-[rgba(45,82,65,0.10)]')}`} />
 
             <div className="auth-shell-v25 relative z-10 flex min-h-screen items-center justify-center px-5 py-8 sm:px-6 sm:py-12">
-                <div className="w-full max-w-[31rem]">
+                <div className="w-full max-w-124">
                     <div className="auth-top-tools-v25 auth-top-tools-compact-v25 mb-4 inline-flex items-center sm:mb-5">
                         <div className="auth-top-controls-v25 flex shrink-0 items-center gap-2 sm:gap-3">
                             <button
@@ -417,44 +417,44 @@ export default function Register() {
                                 <LanguageSwitcher
                                     showTooltip={false}
                                     showCodeBadge={false}
-                                    className={`!h-10 !rounded-full !px-3 !py-0 sm:!h-11 sm:!px-4 ${isDark ? (isCustomBrand ? '!border-[var(--hi-border)] !bg-[var(--hi-panel)] !text-white hover:!bg-[var(--hi-panel-muted)]' : '!border-white/10 !bg-white/4 !text-white/88 hover:!bg-white/8') : '!border-[var(--hi-border)] !bg-[var(--hi-panel)] !text-[var(--hi-text)] hover:!bg-[var(--hi-panel-strong)]'}`}
+                                    className={`h-10! rounded-full! px-3! py-0! sm:h-11! sm:px-4! ${isDark ? (isCustomBrand ? 'border-(--hi-border)! bg-(--hi-panel)! text-white! hover:bg-(--hi-panel-muted)!' : 'border-white/10! bg-white/4! text-white/88! hover:bg-white/8!') : 'border-(--hi-border)! bg-(--hi-panel)! text-(--hi-text)! hover:bg-(--hi-panel-strong)!'}`}
                                 />
                             </div>
                         </div>
                     </div>
 
-                    <div className={`auth-card-v25 relative overflow-hidden rounded-[var(--hi-radius-md)] ${cardClass}`}>
+                    <div className={`auth-card-v25 relative overflow-hidden rounded-(--hi-radius-md) ${cardClass}`}>
                         <div className={`landing-panel-glow absolute inset-0 ${isCustomBrand && isDark ? 'opacity-30' : 'opacity-50'}`} />
 
                         <div className={`relative p-6 sm:p-8 ${isCustomBrand && isDark ? 'bg-[linear-gradient(180deg,rgba(17,24,35,0.24),rgba(17,24,35,0.08))]' : ''}`}>
-                            <Link to="/" className="inline-flex rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-secondary)]">
+                            <Link to="/" className="inline-flex rounded-md focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-secondary)">
                                 <BrandLogo variant="full" size="md" className="h-auto max-h-10 w-auto sm:max-h-11" />
                             </Link>
 
                             <div className="mt-7 sm:mt-9">
-                                <p className="landing-kicker text-[var(--hi-secondary)]">
+                                <p className="landing-kicker text-(--hi-secondary)">
                                     {registerHeaderKicker}
                                 </p>
-                                <h1 className={`landing-display mt-3 text-[2rem] font-semibold leading-[1.02] tracking-[-0.05em] sm:text-[2.4rem] ${isDark ? 'text-white' : 'text-[var(--hi-text)]'}`}>
+                                <h1 className={`landing-display mt-3 text-[2rem] font-semibold leading-[1.02] tracking-tighter sm:text-[2.4rem] ${isDark ? 'text-white' : 'text-(--hi-text)'}`}>
                                     {registerHeaderTitle}
                                 </h1>
-                                <p className={`mt-2.5 max-w-[26rem] text-[0.98rem] leading-6 ${subtleTextClass}`}>
+                                <p className={`mt-2.5 max-w-104 text-[0.98rem] leading-6 ${subtleTextClass}`}>
                                     {registerHeaderSubtitle}
                                 </p>
                                 <div className={`mt-4 inline-flex max-w-full items-center gap-2 rounded-full border px-3.5 py-2 text-[0.78rem] leading-5 ${trustSurfaceClass}`}>
-                                    <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-[var(--hi-secondary)]" />
+                                    <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-(--hi-secondary)" />
                                     <span>{registerTrustSignal}</span>
                                 </div>
                             </div>
 
                             <div className="mt-8 sm:mt-9">
                                 {error && (
-                                    <div className={`mb-6 rounded-[var(--hi-radius-md)] border px-4 py-3 text-sm ${isDark ? 'border-red-500/20 bg-red-500/10 text-red-200' : 'border-red-500/18 bg-red-500/8 text-red-700'}`}>
+                                    <div className={`mb-6 rounded-(--hi-radius-md) border px-4 py-3 text-sm ${isDark ? 'border-red-500/20 bg-red-500/10 text-red-200' : 'border-red-500/18 bg-red-500/8 text-red-700'}`}>
                                         {error}
                                     </div>
                                 )}
 
-                                <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                                <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-y-5">
                                     <div className="space-y-2.5">
                                         <label className={`block text-sm font-medium ${labelClass}`}>
                                             {t('auth.register.mode_label', {
@@ -515,7 +515,7 @@ export default function Register() {
                                         </div>
 
                                         <p className={`flex items-start gap-2.5 pl-1 text-sm leading-5 ${subtleTextClass}`}>
-                                            <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+                                            <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-(--hi-accent-soft) text-(--hi-accent)">
                                                 <ActiveModeIcon className="h-3.5 w-3.5" />
                                             </span>
                                             <span>{activeMode.body}</span>
@@ -528,7 +528,7 @@ export default function Register() {
                                                 {t('auth.register.house_key')}
                                             </label>
                                             <div className="group relative">
-                                                <Key className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-[var(--hi-accent)]' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
+                                                <Key className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-(--hi-accent)' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
                                                 <input
                                                     type="text"
                                                     name="house_key"
@@ -550,7 +550,7 @@ export default function Register() {
                                             {t('auth.register.username')}
                                         </label>
                                         <div className="group relative">
-                                            <User className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-[var(--hi-accent)]' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
+                                            <User className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-(--hi-accent)' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
                                             <input
                                                 type="text"
                                                 name="username"
@@ -569,7 +569,7 @@ export default function Register() {
                                             {t('auth.register.email')}
                                         </label>
                                         <div className="group relative">
-                                            <Mail className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-[var(--hi-accent)]' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
+                                            <Mail className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-(--hi-accent)' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
                                             <input
                                                 type="email"
                                                 name="email"
@@ -588,7 +588,7 @@ export default function Register() {
                                             {t('auth.register.password')}
                                         </label>
                                         <div className="group relative">
-                                            <Lock className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-[var(--hi-accent)]' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
+                                            <Lock className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-(--hi-accent)' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
                                             <input
                                                 type={showPassword ? 'text' : 'password'}
                                                 name="password"
@@ -620,7 +620,7 @@ export default function Register() {
                                             {t('auth.register.password_confirm')}
                                         </label>
                                         <div className="group relative">
-                                            <Lock className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-[var(--hi-accent)]' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
+                                            <Lock className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-(--hi-accent)' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
                                             <input
                                                 type="password"
                                                 name="confirmPassword"
@@ -634,7 +634,7 @@ export default function Register() {
                                         </div>
                                     </div>
 
-                                    <label className={`app-premium-checkbox-container flex items-start gap-3 rounded-[var(--hi-radius-md)] border px-4 py-3 text-sm ${panelMutedClass} ${panelSurfaceClass} hover:border-[var(--hi-border-strong)] transition-all`}>
+                                    <label className={`app-premium-checkbox-container flex items-start gap-3 rounded-(--hi-radius-md) border px-4 py-3 text-sm ${panelMutedClass} ${panelSurfaceClass} hover:border-(--hi-border-strong) transition-all`}>
                                         <PremiumCheckbox
                                             checked={legalAccepted}
                                             onChange={(event) => {
@@ -648,8 +648,8 @@ export default function Register() {
                                                 t={legalT}
                                                 i18nKey="legal.register_consent"
                                                 components={{
-                                                    1: <Link to="/terms-of-service" target="_blank" className={`font-medium underline transition ${isCustomBrand ? 'text-[var(--hi-accent)] hover:text-[var(--hi-secondary-strong)]' : 'text-[#6f9978] hover:text-[#8bb395]'}`} />,
-                                                    2: <Link to="/privacy-policy" target="_blank" className={`font-medium underline transition ${isCustomBrand ? 'text-[var(--hi-accent)] hover:text-[var(--hi-secondary-strong)]' : 'text-[#6f9978] hover:text-[#8bb395]'}`} />
+                                                    1: <Link to="/terms-of-service" target="_blank" className={`font-medium underline transition ${isCustomBrand ? 'text-(--hi-accent) hover:text-(--hi-secondary-strong)' : 'text-[#6f9978] hover:text-[#8bb395]'}`} />,
+                                                    2: <Link to="/privacy-policy" target="_blank" className={`font-medium underline transition ${isCustomBrand ? 'text-(--hi-accent) hover:text-(--hi-secondary-strong)' : 'text-[#6f9978] hover:text-[#8bb395]'}`} />
                                                 }}
                                             />
                                         </span>
@@ -658,7 +658,7 @@ export default function Register() {
                                     <button
                                         type="submit"
                                         disabled={loading}
-                                        className={`btn-primary !h-14 !w-full !rounded-[var(--hi-radius-md)] !px-5 text-base ${isCustomBrand ? '!shadow-[0_18px_36px_rgba(8,44,110,0.24)]' : '!shadow-[0_18px_36px_rgba(111,153,120,0.24)]'} disabled:opacity-60`}
+                                        className={`btn-primary h-14! w-full! rounded-(--hi-radius-md)! px-5! text-base ${isCustomBrand ? 'shadow-[0_18px_36px_rgba(8,44,110,0.24)]!' : 'shadow-[0_18px_36px_rgba(111,153,120,0.24)]!'} disabled:opacity-60`}
                                     >
                                         {loading ? t('auth.register.submitting') : (mode === 'create' ? t('auth.register.submit_create') : t('auth.register.submit_join'))}
                                         <ArrowRight className="ml-2 h-4 w-4" />
@@ -669,7 +669,7 @@ export default function Register() {
                                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                                         <p className={`text-sm ${panelMutedClass}`}>
                                             {t('auth.register.already_have_account')}{' '}
-                                            <Link to="/login" className={`font-semibold transition ${isCustomBrand ? 'text-[var(--hi-accent)] hover:text-[var(--hi-secondary-strong)]' : 'text-[#6f9978] hover:text-[#8bb395]'}`}>
+                                            <Link to="/login" className={`font-semibold transition ${isCustomBrand ? 'text-(--hi-accent) hover:text-(--hi-secondary-strong)' : 'text-[#6f9978] hover:text-[#8bb395]'}`}>
                                                 {t('auth.register.login_link')}
                                             </Link>
                                         </p>
@@ -708,10 +708,10 @@ export default function Register() {
             )}
 
             {showEmailVerificationModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
                     <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl dark:bg-slate-800">
                         <div className="mb-6 text-center">
-                            <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 shadow-lg">
+                            <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-blue-500 to-cyan-500 shadow-lg">
                                 <Mail className="h-8 w-8 text-white" />
                             </div>
                             <h3 className="mb-2 text-2xl font-bold text-slate-900 dark:text-white">
@@ -732,7 +732,7 @@ export default function Register() {
 
                             <div className={`flex items-start gap-3 rounded-xl border p-4 ${isCustomBrand ? 'border-[rgba(88,213,240,0.24)] bg-[rgba(88,213,240,0.10)] dark:border-[rgba(88,213,240,0.28)] dark:bg-[rgba(88,213,240,0.12)]' : 'border-green-200 bg-green-50 dark:border-green-500/30 dark:bg-green-500/10'}`}>
                                 <span className="text-2xl">2️⃣</span>
-                                <p className={`text-sm ${isCustomBrand ? 'text-[var(--hi-accent)] dark:text-[var(--hi-accent)]' : 'text-green-700 dark:text-green-300'}`}>
+                                <p className={`text-sm ${isCustomBrand ? 'text-(--hi-accent) dark:text-(--hi-accent)' : 'text-green-700 dark:text-green-300'}`}>
                                     <Trans i18nKey="auth.register.modals.email_verification.step_2" components={{ 1: <strong /> }} />
                                 </p>
                             </div>
@@ -747,7 +747,7 @@ export default function Register() {
 
                         {generatedKey && (
                             <div className="mb-6 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-500/30 dark:bg-amber-500/10">
-                                <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-amber-600 dark:text-amber-400" />
+                                <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
                                 <div className="text-sm text-amber-700 dark:text-amber-300">
                                     {t('auth.register.modals.email_verification.key_note')}
                                 </div>

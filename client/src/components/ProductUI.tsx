@@ -66,14 +66,14 @@ export function PageHeader({
                 <div className="min-w-0 max-w-3xl space-y-4">
                     {filteredBreadcrumbs.length > 0 && (
                         <nav aria-label="Breadcrumb">
-                            <ol className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-muted)]">
+                            <ol className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-(--hi-text-muted)">
                                 {filteredBreadcrumbs.map((crumb, index) => (
                                     <li key={`${crumb.label}-${index}`} className="flex items-center gap-2">
                                         {index > 0 && <span aria-hidden="true">/</span>}
                                         {crumb.to ? (
                                             <Link
                                                 to={crumb.to}
-                                                className="transition hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg)]"
+                                                className="transition hover:text-(--hi-text) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-bg)"
                                             >
                                                 {crumb.label}
                                             </Link>
@@ -87,7 +87,7 @@ export function PageHeader({
                     )}
                     {shouldRenderKicker && <p className="app-kicker">{kicker}</p>}
                     <div>
-                        <h1 className="section-title text-3xl leading-tight text-[var(--hi-text)] lg:text-4xl">{title}</h1>
+                        <h1 className="section-title text-3xl leading-tight text-(--hi-text) lg:text-4xl">{title}</h1>
                         {description && <p className="app-page-description">{description}</p>}
                     </div>
                     {meta.length > 0 && (
@@ -127,8 +127,8 @@ export function SectionHeader({ eyebrow, title, description, action, className =
         <div className={`app-section-header core-section-header-v25 ${className}`.trim()}>
             <div className="min-w-0">
                 {eyebrow && <p className="app-kicker app-kicker-subtle">{eyebrow}</p>}
-                <h2 className="section-title mt-2.5 text-xl leading-snug text-[var(--hi-text)]">{title}</h2>
-                {description && <p className="mt-3 max-w-3xl text-sm leading-6 text-[var(--hi-text-soft)]">{description}</p>}
+                <h2 className="section-title mt-2.5 text-xl leading-snug text-(--hi-text)">{title}</h2>
+                {description && <p className="mt-3 max-w-3xl text-sm leading-6 text-(--hi-text-soft)">{description}</p>}
             </div>
             {action && <div className="app-section-action">{action}</div>}
         </div>
@@ -159,8 +159,8 @@ export function NoticeBanner({ icon: Icon, title, description, tone = 'info', ac
                 </span>
             )}
             <div className="min-w-0 flex-1">
-                {title && <p className="font-semibold text-[var(--hi-text)]">{title}</p>}
-                {description && <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">{description}</p>}
+                {title && <p className="font-semibold text-(--hi-text)">{title}</p>}
+                {description && <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">{description}</p>}
             </div>
             {action && <div className="app-notice-action">{action}</div>}
         </div>
@@ -185,9 +185,9 @@ export function LoadingState({
             <div
                 role="status"
                 aria-live="polite"
-                className={`inline-flex items-center gap-2 text-sm text-[var(--hi-text-soft)] ${className}`.trim()}
+                className={`inline-flex items-center gap-2 text-sm text-(--hi-text-soft) ${className}`.trim()}
             >
-                <Loader2 className="h-4 w-4 animate-spin text-[var(--hi-accent)]" />
+                <Loader2 className="h-4 w-4 animate-spin text-(--hi-accent)" />
                 <span>{title}</span>
             </div>
         );
@@ -197,15 +197,15 @@ export function LoadingState({
         <div
             role="status"
             aria-live="polite"
-                className={`app-loading-state core-loading-v25 flex min-h-[16rem] flex-col items-center justify-center gap-3 px-6 py-10 text-center ${className}`.trim()}
+                className={`app-loading-state core-loading-v25 flex min-h-64 flex-col items-center justify-center gap-3 px-6 py-10 text-center ${className}`.trim()}
         >
-            <span className="app-loading-state-icon flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+            <span className="app-loading-state-icon flex h-12 w-12 items-center justify-center rounded-2xl bg-(--hi-accent-soft) text-(--hi-accent)">
                 <Loader2 className="h-5 w-5 animate-spin" />
             </span>
             <div className="max-w-md">
-                <p className="text-base font-semibold text-[var(--hi-text)]">{title}</p>
+                <p className="text-base font-semibold text-(--hi-text)">{title}</p>
                 {description && (
-                    <p className="mt-2 text-sm leading-6 text-[var(--hi-text-soft)]">{description}</p>
+                    <p className="mt-2 text-sm leading-6 text-(--hi-text-soft)">{description}</p>
                 )}
             </div>
             <div className="app-loading-state-bars" aria-hidden="true">
@@ -241,8 +241,8 @@ export function EmptyState({ icon: Icon, title, description, actions, tips = [],
                 </span>
             )}
             <div className="max-w-3xl">
-                <h3 className="section-title text-xl text-[var(--hi-text)]">{title}</h3>
-                {description && <p className="mt-2.5 text-sm leading-6 text-[var(--hi-text-soft)]">{description}</p>}
+                <h3 className="section-title text-xl text-(--hi-text)">{title}</h3>
+                {description && <p className="mt-2.5 text-sm leading-6 text-(--hi-text-soft)">{description}</p>}
             </div>
 
             {actions && <div className="app-empty-state-actions">{actions}</div>}
@@ -252,8 +252,8 @@ export function EmptyState({ icon: Icon, title, description, actions, tips = [],
                     {tips.map((tip, index) => (
                         <div key={`${tip.title}-${index}`} className="app-empty-state-step">
                             <span className="app-empty-state-step-index">{index + 1}</span>
-                            <p className="mt-3 text-sm font-semibold text-[var(--hi-text)]">{tip.title}</p>
-                            <p className="mt-2 text-sm leading-6 text-[var(--hi-text-soft)]">{tip.description}</p>
+                            <p className="mt-3 text-sm font-semibold text-(--hi-text)">{tip.title}</p>
+                            <p className="mt-2 text-sm leading-6 text-(--hi-text-soft)">{tip.description}</p>
                         </div>
                     ))}
                 </div>

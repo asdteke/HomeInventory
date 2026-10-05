@@ -357,7 +357,7 @@ export default function Dashboard() {
                                 defaultValue: '{{count}} ürün belirlediğiniz asgari stok limitinin altına düştü.'
                             })}
                             action={renderAlertAction('lowStock',
-                                <Link to="/alerts/low-stock" className="dashboard-notice-link text-[var(--hi-accent)]">
+                                <Link to="/alerts/low-stock" className="dashboard-notice-link text-(--hi-accent)">
                                     {t('dashboard.alerts.view_low_stock_items', { defaultValue: 'Azalan Stokları Gör' })}
                                 </Link>
                             )}
@@ -430,7 +430,7 @@ export default function Dashboard() {
                                                         {item.category_icon ? (
                                                             <span className="opacity-70 text-3xl">{item.category_icon}</span>
                                                         ) : (
-                                                            <Package className="h-7 w-7 stroke-[1.5] text-[var(--hi-text-muted)] opacity-60" />
+                                                            <Package className="h-7 w-7 stroke-[1.5] text-(--hi-text-muted) opacity-60" />
                                                         )}
                                                     </div>
                                                 }
@@ -440,17 +440,17 @@ export default function Dashboard() {
                                                 {item.category_icon ? (
                                                     <span className="opacity-70 text-3xl">{item.category_icon}</span>
                                                 ) : (
-                                                    <Package className="h-7 w-7 stroke-[1.5] text-[var(--hi-text-muted)] opacity-60" />
+                                                    <Package className="h-7 w-7 stroke-[1.5] text-(--hi-text-muted) opacity-60" />
                                                 )}
                                             </div>
                                         )}
                                     </div>
 
                                     <div className="min-w-0">
-                                        <p className="truncate text-base font-semibold leading-tight tracking-[-0.01em] text-[var(--hi-text)] sm:text-lg">
+                                        <p className="truncate text-base font-semibold leading-tight tracking-[-0.01em] text-(--hi-text) sm:text-lg">
                                             {itemTitle}
                                         </p>
-                                        <div className="mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] font-medium leading-5 text-[var(--hi-text-muted)] sm:text-xs">
+                                        <div className="mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] font-medium leading-5 text-(--hi-text-muted) sm:text-xs">
                                             <span className="inline-flex items-center gap-1">
                                                 {visibilityIsPublic ? <Globe className="h-3.5 w-3.5" /> : <Lock className="h-3.5 w-3.5" />}
                                                 <span>{visibilityIsPublic ? t('dashboard.visibility.public') : t('dashboard.visibility.private')}</span>
@@ -458,10 +458,10 @@ export default function Dashboard() {
                                             <span>{t('dashboard.content.quantity', { count: item.quantity || 0 })}</span>
                                             {addedOn && <span>{t('dashboard.content.added_on', { date: addedOn })}</span>}
                                         </div>
-                                        <p className="mt-1.5 truncate text-sm leading-5 text-[var(--hi-text-soft)]">{statusNote}</p>
+                                        <p className="mt-1.5 truncate text-sm leading-5 text-(--hi-text-soft)">{statusNote}</p>
                                     </div>
 
-                                    <ChevronRight className="hidden h-4 w-4 shrink-0 self-center text-[var(--hi-text-muted)] sm:block" />
+                                    <ChevronRight className="hidden h-4 w-4 shrink-0 self-center text-(--hi-text-muted) sm:block" />
                                 </Link>
                             );
                         })}

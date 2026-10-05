@@ -102,10 +102,10 @@ const AdminMailPanel = () => {
                     <Mail size={24} />
                 </div>
                 <div className="min-w-0">
-                    <h1 className="text-2xl font-semibold tracking-[-0.035em] text-[var(--hi-text)]">
+                    <h1 className="text-2xl font-semibold tracking-[-0.035em] text-(--hi-text)">
                         {t('admin.email.title', { defaultValue: 'Send Email' })}
                     </h1>
-                    <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                    <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                         {t('admin.email.compose_body', {
                             defaultValue: 'Compose a single outbound email with safe HTML formatting and platform branding.'
                         })}
@@ -114,12 +114,12 @@ const AdminMailPanel = () => {
             </header>
 
             <div className="admin-mail-v25-security flex items-start gap-3 rounded-[1.25rem] p-4">
-                <Shield className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--hi-accent)]" />
+                <Shield className="mt-0.5 h-5 w-5 shrink-0 text-(--hi-accent)" />
                 <div className="text-sm">
-                    <p className="font-semibold text-[var(--hi-text)]">
+                    <p className="font-semibold text-(--hi-text)">
                         {t('admin.email.security_title', { defaultValue: 'Secure sending' })}
                     </p>
-                    <p className="mt-1 leading-6 text-[var(--hi-text-soft)]">
+                    <p className="mt-1 leading-6 text-(--hi-text-soft)">
                         {t('admin.email.security_body', {
                             username: user?.username || 'Admin',
                             remaining: remainingEmails,
@@ -137,7 +137,7 @@ const AdminMailPanel = () => {
                     ) : (
                         <AlertCircle className="h-5 w-5 shrink-0" />
                     )}
-                    <p className="min-w-0 break-words text-sm font-medium">
+                    <p className="min-w-0 wrap-break-word text-sm font-medium">
                         {status.message}
                     </p>
                 </div>
@@ -146,7 +146,7 @@ const AdminMailPanel = () => {
             <form onSubmit={handleSubmit} className="admin-mail-v25-form overflow-hidden rounded-[1.75rem]">
                 <div className="p-6 space-y-5">
                     <div>
-                        <label htmlFor="to" className="mb-2 block text-sm font-semibold text-[var(--hi-text)]">
+                        <label htmlFor="to" className="mb-2 block text-sm font-semibold text-(--hi-text)">
                             {t('admin.email.to', { defaultValue: 'Recipient (To)' })} *
                         </label>
                         <input
@@ -162,7 +162,7 @@ const AdminMailPanel = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="subject" className="mb-2 block text-sm font-semibold text-[var(--hi-text)]">
+                        <label htmlFor="subject" className="mb-2 block text-sm font-semibold text-(--hi-text)">
                             {t('admin.email.subject', { defaultValue: 'Subject' })} *
                         </label>
                         <input
@@ -176,11 +176,11 @@ const AdminMailPanel = () => {
                             required
                             className="admin-mail-v25-field input-field w-full"
                         />
-                        <p className="mt-1 text-right text-xs tabular-nums text-[var(--hi-text-muted)]">{formData.subject.length}/200</p>
+                        <p className="mt-1 text-right text-xs tabular-nums text-(--hi-text-muted)">{formData.subject.length}/200</p>
                     </div>
 
                     <div>
-                        <label htmlFor="message" className="mb-2 block text-sm font-semibold text-[var(--hi-text)]">
+                        <label htmlFor="message" className="mb-2 block text-sm font-semibold text-(--hi-text)">
                             {t('admin.email.message', { defaultValue: 'Message' })} *
                         </label>
                         <textarea
@@ -193,7 +193,7 @@ const AdminMailPanel = () => {
                             required
                             className="admin-mail-v25-field input-field w-full resize-y"
                         />
-                        <p className="mt-2 text-xs leading-5 text-[var(--hi-text-muted)]">
+                        <p className="mt-2 text-xs leading-5 text-(--hi-text-muted)">
                             {t('admin.email.format_hint', {
                                 defaultValue: 'HTML is supported. For example: <b>bold</b>, <i>italic</i>, <a href="...">link</a>'
                             })}
@@ -221,15 +221,15 @@ const AdminMailPanel = () => {
                     </button>
 
                     {remainingEmails === 0 && (
-                        <p className="mt-3 text-sm text-[var(--hi-warning)]">
+                        <p className="mt-3 text-sm text-(--hi-warning)">
                             {t('admin.email.rate_limit_reached', { defaultValue: '⏳ Rate limit reached. Please wait 1 minute.' })}
                         </p>
                     )}
                 </div>
             </form>
 
-            <aside className="admin-mail-v25-info rounded-[1.25rem] p-4 text-sm leading-6 text-[var(--hi-text-soft)]">
-                <p className="mb-2 font-semibold text-[var(--hi-text)]">
+            <aside className="admin-mail-v25-info rounded-[1.25rem] p-4 text-sm leading-6 text-(--hi-text-soft)">
+                <p className="mb-2 font-semibold text-(--hi-text)">
                     {t('admin.email.info_title', { defaultValue: 'Information' })}
                 </p>
                 <ul className="list-inside list-disc space-y-1">

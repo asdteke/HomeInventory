@@ -68,17 +68,17 @@ export default function LandingPage() {
     const heroSecondaryCtaLabel = t('landing.hero.cta_explore', {
         defaultValue: isTurkish ? 'Özellikleri İncele' : 'Explore Features'
     });
-    const shellTextClass = isDark ? 'text-white' : 'text-[var(--hi-text)]';
+    const shellTextClass = isDark ? 'text-white' : 'text-(--hi-text)';
     const mutedTextClass = isDark
-        ? (isCustomBrand ? 'text-[var(--hi-text-soft)]' : 'text-white/62')
-        : 'text-[var(--hi-text-soft)]';
-    const headerTextClass = isDark ? 'text-white' : 'text-[var(--hi-text)]';
+        ? (isCustomBrand ? 'text-(--hi-text-soft)' : 'text-white/62')
+        : 'text-(--hi-text-soft)';
+    const headerTextClass = isDark ? 'text-white' : 'text-(--hi-text)';
     const chromeButtonClass = isDark
-        ? (isCustomBrand ? '!border-[var(--hi-border)] !bg-[var(--hi-panel)] !text-[var(--hi-text)] hover:!border-[var(--hi-border-strong)] hover:!bg-[var(--hi-panel-muted)]' : '!border-white/10 !bg-white/4 !text-white/88 hover:!bg-white/8')
-        : '!border-[var(--hi-border)] !bg-[var(--hi-panel)] !text-[var(--hi-text)] hover:!bg-[var(--hi-panel-strong)]';
+        ? (isCustomBrand ? 'border-(--hi-border)! bg-(--hi-panel)! text-(--hi-text)! hover:border-(--hi-border-strong)! hover:bg-(--hi-panel-muted)!' : 'border-white/10! bg-white/4! text-white/88! hover:bg-white/8!')
+        : 'border-(--hi-border)! bg-(--hi-panel)! text-(--hi-text)! hover:bg-(--hi-panel-strong)!';
     const ghostThemeClass = isDark
-        ? (isCustomBrand ? 'border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] hover:text-white' : 'border border-white/10 bg-white/4 text-white/84 hover:bg-white/8 hover:text-white')
-        : 'border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]';
+        ? (isCustomBrand ? 'border border-(--hi-border) bg-(--hi-panel) text-(--hi-text-soft) hover:border-(--hi-border-strong) hover:bg-(--hi-panel-muted) hover:text-white' : 'border border-white/10 bg-white/4 text-white/84 hover:bg-white/8 hover:text-white')
+        : 'border border-(--hi-border) bg-(--hi-panel) text-(--hi-text-soft) hover:bg-(--hi-panel-strong) hover:text-(--hi-text)';
     const pageContinuumBackground = isDark
         ? (isCustomBrand
             ? 'radial-gradient(ellipse 120% 70% at 50% 48%,rgba(17,35,58,0.72) 0%,rgba(8,17,30,0) 100%),#08111e'
@@ -87,10 +87,10 @@ export default function LandingPage() {
             ? 'radial-gradient(ellipse 120% 70% at 50% 48%,rgba(221,234,252,0.80) 0%,rgba(233,241,255,0) 100%),#e9f1ff'
             : 'radial-gradient(ellipse 120% 70% at 50% 48%,rgba(232,221,201,0.76) 0%,rgba(248,244,236,0) 100%),#f8f4ec');
     const securityPanelClass = isDark
-        ? (isCustomBrand ? 'border border-[var(--hi-border)] bg-[linear-gradient(180deg,rgba(28,38,53,0.96),rgba(20,28,40,0.98))] shadow-[0_30px_70px_rgba(0,0,0,0.24)]' : 'border border-[#4d6755] bg-[#314338] shadow-[0_30px_70px_rgba(0,0,0,0.18)]')
+        ? (isCustomBrand ? 'border border-(--hi-border) bg-[linear-gradient(180deg,rgba(28,38,53,0.96),rgba(20,28,40,0.98))] shadow-[0_30px_70px_rgba(0,0,0,0.24)]' : 'border border-[#4d6755] bg-[#314338] shadow-[0_30px_70px_rgba(0,0,0,0.18)]')
         : (isCustomBrand ? 'border border-[rgba(176,193,216,0.34)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(239,246,253,0.94))] shadow-[0_26px_52px_rgba(19,35,61,0.10)]' : 'border border-[#d4c4aa] bg-[#fbf7f0] shadow-[0_26px_52px_rgba(38,48,38,0.12)]');
-    const securityMutedClass = isDark ? (isCustomBrand ? 'text-[var(--hi-text-soft)]' : 'text-white/62') : (isCustomBrand ? 'text-[var(--hi-text-soft)]' : 'text-[#627060]');
-    const securityStrongClass = isDark ? 'text-white' : 'text-[var(--hi-text)]';
+    const securityMutedClass = isDark ? (isCustomBrand ? 'text-(--hi-text-soft)' : 'text-white/62') : (isCustomBrand ? 'text-(--hi-text-soft)' : 'text-[#627060]');
+    const securityStrongClass = isDark ? 'text-white' : 'text-(--hi-text)';
     const securityIconSurfaceClass = isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.12)]' : 'bg-[rgba(205,176,136,0.16)]') : (isCustomBrand ? 'bg-[rgba(100,168,255,0.14)]' : 'bg-[rgba(184,153,104,0.14)]');
     const securityPanelEyebrow = t(`${brandTranslationNamespace}.security_panel.eyebrow`, { defaultValue: isTurkish ? 'Özel bilgiler için' : 'Scoped access' });
     const securityPanelTitle = t(`${brandTranslationNamespace}.security_panel.title`, { defaultValue: isTurkish ? 'Hassas kayıtlar ortak envanterden ayrı kalır' : 'Private records never appear in the shared list' });
@@ -100,11 +100,11 @@ export default function LandingPage() {
             : 'Passports, deeds, and access codes stay separate from the shared inventory. Vault data is stored encrypted.'
     });
     const securityChipClass = isDark
-        ? (isCustomBrand ? 'border border-[var(--hi-border)] bg-[rgba(24,32,45,0.76)] shadow-[0_18px_34px_rgba(0,0,0,0.18)]' : 'border border-white/8 bg-[rgba(22,29,25,0.68)] shadow-[0_18px_34px_rgba(0,0,0,0.18)]')
+        ? (isCustomBrand ? 'border border-(--hi-border) bg-[rgba(24,32,45,0.76)] shadow-[0_18px_34px_rgba(0,0,0,0.18)]' : 'border border-white/8 bg-[rgba(22,29,25,0.68)] shadow-[0_18px_34px_rgba(0,0,0,0.18)]')
         : (isCustomBrand ? 'border border-[rgba(176,193,216,0.24)] bg-[rgba(255,255,255,0.9)] shadow-[0_18px_34px_rgba(19,35,61,0.08)]' : 'border border-[rgba(45,82,65,0.12)] bg-[rgba(255,255,255,0.88)] shadow-[0_18px_34px_rgba(38,48,38,0.08)]');
     const securityRingClass = isDark ? (isCustomBrand ? 'border-[rgba(139,171,216,0.28)]' : 'border-white/8') : (isCustomBrand ? 'border-[rgba(176,193,216,0.24)]' : 'border-[rgba(45,82,65,0.12)]');
     const securityCoreClass = isDark
-        ? (isCustomBrand ? 'border border-[var(--hi-border)] bg-[linear-gradient(180deg,rgba(39,52,72,0.92),rgba(26,35,50,0.96))] shadow-[0_28px_44px_rgba(0,0,0,0.22)]' : 'border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] shadow-[0_28px_44px_rgba(0,0,0,0.22)]')
+        ? (isCustomBrand ? 'border border-(--hi-border) bg-[linear-gradient(180deg,rgba(39,52,72,0.92),rgba(26,35,50,0.96))] shadow-[0_28px_44px_rgba(0,0,0,0.22)]' : 'border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] shadow-[0_28px_44px_rgba(0,0,0,0.22)]')
         : (isCustomBrand ? 'border border-[rgba(176,193,216,0.24)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(240,246,253,0.9))] shadow-[0_24px_36px_rgba(19,35,61,0.10)]' : 'border border-[rgba(45,82,65,0.1)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(246,241,232,0.88))] shadow-[0_24px_36px_rgba(38,48,38,0.10)]');
     const vaultCoreLabel = t(`${brandTranslationNamespace}.security_panel.vault_scope`, { defaultValue: isTurkish ? 'Özel alan' : 'Vault scope' });
     const vaultPassportsLabel = t(`${brandTranslationNamespace}.security_panel.identity_docs`, { defaultValue: isTurkish ? 'Kimlik belgeleri' : 'Identity docs' });
@@ -205,12 +205,12 @@ export default function LandingPage() {
                 searchPlaceholder: 'Eşya, oda veya barkodla arayın',
             },
             heroInventoryRows: [
-                { name: 'Airfryer', meta: 'Mutfak tezgahı • Garanti 08/2028', state: null, icon: Package, accent: isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#5d8b6a]' },
+                { name: 'Airfryer', meta: 'Mutfak tezgahı • Garanti 08/2028', state: null, icon: Package, accent: isCustomBrand ? 'text-(--hi-accent)' : 'text-[#5d8b6a]' },
                 { name: 'Matkap seti', meta: 'Depo dolabı • 14 parça', state: 'Ödünç verildi', icon: Package, accent: 'text-[#b3874f]' },
                 { name: 'Mesh uydu ünitesi', meta: 'TV ünitesi • Ağ noktası', state: null, icon: Smartphone, accent: 'text-[#5a7388]' },
                 { name: 'Yedek kapı anahtarı', meta: 'Antre çekmecesi', state: null, icon: KeyRound, accent: 'text-[#a57e45]' },
-                { name: 'Kombi garanti PDF’i', meta: 'Belgeler • PDF eklendi', state: null, icon: FileText, accent: isCustomBrand ? 'text-[var(--hi-secondary)]' : 'text-[#6c7b69]' },
-                { name: 'HEPA filtre', meta: 'Çocuk odası • Değişim 11/2026', state: null, icon: Package, accent: isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#6f9978]' }
+                { name: 'Kombi garanti PDF’i', meta: 'Belgeler • PDF eklendi', state: null, icon: FileText, accent: isCustomBrand ? 'text-(--hi-secondary)' : 'text-[#6c7b69]' },
+                { name: 'HEPA filtre', meta: 'Çocuk odası • Değişim 11/2026', state: null, icon: Package, accent: isCustomBrand ? 'text-(--hi-accent)' : 'text-[#6f9978]' }
             ],
             features: {
                 eyebrow: `NEDEN ${brandUpperLabel}`,
@@ -308,12 +308,12 @@ export default function LandingPage() {
                 searchPlaceholder: 'Search an item, room, or barcode',
             },
             heroInventoryRows: [
-                { name: 'Air fryer', meta: 'Kitchen counter • Warranty 08/2028', state: null, icon: Package, accent: isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#5d8b6a]' },
+                { name: 'Air fryer', meta: 'Kitchen counter • Warranty 08/2028', state: null, icon: Package, accent: isCustomBrand ? 'text-(--hi-accent)' : 'text-[#5d8b6a]' },
                 { name: 'Drill set', meta: 'Storage cabinet • 14 pieces', state: 'Borrowed', icon: Package, accent: 'text-[#b3874f]' },
                 { name: 'Mesh unit', meta: 'TV console • Network node', state: null, icon: Smartphone, accent: 'text-[#5a7388]' },
                 { name: 'Spare door key', meta: 'Entry drawer', state: null, icon: KeyRound, accent: 'text-[#a57e45]' },
-                { name: 'Boiler warranty PDF', meta: 'Documents • PDF attached', state: null, icon: FileText, accent: isCustomBrand ? 'text-[var(--hi-secondary)]' : 'text-[#6c7b69]' },
-                { name: 'HEPA filter', meta: 'Kids room • Replace 11/2026', state: null, icon: Package, accent: isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#6f9978]' }
+                { name: 'Boiler warranty PDF', meta: 'Documents • PDF attached', state: null, icon: FileText, accent: isCustomBrand ? 'text-(--hi-secondary)' : 'text-[#6c7b69]' },
+                { name: 'HEPA filter', meta: 'Kids room • Replace 11/2026', state: null, icon: Package, accent: isCustomBrand ? 'text-(--hi-accent)' : 'text-[#6f9978]' }
             ],
             features: {
                 eyebrow: `WHY ${brandUpperLabel}`,
@@ -403,7 +403,7 @@ export default function LandingPage() {
 
     return (
         <div
-            className="landing-v25 landing-page-shell min-h-screen overflow-hidden text-[var(--hi-text)] selection:bg-[var(--hi-secondary-soft)]"
+            className="landing-v25 landing-page-shell min-h-screen overflow-hidden text-(--hi-text) selection:bg-(--hi-secondary-soft)"
             style={{ background: pageContinuumBackground }}
         >
             <header className={`landing-topbar-v25 fixed inset-x-0 top-0 z-50 ${headerTextClass}`}>
@@ -412,19 +412,19 @@ export default function LandingPage() {
                         to="/"
                         aria-label={brandDisplayName}
                         title={brandDisplayName}
-                        className="landing-brand-v25 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-secondary)]"
+                        className="landing-brand-v25 rounded-md focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-secondary)"
                     >
                         <BrandLogo variant="full" size="md" className="h-auto w-auto" />
                     </Link>
 
                     <nav className="hidden items-center gap-8 md:flex">
-                        <a href="#features" className={`text-sm font-medium transition ${isDark ? 'text-white/65 hover:text-white' : 'text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]'}`}>
+                        <a href="#features" className={`text-sm font-medium transition ${isDark ? 'text-white/65 hover:text-white' : 'text-(--hi-text-soft) hover:text-(--hi-text)'}`}>
                             {featuresLabel}
                         </a>
-                        <a href="#security" className={`text-sm font-medium transition ${isDark ? 'text-white/65 hover:text-white' : 'text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]'}`}>
+                        <a href="#security" className={`text-sm font-medium transition ${isDark ? 'text-white/65 hover:text-white' : 'text-(--hi-text-soft) hover:text-(--hi-text)'}`}>
                             {securityLabel}
                         </a>
-                        <a href="#about" className={`text-sm font-medium transition ${isDark ? 'text-white/65 hover:text-white' : 'text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]'}`}>
+                        <a href="#about" className={`text-sm font-medium transition ${isDark ? 'text-white/65 hover:text-white' : 'text-(--hi-text-soft) hover:text-(--hi-text)'}`}>
                             {aboutLabel}
                         </a>
                     </nav>
@@ -443,15 +443,15 @@ export default function LandingPage() {
                             <LanguageSwitcher
                                 showCodeBadge={false}
                                 showTooltip={false}
-                                className={`!h-11 !rounded-full !px-4 !py-0 ${chromeButtonClass}`}
+                                className={`h-11! rounded-full! px-4! py-0! ${chromeButtonClass}`}
                             />
                         </div>
-                        <Link to="/login" className={`text-sm font-medium transition ${isDark ? (isCustomBrand ? 'text-[var(--hi-text-soft)] hover:text-white' : 'text-white/80 hover:text-white') : 'text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]'}`}>
+                        <Link to="/login" className={`text-sm font-medium transition ${isDark ? (isCustomBrand ? 'text-(--hi-text-soft) hover:text-white' : 'text-white/80 hover:text-white') : 'text-(--hi-text-soft) hover:text-(--hi-text)'}`}>
                             {t('landing.nav.login')}
                         </Link>
                         <Link
                             to="/register"
-                            className="btn-primary !h-12 !rounded-full !px-6 !py-0 text-sm"
+                            className="btn-primary h-12! rounded-full! px-6! py-0! text-sm"
                         >
                             {copy.hero.primaryCta}
                         </Link>
@@ -474,7 +474,7 @@ export default function LandingPage() {
             {mobileNavMounted && (
                 <div
                     id="landing-mobile-menu"
-                    className="landing-mobile-menu-layer-v25 fixed inset-0 z-[60]"
+                    className="landing-mobile-menu-layer-v25 fixed inset-0 z-60"
                     data-state={mobileNavOpen ? 'open' : 'closed'}
                     aria-hidden={!mobileNavOpen}
                 >
@@ -512,7 +512,7 @@ export default function LandingPage() {
                             <LanguageSwitcher
                                 showCodeBadge={false}
                                 showTooltip={false}
-                                className="landing-mobile-language-v25 !h-12 !rounded-full !px-4 !py-0"
+                                className="landing-mobile-language-v25 h-12! rounded-full! px-4! py-0!"
                             />
                         </div>
 
@@ -546,31 +546,31 @@ export default function LandingPage() {
                     </div>
 
                     <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-12 px-6 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1fr)] lg:gap-16 lg:px-8">
-                        <div className={`max-w-[30rem] ${shellTextClass}`}>
+                        <div className={`max-w-120 ${shellTextClass}`}>
                             <h1 className={shellTextClass}>
-                                <span className="landing-display block max-w-[25rem] text-[clamp(2.35rem,4.5vw,3.95rem)] font-semibold leading-[1.02] tracking-[-0.06em]">
+                                <span className="landing-display block max-w-100 text-[clamp(2.35rem,4.5vw,3.95rem)] font-semibold leading-[1.02] tracking-[-0.06em]">
                                     {copy.hero.statement}
                                 </span>
-                                <span className={`landing-serif mt-4 block max-w-[24rem] text-[clamp(1.55rem,2.9vw,2.35rem)] leading-[1.06] ${isDark ? (isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#d8c29d]') : (isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#9b6f35]')}`}>
+                                <span className={`landing-serif mt-4 block max-w-[24rem] text-[clamp(1.55rem,2.9vw,2.35rem)] leading-[1.06] ${isDark ? (isCustomBrand ? 'text-(--hi-accent)' : 'text-[#d8c29d]') : (isCustomBrand ? 'text-(--hi-accent)' : 'text-[#9b6f35]')}`}>
                                     {copy.hero.statementAccent}
                                 </span>
                             </h1>
 
-                            <p className={`mt-9 max-w-[27rem] text-[0.98rem] font-normal leading-7 ${isDark ? 'text-white/60' : (isCustomBrand ? 'text-[var(--hi-text-soft)]' : 'text-[#536250]')}`}>
+                            <p className={`mt-9 max-w-108 text-[0.98rem] font-normal leading-7 ${isDark ? 'text-white/60' : (isCustomBrand ? 'text-(--hi-text-soft)' : 'text-[#536250]')}`}>
                                 {copy.hero.description}
                             </p>
 
                             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
                                 <Link
                                     to="/register"
-                                    className={`btn-primary !h-14 !rounded-full !px-8 text-base ${isCustomBrand ? '!shadow-[0_18px_40px_rgba(8,44,110,0.28)] hover:!shadow-[0_24px_48px_rgba(8,44,110,0.34)]' : '!shadow-[0_18px_40px_rgba(111,153,120,0.28)] hover:!shadow-[0_24px_48px_rgba(111,153,120,0.34)]'} transition-transform duration-200 hover:-translate-y-0.5`}
+                                    className={`btn-primary h-14! rounded-full! px-8! text-base ${isCustomBrand ? 'shadow-[0_18px_40px_rgba(8,44,110,0.28)]! hover:shadow-[0_24px_48px_rgba(8,44,110,0.34)]!' : 'shadow-[0_18px_40px_rgba(111,153,120,0.28)]! hover:shadow-[0_24px_48px_rgba(111,153,120,0.34)]!'} transition-transform duration-200 hover:-translate-y-0.5`}
                                 >
                                     {copy.hero.primaryCta}
                                     <ArrowRight className="ml-2 h-4 w-4" />
                                 </Link>
                                 <a
                                     href="#features"
-                                    className={`inline-flex h-14 items-center justify-center rounded-full border px-8 text-base font-semibold transition ${isDark ? (isCustomBrand ? 'border-[var(--hi-border-strong)] bg-[rgba(26,36,51,0.9)] text-white shadow-[0_16px_30px_rgba(0,0,0,0.18)] hover:border-[var(--hi-secondary)] hover:bg-[rgba(33,45,63,0.98)]' : 'border-white/12 bg-white/[0.05] text-white/82 hover:border-white/20 hover:text-white') : (isCustomBrand ? 'border-[rgba(176,193,216,0.62)] bg-[rgba(255,255,255,0.98)] text-[var(--hi-text)] shadow-[0_14px_28px_rgba(19,35,61,0.12)] hover:border-[rgba(139,180,255,0.68)] hover:bg-[rgba(246,250,255,1)] hover:text-[var(--hi-text)]' : 'border-[rgba(18,32,22,0.12)] text-[#556453] hover:bg-white/60 hover:text-[var(--hi-text)]')}`}
+                                    className={`inline-flex h-14 items-center justify-center rounded-full border px-8 text-base font-semibold transition ${isDark ? (isCustomBrand ? 'border-(--hi-border-strong) bg-[rgba(26,36,51,0.9)] text-white shadow-[0_16px_30px_rgba(0,0,0,0.18)] hover:border-(--hi-secondary) hover:bg-[rgba(33,45,63,0.98)]' : 'border-white/12 bg-white/5 text-white/82 hover:border-white/20 hover:text-white') : (isCustomBrand ? 'border-[rgba(176,193,216,0.62)] bg-[rgba(255,255,255,0.98)] text-(--hi-text) shadow-[0_14px_28px_rgba(19,35,61,0.12)] hover:border-[rgba(139,180,255,0.68)] hover:bg-[rgba(246,250,255,1)] hover:text-(--hi-text)' : 'border-[rgba(18,32,22,0.12)] text-[#556453] hover:bg-white/60 hover:text-(--hi-text)')}`}
                                     aria-label={heroSecondaryCtaLabel}
                                 >
                                     {heroSecondaryCtaLabel}
@@ -578,7 +578,7 @@ export default function LandingPage() {
                                 </a>
                             </div>
 
-                            <p className={`mt-9 max-w-[26rem] text-[13px] font-normal ${isDark ? 'text-white/42' : 'text-[var(--hi-text-muted)]'}`}>
+                            <p className={`mt-9 max-w-104 text-[13px] font-normal ${isDark ? 'text-white/42' : 'text-(--hi-text-muted)'}`}>
                                 {copy.hero.trustSignal}
                             </p>
                         </div>
@@ -595,7 +595,7 @@ export default function LandingPage() {
                             />
 
                             <div
-                                className={`landing-surface relative z-10 mx-auto w-full max-w-[30rem] overflow-hidden rounded-[1.75rem] p-5 lg:p-6 ${isDark ? (isCustomBrand ? 'bg-[linear-gradient(180deg,rgba(19,26,38,0.98),rgba(14,20,30,0.98))]' : 'bg-[#161d19]') : (isCustomBrand ? 'bg-[rgba(250,253,255,0.82)]' : 'bg-[rgba(255,251,245,0.72)]')}`}
+                                className={`landing-surface relative z-10 mx-auto w-full max-w-120 overflow-hidden rounded-[1.75rem] p-5 lg:p-6 ${isDark ? (isCustomBrand ? 'bg-[linear-gradient(180deg,rgba(19,26,38,0.98),rgba(14,20,30,0.98))]' : 'bg-[#161d19]') : (isCustomBrand ? 'bg-[rgba(250,253,255,0.82)]' : 'bg-[rgba(255,251,245,0.72)]')}`}
                                 style={{
                                     boxShadow: isDark
                                         ? (isCustomBrand ? 'inset 0 0 0 1px rgba(139,171,216,0.32), 0 28px 64px rgba(0,0,0,0.18)' : 'inset 0 0 0 1.15px rgba(255,255,255,0.28), 0 28px 64px rgba(0,0,0,0.18)')
@@ -605,7 +605,7 @@ export default function LandingPage() {
                                 <div className="landing-panel-glow absolute inset-0 opacity-40" />
 
                                 <div className="relative">
-                                    <div className={`flex items-center gap-3 rounded-full px-4 py-3 ${isDark ? (isCustomBrand ? 'border border-[rgba(105,131,171,0.42)] bg-[rgba(16,23,35,0.96)] text-[var(--hi-text-muted)]' : 'border border-white/8 bg-[rgba(14,20,17,0.75)] text-white/54') : (isCustomBrand ? 'border border-[rgba(176,193,216,0.34)] bg-[rgba(244,248,255,0.96)] text-[var(--hi-text-muted)]' : 'border border-[rgba(18,32,22,0.08)] bg-[rgba(248,243,234,0.92)] text-[var(--hi-text-muted)]')}`}>
+                                    <div className={`flex items-center gap-3 rounded-full px-4 py-3 ${isDark ? (isCustomBrand ? 'border border-[rgba(105,131,171,0.42)] bg-[rgba(16,23,35,0.96)] text-(--hi-text-muted)' : 'border border-white/8 bg-[rgba(14,20,17,0.75)] text-white/54') : (isCustomBrand ? 'border border-[rgba(176,193,216,0.34)] bg-[rgba(244,248,255,0.96)] text-(--hi-text-muted)' : 'border border-[rgba(18,32,22,0.08)] bg-[rgba(248,243,234,0.92)] text-(--hi-text-muted)')}`}>
                                         <Search className="h-4 w-4" />
                                         <span className="text-sm">{copy.hero.searchPlaceholder}</span>
                                     </div>
@@ -626,7 +626,7 @@ export default function LandingPage() {
                                                         <p className={`mt-1 text-xs font-normal leading-5 ${mutedTextClass}`}>{row.meta}</p>
                                                     </div>
                                                     {row.state && (
-                                                        <span className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${row.state === (isTurkish ? 'Ödünç verildi' : 'Borrowed') ? (isDark ? (isCustomBrand ? 'border border-[rgba(139,171,216,0.24)] bg-[rgba(139,180,255,0.12)] text-[var(--hi-secondary-strong)]' : 'bg-[rgba(182,139,77,0.16)] text-[#e1c08e]') : (isCustomBrand ? 'border border-[rgba(176,193,216,0.28)] bg-[rgba(139,180,255,0.12)] text-[var(--hi-accent)]' : 'bg-[rgba(182,139,77,0.12)] text-[#9a6e37]')) : (isDark ? 'bg-[rgba(90,115,136,0.2)] text-[#a9bfd1]' : 'bg-[rgba(90,115,136,0.12)] text-[#4b6277]')}`}>
+                                                        <span className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${row.state === (isTurkish ? 'Ödünç verildi' : 'Borrowed') ? (isDark ? (isCustomBrand ? 'border border-[rgba(139,171,216,0.24)] bg-[rgba(139,180,255,0.12)] text-(--hi-secondary-strong)' : 'bg-[rgba(182,139,77,0.16)] text-[#e1c08e]') : (isCustomBrand ? 'border border-[rgba(176,193,216,0.28)] bg-[rgba(139,180,255,0.12)] text-(--hi-accent)' : 'bg-[rgba(182,139,77,0.12)] text-[#9a6e37]')) : (isDark ? 'bg-[rgba(90,115,136,0.2)] text-[#a9bfd1]' : 'bg-[rgba(90,115,136,0.12)] text-[#4b6277]')}`}>
                                                             {row.state}
                                                         </span>
                                                     )}
@@ -648,14 +648,14 @@ export default function LandingPage() {
                     <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="grid gap-8 lg:grid-cols-[0.88fr_1fr] lg:items-end">
                             <div>
-                                <h2 className="mb-3 landing-kicker text-[var(--hi-secondary)]">
+                                <h2 className="mb-3 landing-kicker text-(--hi-secondary)">
                                     {copy.features.eyebrow}
                                 </h2>
-                                <h3 className={`landing-display max-w-4xl text-[2.4rem] font-semibold tracking-[-0.05em] md:text-[3.35rem] ${isDark ? 'text-white' : 'text-[var(--hi-text)]'}`}>
+                                <h3 className={`landing-display max-w-4xl text-[2.4rem] font-semibold tracking-tighter md:text-[3.35rem] ${isDark ? 'text-white' : 'text-(--hi-text)'}`}>
                                     {copy.features.heading}
                                 </h3>
                             </div>
-                            <p className={`max-w-2xl text-lg font-normal leading-relaxed ${isDark ? 'text-white/58' : 'text-[var(--hi-text-soft)]'}`}>
+                            <p className={`max-w-2xl text-lg font-normal leading-relaxed ${isDark ? 'text-white/58' : 'text-(--hi-text-soft)'}`}>
                                 {copy.features.description}
                             </p>
                         </div>
@@ -667,7 +667,7 @@ export default function LandingPage() {
                                     className={`grid gap-10 border-t pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center ${isDark ? 'border-white/8' : 'border-[rgba(18,32,22,0.1)]'}`}
                                 >
                                     <div className={index === 1 ? 'lg:order-2' : ''}>
-                                        <p className="landing-kicker text-[var(--hi-secondary)]">
+                                        <p className="landing-kicker text-(--hi-secondary)">
                                             {lane.eyebrow}
                                         </p>
                                         <h4 className={`mt-4 text-[1.7rem] font-semibold tracking-[-0.04em] md:text-4xl ${shellTextClass}`}>
@@ -679,11 +679,11 @@ export default function LandingPage() {
                                     </div>
 
                                     <div className={index === 1 ? 'lg:order-1' : ''}>
-                                        <div className={`landing-surface landing-lift rounded-[1rem] p-8 md:p-9 ${index === 1 ? 'lg:translate-y-6' : ''} ${isDark ? (isCustomBrand ? 'bg-[rgba(22,30,42,0.76)]' : 'bg-[rgba(17,23,20,0.7)]') : (isCustomBrand ? 'bg-[rgba(251,253,255,0.8)]' : 'bg-[rgba(255,251,245,0.76)]')}`} style={{ border: isDark ? (isCustomBrand ? '1px solid rgba(105,131,171,0.34)' : '1px solid rgba(255,255,255,0.06)') : (isCustomBrand ? '1px solid rgba(176,193,216,0.26)' : '1px solid rgba(18,32,22,0.05)'), boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.10)' : (isCustomBrand ? '0 2px 8px rgba(19,35,61,0.05)' : '0 2px 8px rgba(24,32,26,0.05)') }}>
+                                        <div className={`landing-surface landing-lift rounded-2xl p-8 md:p-9 ${index === 1 ? 'lg:translate-y-6' : ''} ${isDark ? (isCustomBrand ? 'bg-[rgba(22,30,42,0.76)]' : 'bg-[rgba(17,23,20,0.7)]') : (isCustomBrand ? 'bg-[rgba(251,253,255,0.8)]' : 'bg-[rgba(255,251,245,0.76)]')}`} style={{ border: isDark ? (isCustomBrand ? '1px solid rgba(105,131,171,0.34)' : '1px solid rgba(255,255,255,0.06)') : (isCustomBrand ? '1px solid rgba(176,193,216,0.26)' : '1px solid rgba(18,32,22,0.05)'), boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.10)' : (isCustomBrand ? '0 2px 8px rgba(19,35,61,0.05)' : '0 2px 8px rgba(24,32,26,0.05)') }}>
                                             <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${index === 0 ? (isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.14)]' : 'bg-[rgba(111,153,120,0.16)]') : (isCustomBrand ? 'bg-[rgba(100,168,255,0.12)]' : 'bg-[rgba(93,139,106,0.12)]')) : index === 1 ? (isDark ? (isCustomBrand ? 'bg-[rgba(100,168,255,0.16)]' : 'bg-[rgba(90,115,136,0.18)]') : 'bg-[rgba(90,115,136,0.12)]') : (isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.10)]' : 'bg-[rgba(182,139,77,0.18)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.10)]' : 'bg-[rgba(182,139,77,0.12)]'))}`}>
-                                                {index === 0 ? <Package className={`h-5 w-5 ${isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#6f9978]'}`} /> : index === 1 ? <Users className={`h-5 w-5 ${isCustomBrand ? 'text-[var(--hi-secondary)]' : 'text-[#5a7388]'}`} /> : <Lock className={`h-5 w-5 ${isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#a57e45]'}`} />}
+                                                {index === 0 ? <Package className={`h-5 w-5 ${isCustomBrand ? 'text-(--hi-accent)' : 'text-[#6f9978]'}`} /> : index === 1 ? <Users className={`h-5 w-5 ${isCustomBrand ? 'text-(--hi-secondary)' : 'text-[#5a7388]'}`} /> : <Lock className={`h-5 w-5 ${isCustomBrand ? 'text-(--hi-accent)' : 'text-[#a57e45]'}`} />}
                                             </div>
-                                            <p className={`mt-8 text-3xl font-semibold tracking-[-0.05em] ${shellTextClass}`}>
+                                            <p className={`mt-8 text-3xl font-semibold tracking-tighter ${shellTextClass}`}>
                                                 {lane.metric}
                                             </p>
                                             <p className={`mt-3 max-w-sm text-sm font-normal leading-6 ${mutedTextClass}`}>
@@ -704,21 +704,21 @@ export default function LandingPage() {
                     <div className={`absolute inset-0 ${isDark ? 'opacity-10' : 'opacity-[0.06]' } bg-[radial-gradient(circle_at_center,var(--hi-secondary),transparent_45%)]`} />
                     <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2 lg:px-8">
                         <div>
-                            <h2 className={`mb-3 landing-kicker ${isDark ? (isCustomBrand ? 'text-[var(--hi-secondary)]' : 'text-[#d9c29e]') : (isCustomBrand ? 'text-[var(--hi-secondary)]' : 'text-[#b68b4d]')}`}>
+                            <h2 className={`mb-3 landing-kicker ${isDark ? (isCustomBrand ? 'text-(--hi-secondary)' : 'text-[#d9c29e]') : (isCustomBrand ? 'text-(--hi-secondary)' : 'text-[#b68b4d]')}`}>
                                 {copy.security.eyebrow}
                             </h2>
-                            <h3 className={`landing-display max-w-xl text-[2.35rem] font-semibold tracking-[-0.05em] md:text-[3.7rem] ${isDark ? 'text-white' : 'text-[var(--hi-text)]'}`}>
+                            <h3 className={`landing-display max-w-xl text-[2.35rem] font-semibold tracking-tighter md:text-[3.7rem] ${isDark ? 'text-white' : 'text-(--hi-text)'}`}>
                                 {copy.security.heading}
                             </h3>
-                            <p className={`mt-6 max-w-lg text-lg font-normal leading-relaxed ${isDark ? 'text-white/70' : (isCustomBrand ? 'text-[var(--hi-text-soft)]' : 'text-[#4b5b4f]')}`}>
+                            <p className={`mt-6 max-w-lg text-lg font-normal leading-relaxed ${isDark ? 'text-white/70' : (isCustomBrand ? 'text-(--hi-text-soft)' : 'text-[#4b5b4f]')}`}>
                                 {copy.security.description}
                             </p>
 
                             <ul className="mt-8 space-y-5">
                                 {copy.security.bullets.map((item: string) => (
-                                    <li key={item} className={`flex items-start gap-3 ${isDark ? (isCustomBrand ? 'text-white' : 'text-white/86') : (isCustomBrand ? 'text-[var(--hi-text)]' : 'text-[#3e4d40]')}`}>
+                                    <li key={item} className={`flex items-start gap-3 ${isDark ? (isCustomBrand ? 'text-white' : 'text-white/86') : (isCustomBrand ? 'text-(--hi-text)' : 'text-[#3e4d40]')}`}>
                                         <span className={`mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.12)]' : 'bg-white/8') : (isCustomBrand ? 'bg-[rgba(100,168,255,0.12)]' : 'bg-[rgba(182,139,77,0.12)]')}`}>
-                                            <ShieldCheck className={`h-4 w-4 ${isDark ? (isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#d9c29e]') : (isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#a67a3d]')}`} />
+                                            <ShieldCheck className={`h-4 w-4 ${isDark ? (isCustomBrand ? 'text-(--hi-accent)' : 'text-[#d9c29e]') : (isCustomBrand ? 'text-(--hi-accent)' : 'text-[#a67a3d]')}`} />
                                         </span>
                                         <span>{item}</span>
                                     </li>
@@ -726,7 +726,7 @@ export default function LandingPage() {
                             </ul>
                         </div>
 
-                        <div className={`relative overflow-hidden rounded-[1rem] p-8 md:p-10 ${securityPanelClass}`}>
+                        <div className={`relative overflow-hidden rounded-2xl p-8 md:p-10 ${securityPanelClass}`}>
                             <div
                                 className="pointer-events-none absolute inset-0"
                                 style={{
@@ -740,22 +740,22 @@ export default function LandingPage() {
                             />
 
                             <div className="relative flex flex-col items-center text-center">
-                                <p className={`text-xs font-semibold uppercase tracking-[0.24em] ${isDark ? (isCustomBrand ? 'text-[var(--hi-secondary)]' : 'text-[#d9c29e]') : (isCustomBrand ? 'text-[var(--hi-secondary)]' : 'text-[#a57e45]')}`}>
+                                <p className={`text-xs font-semibold uppercase tracking-[0.24em] ${isDark ? (isCustomBrand ? 'text-(--hi-secondary)' : 'text-[#d9c29e]') : (isCustomBrand ? 'text-(--hi-secondary)' : 'text-[#a57e45]')}`}>
                                     {securityPanelEyebrow}
                                 </p>
-                                <p className={`mt-4 max-w-sm text-4xl font-semibold tracking-[-0.05em] md:text-5xl ${securityStrongClass}`}>
+                                <p className={`mt-4 max-w-sm text-4xl font-semibold tracking-tighter md:text-5xl ${securityStrongClass}`}>
                                     {securityPanelTitle}
                                 </p>
                                 <p className={`mt-4 max-w-md text-base font-normal leading-7 ${securityMutedClass}`}>
                                     {securityPanelDescription}
                                 </p>
 
-                                <div className="relative mt-12 flex h-[21rem] w-full max-w-[29rem] items-center justify-center sm:h-[24rem]">
-                                    <div className={`absolute h-[17.5rem] w-[17.5rem] rounded-full border ${securityRingClass} sm:h-[20rem] sm:w-[20rem]`} />
-                                    <div className={`absolute h-[12.5rem] w-[12.5rem] rounded-full border ${securityRingClass} sm:h-[15rem] sm:w-[15rem]`} />
+                                <div className="relative mt-12 flex h-84 w-full max-w-116 items-center justify-center sm:h-96">
+                                    <div className={`absolute h-70 w-70 rounded-full border ${securityRingClass} sm:h-80 sm:w-[20rem]`} />
+                                    <div className={`absolute h-50 w-50 rounded-full border ${securityRingClass} sm:h-60 sm:w-60`} />
 
                                     <div className={`relative z-10 flex h-32 w-32 flex-col items-center justify-center rounded-full sm:h-36 sm:w-36 ${securityCoreClass}`}>
-                                        <KeyRound className={`h-10 w-10 ${isDark ? (isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#d9c29e]') : (isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#a57e45]')}`} />
+                                        <KeyRound className={`h-10 w-10 ${isDark ? (isCustomBrand ? 'text-(--hi-accent)' : 'text-[#d9c29e]') : (isCustomBrand ? 'text-(--hi-accent)' : 'text-[#a57e45]')}`} />
                                         <span className={`mt-3 text-[11px] font-semibold uppercase tracking-[0.22em] ${securityMutedClass}`}>
                                             {vaultCoreLabel}
                                         </span>
@@ -783,10 +783,10 @@ export default function LandingPage() {
                                     ].map(({ icon: Icon, title, meta, className }) => (
                                         <div
                                             key={title}
-                                            className={`absolute z-20 w-[9.5rem] rounded-[0.875rem] px-4 py-4 text-left sm:w-[10.5rem] ${securityChipClass} ${className}`}
+                                            className={`absolute z-20 w-38 rounded-[0.875rem] px-4 py-4 text-left sm:w-42 ${securityChipClass} ${className}`}
                                         >
                                             <div className={`flex h-10 w-10 items-center justify-center rounded-2xl ${securityIconSurfaceClass}`}>
-                                                <Icon className={`h-4 w-4 ${isDark ? (isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#d9c29e]') : (isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#a57e45]')}`} />
+                                                <Icon className={`h-4 w-4 ${isDark ? (isCustomBrand ? 'text-(--hi-accent)' : 'text-[#d9c29e]') : (isCustomBrand ? 'text-(--hi-accent)' : 'text-[#a57e45]')}`} />
                                             </div>
                                             <p className={`mt-4 text-sm font-semibold leading-6 ${securityStrongClass}`}>{title}</p>
                                             <p className={`mt-1 text-[11px] font-medium uppercase tracking-[0.18em] ${securityMutedClass}`}>
@@ -807,10 +807,10 @@ export default function LandingPage() {
                     <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
                             <div>
-                                <p className="landing-kicker text-[var(--hi-secondary)]">
+                                <p className="landing-kicker text-(--hi-secondary)">
                                     {copy.about.eyebrow}
                                 </p>
-                                <h2 className={`landing-display mt-4 max-w-2xl text-[2.3rem] font-semibold tracking-[-0.05em] md:text-[3.15rem] ${shellTextClass}`}>
+                                <h2 className={`landing-display mt-4 max-w-2xl text-[2.3rem] font-semibold tracking-tighter md:text-[3.15rem] ${shellTextClass}`}>
                                     {copy.about.heading}
                                 </h2>
                                 <p className={`mt-6 max-w-2xl text-lg font-normal leading-relaxed ${mutedTextClass}`}>
@@ -820,7 +820,7 @@ export default function LandingPage() {
                                     {copy.about.pills.map((pill: string) => (
                                         <span
                                             key={pill}
-                                            className={`inline-flex items-center rounded-full px-4 py-2 text-sm font-medium ${isDark ? (isCustomBrand ? 'border border-[var(--hi-border)] bg-[rgba(24,32,45,0.56)] text-[var(--hi-text-soft)]' : 'border border-white/8 bg-white/5 text-white/78') : (isCustomBrand ? 'border border-[rgba(176,193,216,0.22)] bg-[rgba(255,255,255,0.84)] text-[var(--hi-text-soft)]' : 'border border-[rgba(45,82,65,0.1)] bg-white/75 text-[var(--hi-text-soft)]')}`}
+                                            className={`inline-flex items-center rounded-full px-4 py-2 text-sm font-medium ${isDark ? (isCustomBrand ? 'border border-(--hi-border) bg-[rgba(24,32,45,0.56)] text-(--hi-text-soft)' : 'border border-white/8 bg-white/5 text-white/78') : (isCustomBrand ? 'border border-[rgba(176,193,216,0.22)] bg-[rgba(255,255,255,0.84)] text-(--hi-text-soft)' : 'border border-[rgba(45,82,65,0.1)] bg-white/75 text-(--hi-text-soft)')}`}
                                         >
                                             {pill}
                                         </span>
@@ -834,7 +834,7 @@ export default function LandingPage() {
                                         key={strip.number}
                                         className={`grid gap-4 border-t pt-6 md:grid-cols-[84px_1fr] ${isDark ? 'border-white/8' : 'border-[rgba(18,32,22,0.1)]'}`}
                                     >
-                                        <span className="landing-display text-3xl text-[var(--hi-secondary)]">
+                                        <span className="landing-display text-3xl text-(--hi-secondary)">
                                             {strip.number}
                                         </span>
                                         <div>
@@ -846,9 +846,9 @@ export default function LandingPage() {
 
                                 {!isCustomBrand && copy.about?.advanced && (
                                     <article
-                                        className="landing-technical-card-v25 rounded-[1rem] border p-6 md:p-7"
+                                        className="landing-technical-card-v25 rounded-2xl border p-6 md:p-7"
                                     >
-                                        <p className="landing-kicker text-[var(--hi-secondary)]">
+                                        <p className="landing-kicker text-(--hi-secondary)">
                                             {copy.about.advanced.eyebrow}
                                         </p>
                                         <h3 className={`mt-3 text-2xl font-semibold tracking-[-0.03em] ${shellTextClass}`}>
@@ -861,7 +861,7 @@ export default function LandingPage() {
                                             href={GITHUB_REPOSITORY_URL}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className={`mt-5 inline-flex items-center gap-2 text-sm font-medium transition ${isDark ? (isCustomBrand ? 'text-[var(--hi-secondary)] hover:text-[var(--hi-accent)]' : 'text-white/72 hover:text-white') : (isCustomBrand ? 'text-[var(--hi-secondary-strong)] hover:text-[var(--hi-accent)]' : 'text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]')}`}
+                                            className={`mt-5 inline-flex items-center gap-2 text-sm font-medium transition ${isDark ? (isCustomBrand ? 'text-(--hi-secondary) hover:text-(--hi-accent)' : 'text-white/72 hover:text-white') : (isCustomBrand ? 'text-(--hi-secondary-strong) hover:text-(--hi-accent)' : 'text-(--hi-text-soft) hover:text-(--hi-text)')}`}
                                         >
                                             <Github className="h-4 w-4" />
                                             <span>{copy.about.advanced.link}</span>
@@ -875,11 +875,11 @@ export default function LandingPage() {
 
                 <section id="start" className="landing-cta-v25 relative overflow-hidden py-24 md:py-32">
                     <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-                        <div className="landing-cta-card-v25 relative overflow-hidden rounded-[2rem] p-7 sm:p-10 lg:p-14">
+                        <div className="landing-cta-card-v25 relative overflow-hidden rounded-4xl p-7 sm:p-10 lg:p-14">
                             <div className="landing-cta-card-grid-v25 pointer-events-none absolute inset-0" />
                             <div className="relative z-10 grid gap-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(17rem,.65fr)] lg:items-center lg:gap-16">
                                 <div className="landing-cta-copy-v25">
-                                    <p className="landing-kicker text-[var(--hi-secondary)]">
+                                    <p className="landing-kicker text-(--hi-secondary)">
                                         {copy.cta.eyebrow}
                                     </p>
                                     <h2 className={`landing-display mt-4 max-w-3xl text-[clamp(2.35rem,5vw,4.35rem)] font-semibold leading-[.98] tracking-[-0.065em] ${shellTextClass}`}>
@@ -901,7 +901,7 @@ export default function LandingPage() {
                                         </Link>
                                         <Link
                                             to="/login"
-                                            className={`landing-cta-button-v25 landing-cta-secondary-v25 ${isDark ? 'text-white/84 hover:text-white' : 'text-[var(--hi-text)]'}`}
+                                            className={`landing-cta-button-v25 landing-cta-secondary-v25 ${isDark ? 'text-white/84 hover:text-white' : 'text-(--hi-text)'}`}
                                         >
                                             {t('landing.nav.login')}
                                             <ArrowRight className="ml-2 h-4 w-4 opacity-70" />

@@ -53,9 +53,9 @@ export default function GoogleHouseSelect() {
 
     return (
         <div className="auth-flow-page-v25">
-            <main className="auth-flow-shell-v25 flex min-h-[100svh] flex-col justify-center">
+            <main className="auth-flow-shell-v25 flex min-h-svh flex-col justify-center">
                 <div className="auth-flow-topbar-v25">
-                    <Link to="/" className="auth-flow-brand-v25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)]">
+                    <Link to="/" className="auth-flow-brand-v25 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent)">
                         <BrandLogo variant="full" size="md" />
                     </Link>
                     <div className="auth-flow-tools-v25">
@@ -63,7 +63,7 @@ export default function GoogleHouseSelect() {
                             <LanguageSwitcher
                                 showTooltip={false}
                                 showCodeBadge={false}
-                                className="!h-[2.65rem] !rounded-full !border-[var(--hi-border)] !bg-[var(--hi-panel-muted)] !px-3 !py-0 !text-[var(--hi-text)] max-[430px]:!h-[2.45rem]"
+                                className="h-[2.65rem]! rounded-full! border-(--hi-border)! bg-(--hi-panel-muted)! px-3! py-0! text-(--hi-text)! max-[430px]:h-[2.45rem]!"
                             />
                         </div>
                         <button

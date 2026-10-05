@@ -68,15 +68,15 @@ export default function RecoveryKeyModal({
                         <header className="recovery-modal-hero-v25">
                             <span className="auth-flow-icon-v25"><KeyRound className="h-6 w-6" /></span>
                             <p className="auth-flow-kicker-v25">{t('auth.recovery_key_modal.badge')}</p>
-                            <h2 id={titleId} className="auth-flow-title-v25 !text-[clamp(1.65rem,7vw,2.25rem)]">{title}</h2>
+                            <h2 id={titleId} className="auth-flow-title-v25 text-[clamp(1.65rem,7vw,2.25rem)]!">{title}</h2>
                             <p id={descriptionId} className="auth-flow-subtitle-v25 mx-auto">{subtitle}</p>
                         </header>
 
                         <div className="auth-flow-notice-v25 is-warning mt-5">
                             <div className="flex items-start gap-3">
-                                <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-[var(--hi-warning)]" />
+                                <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-(--hi-warning)" />
                                 <div>
-                                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--hi-warning)]">
+                                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-(--hi-warning)">
                                         {t('auth.recovery_key_modal.important')}
                                     </p>
                                     <p className="mt-1.5">{warning}</p>
@@ -87,17 +87,17 @@ export default function RecoveryKeyModal({
                         <div className="recovery-modal-key-v25">
                             <div className="flex min-w-0 items-center justify-between gap-3">
                                 <div className="min-w-0">
-                                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-muted)]">
+                                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-(--hi-text-muted)">
                                     {t('auth.recovery_key_modal.key_label')}
                                     </p>
-                                    <p className="mt-1 text-xs leading-5 text-[var(--hi-text-soft)]">
+                                    <p className="mt-1 text-xs leading-5 text-(--hi-text-soft)">
                                         {t('auth.recovery_key_modal.storage_hint')}
                                     </p>
                                 </div>
                                 <button
                                     type="button"
                                     onClick={handleCopy}
-                                    className="auth-flow-secondary-v25 !min-h-[2.65rem] shrink-0 !rounded-[.9rem] !px-3 !py-2 !text-xs"
+                                    className="auth-flow-secondary-v25 min-h-[2.65rem]! shrink-0 rounded-[.9rem]! px-3! py-2! text-xs!"
                                 >
                                     {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                                     <span>{copied ? t('auth.recovery_key_modal.copied') : t('common.copy')}</span>

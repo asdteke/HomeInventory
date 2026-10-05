@@ -37,8 +37,8 @@ export default function Login() {
     const legalLanguage = resolveVerifiedLegalTranslationLanguage(i18n, LEGAL_LINK_KEYS);
     const legalT = i18n.getFixedT(legalLanguage);
     const pageClass = isDark
-        ? (isCustomBrand ? 'bg-[var(--hi-bg-strong)] text-white' : 'bg-[#1a1f1c] text-white')
-        : 'bg-[var(--hi-bg)] text-[var(--hi-text)]';
+        ? (isCustomBrand ? 'bg-(--hi-bg-strong) text-white' : 'bg-[#1a1f1c] text-white')
+        : 'bg-(--hi-bg) text-(--hi-text)';
     const pageGlow = isDark
         ? (isCustomBrand
             ? 'radial-gradient(circle_at_18%_16%,rgba(88,213,240,0.08),transparent_26%),radial-gradient(circle_at_82%_18%,rgba(100,168,255,0.10),transparent_30%),linear-gradient(180deg,#08111e_0%,#0d1726_52%,#10213a_100%)'
@@ -48,50 +48,50 @@ export default function Login() {
             : 'radial-gradient(circle_at_18%_18%,rgba(184,153,104,0.12),transparent_24%),radial-gradient(circle_at_82%_20%,rgba(45,82,65,0.10),transparent_28%),linear-gradient(180deg,#f7f2e8_0%,#f4ede2_48%,#efe6d9_100%)');
     const topChromeClass = isDark
         ? (isCustomBrand
-            ? 'border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] hover:text-white'
+            ? 'border-(--hi-border) bg-(--hi-panel) text-(--hi-text-soft) hover:border-(--hi-border-strong) hover:bg-(--hi-panel-muted) hover:text-white'
             : 'border-white/10 bg-white/4 text-white/84 hover:bg-white/8 hover:text-white')
-        : 'border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]';
+        : 'border-(--hi-border) bg-(--hi-panel) text-(--hi-text-soft) hover:bg-(--hi-panel-strong) hover:text-(--hi-text)';
     const cardClass = isDark
         ? (isCustomBrand
-            ? 'landing-surface border-[var(--hi-border)] bg-[linear-gradient(180deg,rgba(23,30,42,0.96),rgba(17,23,33,0.92))] shadow-[0_28px_72px_rgba(0,0,0,0.34)]'
+            ? 'landing-surface border-(--hi-border) bg-[linear-gradient(180deg,rgba(23,30,42,0.96),rgba(17,23,33,0.92))] shadow-[0_28px_72px_rgba(0,0,0,0.34)]'
             : 'landing-surface border-white/8 bg-[rgba(16,21,18,0.86)] shadow-[0_28px_72px_rgba(0,0,0,0.30)]')
         : (isCustomBrand
             ? 'landing-surface border-[rgba(176,193,216,0.28)] bg-[rgba(255,255,255,0.9)] shadow-[0_24px_60px_rgba(19,35,61,0.10)]'
             : 'landing-surface border-[rgba(18,32,22,0.06)] bg-[rgba(255,251,245,0.84)] shadow-[0_24px_60px_rgba(28,41,32,0.12)]');
-    const labelClass = isDark ? 'text-white/78' : 'text-[var(--hi-text-soft)]';
+    const labelClass = isDark ? 'text-white/78' : 'text-(--hi-text-soft)';
     const subtleTextClass = isDark
-        ? (isCustomBrand ? 'text-[var(--hi-text-muted)]' : 'text-white/55')
-        : 'text-[var(--hi-text-soft)]';
+        ? (isCustomBrand ? 'text-(--hi-text-muted)' : 'text-white/55')
+        : 'text-(--hi-text-soft)';
     const iconMutedClass = isDark
-        ? (isCustomBrand ? 'text-[var(--hi-text-muted)]' : 'text-white/28')
-        : 'text-[var(--hi-text-muted)]';
+        ? (isCustomBrand ? 'text-(--hi-text-muted)' : 'text-white/28')
+        : 'text-(--hi-text-muted)';
     const iconButtonClass = isDark
-        ? (isCustomBrand ? 'text-[var(--hi-text-muted)] hover:text-white' : 'text-white/32 hover:text-white/68')
-        : 'text-[var(--hi-text-muted)] hover:text-[var(--hi-text)]';
+        ? (isCustomBrand ? 'text-(--hi-text-muted) hover:text-white' : 'text-white/32 hover:text-white/68')
+        : 'text-(--hi-text-muted) hover:text-(--hi-text)';
     const inputClass = isDark
         ? (isCustomBrand
-            ? 'input-field h-14 border-[var(--hi-border)] bg-[rgba(22,30,43,0.92)] text-white placeholder:text-[var(--hi-text-muted)]'
+            ? 'input-field h-14 border-(--hi-border) bg-[rgba(22,30,43,0.92)] text-white placeholder:text-(--hi-text-muted)'
             : 'input-field h-14 border-white/8 bg-[rgba(10,14,12,0.62)] text-white placeholder:text-white/28')
-        : 'input-field h-14 border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.82)] text-[var(--hi-text)] placeholder:text-[var(--hi-text-muted)]';
-    const panelMutedClass = isDark ? 'text-white/46' : 'text-[var(--hi-text-soft)]';
+        : 'input-field h-14 border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.82)] text-(--hi-text) placeholder:text-(--hi-text-muted)';
+    const panelMutedClass = isDark ? 'text-white/46' : 'text-(--hi-text-soft)';
     const dividerClass = isDark
-        ? (isCustomBrand ? 'bg-[var(--hi-border)]' : 'bg-white/8')
+        ? (isCustomBrand ? 'bg-(--hi-border)' : 'bg-white/8')
         : 'bg-[rgba(18,32,22,0.08)]';
     const trustSurfaceClass = isDark
         ? (isCustomBrand
-            ? 'border-[var(--hi-border-strong)] bg-[rgba(26,34,46,0.72)] text-[var(--hi-text-soft)]'
-            : 'border-white/8 bg-white/[0.045] text-white/62')
+            ? 'border-(--hi-border-strong) bg-[rgba(26,34,46,0.72)] text-(--hi-text-soft)'
+            : 'border-white/8 bg-white/4.5 text-white/62')
         : (isCustomBrand
-            ? 'border-[rgba(176,193,216,0.32)] bg-[rgba(248,251,255,0.88)] text-[var(--hi-text-soft)]'
-            : 'border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.66)] text-[var(--hi-text-soft)]');
+            ? 'border-[rgba(176,193,216,0.32)] bg-[rgba(248,251,255,0.88)] text-(--hi-text-soft)'
+            : 'border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.66)] text-(--hi-text-soft)');
     const secondaryButtonClass = isDark
         ? (isCustomBrand
-            ? 'border border-[var(--hi-border-strong)] bg-[rgba(22,30,43,0.7)] text-white hover:bg-[rgba(29,38,52,0.92)]'
-            : 'border border-white/8 bg-white/[0.02] text-white/82 hover:bg-white/[0.05]')
-        : 'border border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.78)] text-[var(--hi-text)] hover:bg-white';
-    const footerLinkClass = isDark ? 'text-white/50 hover:text-white/82' : 'text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]';
+            ? 'border border-(--hi-border-strong) bg-[rgba(22,30,43,0.7)] text-white hover:bg-[rgba(29,38,52,0.92)]'
+            : 'border border-white/8 bg-white/2 text-white/82 hover:bg-white/5')
+        : 'border border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.78)] text-(--hi-text) hover:bg-white';
+    const footerLinkClass = isDark ? 'text-white/50 hover:text-white/82' : 'text-(--hi-text-soft) hover:text-(--hi-text)';
     const actionLinkClass = isCustomBrand
-        ? 'text-sm font-medium text-[var(--hi-accent)] transition hover:text-[var(--hi-secondary-strong)]'
+        ? 'text-sm font-medium text-(--hi-accent) transition hover:text-(--hi-secondary-strong)'
         : 'text-sm font-medium text-[#6f9978] transition hover:text-[#8bb395]';
     const loginHeaderKicker = t('auth.login.header_kicker', {
         defaultValue: isTurkish ? 'Hesabınıza giriş yapın' : 'Secure sign in'
@@ -176,11 +176,11 @@ export default function Login() {
             <div className={`absolute inset-0 ${isDark ? 'opacity-[0.14]' : 'opacity-[0.22]'}`}>
                 <div className="landing-grid absolute inset-0" />
             </div>
-            <div className={`absolute left-[-7rem] top-16 h-56 w-56 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.10)]' : 'bg-[rgba(205,176,136,0.10)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.16)]' : 'bg-[rgba(205,176,136,0.16)]')}`} />
-            <div className={`absolute bottom-8 right-[-5rem] h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.12)]' : 'bg-[rgba(74,125,100,0.14)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.10)]' : 'bg-[rgba(45,82,65,0.10)]')}`} />
+            <div className={`absolute -left-28 top-16 h-56 w-56 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.10)]' : 'bg-[rgba(205,176,136,0.10)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.16)]' : 'bg-[rgba(205,176,136,0.16)]')}`} />
+            <div className={`absolute bottom-8 -right-20 h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.12)]' : 'bg-[rgba(74,125,100,0.14)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.10)]' : 'bg-[rgba(45,82,65,0.10)]')}`} />
 
             <div className="auth-shell-v25 relative z-10 flex min-h-screen items-center justify-center px-5 py-8 sm:px-6 sm:py-12">
-                <div className="w-full max-w-[31rem]">
+                <div className="w-full max-w-124">
                     <div className="auth-top-tools-v25 auth-top-tools-compact-v25 mb-4 inline-flex items-center sm:mb-5">
                         <div className="auth-top-controls-v25 flex shrink-0 items-center gap-2 sm:gap-3">
                             <button
@@ -196,54 +196,54 @@ export default function Login() {
                                 <LanguageSwitcher
                                     showTooltip={false}
                                     showCodeBadge={false}
-                                    className={`!h-10 !rounded-full !px-3 !py-0 sm:!h-11 sm:!px-4 ${isDark ? (isCustomBrand ? '!border-[var(--hi-border)] !bg-[var(--hi-panel)] !text-white hover:!bg-[var(--hi-panel-muted)]' : '!border-white/10 !bg-white/4 !text-white/88 hover:!bg-white/8') : '!border-[var(--hi-border)] !bg-[var(--hi-panel)] !text-[var(--hi-text)] hover:!bg-[var(--hi-panel-strong)]'}`}
+                                    className={`h-10! rounded-full! px-3! py-0! sm:h-11! sm:px-4! ${isDark ? (isCustomBrand ? 'border-(--hi-border)! bg-(--hi-panel)! text-white! hover:bg-(--hi-panel-muted)!' : 'border-white/10! bg-white/4! text-white/88! hover:bg-white/8!') : 'border-(--hi-border)! bg-(--hi-panel)! text-(--hi-text)! hover:bg-(--hi-panel-strong)!'}`}
                                 />
                             </div>
                         </div>
                     </div>
 
-                    <div className={`auth-card-v25 relative overflow-hidden rounded-[var(--hi-radius-md)] ${cardClass}`}>
+                    <div className={`auth-card-v25 relative overflow-hidden rounded-(--hi-radius-md) ${cardClass}`}>
                         <div className={`landing-panel-glow absolute inset-0 ${isCustomBrand && isDark ? 'opacity-30' : 'opacity-50'}`} />
 
                         <div className={`relative p-6 sm:p-8 ${isCustomBrand && isDark ? 'bg-[linear-gradient(180deg,rgba(17,24,35,0.24),rgba(17,24,35,0.08))]' : ''}`}>
-                            <Link to="/" className="inline-flex rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-secondary)]">
+                            <Link to="/" className="inline-flex rounded-md focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-secondary)">
                                 <BrandLogo variant="full" size="md" className="h-auto max-h-10 w-auto sm:max-h-11" />
                             </Link>
 
                             <div className="mt-8 sm:mt-10">
-                                <p className="landing-kicker text-[var(--hi-secondary)]">
+                                <p className="landing-kicker text-(--hi-secondary)">
                                     {requires2FA ? securityKicker : loginHeaderKicker}
                                 </p>
-                                <h1 className={`landing-display mt-3 text-[2rem] font-semibold leading-[1.02] tracking-[-0.05em] sm:text-[2.4rem] ${isDark ? 'text-white' : 'text-[var(--hi-text)]'}`}>
+                                <h1 className={`landing-display mt-3 text-[2rem] font-semibold leading-[1.02] tracking-tighter sm:text-[2.4rem] ${isDark ? 'text-white' : 'text-(--hi-text)'}`}>
                                     {requires2FA ? t('auth.login.two_factor.title') : loginHeaderTitle}
                                 </h1>
-                                <p className={`mt-3 max-w-[26rem] text-[0.98rem] leading-7 ${subtleTextClass}`}>
+                                <p className={`mt-3 max-w-104 text-[0.98rem] leading-7 ${subtleTextClass}`}>
                                     {requires2FA
                                         ? (useBackupCode ? t('auth.login.two_factor.backup_subtitle') : t('auth.login.two_factor.subtitle'))
                                         : loginHeaderSubtitle}
                                 </p>
                                 <div className={`mt-5 inline-flex max-w-full items-center gap-2 rounded-full border px-3.5 py-2 text-[0.78rem] leading-5 ${trustSurfaceClass}`}>
-                                    <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-[var(--hi-secondary)]" />
+                                    <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-(--hi-secondary)" />
                                     <span>{loginTrustSignal}</span>
                                 </div>
                             </div>
 
                             <div className="mt-8 sm:mt-9">
                                 {error && (
-                                    <div className={`mb-6 rounded-[var(--hi-radius-md)] border px-4 py-3 text-sm ${isDark ? 'border-red-500/20 bg-red-500/10 text-red-200' : 'border-red-500/18 bg-red-500/8 text-red-700'}`}>
+                                    <div className={`mb-6 rounded-(--hi-radius-md) border px-4 py-3 text-sm ${isDark ? 'border-red-500/20 bg-red-500/10 text-red-200' : 'border-red-500/18 bg-red-500/8 text-red-700'}`}>
                                         {error}
                                     </div>
                                 )}
 
                                 {!requires2FA ? (
                                     <>
-                                        <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                                        <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-y-5">
                                             <div>
                                                 <label className={`mb-2 block text-sm font-medium ${labelClass}`}>
                                                     {t('auth.login.username_or_email')}
                                                 </label>
                                                 <div className="group relative">
-                                                    <User className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-[var(--hi-accent)]' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
+                                                    <User className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-(--hi-accent)' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
                                                     <input
                                                         type="text"
                                                         value={username}
@@ -261,7 +261,7 @@ export default function Login() {
                                                     {t('auth.login.password')}
                                                 </label>
                                                 <div className="group relative">
-                                                    <Lock className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-[var(--hi-accent)]' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
+                                                    <Lock className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-(--hi-accent)' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
                                                     <input
                                                         type={showPassword ? 'text' : 'password'}
                                                         value={password}
@@ -291,7 +291,7 @@ export default function Login() {
                                             <button
                                                 type="submit"
                                                 disabled={loading}
-                                                className={`btn-primary !h-14 !w-full !rounded-[var(--hi-radius-md)] !px-5 text-base ${isCustomBrand ? '!shadow-[0_18px_36px_rgba(8,44,110,0.24)]' : '!shadow-[0_18px_36px_rgba(111,153,120,0.24)]'} disabled:opacity-60`}
+                                                className={`btn-primary h-14! w-full! rounded-(--hi-radius-md)! px-5! text-base ${isCustomBrand ? 'shadow-[0_18px_36px_rgba(8,44,110,0.24)]!' : 'shadow-[0_18px_36px_rgba(111,153,120,0.24)]!'} disabled:opacity-60`}
                                             >
                                                 {loading ? t('auth.login.submitting') : t('auth.login.submit')}
                                                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -302,7 +302,7 @@ export default function Login() {
 
                                         <a
                                             href="/api/auth/google"
-                                            className={`inline-flex h-14 w-full items-center justify-center rounded-[var(--hi-radius-md)] px-5 text-sm font-medium transition ${secondaryButtonClass}`}
+                                            className={`inline-flex h-14 w-full items-center justify-center rounded-(--hi-radius-md) px-5 text-sm font-medium transition ${secondaryButtonClass}`}
                                         >
                                             <svg className="mr-3 h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
                                                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -317,7 +317,7 @@ export default function Login() {
                                             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                                                 <p className={`text-sm ${panelMutedClass}`}>
                                                     {t('auth.login.no_account')}{' '}
-                                                    <Link to="/register" className={`font-semibold transition ${isCustomBrand ? 'text-[var(--hi-accent)] hover:text-[var(--hi-secondary-strong)]' : 'text-[#6f9978] hover:text-[#8bb395]'}`}>
+                                                    <Link to="/register" className={`font-semibold transition ${isCustomBrand ? 'text-(--hi-accent) hover:text-(--hi-secondary-strong)' : 'text-[#6f9978] hover:text-[#8bb395]'}`}>
                                                         {t('auth.login.register_link')}
                                                     </Link>
                                                 </p>
@@ -326,11 +326,11 @@ export default function Login() {
                                                     <Link to="/terms-of-service" className={`transition ${footerLinkClass}`}>
                                                         {termsLinkLabel}
                                                     </Link>
-                                                    <span className={isDark ? 'text-white/18' : 'text-[var(--hi-border-strong)]'}>&bull;</span>
+                                                    <span className={isDark ? 'text-white/18' : 'text-(--hi-border-strong)'}>&bull;</span>
                                                     <Link to="/privacy-policy" className={`transition ${footerLinkClass}`}>
                                                         {privacyLinkLabel}
                                                     </Link>
-                                                    <span className={isDark ? 'text-white/18' : 'text-[var(--hi-border-strong)]'}>&bull;</span>
+                                                    <span className={isDark ? 'text-white/18' : 'text-(--hi-border-strong)'}>&bull;</span>
                                                     <a href={SUPPORT_CONTACT_URL} target="_blank" rel="noreferrer" className={`transition ${footerLinkClass}`}>
                                                         {supportLabel}
                                                     </a>
@@ -339,7 +339,7 @@ export default function Login() {
                                         </div>
                                     </>
                                 ) : (
-                                    <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                                    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-y-5">
                                         <div>
                                             <label className={`mb-2 block text-sm font-medium ${labelClass}`}>
                                                 {useBackupCode ? t('auth.login.two_factor.backup_code_label') : t('auth.login.two_factor.code_label')}
@@ -357,7 +357,7 @@ export default function Login() {
                                             />
                                         </div>
 
-                                        <label className={`app-premium-checkbox-container flex items-start gap-3 rounded-[var(--hi-radius-md)] border px-4 py-3 text-sm ${panelMutedClass} ${isDark ? (isCustomBrand ? 'border-[var(--hi-border)] bg-[rgba(24,31,44,0.72)]' : 'border-white/8 bg-white/[0.02]') : 'border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.52)]'} hover:border-[var(--hi-border-strong)] transition-all`}>
+                                        <label className={`app-premium-checkbox-container flex items-start gap-3 rounded-(--hi-radius-md) border px-4 py-3 text-sm ${panelMutedClass} ${isDark ? (isCustomBrand ? 'border-(--hi-border) bg-[rgba(24,31,44,0.72)]' : 'border-white/8 bg-white/2') : 'border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.52)]'} hover:border-(--hi-border-strong) transition-all`}>
                                             <PremiumCheckbox
                                                 checked={rememberDevice}
                                                 onChange={(e) => setRememberDevice(e.target.checked)}
@@ -368,7 +368,7 @@ export default function Login() {
                                         <button
                                             type="submit"
                                             disabled={loading}
-                                            className={`btn-primary !h-14 !w-full !rounded-[var(--hi-radius-md)] !px-5 text-base ${isCustomBrand ? '!shadow-[0_18px_36px_rgba(8,44,110,0.24)]' : '!shadow-[0_18px_36px_rgba(111,153,120,0.24)]'} disabled:opacity-60`}
+                                            className={`btn-primary h-14! w-full! rounded-(--hi-radius-md)! px-5! text-base ${isCustomBrand ? 'shadow-[0_18px_36px_rgba(8,44,110,0.24)]!' : 'shadow-[0_18px_36px_rgba(111,153,120,0.24)]!'} disabled:opacity-60`}
                                         >
                                             {loading ? t('auth.login.submitting') : t('auth.login.two_factor.verify')}
                                             <ArrowRight className="ml-2 h-4 w-4" />

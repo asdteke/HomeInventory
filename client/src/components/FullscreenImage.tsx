@@ -88,7 +88,7 @@ export default function FullscreenImage({
             <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className={`fullscreen-image-v25-trigger group/fullscreen relative block cursor-zoom-in overflow-hidden text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] ${className}`}
+                className={`fullscreen-image-v25-trigger group/fullscreen relative block cursor-zoom-in overflow-hidden text-left focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel-strong) ${className}`}
                 aria-label={openLabel}
                 title={openLabel}
             >
@@ -101,7 +101,7 @@ export default function FullscreenImage({
             {open && createPortal(
                 <div
                     ref={dialogRef}
-                    className="fullscreen-image-v25 fixed inset-0 z-[100] flex flex-col"
+                    className="fullscreen-image-v25 fixed inset-0 z-100 flex flex-col"
                     role="dialog"
                     aria-modal="true"
                     aria-label={alt}
@@ -109,7 +109,7 @@ export default function FullscreenImage({
                 >
                     <div className="fullscreen-image-v25-safe flex min-h-0 flex-1 flex-col">
                         <div
-                            className="fullscreen-image-v25-toolbar mx-3 mt-3 flex min-h-16 items-center justify-between gap-3 rounded-[1.5rem] px-3 py-2.5 text-white sm:mx-5 sm:mt-5 sm:px-4"
+                            className="fullscreen-image-v25-toolbar mx-3 mt-3 flex min-h-16 items-center justify-between gap-3 rounded-3xl px-3 py-2.5 text-white sm:mx-5 sm:mt-5 sm:px-4"
                             onClick={(event) => event.stopPropagation()}
                         >
                             <p className="min-w-0 flex-1 truncate px-1 text-sm font-medium sm:text-base">{alt}</p>

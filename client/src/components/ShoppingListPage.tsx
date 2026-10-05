@@ -360,14 +360,14 @@ export default function ShoppingListPage() {
                 <section className="shopping-suggestions-v25">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div className="flex items-center gap-3">
-                            <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)] shadow-sm">
+                            <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-(--hi-border) bg-(--hi-panel-muted) text-(--hi-text-soft) shadow-xs">
                                 <Package className="h-5 w-5" />
                             </span>
                             <div>
-                                <h3 className="text-base font-bold text-[var(--hi-text)]">
+                                <h3 className="text-base font-bold text-(--hi-text)">
                                     {t('shopping.suggestions.title', { defaultValue: 'Stok Önerileri' })}
                                 </h3>
-                                <p className="text-xs text-[var(--hi-text-muted)] font-medium">
+                                <p className="text-xs text-(--hi-text-muted) font-medium">
                                     {t('shopping.suggestions.desc', { defaultValue: 'Asgari stok sınırının altındaki envanter öğeleri.' })}
                                 </p>
                             </div>
@@ -376,7 +376,7 @@ export default function ShoppingListPage() {
                             <button
                                 onClick={handleBulkAddLowStock}
                                 disabled={isBulkAdding}
-                                className="btn-primary !shadow-none text-xs px-4 py-2 cursor-pointer"
+                                className="btn-primary shadow-none! text-xs px-4 py-2 cursor-pointer"
                             >
                                 {isBulkAdding ? (
                                     <RefreshCw className="h-4 w-4 animate-spin" />
@@ -388,7 +388,7 @@ export default function ShoppingListPage() {
                             <button
                                 type="button"
                                 onClick={dismissStockSuggestions}
-                                className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--hi-border)] text-[var(--hi-text-soft)] transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)]"
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-(--hi-border) text-(--hi-text-soft) transition hover:border-(--hi-border-strong) hover:bg-(--hi-panel-muted) hover:text-(--hi-text)"
                                 aria-label={t('common.close')}
                                 title={t('common.close')}
                             >
@@ -404,10 +404,10 @@ export default function ShoppingListPage() {
                                 className="shopping-suggestion-row-v25 group"
                             >
                                 <div className="min-w-0">
-                                    <p className="text-sm font-bold truncate text-[var(--hi-text)] group-hover:text-[var(--hi-secondary-strong)] transition-colors" title={suggestion.item_name}>
+                                    <p className="text-sm font-bold truncate text-(--hi-text) group-hover:text-(--hi-secondary-strong) transition-colors" title={suggestion.item_name}>
                                         {suggestion.item_name}
                                     </p>
-                                    <p className="text-[11px] text-[var(--hi-text-muted)] font-medium mt-0.5">
+                                    <p className="text-[11px] text-(--hi-text-muted) font-medium mt-0.5">
                                         {t('shopping.suggestions.stock_status', {
                                             current: suggestion.current_quantity,
                                             min: suggestion.min_quantity,
@@ -417,7 +417,7 @@ export default function ShoppingListPage() {
                                 </div>
                                 <button
                                     onClick={() => handleAddSuggestion(suggestion)}
-                                    className="flex h-7 items-center justify-center gap-1 rounded-lg bg-[var(--hi-bg)] hover:bg-[var(--hi-secondary-soft)] border border-[var(--hi-border)] hover:border-[var(--hi-secondary)]/20 text-xs font-semibold px-2.5 text-[var(--hi-text-soft)] hover:text-[var(--hi-secondary-strong)] transition-all duration-200 shrink-0 cursor-pointer"
+                                    className="flex h-7 items-center justify-center gap-1 rounded-lg bg-(--hi-bg) hover:bg-(--hi-secondary-soft) border border-(--hi-border) hover:border-(--hi-secondary)/20 text-xs font-semibold px-2.5 text-(--hi-text-soft) hover:text-(--hi-secondary-strong) transition-all duration-200 shrink-0 cursor-pointer"
                                 >
                                     <Plus className="h-3.5 w-3.5" />
                                     <span>{t('shopping.suggestions.add_qty', { qty: suggestion.suggested_quantity, defaultValue: `${suggestion.suggested_quantity} Ekle` })}</span>
@@ -438,7 +438,7 @@ export default function ShoppingListPage() {
                                 title={t('shopping.sections.active_list', { defaultValue: 'Alınacak Ürünler' })}
                                 description={t('shopping.sections.active_desc', { defaultValue: 'Sepetinize ekleyeceğiniz güncel alışveriş öğeleri.' })}
                             />
-                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-[var(--hi-accent-soft)] text-[var(--hi-accent)] border border-[var(--hi-accent)]/20">
+                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-(--hi-accent-soft) text-(--hi-accent) border border-(--hi-accent)/20">
                                 {t('shopping.sections.active_count', { count: activeItems.length, defaultValue: `${activeItems.length} Ürün` })}
                             </span>
                         </div>
@@ -470,7 +470,7 @@ export default function ShoppingListPage() {
                                                 aria-label={t('shopping.actions.mark_completed', { defaultValue: 'Mark as completed' })}
                                             >
                                                 <span className="shopping-check-glyph">
-                                                    <Check className="h-3.5 w-3.5 stroke-[3]" />
+                                                    <Check className="h-3.5 w-3.5 stroke-3" />
                                                 </span>
                                             </button>
                                             <div className="min-w-0">
@@ -536,13 +536,13 @@ export default function ShoppingListPage() {
                                 }}
                                 role="button"
                                 tabIndex={0}
-                                className="flex w-full items-center justify-between focus:outline-none cursor-pointer group/accordion select-none"
+                                className="flex w-full items-center justify-between focus:outline-hidden cursor-pointer group/accordion select-none"
                             >
                                 <div className="flex items-center gap-2.5">
-                                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 shadow-sm border border-emerald-500/15">
+                                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 shadow-xs border border-emerald-500/15">
                                         <CheckCircle2 className="h-4.5 w-4.5" />
                                     </span>
-                                    <span className="text-sm font-bold text-[var(--hi-text)] group-hover/accordion:text-emerald-500 transition-colors">
+                                    <span className="text-sm font-bold text-(--hi-text) group-hover/accordion:text-emerald-500 transition-colors">
                                         {t('shopping.sections.completed_list', { count: completedItems.length, defaultValue: `Alınan Ürünler (${completedItems.length})` })}
                                     </span>
                                 </div>
@@ -556,7 +556,7 @@ export default function ShoppingListPage() {
                                     >
                                         {t('shopping.actions.clear_completed', { defaultValue: 'Geçmişi Temizle' })}
                                     </button>
-                                    <span className="text-[var(--hi-text-muted)] group-hover/accordion:text-[var(--hi-text-soft)] transition-colors">
+                                    <span className="text-(--hi-text-muted) group-hover/accordion:text-(--hi-text-soft) transition-colors">
                                         {isCompletedOpen ? (
                                             <ChevronUp className="h-4.5 w-4.5" />
                                         ) : (
@@ -567,7 +567,7 @@ export default function ShoppingListPage() {
                             </div>
 
                             {isCompletedOpen && (
-                                <div className="space-y-2 pt-3 border-t border-[var(--hi-border)]/60 transition-all duration-300">
+                                <div className="space-y-2 pt-3 border-t border-(--hi-border)/60 transition-all duration-300">
                                     {completedItems.map((item) => {
                                         const isCompleting = completingIds.has(item.id);
                                         return (
@@ -614,7 +614,7 @@ export default function ShoppingListPage() {
                 {/* RIGHT COLUMN: Glassmorphic Floating Controller Form */}
                 <div className="lg:col-span-4">
                     <aside className="shopping-add-panel-v25">
-                        <div className="pb-2 border-b border-[var(--hi-border)]/60">
+                        <div className="pb-2 border-b border-(--hi-border)/60">
                             <SectionHeader
                                 title={t('shopping.sections.add_item', { defaultValue: 'Manuel Ürün Ekle' })}
                                 description={t('shopping.sections.add_desc', { defaultValue: 'Listeye el ile özel bir ürün ekleyin.' })}
@@ -635,7 +635,7 @@ export default function ShoppingListPage() {
                                 sliding
                                 className="shopping-add-type-v25"
                                 activeClassName="text-white"
-                                inactiveClassName="text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]"
+                                inactiveClassName="text-(--hi-text-soft) hover:text-(--hi-text)"
                                 options={[
                                     {
                                         value: 'inventory',
@@ -650,14 +650,14 @@ export default function ShoppingListPage() {
                                 ]}
                             />
 
-                            <form onSubmit={handleAddManualItem} className="space-y-4">
+                            <form onSubmit={handleAddManualItem} className="flex flex-col gap-y-4">
                                 {addType === 'inventory' ? (
                                     <div className="space-y-1.5">
-                                        <label className="block text-[11px] font-bold text-[var(--hi-text-soft)] uppercase tracking-wider">
-                                            {t('shopping.form.select_inventory_item', { defaultValue: 'Envanterden Eşya Seç' })} <span className="text-[var(--hi-accent)]">*</span>
+                                        <label className="block text-[11px] font-bold text-(--hi-text-soft) uppercase tracking-wider">
+                                            {t('shopping.form.select_inventory_item', { defaultValue: 'Envanterden Eşya Seç' })} <span className="text-(--hi-accent)">*</span>
                                         </label>
                                         {inventoryItems.length === 0 ? (
-                                            <p className="text-xs text-[var(--hi-danger)] font-medium">
+                                            <p className="text-xs text-(--hi-danger) font-medium">
                                                 {t('shopping.form.no_inventory_items', { defaultValue: 'Envanterinizde henüz eşya yok.' })}
                                             </p>
                                         ) : (
@@ -672,7 +672,7 @@ export default function ShoppingListPage() {
                                                         setQuantity(diff);
                                                     }
                                                 }}
-                                                className="w-full rounded-xl border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] px-4 py-3 text-sm text-[var(--hi-text)] outline-none focus:border-[var(--hi-accent)] focus:ring-2 focus:ring-[var(--hi-accent)]/20 transition-all duration-300 cursor-pointer"
+                                                className="w-full rounded-xl border border-(--hi-border) bg-(--hi-bg-strong) px-4 py-3 text-sm text-(--hi-text) outline-hidden focus:border-(--hi-accent) focus:ring-2 focus:ring-(--hi-accent)/20 transition-all duration-300 cursor-pointer"
                                                 required
                                             >
                                                 <option value="" disabled>-- {t('shopping.form.select_item_placeholder', { defaultValue: 'Bir eşya seçin' })} --</option>
@@ -686,22 +686,22 @@ export default function ShoppingListPage() {
                                     </div>
                                 ) : (
                                     <div className="space-y-1.5">
-                                        <label className="block text-[11px] font-bold text-[var(--hi-text-soft)] uppercase tracking-wider">
-                                            {t('shopping.form.item_name', { defaultValue: 'Ürün Adı' })} <span className="text-[var(--hi-accent)]">*</span>
+                                        <label className="block text-[11px] font-bold text-(--hi-text-soft) uppercase tracking-wider">
+                                            {t('shopping.form.item_name', { defaultValue: 'Ürün Adı' })} <span className="text-(--hi-accent)">*</span>
                                         </label>
                                         <input
                                             type="text"
                                             value={itemName}
                                             onChange={(e) => setItemName(e.target.value)}
                                             placeholder={t('shopping.form.item_name_placeholder', { defaultValue: 'Örn: Süt, Deterjan, Filtre Kahve...' })}
-                                            className="w-full rounded-xl border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] px-4 py-3 text-sm text-[var(--hi-text)] outline-none focus:border-[var(--hi-accent)] focus:ring-2 focus:ring-[var(--hi-accent)]/20 transition-all duration-300"
+                                            className="w-full rounded-xl border border-(--hi-border) bg-(--hi-bg-strong) px-4 py-3 text-sm text-(--hi-text) outline-hidden focus:border-(--hi-accent) focus:ring-2 focus:ring-(--hi-accent)/20 transition-all duration-300"
                                             required
                                         />
                                     </div>
                                 )}
 
                                 <div className="space-y-1.5">
-                                    <label className="block text-[11px] font-bold text-[var(--hi-text-soft)] uppercase tracking-wider">
+                                    <label className="block text-[11px] font-bold text-(--hi-text-soft) uppercase tracking-wider">
                                         {t('shopping.form.quantity', { defaultValue: 'Adet / Miktar' })}
                                     </label>
                                     <input
@@ -709,14 +709,14 @@ export default function ShoppingListPage() {
                                         min="1"
                                         value={quantity}
                                         onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value, 10) || 1))}
-                                        className="w-full rounded-xl border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] px-4 py-3 text-sm text-[var(--hi-text)] outline-none focus:border-[var(--hi-accent)] focus:ring-2 focus:ring-[var(--hi-accent)]/20 transition-all duration-300"
+                                        className="w-full rounded-xl border border-(--hi-border) bg-(--hi-bg-strong) px-4 py-3 text-sm text-(--hi-text) outline-hidden focus:border-(--hi-accent) focus:ring-2 focus:ring-(--hi-accent)/20 transition-all duration-300"
                                     />
                                 </div>
 
                                 <button
                                     type="submit"
                                     disabled={addingItem}
-                                    className="btn-primary !w-full cursor-pointer"
+                                    className="btn-primary w-full! cursor-pointer"
                                 >
                                     <Plus className="h-5 w-5" />
                                     <span className="text-sm">

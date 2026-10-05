@@ -156,7 +156,7 @@ export default function ItemList() {
         filters.warranty ||
         filters.sort !== DEFAULT_ITEM_SORT
     );
-    const secondaryActionButtonClass = 'flex-1 lg:flex-none inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] px-4 py-2 text-sm font-medium text-[var(--hi-text)] transition-all duration-200 hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]';
+    const secondaryActionButtonClass = 'flex-1 lg:flex-none inline-flex items-center justify-center gap-2 rounded-xl border border-(--hi-border) bg-(--hi-panel) px-4 py-2 text-sm font-medium text-(--hi-text) transition-all duration-200 hover:border-(--hi-border-strong) hover:bg-(--hi-panel-muted) active:scale-[0.98] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel-strong)';
     const currentLanguage = i18n.resolvedLanguage || i18n.language;
 
     const getVisibleRoomName = (roomLike: any) => {
@@ -791,7 +791,7 @@ export default function ItemList() {
                                         aria-label={tool.label}
                                         title={tool.label}
                                     >
-                                        <ToolIcon className="h-4 w-4 text-[var(--hi-accent)]" />
+                                        <ToolIcon className="h-4 w-4 text-(--hi-accent)" />
                                     </Link>
                                 );
                             })}
@@ -801,7 +801,7 @@ export default function ItemList() {
                                 onChange={(val) => setViewMode(val as 'grid' | 'list')}
                                 className="hidden sm:inline-flex"
                                 buttonClassName="h-7 w-8 p-0 text-sm"
-                                activeClassName="bg-[var(--hi-accent)] text-white shadow-[var(--hi-shadow-soft)]"
+                                activeClassName="bg-(--hi-accent) text-white shadow-(--hi-shadow-soft)"
                                 options={[
                                     {
                                         value: 'grid',
@@ -1143,8 +1143,8 @@ export default function ItemList() {
                                     {item.photo_path ? (
                                         <>
                                             <div className={`inventory-item-media
-                      overflow-hidden relative bg-[var(--hi-panel-muted)]
-                      ${viewMode === 'list' ? 'lg:w-36 lg:min-h-[148px] lg:flex-shrink-0 lg:self-stretch' : 'aspect-[4/3] sm:aspect-square'}
+                      overflow-hidden relative bg-(--hi-panel-muted)
+                      ${viewMode === 'list' ? 'lg:w-36 lg:min-h-[148px] lg:shrink-0 lg:self-stretch' : 'aspect-4/3 sm:aspect-square'}
                     `}>
                                             <SecureImage
                                                 src={item.photo_path}
@@ -1159,21 +1159,21 @@ export default function ItemList() {
 
                                             <div className="absolute top-2 left-2 flex gap-1">
                                                 {activeBorrow && (
-                                                    <span className={`px-2 py-1 rounded-full text-[11px] font-semibold text-white ${overdue ? 'bg-rose-500/95' : 'bg-[var(--hi-accent)]'}`}>
+                                                    <span className={`px-2 py-1 rounded-full text-[11px] font-semibold text-white ${overdue ? 'bg-rose-500/95' : 'bg-(--hi-accent)'}`}>
                                                         {overdue ? t('inventory.borrow.overdue_badge') : t('inventory.borrow.borrowed_badge')}
                                                     </span>
                                                 )}
                                             </div>
 
                                             <div className="inventory-card-desktop-visibility absolute top-2 right-2 flex gap-1">
-                                                {item.is_public ? <span className="p-1.5 rounded-full bg-[var(--hi-accent)] text-white"><Globe className="w-3 h-3" /></span>
-                                                    : <span className="p-1.5 rounded-full bg-[var(--hi-secondary)] text-white"><Lock className="w-3 h-3" /></span>}
+                                                {item.is_public ? <span className="p-1.5 rounded-full bg-(--hi-accent) text-white"><Globe className="w-3 h-3" /></span>
+                                                    : <span className="p-1.5 rounded-full bg-(--hi-secondary) text-white"><Lock className="w-3 h-3" /></span>}
                                             </div>
                                             {canManageItem && (
                                                 <button
                                                     type="button"
                                                     onClick={() => toggleItemSelection(item.id)}
-                                                    className="inventory-card-desktop-selection absolute bottom-2 right-2 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/35 bg-black/55 text-white shadow-lg backdrop-blur-sm transition hover:bg-black/70"
+                                                    className="inventory-card-desktop-selection absolute bottom-2 right-2 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/35 bg-black/55 text-white shadow-lg backdrop-blur-xs transition hover:bg-black/70"
                                                     aria-label={selectedItemIds.has(item.id)
                                                         ? t('inventory.bulk.unselect_item', { defaultValue: 'Seçimi kaldır' })
                                                         : t('inventory.bulk.select_item', { defaultValue: 'Eşyayı seç' })}
@@ -1183,7 +1183,7 @@ export default function ItemList() {
                                             )}
                                             {user && item.user_id !== user.id && (
                                                 <div className="absolute bottom-2 left-2">
-                                                    <span className="px-2 py-1 rounded-full bg-black/70 text-white text-xs font-medium backdrop-blur">{item.owner_name}</span>
+                                                    <span className="px-2 py-1 rounded-full bg-black/70 text-white text-xs font-medium backdrop-blur-sm">{item.owner_name}</span>
                                                 </div>
                                             )}
                                         </div>
@@ -1210,23 +1210,23 @@ export default function ItemList() {
                                             </div>
                                         </>
                                     ) : (
-                                        <div className={`inventory-item-no-media-meta flex items-center justify-between gap-3 border-b border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 ${viewMode === 'list' ? 'lg:w-20 lg:flex-shrink-0 lg:flex-col lg:justify-center lg:border-b-0 lg:border-r lg:px-2' : ''}`}>
+                                        <div className={`inventory-item-no-media-meta flex items-center justify-between gap-3 border-b border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3 ${viewMode === 'list' ? 'lg:w-20 lg:shrink-0 lg:flex-col lg:justify-center lg:border-b-0 lg:border-r lg:px-2' : ''}`}>
                                             <div className={`flex min-w-0 items-center gap-2 ${viewMode === 'list' ? 'lg:flex-col' : ''}`}>
-                                                <span className="inventory-item-no-media-icon inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] text-xl text-[var(--hi-text-muted)] shadow-sm">
+                                                <span className="inventory-item-no-media-icon inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-(--hi-border) bg-(--hi-panel-strong) text-xl text-(--hi-text-muted) shadow-xs">
                                                     {item.category_icon || '📦'}
                                                 </span>
                                                 {activeBorrow && (
-                                                    <span className={`rounded-full px-2 py-1 text-[11px] font-semibold text-white ${overdue ? 'bg-rose-500/95' : 'bg-[var(--hi-accent)]'}`}>
+                                                    <span className={`rounded-full px-2 py-1 text-[11px] font-semibold text-white ${overdue ? 'bg-rose-500/95' : 'bg-(--hi-accent)'}`}>
                                                         {overdue ? t('inventory.borrow.overdue_badge') : t('inventory.borrow.borrowed_badge')}
                                                     </span>
                                                 )}
                                                 {user && item.user_id !== user.id && (
-                                                    <span className="truncate text-xs font-medium text-[var(--hi-text-soft)]">{item.owner_name}</span>
+                                                    <span className="truncate text-xs font-medium text-(--hi-text-soft)">{item.owner_name}</span>
                                                 )}
                                             </div>
                                             <div className="flex shrink-0 items-center gap-2">
                                                 <span
-                                                    className={`inline-flex h-8 w-8 items-center justify-center rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] ${item.is_public ? 'text-[var(--hi-accent)]' : 'text-[var(--hi-secondary)]'}`}
+                                                    className={`inline-flex h-8 w-8 items-center justify-center rounded-full border border-(--hi-border) bg-(--hi-panel-strong) ${item.is_public ? 'text-(--hi-accent)' : 'text-(--hi-secondary)'}`}
                                                     aria-label={item.is_public
                                                         ? t('items.form.visibility_public', { defaultValue: 'Shared' })
                                                         : t('items.form.visibility_private', { defaultValue: 'Private' })}
@@ -1237,7 +1237,7 @@ export default function ItemList() {
                                                     <button
                                                         type="button"
                                                         onClick={() => toggleItemSelection(item.id)}
-                                                        className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border bg-[var(--hi-panel-strong)] transition ${selectedItemIds.has(item.id) ? 'border-[var(--hi-accent-border)] text-[var(--hi-accent)]' : 'border-[var(--hi-border)] text-[var(--hi-text-soft)] hover:border-[var(--hi-accent-border)] hover:text-[var(--hi-accent)]'}`}
+                                                        className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border bg-(--hi-panel-strong) transition ${selectedItemIds.has(item.id) ? 'border-(--hi-accent-border) text-(--hi-accent)' : 'border-(--hi-border) text-(--hi-text-soft) hover:border-(--hi-accent-border) hover:text-(--hi-accent)'}`}
                                                         aria-label={selectedItemIds.has(item.id)
                                                             ? t('inventory.bulk.unselect_item', { defaultValue: 'Unselect item' })
                                                             : t('inventory.bulk.select_item', { defaultValue: 'Select item' })}
@@ -1253,38 +1253,38 @@ export default function ItemList() {
                                     <div className={`inventory-item-content flex flex-1 flex-col p-4 ${viewMode === 'list' ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(18rem,28rem)] lg:items-center lg:gap-5 lg:px-5 lg:py-4 xl:grid-cols-[minmax(0,1fr)_minmax(23rem,31rem)]' : ''}`}>
                                         <div className={`${viewMode === 'list' ? 'min-w-0' : 'flex-1'}`}>
                                             <div className="mb-2 flex items-start justify-between gap-3">
-                                                <h3 className="min-w-0 flex-1 font-semibold leading-tight text-[var(--hi-text)] [overflow-wrap:anywhere]">
+                                                <h3 className="min-w-0 flex-1 font-semibold leading-tight text-(--hi-text) wrap-anywhere">
                                                     {itemTitle}
                                                 </h3>
                                                 {canManageItem ? (
-                                                    <div className="inventory-item-quantity ml-2 inline-flex shrink-0 items-center rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)]">
+                                                    <div className="inventory-item-quantity ml-2 inline-flex shrink-0 items-center rounded-xl border border-(--hi-border) bg-(--hi-panel)">
                                                         <button
                                                             type="button"
                                                             onClick={() => handleStockAdjust(item, -1)}
                                                             disabled={stockAdjustingIds.has(item.id) || Number(item.quantity || 0) <= 0}
-                                                            className="flex h-8 w-8 items-center justify-center text-[var(--hi-text-soft)] transition hover:text-[var(--hi-accent)] disabled:cursor-not-allowed disabled:opacity-40"
+                                                            className="flex h-8 w-8 items-center justify-center text-(--hi-text-soft) transition hover:text-(--hi-accent) disabled:cursor-not-allowed disabled:opacity-40"
                                                             aria-label={t('inventory.stock_decrease', { defaultValue: 'Stok azalt' })}
                                                         >
                                                             <Minus className="h-3.5 w-3.5" />
                                                         </button>
-                                                        <span className="min-w-8 px-2 text-center text-sm font-semibold text-[var(--hi-text)]">×{item.quantity}</span>
+                                                        <span className="min-w-8 px-2 text-center text-sm font-semibold text-(--hi-text)">×{item.quantity}</span>
                                                         <button
                                                             type="button"
                                                             onClick={() => handleStockAdjust(item, 1)}
                                                             disabled={stockAdjustingIds.has(item.id)}
-                                                            className="flex h-8 w-8 items-center justify-center text-[var(--hi-text-soft)] transition hover:text-[var(--hi-accent)] disabled:cursor-not-allowed disabled:opacity-40"
+                                                            className="flex h-8 w-8 items-center justify-center text-(--hi-text-soft) transition hover:text-(--hi-accent) disabled:cursor-not-allowed disabled:opacity-40"
                                                             aria-label={t('inventory.stock_increase', { defaultValue: 'Stok artır' })}
                                                         >
                                                             <Plus className="h-3.5 w-3.5" />
                                                         </button>
                                                     </div>
                                                 ) : (
-                                                    <span className="ml-2 flex-shrink-0 text-sm text-[var(--hi-text-soft)]">×{item.quantity}</span>
+                                                    <span className="ml-2 shrink-0 text-sm text-(--hi-text-soft)">×{item.quantity}</span>
                                                 )}
                                             </div>
 
                                             {item.description && viewMode !== 'list' && (
-                                                <p className="mb-3 text-sm text-[var(--hi-text-soft)] line-clamp-2">{item.description}</p>
+                                                <p className="mb-3 text-sm text-(--hi-text-soft) line-clamp-2">{item.description}</p>
                                             )}
 
                                             {activeBorrow && (
@@ -1292,7 +1292,7 @@ export default function ItemList() {
                                                     ? 'border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200'
                                                     : overdue
                                                     ? 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300'
-                                                    : 'border-[var(--hi-border-strong)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
+                                                    : 'border-(--hi-border-strong) bg-(--hi-accent-soft) text-(--hi-accent)'
                                                     }`}>
                                                     <p className="text-sm font-medium">
                                                         {returnPending
@@ -1316,24 +1316,24 @@ export default function ItemList() {
                                             <div className={`inventory-item-tags flex flex-wrap gap-2 ${viewMode === 'list' ? 'mb-0' : 'mb-3'}`}>
                                                 {visibleCategoryName && (
                                                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium" style={{ backgroundColor: `${item.category_color}15`, color: item.category_color }}>
-                                                        <span className="truncate max-w-[11rem]">{item.category_icon} {visibleCategoryName}</span>
+                                                        <span className="truncate max-w-44">{item.category_icon} {visibleCategoryName}</span>
                                                     </span>
                                                 )}
                                                 {item.box_name && (
-                                                    <Link to={`/organize/boxes/${item.box_id}`} className="inventory-placement-trail-v26 badge max-w-full text-xs py-0.5 inline-flex items-center gap-1 hover:text-[var(--hi-accent)]">
-                                                        <Box className="w-3 h-3 text-[var(--hi-text-muted)] shrink-0" />
+                                                    <Link to={`/organize/boxes/${item.box_id}`} className="inventory-placement-trail-v26 badge max-w-full text-xs py-0.5 inline-flex items-center gap-1 hover:text-(--hi-accent)">
+                                                        <Box className="w-3 h-3 text-(--hi-text-muted) shrink-0" />
                                                         <span className="truncate">{boxPlacementLabel}</span>
                                                     </Link>
                                                 )}
                                                 {!item.box_name && visibleRoomName && (
                                                     <span className="badge max-w-full text-xs py-0.5 inline-flex items-center gap-1">
-                                                        <DoorOpen className="w-3 h-3 text-[var(--hi-text-muted)] shrink-0" />
+                                                        <DoorOpen className="w-3 h-3 text-(--hi-text-muted) shrink-0" />
                                                         <span className="truncate">{visibleRoomName}</span>
                                                     </span>
                                                 )}
                                                 {!item.box_name && item.location_name && (
                                                     <span className="badge max-w-full text-xs py-0.5 inline-flex items-center gap-1">
-                                                        <MapPin className="w-3 h-3 text-[var(--hi-text-muted)] shrink-0" />
+                                                        <MapPin className="w-3 h-3 text-(--hi-text-muted) shrink-0" />
                                                         <span className="truncate">{item.location_name}</span>
                                                     </span>
                                                 )}
@@ -1359,13 +1359,13 @@ export default function ItemList() {
                                         </div>
 
                                         {/* Actions */}
-                                        <div className={`inventory-item-actions mt-auto grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_2.75rem] items-center gap-2 ${viewMode === 'list' ? 'lg:mt-0 lg:w-full lg:flex-shrink-0' : ''}`}>
+                                        <div className={`inventory-item-actions mt-auto grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_2.75rem] items-center gap-2 ${viewMode === 'list' ? 'lg:mt-0 lg:w-full lg:shrink-0' : ''}`}>
                                             <div className="min-w-0">
                                                 {activeBorrow && activeBorrow.can_mark_returned !== false ? (
                                                 <button
                                                     type="button"
                                                     onClick={() => setReturnDialogItem({ ...item, name: itemTitle })}
-                                                    className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-[var(--hi-accent-border)] bg-[var(--hi-accent-soft)] px-3 text-sm font-medium text-[var(--hi-accent)] transition-all duration-200 hover:bg-[var(--hi-accent)] hover:text-white hover:border-transparent active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)]"
+                                                    className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-(--hi-accent-border) bg-(--hi-accent-soft) px-3 text-sm font-medium text-(--hi-accent) transition-all duration-200 hover:bg-(--hi-accent) hover:text-white hover:border-transparent active:scale-[0.98] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent)"
                                                 >
                                                     {activeBorrow.role === 'borrower'
                                                         ? t('borrow_requests.actions.mark_delivered')
@@ -1375,9 +1375,9 @@ export default function ItemList() {
                                                 <button
                                                     type="button"
                                                     onClick={() => setLendDialogItem({ ...item, name: itemTitle })}
-                                                    className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] px-3 text-sm font-medium text-[var(--hi-text)] transition-all duration-200 hover:border-[var(--hi-accent)] hover:text-[var(--hi-accent)] hover:bg-[var(--hi-accent-soft)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)]"
+                                                    className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-(--hi-border) bg-(--hi-panel) px-3 text-sm font-medium text-(--hi-text) transition-all duration-200 hover:border-(--hi-accent) hover:text-(--hi-accent) hover:bg-(--hi-accent-soft) active:scale-[0.98] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent)"
                                                 >
-                                                    <ArrowRightLeft className="w-4 h-4 text-[var(--hi-accent)]" />
+                                                    <ArrowRightLeft className="w-4 h-4 text-(--hi-accent)" />
                                                     <span>{t('inventory.borrow.lend')}</span>
                                                 </button>
                                                 ) : (
@@ -1385,7 +1385,7 @@ export default function ItemList() {
                                                 )}
                                             </div>
                                             <Link to={`/items/${item.id}/edit`} className={`${secondaryActionButtonClass} h-11 w-full justify-center px-3`}>
-                                                <Eye className="w-4 h-4 text-[var(--hi-text-muted)]" /> <span className={viewMode === 'list' ? 'lg:hidden xl:inline' : ''}>{t('common.details', { defaultValue: 'Details' })}</span>
+                                                <Eye className="w-4 h-4 text-(--hi-text-muted)" /> <span className={viewMode === 'list' ? 'lg:hidden xl:inline' : ''}>{t('common.details', { defaultValue: 'Details' })}</span>
                                             </Link>
                                             {canManageItem ? (
                                                 <IconActionButton
@@ -1393,7 +1393,7 @@ export default function ItemList() {
                                                     icon={Trash2}
                                                     tone="danger"
                                                     onClick={() => setPendingDeleteItem(item)}
-                                                    className="h-11 w-11 shrink-0 border border-[var(--hi-border)] bg-[var(--hi-panel)] active:scale-[0.98] transition-all duration-200 hover:border-red-500/20"
+                                                    className="h-11 w-11 shrink-0 border border-(--hi-border) bg-(--hi-panel) active:scale-[0.98] transition-all duration-200 hover:border-red-500/20"
                                                 />
                                             ) : (
                                                 <span aria-hidden="true" className="block h-11 w-11 shrink-0" />
@@ -1436,9 +1436,9 @@ export default function ItemList() {
                 onConfirm={handleDelete}
                 confirming={false}
             >
-                <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                    <p className="font-medium text-[var(--hi-text)]">{pendingDeleteItem?.name}</p>
-                    <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                <div className="rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                    <p className="font-medium text-(--hi-text)">{pendingDeleteItem?.name}</p>
+                    <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                         {t('inventory.delete_warning', { defaultValue: 'Photos, description, and placement details tied to this record will be removed from the active inventory view.' })}
                     </p>
                 </div>

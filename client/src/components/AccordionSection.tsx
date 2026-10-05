@@ -49,11 +49,11 @@ export default function AccordionSection({
                         )}
                         <div className="app-accordion-copy">
                             <div className="app-accordion-heading">
-                                <h2 className="text-lg font-semibold text-[var(--hi-text)]">{title}</h2>
+                                <h2 className="text-lg font-semibold text-(--hi-text)">{title}</h2>
                                 {badge}
                             </div>
                             {description && (
-                                <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                                <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                                     {description}
                                 </p>
                             )}
@@ -74,7 +74,7 @@ export default function AccordionSection({
                 className={`settings-accordion-content ${isOpen ? 'is-open' : ''}`}
             >
                 <div className="overflow-hidden">
-                    <div className="mt-4 border-t border-[var(--hi-border)] pt-4">
+                    <div className="mt-4 border-t border-(--hi-border) pt-4">
                         {children}
                     </div>
                 </div>

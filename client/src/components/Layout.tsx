@@ -98,43 +98,43 @@ export function ShellLink({ item, compact = false, onClick, tone = 'default', cl
         ? tone === 'danger'
             ? 'border border-red-300/40 bg-red-500/10 text-red-500'
             : tone === 'admin'
-                ? 'border border-[rgba(184,153,104,0.26)] bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)]'
+                ? 'border border-[rgba(184,153,104,0.26)] bg-(--hi-secondary-soft) text-(--hi-secondary-strong)'
             : isCustomBrand
-                ? 'border border-[color:var(--hi-border-strong)] bg-[linear-gradient(135deg,var(--hi-accent-soft),rgba(255,255,255,0.03))] text-[var(--hi-accent)] shadow-[var(--hi-shadow-soft)]'
-                : 'border border-[color:var(--hi-accent-soft)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
+                ? 'border border-(--hi-border-strong) bg-[linear-gradient(135deg,var(--hi-accent-soft),rgba(255,255,255,0.03))] text-(--hi-accent) shadow-(--hi-shadow-soft)'
+                : 'border border-(--hi-accent-soft) bg-(--hi-accent-soft) text-(--hi-accent)'
         : tone === 'danger'
             ? 'border border-red-300/40 bg-red-500/10 text-red-500'
             : tone === 'admin'
-                ? 'border border-[rgba(184,153,104,0.24)] bg-[linear-gradient(135deg,rgba(184,153,104,0.12),rgba(184,153,104,0.04))] text-[var(--hi-text)]'
+                ? 'border border-[rgba(184,153,104,0.24)] bg-[linear-gradient(135deg,rgba(184,153,104,0.12),rgba(184,153,104,0.04))] text-(--hi-text)'
             : isCustomBrand
-                ? 'border border-[color:var(--hi-border-strong)] bg-[linear-gradient(135deg,var(--hi-accent-soft),rgba(255,255,255,0.03))] text-[var(--hi-text)] shadow-[var(--hi-shadow-soft)]'
-                : 'border border-[color:var(--hi-accent-soft)] bg-[var(--hi-accent-soft)] text-[var(--hi-text)]';
+                ? 'border border-(--hi-border-strong) bg-[linear-gradient(135deg,var(--hi-accent-soft),rgba(255,255,255,0.03))] text-(--hi-text) shadow-(--hi-shadow-soft)'
+                : 'border border-(--hi-accent-soft) bg-(--hi-accent-soft) text-(--hi-text)';
     const inactiveClasses = compact
         ? tone === 'danger'
             ? 'border border-red-300/20 bg-red-500/5 text-red-500 hover:bg-red-500/10'
             : tone === 'admin'
-                ? 'border border-[rgba(184,153,104,0.16)] bg-[rgba(184,153,104,0.05)] text-[var(--hi-secondary-strong)] hover:border-[rgba(184,153,104,0.24)] hover:bg-[rgba(184,153,104,0.1)]'
-            : 'border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)]'
+                ? 'border border-[rgba(184,153,104,0.16)] bg-[rgba(184,153,104,0.05)] text-(--hi-secondary-strong) hover:border-[rgba(184,153,104,0.24)] hover:bg-[rgba(184,153,104,0.1)]'
+            : 'border border-(--hi-border) bg-(--hi-panel) text-(--hi-text-soft) hover:border-(--hi-border-strong) hover:bg-(--hi-panel-muted) hover:text-(--hi-text)'
         : tone === 'danger'
             ? 'border border-red-300/20 bg-red-500/5 text-red-500 hover:bg-red-500/10'
             : tone === 'admin'
-                ? 'border border-[rgba(184,153,104,0.12)] bg-[rgba(184,153,104,0.05)] text-[var(--hi-text-soft)] hover:border-[rgba(184,153,104,0.22)] hover:bg-[rgba(184,153,104,0.1)] hover:text-[var(--hi-text)]'
+                ? 'border border-[rgba(184,153,104,0.12)] bg-[rgba(184,153,104,0.05)] text-(--hi-text-soft) hover:border-[rgba(184,153,104,0.22)] hover:bg-[rgba(184,153,104,0.1)] hover:text-(--hi-text)'
             : isCustomBrand
-                ? 'border border-transparent text-[var(--hi-text-soft)] hover:border-[var(--hi-border)] hover:bg-[var(--hi-panel)] hover:text-[var(--hi-text)]'
-                : 'border border-transparent text-[var(--hi-text-soft)] hover:bg-white/45 hover:text-[var(--hi-text)] dark:hover:bg-white/5';
+                ? 'border border-transparent text-(--hi-text-soft) hover:border-(--hi-border) hover:bg-(--hi-panel) hover:text-(--hi-text)'
+                : 'border border-transparent text-(--hi-text-soft) hover:bg-white/45 hover:text-(--hi-text) dark:hover:bg-white/5';
     const activeIconClasses = compact
         ? 'text-current'
         : tone === 'danger'
             ? 'bg-red-500/10 text-red-500'
         : tone === 'admin'
-                ? 'bg-[rgba(184,153,104,0.18)] text-[var(--hi-secondary-strong)]'
-            : 'bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]';
+                ? 'bg-[rgba(184,153,104,0.18)] text-(--hi-secondary-strong)'
+            : 'bg-(--hi-accent-soft) text-(--hi-accent)';
     const inactiveIconClasses = compact
         ? 'text-current'
         : tone === 'danger'
             ? 'bg-red-500/10 text-red-500'
             : tone === 'admin'
-                ? 'bg-[rgba(184,153,104,0.12)] text-[var(--hi-secondary-strong)]'
+                ? 'bg-[rgba(184,153,104,0.12)] text-(--hi-secondary-strong)'
             : 'bg-black/5 text-current dark:bg-white/5';
     const expandedButtonSize = spacious ? EXPANDED_NAV_BUTTON_MIN_HEIGHT : STANDARD_NAV_BUTTON_MIN_HEIGHT;
     const expandedIconSize = spacious ? EXPANDED_NAV_ICON_SIZE : STANDARD_NAV_ICON_SIZE;
@@ -395,8 +395,8 @@ export default function Layout() {
             <aside
                 className={`
                     desktop-sidebar-v27 ${sidebarOpen ? 'is-expanded' : 'is-compact'}
-                    fixed inset-y-0 left-0 z-40 hidden lg:flex flex-col border-r border-[var(--hi-border)]
-                    bg-[var(--hi-bg-elevated)] backdrop-blur-2xl transition-all duration-300
+                    fixed inset-y-0 left-0 z-40 hidden lg:flex flex-col border-r border-(--hi-border)
+                    bg-(--hi-bg-elevated) backdrop-blur-2xl transition-all duration-300
                     ${sidebarOpen ? 'w-[288px]' : 'w-[112px]'}
                 `}
             >
@@ -409,7 +409,7 @@ export default function Layout() {
                                 className={isCustomBrand ? 'max-h-[44px] max-w-[190px] object-contain' : 'max-h-[62px]'}
                             />
                         ) : (
-                            <span className={`sidebar-brand-symbol-v27 mx-auto flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center overflow-hidden rounded-[1.35rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] shadow-[var(--hi-shadow-soft)]`}>
+                            <span className={`sidebar-brand-symbol-v27 mx-auto flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center overflow-hidden rounded-[1.35rem] border border-(--hi-border) bg-(--hi-panel-muted) shadow-(--hi-shadow-soft)`}>
                                 <BrandLogo variant="symbol" size="sm" className={isCustomBrand ? 'max-h-[50px]' : 'max-h-[42px]'} />
                             </span>
                         )}
@@ -419,7 +419,7 @@ export default function Layout() {
                             type="button"
                             onClick={() => setSidebarOpen(false)}
                             aria-label={t('layout.collapse_sidebar', { defaultValue: 'Collapse sidebar' }) || undefined}
-                            className="sidebar-resize-control-v27 ml-2 shrink-0 rounded-full border border-[var(--hi-border)] bg-white/50 p-2 text-[var(--hi-text-soft)] transition hover:text-[var(--hi-text)] dark:bg-white/5"
+                            className="sidebar-resize-control-v27 ml-2 shrink-0 rounded-full border border-(--hi-border) bg-white/50 p-2 text-(--hi-text-soft) transition hover:text-(--hi-text) dark:bg-white/5"
                         >
                             <ChevronLeft className="h-4 w-4" />
                         </button>
@@ -432,7 +432,7 @@ export default function Layout() {
                             type="button"
                             onClick={() => setSidebarOpen(true)}
                             aria-label={t('layout.expand_sidebar', { defaultValue: 'Expand sidebar' }) || undefined}
-                            className={`sidebar-resize-control-v27 sidebar-expand-control-v27 mx-auto flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center rounded-full border border-[var(--hi-border)] bg-white/50 text-[var(--hi-text-soft)] transition hover:text-[var(--hi-text)] dark:bg-white/5`}
+                            className={`sidebar-resize-control-v27 sidebar-expand-control-v27 mx-auto flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center rounded-full border border-(--hi-border) bg-white/50 text-(--hi-text-soft) transition hover:text-(--hi-text) dark:bg-white/5`}
                         >
                             <ChevronRight className="h-5 w-5" />
                         </button>
@@ -450,15 +450,15 @@ export default function Layout() {
                                 name: user?.username || t('settings.account_overview.title', { defaultValue: 'Account overview' }),
                                 defaultValue: 'Open account menu for {{name}}'
                             }) || undefined}
-                            className="sidebar-account-trigger-v27 group flex w-full items-center gap-3 rounded-[1.15rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] px-3 py-2.5 text-left transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]"
+                            className="sidebar-account-trigger-v27 group flex w-full items-center gap-3 rounded-[1.15rem] border border-(--hi-border) bg-(--hi-panel) px-3 py-2.5 text-left transition hover:border-(--hi-border-strong) hover:bg-(--hi-panel-muted) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-bg-elevated)"
                         >
-                            <div className="sidebar-account-avatar-v27 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-sm font-extrabold text-white shadow-[var(--hi-shadow-soft)]">
+                            <div className="sidebar-account-avatar-v27 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-sm font-extrabold text-white shadow-(--hi-shadow-soft)">
                                 {userInitial}
                             </div>
                             <div className="min-w-0 flex-1">
-                                <p className="truncate text-sm font-semibold leading-5 text-[var(--hi-text)]">{user?.username}</p>
+                                <p className="truncate text-sm font-semibold leading-5 text-(--hi-text)">{user?.username}</p>
                             </div>
-                            <ChevronDown className={`h-4 w-4 shrink-0 text-[var(--hi-text-muted)] transition ${profileMenuOpen ? 'rotate-180 text-[var(--hi-accent)]' : 'group-hover:text-[var(--hi-accent)]'}`} />
+                            <ChevronDown className={`h-4 w-4 shrink-0 text-(--hi-text-muted) transition ${profileMenuOpen ? 'rotate-180 text-(--hi-accent)' : 'group-hover:text-(--hi-accent)'}`} />
                         </button>
                     ) : (
                         <Tooltip
@@ -477,9 +477,9 @@ export default function Layout() {
                                     name: user?.username || t('settings.account_overview.title', { defaultValue: 'Account overview' }),
                                     defaultValue: 'Open account menu for {{name}}'
                                 }) || undefined}
-                                className={`sidebar-compact-account-v27 flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text)] transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]`}
+                                className={`sidebar-compact-account-v27 flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center rounded-full border border-(--hi-border) bg-(--hi-panel) text-(--hi-text) transition hover:border-(--hi-border-strong) hover:bg-(--hi-panel-muted) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-bg-elevated)`}
                             >
-                                <span className={`flex ${COMPACT_ICON_INNER_SIZE} items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-[1.125rem] font-extrabold text-white shadow-[var(--hi-shadow-soft)]`}>
+                                <span className={`flex ${COMPACT_ICON_INNER_SIZE} items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-[1.125rem] font-extrabold text-white shadow-(--hi-shadow-soft)`}>
                                     {userInitial}
                                 </span>
                             </button>
@@ -491,41 +491,41 @@ export default function Layout() {
                             role="dialog"
                             aria-modal="false"
                             aria-label={t('layout.account_menu_title', { defaultValue: 'Account menu' }) || undefined}
-                            className={`sidebar-account-menu-v27 absolute z-50 rounded-[1.2rem] border border-[var(--hi-border)] bg-[var(--hi-bg-elevated)] p-3 shadow-[var(--hi-shadow)] backdrop-blur-2xl ${sidebarOpen ? 'left-0 right-0 top-full mt-3' : 'left-full top-0 ml-3 w-[18rem]'}`}
+                            className={`sidebar-account-menu-v27 absolute z-50 rounded-[1.2rem] border border-(--hi-border) bg-(--hi-bg-elevated) p-3 shadow-(--hi-shadow) backdrop-blur-2xl ${sidebarOpen ? 'left-0 right-0 top-full mt-3' : 'left-full top-0 ml-3 w-[18rem]'}`}
                         >
                             <div className="sidebar-account-menu-stack-v27 space-y-2">
                                 <Link
                                     to="/settings#settings-account"
                                     onClick={() => setProfileMenuOpen(false)}
                                     aria-label={t('settings.account_overview.title', { defaultValue: 'Account overview' }) || undefined}
-                                    className="sidebar-account-overview-v27 flex w-full items-center gap-3 rounded-[0.95rem] border border-transparent px-3 py-2.5 text-left text-sm font-medium text-[var(--hi-text)] transition hover:border-[var(--hi-border)] hover:bg-[var(--hi-panel-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]"
+                                    className="sidebar-account-overview-v27 flex w-full items-center gap-3 rounded-[0.95rem] border border-transparent px-3 py-2.5 text-left text-sm font-medium text-(--hi-text) transition hover:border-(--hi-border) hover:bg-(--hi-panel-muted) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-bg-elevated)"
                                 >
-                                    <span className="sidebar-account-overview-icon-v27 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]">
+                                    <span className="sidebar-account-overview-icon-v27 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-(--hi-panel-muted) text-(--hi-text-muted)">
                                         <User className="h-4 w-4" />
                                     </span>
                                     <span>{t('settings.account_overview.title', { defaultValue: 'Account overview' })}</span>
                                 </Link>
 
-                                <div className="sidebar-account-group-v27 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-3">
-                                    <p className="sidebar-account-label-v27 mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
+                                <div className="sidebar-account-group-v27 rounded-2xl border border-(--hi-border) bg-(--hi-panel) p-3">
+                                    <p className="sidebar-account-label-v27 mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-(--hi-text-soft)">
                                         {t('settings.language', { defaultValue: 'Language' })}
                                     </p>
                                     <LanguageSwitcher
                                         showCodeBadge={false}
-                                        className="sidebar-account-language-v27 !h-11 !rounded-[0.95rem] !border-[var(--hi-border)] !bg-[var(--hi-panel-strong)] !px-3 !py-0 !text-[var(--hi-text)] hover:!bg-[var(--hi-panel-muted)]"
+                                        className="sidebar-account-language-v27 h-11! rounded-[0.95rem]! border-(--hi-border)! bg-(--hi-panel-strong)! px-3! py-0! text-(--hi-text)! hover:bg-(--hi-panel-muted)!"
                                     />
                                 </div>
 
-                                <div className="sidebar-account-group-v27 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-3">
+                                <div className="sidebar-account-group-v27 rounded-2xl border border-(--hi-border) bg-(--hi-panel) p-3">
                                     <div className="mb-3 flex items-center justify-between gap-3">
-                                        <p className="sidebar-account-label-v27 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
+                                        <p className="sidebar-account-label-v27 text-xs font-semibold uppercase tracking-[0.18em] text-(--hi-text-soft)">
                                             {t('settings.theme.title')}
                                         </p>
                                         <Link
                                             to="/settings#settings-preferences"
                                             onClick={() => setProfileMenuOpen(false)}
                                             aria-label={t('settings.theme.title') || undefined}
-                                            className="sidebar-account-manage-v27 text-xs font-medium text-[var(--hi-accent)] transition hover:text-[var(--hi-accent-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel)]"
+                                            className="sidebar-account-manage-v27 text-xs font-medium text-(--hi-accent) transition hover:text-(--hi-accent-strong) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel)"
                                         >
                                             {t('common.manage')}
                                         </Link>
@@ -537,7 +537,7 @@ export default function Layout() {
                                         fullWidth
                                         className="sidebar-account-theme-v27"
                                         buttonClassName="min-h-[40px] px-3 py-2 text-sm"
-                                        activeClassName="bg-[var(--hi-panel-strong)] text-[var(--hi-text)] shadow-[var(--hi-shadow-soft)]"
+                                        activeClassName="bg-(--hi-panel-strong) text-(--hi-text) shadow-(--hi-shadow-soft)"
                                         options={[
                                             {
                                                 value: 'light',
@@ -561,7 +561,7 @@ export default function Layout() {
                                     type="button"
                                     onClick={openLogoutConfirm}
                                     aria-label={t('navigation.logout_aria', { defaultValue: 'Log out of your account' }) || undefined}
-                                    className="sidebar-account-logout-v27 flex w-full items-center gap-3 rounded-[0.95rem] border border-red-500/18 bg-red-500/6 px-3 py-2.5 text-left text-sm font-medium text-red-400 transition hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]"
+                                    className="sidebar-account-logout-v27 flex w-full items-center gap-3 rounded-[0.95rem] border border-red-500/18 bg-red-500/6 px-3 py-2.5 text-left text-sm font-medium text-red-400 transition hover:bg-red-500/10 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-bg-elevated)"
                                 >
                                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-red-500/12 text-current">
                                         <LogOut className="h-4 w-4" />
@@ -814,7 +814,7 @@ export default function Layout() {
                 confirming={logoutSubmitting}
                 tone="warning"
             >
-                <p className="text-sm leading-6 text-[var(--hi-text-soft)]">
+                <p className="text-sm leading-6 text-(--hi-text-soft)">
                     {t('navigation.logout_warning', { defaultValue: 'Use this when you are done on a shared or personal device.' })}
                 </p>
             </ConfirmDialog>

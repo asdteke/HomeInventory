@@ -12,7 +12,7 @@ on:
           - "false"
           - "true"
       release_tag:
-        description: "Release tag to use when publish_release is true, for example v2.7.3"
+        description: "Release tag to use when publish_release is true, for example v2.7.4"
         required: false
         default: ""
   push:
@@ -23,7 +23,7 @@ permissions:
   contents: write
 
 env:
-  NODE_VERSION: "22.22.0"
+  NODE_VERSION: "22.23.3"
 
 jobs:
   managed-app:
@@ -483,9 +483,9 @@ jobs:
           tag_name: ${{ needs.managed-app.outputs.release_tag }}
           name: HomeInventory ${{ needs.managed-app.outputs.release_tag }}
           body: |
-            ## HomeInventory v2.7.3
+            ## HomeInventory v2.7.4
 
-            This security patch release closes all four open Dependabot findings by pinning Multer 2.3.0 (GHSA-535w-7cp7-47q4, GHSA-wc9g-mqfw-jrwm, and GHSA-qvfw-j98x-7q72) and Sharp 0.35.4 (GHSA-rgj7-g3m4-5g8c). It also keeps all managed app, desktop launcher, and client fallback versions synchronized at v2.7.3. It contains no database migration or application feature change.
+            This release fixes the 13 open Dependabot alerts affecting Undici, Multer, and ip-address. It pins Multer 2.4.0, Undici 7.30.0, ip-address 10.7.3, and Sharp 0.35.5; refreshes compatible server, client, and launcher dependencies; and upgrades the checksum-verified portable Node.js runtime to 22.23.3. The managed app and desktop launcher are synchronized at v2.7.4. Tailwind CSS 4.3.3 removes the unpatched braces vulnerability. No database migration is required.
 
             ## Recommended downloads
 
@@ -498,6 +498,9 @@ jobs:
 
             ## Upgrade notes
 
+            - Supported browsers: Safari 16.4+, Chrome 111+, or Firefox 128+.
+            - macOS packages use ad-hoc signing when Apple Developer ID/notarization credentials are unavailable.
+            - Physical iOS Safari certificate/camera validation remains a separate device check.
             - Back up the SQLite database and uploads before upgrading a self-hosted installation.
             - Rebuild the client and refresh the PWA/service worker after upgrading.
             - Flash and zoom availability depends on the mobile browser and camera hardware; unsupported controls remain disabled.

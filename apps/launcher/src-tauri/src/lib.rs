@@ -25,7 +25,7 @@ use tauri::{Emitter, Manager, State};
 use tauri_plugin_updater::UpdaterExt;
 use time::{Duration as TimeDuration, OffsetDateTime};
 
-const PORTABLE_NODE_VERSION: &str = "22.22.0";
+const PORTABLE_NODE_VERSION: &str = "22.23.3";
 const REQUIRED_NODE_MAJOR: u32 = 22;
 
 #[cfg(unix)]
@@ -2371,13 +2371,13 @@ fn portable_node_download_url() -> String {
 
 fn portable_node_expected_sha256() -> &'static str {
     if cfg!(target_os = "windows") {
-        "c97fa376d2becdc8863fcd3ca2dd9a83a9f3468ee7ccf7a6d076ec66a645c77a"
+        "2b0ff57b049cda1bbcea2240eec20467018713c1efe1f7360c2681859b90ed71"
     } else if cfg!(target_os = "macos") && cfg!(target_arch = "aarch64") {
-        "5ed4db0fcf1eaf84d91ad12462631d73bf4576c1377e192d222e48026a902640"
+        "23b25245dcfb9af7262f8ff142e9e2e0af025368117329e7a7458a51e5922f53"
     } else if cfg!(target_os = "macos") {
-        "5ea50c9d6dea3dfa3abb66b2656f7a4e1c8cef23432b558d45fb538c7b5dedce"
+        "8a677b0219178efd6eb0e475457c4afb452b521a92f6e67845a73bd85727f2a8"
     } else {
-        "c33c39ed9c80deddde77c960d00119918b9e352426fd604ba41638d6526a4744"
+        "1084aa36196bba4c3a5e69a1ee388a6e4ff729dad09445fbcd434b28fe3c24af"
     }
 }
 

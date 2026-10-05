@@ -102,10 +102,10 @@ export default function LanguageSwitcher({
     const isSidebarCompact = isSidebar && !showLabel;
     const isExpandedSidebar = isSidebar && showLabel;
     const triggerClassName = isMinimal
-        ? 'text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)]'
+        ? 'text-(--hi-text-soft) hover:bg-(--hi-panel-muted) hover:text-(--hi-text)'
         : isSidebar
-            ? `btn-secondary ${isSidebarCompact ? '!justify-center !gap-0 !rounded-full !px-0 !py-0' : '!grid !grid-cols-[2rem_minmax(0,1fr)_1.25rem] !items-center !gap-x-3 !justify-stretch !rounded-[0.95rem] !px-3 !py-2.5 text-sm'}`
-            : 'text-sm bg-[var(--hi-panel)] backdrop-blur-sm border border-[var(--hi-border)] hover:bg-[var(--hi-panel-strong)] text-[var(--hi-text)]';
+            ? `btn-secondary ${isSidebarCompact ? 'justify-center! gap-0! rounded-full! px-0! py-0!' : 'grid! grid-cols-[2rem_minmax(0,1fr)_1.25rem]! items-center! gap-x-3! justify-stretch! rounded-[0.95rem]! px-3! py-2.5! text-sm'}`
+            : 'text-sm bg-(--hi-panel) backdrop-blur-xs border border-(--hi-border) hover:bg-(--hi-panel-strong) text-(--hi-text)';
 
     const renderLanguageButton = (language: LanguageOption) => (
         <button
@@ -139,30 +139,30 @@ export default function LanguageSwitcher({
                 language: currentLang.label,
                 defaultValue: 'Select language. Current: {{language}}'
             })}
-            className={`flex w-full items-center rounded-xl px-4 py-3 font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] ${isExpandedSidebar ? 'gap-0' : 'gap-3'} ${triggerClassName} ${className}`}
+            className={`flex w-full items-center rounded-xl px-4 py-3 font-medium transition-all duration-200 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel-strong) ${isExpandedSidebar ? 'gap-0' : 'gap-3'} ${triggerClassName} ${className}`}
         >
             {isExpandedSidebar ? (
                 <>
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[0.85rem] bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[0.85rem] bg-(--hi-panel-muted) text-(--hi-text-muted)">
                         <Globe className="h-[18px] w-[18px]" />
                     </span>
-                    <span className="min-w-0 truncate text-left text-sm font-semibold leading-[1.2] text-[var(--hi-text)]">
+                    <span className="min-w-0 truncate text-left text-sm font-semibold leading-[1.2] text-(--hi-text)">
                         {currentLang.label}
                     </span>
                 </>
             ) : (
                 <div className={`flex items-center gap-3 overflow-hidden ${showLabel ? 'flex-1' : 'justify-center'}`}>
-                    <Globe className={`h-5 w-5 flex-shrink-0 ${isMinimal ? 'text-[var(--hi-text-muted)]' : isSidebar ? 'text-[var(--hi-text-muted)]' : 'text-[var(--hi-secondary)]'}`} />
+                    <Globe className={`h-5 w-5 shrink-0 ${isMinimal ? 'text-(--hi-text-muted)' : isSidebar ? 'text-(--hi-text-muted)' : 'text-(--hi-secondary)'}`} />
                     {showLabel && <span className="truncate text-left font-medium">{currentLang.label}</span>}
                 </div>
             )}
             {showLabel && !isSidebar && showCodeBadge && (
-                <span className="flex h-5 min-w-[20px] items-center justify-center rounded-md bg-[var(--hi-panel-muted)] px-1.5 text-[8px] font-bold uppercase text-[var(--hi-text-muted)]">
+                <span className="flex h-5 min-w-[20px] items-center justify-center rounded-md bg-(--hi-panel-muted) px-1.5 text-[8px] font-bold uppercase text-(--hi-text-muted)">
                     {currentLangCode}
                 </span>
             )}
             {showLabel && isSidebar && (
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center justify-self-end text-[var(--hi-text-muted)]">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center justify-self-end text-(--hi-text-muted)">
                     <ChevronDown className="h-4 w-4" />
                 </span>
             )}
@@ -185,7 +185,7 @@ export default function LanguageSwitcher({
             {isOpen && typeof document !== 'undefined' && createPortal(
                 <div
                     data-language-switcher-portal="true"
-                    className="language-picker-backdrop fixed inset-0 z-[9999] overflow-y-auto animate-in fade-in duration-200"
+                    className="language-picker-backdrop fixed inset-0 z-9999 overflow-y-auto animate-in fade-in duration-200"
                     onMouseDown={(event) => {
                         if (event.target === event.currentTarget) {
                             setIsOpen(false);
@@ -199,15 +199,15 @@ export default function LanguageSwitcher({
                             aria-modal="true"
                             aria-labelledby={titleId}
                             aria-describedby={descriptionId}
-                            className="language-picker-dialog flex max-h-[calc(100dvh-4.5rem)] w-full max-w-md flex-col overflow-hidden text-[var(--hi-text)] animate-in zoom-in-95 duration-200"
+                            className="language-picker-dialog flex max-h-[calc(100dvh-4.5rem)] w-full max-w-md flex-col overflow-hidden text-(--hi-text) animate-in zoom-in-95 duration-200"
                         >
                             <div className="language-picker-header flex items-start justify-between gap-4">
                                 <div>
-                                    <h3 id={titleId} className="flex items-center gap-2 font-semibold text-[var(--hi-text)]">
-                                        <Globe className="h-5 w-5 text-[var(--hi-secondary)]" />
+                                    <h3 id={titleId} className="flex items-center gap-2 font-semibold text-(--hi-text)">
+                                        <Globe className="h-5 w-5 text-(--hi-secondary)" />
                                         {t('settings.select_language')}
                                     </h3>
-                                    <p id={descriptionId} className="mt-1 text-xs leading-5 text-[var(--hi-text-soft)]">
+                                    <p id={descriptionId} className="mt-1 text-xs leading-5 text-(--hi-text-soft)">
                                         {t('settings.language_description')}
                                     </p>
                                 </div>
@@ -215,7 +215,7 @@ export default function LanguageSwitcher({
                                     type="button"
                                     onClick={() => setIsOpen(false)}
                                     aria-label={t('common.close')}
-                                    className="language-picker-close text-[var(--hi-text-muted)] transition hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)]"
+                                    className="language-picker-close text-(--hi-text-muted) transition hover:text-(--hi-text) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent)"
                                 >
                                     <X className="h-5 w-5" />
                                 </button>
@@ -223,21 +223,21 @@ export default function LanguageSwitcher({
 
                             <div className="language-picker-search">
                                 <div className="language-picker-search-field relative">
-                                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--hi-text-muted)]" />
+                                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--hi-text-muted)" />
                                     <input
                                         autoFocus
                                         type="text"
                                         placeholder={t('common.search')}
                                         value={searchQuery}
                                         onChange={(event) => setSearchQuery(event.target.value)}
-                                        className="language-picker-input w-full py-2.5 pl-10 pr-4 text-sm text-[var(--hi-text)] outline-none transition-all placeholder:text-[var(--hi-text-muted)] focus:ring-2 focus:ring-[var(--hi-accent)]"
+                                        className="language-picker-input w-full py-2.5 pl-10 pr-4 text-sm text-(--hi-text) outline-hidden transition-all placeholder:text-(--hi-text-muted) focus:ring-2 focus:ring-(--hi-accent)"
                                     />
                                     {searchQuery && (
                                         <button
                                             type="button"
                                             onClick={() => setSearchQuery('')}
                                             aria-label={t('common.clear', { defaultValue: 'Clear search' })}
-                                            className="absolute right-2 top-1/2 rounded-lg p-1 text-[var(--hi-text-muted)] transition hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)]"
+                                            className="absolute right-2 top-1/2 rounded-lg p-1 text-(--hi-text-muted) transition hover:bg-(--hi-panel-muted) hover:text-(--hi-text) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent)"
                                             style={{ transform: 'translateY(-50%)' }}
                                         >
                                             <X className="h-4 w-4" />
@@ -278,7 +278,7 @@ export default function LanguageSwitcher({
                                 )}
 
                                 {filteredLanguages.length === 0 && (
-                                    <div className="p-8 text-center text-[var(--hi-text-muted)]">
+                                    <div className="p-8 text-center text-(--hi-text-muted)">
                                         {t('settings.no_language_found', { defaultValue: 'No language matched that search.' })}
                                     </div>
                                 )}

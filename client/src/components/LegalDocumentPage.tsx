@@ -219,13 +219,13 @@ export default function LegalDocumentPage({
     const quickAccessLabel = documentT('legal.quick_access');
     const pageLabel = parsed.documentHeading || title;
 
-    const heroShellClass = 'border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] text-[var(--hi-text)] shadow-[var(--hi-shadow)]';
-    const panelClass = 'border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text)] shadow-[var(--hi-shadow-soft)]';
-    const mutedTextClass = 'text-[var(--hi-text-soft)]';
-    const subtleTextClass = 'text-[var(--hi-text-muted)]';
-    const topChromeClass = 'border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]';
+    const heroShellClass = 'border border-(--hi-border) bg-(--hi-panel-strong) text-(--hi-text) shadow-(--hi-shadow)';
+    const panelClass = 'border border-(--hi-border) bg-(--hi-panel) text-(--hi-text) shadow-(--hi-shadow-soft)';
+    const mutedTextClass = 'text-(--hi-text-soft)';
+    const subtleTextClass = 'text-(--hi-text-muted)';
+    const topChromeClass = 'border-(--hi-border) bg-(--hi-panel) text-(--hi-text-soft) hover:bg-(--hi-panel-strong) hover:text-(--hi-text)';
     const pageGlow = 'transparent';
-    const summaryHighlightClass = 'border border-[rgba(184,153,104,0.24)] bg-[var(--hi-panel-strong)] text-[var(--hi-text)] shadow-[var(--hi-shadow)]';
+    const summaryHighlightClass = 'border border-[rgba(184,153,104,0.24)] bg-(--hi-panel-strong) text-(--hi-text) shadow-(--hi-shadow)';
 
     const sectionLinks = parsed.sections.length
         ? parsed.sections.map((section) => ({
@@ -251,7 +251,7 @@ export default function LegalDocumentPage({
         .filter((shortcut): shortcut is { id: string; label: string; title: string } => shortcut !== null);
 
     return (
-        <div id="document-top" className="legal-page-v25 relative min-h-screen overflow-hidden bg-[var(--hi-bg)] px-4 py-6 text-[var(--hi-text)] sm:px-6 sm:py-8">
+        <div id="document-top" className="legal-page-v25 relative min-h-screen overflow-hidden bg-(--hi-bg) px-4 py-6 text-(--hi-text) sm:px-6 sm:py-8">
             <div className="absolute inset-0 -z-10" style={{ background: pageGlow }} />
 
             <div className="mx-auto max-w-6xl">
@@ -270,7 +270,7 @@ export default function LegalDocumentPage({
 
                     <div className="legal-tools-v25">
                         <div className="legal-language-v25">
-                            <LanguageSwitcher className="!h-10 !rounded-full !border-[var(--hi-border)] !bg-[var(--hi-panel)] !px-3 !py-0 !text-[var(--hi-text)] hover:!bg-[var(--hi-panel-strong)] sm:!h-11 sm:!px-4" />
+                            <LanguageSwitcher className="h-10! rounded-full! border-(--hi-border)! bg-(--hi-panel)! px-3! py-0! text-(--hi-text)! hover:bg-(--hi-panel-strong)! sm:h-11! sm:px-4!" />
                         </div>
                         <button
                             type="button"
@@ -282,11 +282,11 @@ export default function LegalDocumentPage({
                     </div>
                 </header>
 
-                <section className={`legal-hero-v25 rounded-[2rem] p-6 sm:p-8 lg:p-10 ${heroShellClass}`}>
+                <section className={`legal-hero-v25 rounded-4xl p-6 sm:p-8 lg:p-10 ${heroShellClass}`}>
                     <div className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
                         <div>
-                            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--hi-secondary-soft)] bg-[var(--hi-secondary-soft)] px-4 py-2 text-sm font-medium text-[var(--hi-secondary)]">
-                                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--hi-panel-strong)] text-[var(--hi-accent)]">
+                            <div className="inline-flex items-center gap-2 rounded-full border border-(--hi-secondary-soft) bg-(--hi-secondary-soft) px-4 py-2 text-sm font-medium text-(--hi-secondary)">
+                                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-(--hi-panel-strong) text-(--hi-accent)">
                                     <Icon className="h-4 w-4" />
                                 </span>
                                 {eyebrowLabel || documentT('legal.document_badge')}
@@ -305,7 +305,7 @@ export default function LegalDocumentPage({
                                 {summaryBlock ? (
                                     <article className={`legal-summary-v25 rounded-[1.75rem] p-6 sm:p-7 ${summaryHighlightClass}`}>
                                         {summaryBlock.eyebrow ? (
-                                            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--hi-secondary)]">
+                                            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-(--hi-secondary)">
                                                 {summaryBlock.eyebrow}
                                             </p>
                                         ) : null}
@@ -320,14 +320,14 @@ export default function LegalDocumentPage({
                                         <ul className="mt-5 space-y-3.5">
                                             {summaryBlock.items.map((item) => (
                                                 <li key={item} className="flex items-start gap-3">
-                                                    <span className="mt-2 h-2 w-2 rounded-full bg-[var(--hi-secondary)]" />
+                                                    <span className="mt-2 h-2 w-2 rounded-full bg-(--hi-secondary)" />
                                                     <span className={`text-[15px] leading-7 ${mutedTextClass}`}>{renderInlineEmphasis(item)}</span>
                                                 </li>
                                             ))}
                                         </ul>
                                         {summaryShortcuts.length > 0 ? (
                                             <div className="mt-6">
-                                                <h3 className="text-sm font-semibold text-[var(--hi-text)]">
+                                                <h3 className="text-sm font-semibold text-(--hi-text)">
                                                     {documentT('legal.jump_to')}
                                                 </h3>
                                                 <div className="mt-3 flex flex-wrap gap-2.5">
@@ -335,7 +335,7 @@ export default function LegalDocumentPage({
                                                         <a
                                                             key={shortcut.id}
                                                             href={`#${shortcut.id}`}
-                                                            className="inline-flex items-center rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel)] px-4 py-2 text-sm font-medium text-[var(--hi-text)] transition hover:bg-[var(--hi-panel-strong)]"
+                                                            className="inline-flex items-center rounded-full border border-(--hi-border) bg-(--hi-panel) px-4 py-2 text-sm font-medium text-(--hi-text) transition hover:bg-(--hi-panel-strong)"
                                                         >
                                                             {shortcut.label}
                                                         </a>
@@ -347,8 +347,8 @@ export default function LegalDocumentPage({
                                 ) : null}
 
                                 {summaryCards.map((card) => (
-                                    <article key={card.title} className={`legal-summary-v25 rounded-[1.5rem] p-5 ${panelClass}`}>
-                                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--hi-secondary)]">
+                                    <article key={card.title} className={`legal-summary-v25 rounded-3xl p-5 ${panelClass}`}>
+                                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-(--hi-secondary)">
                                             {card.eyebrow}
                                         </p>
                                         <h2 className="mt-3 text-xl font-semibold tracking-[-0.02em]">
@@ -367,14 +367,14 @@ export default function LegalDocumentPage({
                 <section className="legal-document-layout-v25 mt-8 grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
                     <aside className="legal-toc-v25 xl:sticky xl:top-8 xl:self-start">
                         <div className={`rounded-[1.75rem] p-6 ${panelClass}`}>
-                            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--hi-secondary)]">
+                            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-(--hi-secondary)">
                                 {quickAccessLabel}
                             </p>
                             <h2 className="mt-3 text-xl font-semibold">
                                 {documentT('legal.on_this_page')}
                             </h2>
 
-                            <div className="mt-5 border-t border-[var(--hi-border)] pt-5">
+                            <div className="mt-5 border-t border-(--hi-border) pt-5">
                                 <p className={`text-xs font-semibold uppercase tracking-[0.2em] ${subtleTextClass}`}>
                                     {parsed.sections.length ? documentT('legal.contents') : documentT('legal.page_label')}
                                 </p>
@@ -383,9 +383,9 @@ export default function LegalDocumentPage({
                                         <a
                                             key={section.id}
                                             href={`#${section.id}`}
-                                            className="flex items-start gap-3 rounded-2xl px-3 py-2 text-sm leading-6 text-[var(--hi-text-soft)] transition hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)]"
+                                            className="flex items-start gap-3 rounded-2xl px-3 py-2 text-sm leading-6 text-(--hi-text-soft) transition hover:bg-(--hi-panel-muted) hover:text-(--hi-text)"
                                         >
-                                            <span className="mt-[0.65rem] h-1.5 w-1.5 rounded-full bg-[var(--hi-secondary)]" />
+                                            <span className="mt-[0.65rem] h-1.5 w-1.5 rounded-full bg-(--hi-secondary)" />
                                             <span>{section.title}</span>
                                         </a>
                                     ))}
@@ -397,7 +397,7 @@ export default function LegalDocumentPage({
                     <div className="legal-document-v25 space-y-6">
                         {parsed.intro.length > 0 ? (
                             <article className={`legal-section-v25 rounded-[1.75rem] p-6 sm:p-7 ${panelClass}`}>
-                                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--hi-secondary)]">
+                                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-(--hi-secondary)">
                                     {documentT('legal.overview')}
                                 </p>
                                 <div className="mt-4 space-y-5">
@@ -412,7 +412,7 @@ export default function LegalDocumentPage({
                                                 <ul className="space-y-3">
                                                     {block.bullets.map((bullet) => (
                                                         <li key={bullet} className="flex items-start gap-3">
-                                                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--hi-secondary)]" />
+                                                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-(--hi-secondary)" />
                                                             <span className={`text-[15px] leading-7 ${mutedTextClass}`}>{renderInlineEmphasis(bullet)}</span>
                                                         </li>
                                                     ))}
@@ -444,7 +444,7 @@ export default function LegalDocumentPage({
                                         <ul className="space-y-3">
                                             {section.bullets.map((bullet) => (
                                                 <li key={bullet} className="flex items-start gap-3">
-                                                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--hi-secondary)]" />
+                                                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-(--hi-secondary)" />
                                                     <span className={`text-[15px] leading-7 ${mutedTextClass}`}>{renderInlineEmphasis(bullet)}</span>
                                                 </li>
                                             ))}
@@ -455,7 +455,7 @@ export default function LegalDocumentPage({
                         ))}
 
                         <footer className={`legal-contact-v25 rounded-[1.75rem] p-6 sm:p-7 ${panelClass}`}>
-                            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--hi-secondary)]">
+                            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-(--hi-secondary)">
                                 {documentT('legal.contact')}
                             </p>
                             <h2 className="mt-3 text-xl font-semibold">
@@ -465,7 +465,7 @@ export default function LegalDocumentPage({
                                 href={supportHref || `mailto:${supportValue}`}
                                 target={supportHref?.startsWith('http') ? '_blank' : undefined}
                                 rel={supportHref?.startsWith('http') ? 'noreferrer' : undefined}
-                                className="mt-4 inline-flex rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-2 text-sm font-medium text-[var(--hi-text)] transition hover:bg-[var(--hi-panel-strong)]"
+                                className="mt-4 inline-flex rounded-full border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-2 text-sm font-medium text-(--hi-text) transition hover:bg-(--hi-panel-strong)"
                             >
                                 {supportValue}
                             </a>

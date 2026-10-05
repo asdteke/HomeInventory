@@ -34,7 +34,7 @@ test('box photo selection and stored photos use the shared fullscreen viewer', (
 
 test('room action tooltips rise above neighboring rows', () => {
     assert.match(tooltipSource, /import \{ createPortal \} from 'react-dom'/);
-    assert.match(tooltipSource, /createPortal\([\s\S]*fixed z-\[10000\]/);
+    assert.match(tooltipSource, /createPortal\([\s\S]*fixed z-(?:\[10000\]|10000)/);
     assert.match(tooltipSource, /document\.body/);
     assert.match(indexCss, /\.room-manager-v25 \.manager-row-v25:hover,[\s\S]*z-index: 2/);
     assert.match(indexCss, /\.room-manager-v25 \.manager-list-v25 \{[\s\S]*backdrop-filter: blur\(18px\)/);

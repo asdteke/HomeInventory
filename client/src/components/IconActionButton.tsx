@@ -8,11 +8,11 @@ interface ToneStyles {
 
 const TONE_STYLES: Record<'default' | 'danger', ToneStyles> = {
     default: {
-        button: 'text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-accent)]',
-        focus: 'focus-visible:ring-[var(--hi-accent)]'
+        button: 'text-(--hi-text-soft) hover:bg-(--hi-panel-muted) hover:text-(--hi-accent)',
+        focus: 'focus-visible:ring-(--hi-accent)'
     },
     danger: {
-        button: 'text-[var(--hi-text-soft)] hover:bg-red-500/10 hover:text-red-400',
+        button: 'text-(--hi-text-soft) hover:bg-red-500/10 hover:text-red-400',
         focus: 'focus-visible:ring-red-400'
     }
 };
@@ -43,7 +43,7 @@ export default function IconActionButton({
                 type={type}
                 aria-label={label}
                 disabled={disabled}
-                className={`inline-flex items-center justify-center rounded-xl p-2 transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-[var(--hi-text-soft)] ${toneStyle.button} ${toneStyle.focus} ${className}`.trim()}
+                className={`inline-flex items-center justify-center rounded-xl p-2 transition-all duration-200 active:scale-[0.98] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel-strong) disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-(--hi-text-soft) ${toneStyle.button} ${toneStyle.focus} ${className}`.trim()}
                 {...props}
             >
                 <Icon className="h-4 w-4" />

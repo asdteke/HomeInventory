@@ -26,7 +26,7 @@ export default function SettingsAboutSection({ onLogout }: SettingsAboutSectionP
                 <header className="settings-about-header">
                     <div>
                         <p className="app-kicker mb-2">{t('settings.control_sections.about', { defaultValue: 'About' })}</p>
-                        <h2 id="settings-about-title" className="text-xl font-semibold text-[var(--hi-text)]">
+                        <h2 id="settings-about-title" className="text-xl font-semibold text-(--hi-text)">
                             {t('settings.about.title')}
                         </h2>
                     </div>
@@ -48,8 +48,8 @@ export default function SettingsAboutSection({ onLogout }: SettingsAboutSectionP
                             <HelpCircle className="h-5 w-5" />
                         </span>
                         <div className="min-w-0 flex-1">
-                            <p className="text-sm font-semibold text-[var(--hi-text)]">{t('common.help_support')}</p>
-                            <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)] [overflow-wrap:anywhere]">
+                            <p className="text-sm font-semibold text-(--hi-text)">{t('common.help_support')}</p>
+                            <p className="mt-1 text-sm leading-6 text-(--hi-text-soft) wrap-anywhere">
                                 {SUPPORT_CONTACT_LABEL}
                             </p>
                         </div>
@@ -67,8 +67,8 @@ export default function SettingsAboutSection({ onLogout }: SettingsAboutSectionP
 
                     <div className="settings-about-row settings-about-legal">
                         <div className="min-w-0 flex-1">
-                            <p className="text-sm font-semibold text-[var(--hi-text)]">{t('settings.about.legal_title')}</p>
-                            <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">{t('settings.about.legal_description')}</p>
+                            <p className="text-sm font-semibold text-(--hi-text)">{t('settings.about.legal_title')}</p>
+                            <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">{t('settings.about.legal_description')}</p>
                         </div>
                         <nav className="settings-about-links" aria-label={t('settings.about.legal_title')}>
                             <Link to="/terms-of-service">{t('settings.about.terms_link')}</Link>
@@ -79,10 +79,10 @@ export default function SettingsAboutSection({ onLogout }: SettingsAboutSectionP
                     <aside className="settings-about-beta">
                         <AlertTriangle className="h-5 w-5 shrink-0" aria-hidden="true" />
                         <div>
-                            <p className="text-sm font-semibold text-[var(--hi-text)]">
+                            <p className="text-sm font-semibold text-(--hi-text)">
                                 {t('settings.about.beta_title', { defaultValue: 'Beta status' })}
                             </p>
-                            <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                            <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                                 {t('settings.about.beta_body', {
                                     brandName: BRAND_NAME,
                                     defaultValue: `${BRAND_NAME} is still in beta. Features can change, workflows may evolve, and important household data should always be backed up.`
@@ -93,7 +93,7 @@ export default function SettingsAboutSection({ onLogout }: SettingsAboutSectionP
                 </div>
 
                 <footer className="settings-about-footer">
-                    <span className="text-sm font-semibold text-[var(--hi-text-soft)]">{t('common.logout')}</span>
+                    <span className="text-sm font-semibold text-(--hi-text-soft)">{t('common.logout')}</span>
                     <button
                         type="button"
                         onClick={onLogout}

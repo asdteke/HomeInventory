@@ -167,7 +167,7 @@ Yalıtım detayları ve gelişmiş ayarlar için [GUI_LAUNCHER.tr.md](GUI_LAUNCH
 ### Seçenek B: Terminal Kurulumu
 
 #### Gereksinimler
-- Node.js 22.22.0+
+- Node.js 22.23.3+
 - npm 9+
 - Git
 

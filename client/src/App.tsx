@@ -47,13 +47,13 @@ const AlertDetailPage = lazy(() => import('./components/AlertDetailPage'));
 const FullscreenSpinner = () => {
     const { t } = useTranslation();
     return (
-        <div className="flex min-h-screen items-center justify-center bg-[var(--hi-bg)] px-4 text-[var(--hi-text)]">
-            <div role="status" aria-live="polite" className="w-full max-w-sm rounded-[1.35rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-6 text-center shadow-[var(--hi-shadow-soft)]">
-                <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
-                    <span className="spinner !h-6 !w-6 !border-2" />
+        <div className="flex min-h-screen items-center justify-center bg-(--hi-bg) px-4 text-(--hi-text)">
+            <div role="status" aria-live="polite" className="w-full max-w-sm rounded-[1.35rem] border border-(--hi-border) bg-(--hi-panel) p-6 text-center shadow-(--hi-shadow-soft)">
+                <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-(--hi-accent-soft) text-(--hi-accent)">
+                    <span className="spinner h-6! w-6! border-2!" />
                 </span>
-                <p className="mt-4 text-sm font-semibold text-[var(--hi-text)]">{t('app.loading', { defaultValue: `Loading ${BRAND_NAME}`, brandName: BRAND_NAME })}</p>
-                <p className="mt-2 text-xs leading-5 text-[var(--hi-text-soft)]">{t('app.preparing_workspace', { defaultValue: 'Preparing your workspace...' })}</p>
+                <p className="mt-4 text-sm font-semibold text-(--hi-text)">{t('app.loading', { defaultValue: `Loading ${BRAND_NAME}`, brandName: BRAND_NAME })}</p>
+                <p className="mt-2 text-xs leading-5 text-(--hi-text-soft)">{t('app.preparing_workspace', { defaultValue: 'Preparing your workspace...' })}</p>
             </div>
         </div>
     );

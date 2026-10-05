@@ -97,7 +97,7 @@ export default function Tooltip({
                     ref={panelRef}
                     id={tooltipId}
                     role="tooltip"
-                    className={`app-tooltip-panel pointer-events-none fixed z-[10000] w-max max-w-[min(18rem,calc(100vw-2rem))] rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] px-3 py-2 text-center text-xs font-medium leading-5 text-[var(--hi-text)] shadow-[var(--hi-shadow-soft)] sm:text-left ${panelClassName}`.trim()}
+                    className={`app-tooltip-panel pointer-events-none fixed z-10000 w-max max-w-[min(18rem,calc(100vw-2rem))] rounded-xl border border-(--hi-border) bg-(--hi-panel-strong) px-3 py-2 text-center text-xs font-medium leading-5 text-(--hi-text) shadow-(--hi-shadow-soft) sm:text-left ${panelClassName}`.trim()}
                     style={{ left: position.left, top: position.top, transform: position.transform }}
                 >
                     {label}

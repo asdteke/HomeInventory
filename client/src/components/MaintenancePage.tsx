@@ -370,7 +370,7 @@ export default function MaintenancePage() {
                             description={t('maintenance.sections.upcoming_desc', { defaultValue: 'Önümüzdeki günlerde yaklaşan bakımlar.' })}
                         />
                         {classifiedTasks.upcoming.length === 0 && classifiedTasks.oneTime.length === 0 ? (
-                            <div className="card !p-5 text-center text-[var(--hi-text-muted)] text-sm">
+                            <div className="card p-5! text-center text-(--hi-text-muted) text-sm">
                                 {t('maintenance.sections.no_upcoming', { defaultValue: 'Gelecekte planlanmış aktif görev yok.' })}
                             </div>
                         ) : (
@@ -413,9 +413,9 @@ export default function MaintenancePage() {
                     </>
                 }
             >
-                <form id="maintenance-form" onSubmit={handleFormSubmit} className="space-y-4">
+                <form id="maintenance-form" onSubmit={handleFormSubmit} className="flex flex-col gap-y-4">
                     <div>
-                        <label className="mb-1.5 block text-sm font-medium text-[var(--hi-text)]">
+                        <label className="mb-1.5 block text-sm font-medium text-(--hi-text)">
                             {t('maintenance.form.item', { defaultValue: 'İlgili Eşya' })} *
                         </label>
                         {inventoryItems.length === 0 ? (
@@ -426,7 +426,7 @@ export default function MaintenancePage() {
                             <select
                                 value={itemId}
                                 onChange={(e) => setItemId(e.target.value)}
-                                className="w-full rounded-xl border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] px-4 py-3 text-[var(--hi-text)] outline-none focus:border-[var(--hi-accent)] transition text-sm cursor-pointer"
+                                className="w-full rounded-xl border border-(--hi-border) bg-(--hi-bg-strong) px-4 py-3 text-(--hi-text) outline-hidden focus:border-(--hi-accent) transition text-sm cursor-pointer"
                             >
                                 <option value="" disabled>-- {t('maintenance.form.select_item_placeholder', { defaultValue: 'Bir Eşya Seçin' })} --</option>
                                 {inventoryItems.map(item => (
@@ -439,7 +439,7 @@ export default function MaintenancePage() {
                     </div>
 
                     <div>
-                        <label className="mb-1.5 block text-sm font-medium text-[var(--hi-text)]">
+                        <label className="mb-1.5 block text-sm font-medium text-(--hi-text)">
                             {t('maintenance.form.task_name', { defaultValue: 'Görev / İşlem Adı' })} *
                         </label>
                         <input
@@ -447,26 +447,26 @@ export default function MaintenancePage() {
                             value={taskName}
                             onChange={(e) => setTaskName(e.target.value)}
                             placeholder={t('maintenance.form.task_name_placeholder', { defaultValue: 'Örn: Filtre Değişimi, Periyodik Kontrol...' })}
-                            className="w-full rounded-xl border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] px-4 py-3 text-[var(--hi-text)] outline-none focus:border-[var(--hi-accent)] transition text-sm"
+                            className="w-full rounded-xl border border-(--hi-border) bg-(--hi-bg-strong) px-4 py-3 text-(--hi-text) outline-hidden focus:border-(--hi-accent) transition text-sm"
                             required
                         />
                     </div>
 
                     <div>
-                        <label className="mb-1.5 block text-sm font-medium text-[var(--hi-text)]">
+                        <label className="mb-1.5 block text-sm font-medium text-(--hi-text)">
                             {t('maintenance.form.description', { defaultValue: 'Detay / Açıklama' })}
                         </label>
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder={t('maintenance.form.description_placeholder', { defaultValue: 'Görevin detayları, kullanılacak malzemeler vb...' })}
-                            className="w-full h-24 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] px-4 py-3 text-[var(--hi-text)] outline-none focus:border-[var(--hi-accent)] transition text-sm resize-none"
+                            className="w-full h-24 rounded-xl border border-(--hi-border) bg-(--hi-bg-strong) px-4 py-3 text-(--hi-text) outline-hidden focus:border-(--hi-accent) transition text-sm resize-none"
                         />
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="mb-1.5 block text-sm font-medium text-[var(--hi-text)]">
+                            <label className="mb-1.5 block text-sm font-medium text-(--hi-text)">
                                 {t('maintenance.form.frequency_value', { defaultValue: 'Tekrar Sıklığı' })}
                             </label>
                             <input
@@ -475,18 +475,18 @@ export default function MaintenancePage() {
                                 value={freqValue}
                                 onChange={(e) => setFreqValue(e.target.value)}
                                 placeholder={t('maintenance.form.frequency_placeholder', { defaultValue: 'Örn: 6 (Boş bırakılırsa tek seferlik)' })}
-                                className="w-full rounded-xl border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] px-4 py-3 text-sm text-[var(--hi-text)] outline-none focus:border-[var(--hi-accent)] transition-all duration-300"
+                                className="w-full rounded-xl border border-(--hi-border) bg-(--hi-bg-strong) px-4 py-3 text-sm text-(--hi-text) outline-hidden focus:border-(--hi-accent) transition-all duration-300"
                             />
                         </div>
                         <div>
-                            <label className="mb-1.5 block text-sm font-medium text-[var(--hi-text)]">
+                            <label className="mb-1.5 block text-sm font-medium text-(--hi-text)">
                                 {t('maintenance.form.frequency_unit', { defaultValue: 'Sıklık Birimi' })}
                             </label>
                             <select
                                 value={freqUnit}
                                 onChange={(e) => setFreqUnit(e.target.value)}
                                 disabled={!freqValue}
-                                className="w-full rounded-xl border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] px-4 py-3 text-[var(--hi-text)] outline-none focus:border-[var(--hi-accent)] transition text-sm disabled:opacity-50 cursor-pointer"
+                                className="w-full rounded-xl border border-(--hi-border) bg-(--hi-bg-strong) px-4 py-3 text-(--hi-text) outline-hidden focus:border-(--hi-accent) transition text-sm disabled:opacity-50 cursor-pointer"
                             >
                                 <option value="days">{t('maintenance.freq.unit.days', { defaultValue: 'Gün' })}</option>
                                 <option value="weeks">{t('maintenance.freq.unit.weeks', { defaultValue: 'Hafta' })}</option>
@@ -497,14 +497,14 @@ export default function MaintenancePage() {
                     </div>
 
                     <div>
-                        <label className="mb-1.5 block text-sm font-medium text-[var(--hi-text)]">
+                        <label className="mb-1.5 block text-sm font-medium text-(--hi-text)">
                             {t('maintenance.form.next_due_date', { defaultValue: 'Sıradaki Planlanan Tarih' })} *
                         </label>
                         <input
                             type="date"
                             value={nextDueDate}
                             onChange={(e) => setNextDueDate(e.target.value)}
-                            className="w-full rounded-xl border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] px-4 py-3 text-[var(--hi-text)] outline-none focus:border-[var(--hi-accent)] transition text-sm cursor-pointer"
+                            className="w-full rounded-xl border border-(--hi-border) bg-(--hi-bg-strong) px-4 py-3 text-(--hi-text) outline-hidden focus:border-(--hi-accent) transition text-sm cursor-pointer"
                             required
                         />
                     </div>
@@ -527,7 +527,7 @@ export default function MaintenancePage() {
                 icon={CheckCircle2}
             >
                 {performingTask?.frequency_value && (
-                    <p className="mt-2 text-xs text-[var(--hi-text-muted)]">
+                    <p className="mt-2 text-xs text-(--hi-text-muted)">
                         {t('maintenance.modal.perform_recurrence_info', {
                             defaultValue: 'Bu periyodik bir görevdir. Kaydettiğinizde sistem otomatik olarak bir sonraki bakım tarihini hesaplayacaktır.'
                         })}
@@ -565,7 +565,7 @@ function TaskCard({ task, isOverdue, isPerforming, onEdit, onPerform, onDelete, 
 
     const performStyle = isOverdue
         ? 'border-red-200 bg-red-50/50 dark:border-red-500/20 dark:bg-red-500/5'
-        : 'border-[var(--hi-border)] bg-[var(--hi-panel-strong)]';
+        : 'border-(--hi-border) bg-(--hi-panel-strong)';
 
     const borderLeftStyle = isOverdue
         ? { borderLeft: '4px solid var(--hi-danger, #ef4444)' }
@@ -576,20 +576,20 @@ function TaskCard({ task, isOverdue, isPerforming, onEdit, onPerform, onDelete, 
     return (
         <div
             style={borderLeftStyle}
-            className={`group maintenance-task-card flex flex-col justify-between rounded-2xl border p-5 shadow-[var(--hi-shadow-soft)] transition-all duration-200 hover:scale-[1.008] hover:shadow-[var(--hi-shadow)] active:scale-[0.99] ${performStyle} ${completingClass}`}
+            className={`group maintenance-task-card flex flex-col justify-between rounded-2xl border p-5 shadow-(--hi-shadow-soft) transition-all duration-200 hover:scale-[1.008] hover:shadow-(--hi-shadow) active:scale-[0.99] ${performStyle} ${completingClass}`}
         >
             <div className="space-y-3">
                 <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-[var(--hi-accent)]">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-(--hi-accent)">
                             <Clock className="w-3 h-3" />
                             {formatFreqText(task.frequency_value, task.frequency_unit)}
                         </span>
-                        <h3 className="mt-1 truncate text-base font-semibold leading-snug text-[var(--hi-text)]" title={task.task_name}>
+                        <h3 className="mt-1 truncate text-base font-semibold leading-snug text-(--hi-text)" title={task.task_name}>
                             {task.task_name}
                         </h3>
-                        <p className="mt-0.5 truncate text-xs text-[var(--hi-text-soft)] flex items-center gap-1">
-                            <Package className="w-3.5 h-3.5 text-[var(--hi-text-muted)] shrink-0" />
+                        <p className="mt-0.5 truncate text-xs text-(--hi-text-soft) flex items-center gap-1">
+                            <Package className="w-3.5 h-3.5 text-(--hi-text-muted) shrink-0" />
                             <span>{task.item_name || t('maintenance.card.untitled_item', { defaultValue: 'İsimsiz Eşya' })}</span>
                         </p>
                     </div>
@@ -599,7 +599,7 @@ function TaskCard({ task, isOverdue, isPerforming, onEdit, onPerform, onDelete, 
                             onClick={() => onEdit(task)}
                             disabled={isPerforming}
                             aria-label={t('common.edit', { defaultValue: 'Düzenle' })}
-                            className="rounded-lg p-1.5 text-[var(--hi-text-muted)] hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)] transition cursor-pointer active:scale-[0.98] disabled:opacity-50"
+                            className="rounded-lg p-1.5 text-(--hi-text-muted) hover:bg-(--hi-panel-muted) hover:text-(--hi-text) transition cursor-pointer active:scale-[0.98] disabled:opacity-50"
                         >
                             <Edit className="w-4 h-4" />
                         </button>
@@ -607,7 +607,7 @@ function TaskCard({ task, isOverdue, isPerforming, onEdit, onPerform, onDelete, 
                             onClick={() => onDelete(task)}
                             disabled={isPerforming}
                             aria-label={t('common.delete', { defaultValue: 'Sil' })}
-                            className="rounded-lg p-1.5 text-[var(--hi-text-muted)] hover:bg-red-500/10 hover:text-red-500 transition cursor-pointer active:scale-[0.98] disabled:opacity-50"
+                            className="rounded-lg p-1.5 text-(--hi-text-muted) hover:bg-red-500/10 hover:text-red-500 transition cursor-pointer active:scale-[0.98] disabled:opacity-50"
                         >
                             <Trash2 className="w-4 h-4" />
                         </button>
@@ -615,30 +615,30 @@ function TaskCard({ task, isOverdue, isPerforming, onEdit, onPerform, onDelete, 
                 </div>
 
                 {task.description && (
-                    <p className="line-clamp-2 text-xs leading-relaxed text-[var(--hi-text-muted)]">
+                    <p className="line-clamp-2 text-xs leading-relaxed text-(--hi-text-muted)">
                         {task.description}
                     </p>
                 )}
 
                 {task.last_performed_at && (
-                    <div className="flex items-center gap-1.5 rounded-lg bg-[var(--hi-bg-strong)] px-2.5 py-1.5 w-fit border border-[var(--hi-border)]/40 shadow-sm mt-2 animate-fade-in">
+                    <div className="flex items-center gap-1.5 rounded-lg bg-(--hi-bg-strong) px-2.5 py-1.5 w-fit border border-(--hi-border)/40 shadow-xs mt-2 animate-fade-in">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                        <span className="text-[10px] font-bold text-[var(--hi-text-soft)] uppercase tracking-wider">
+                        <span className="text-[10px] font-bold text-(--hi-text-soft) uppercase tracking-wider">
                             {t('maintenance.card.last_performed', { defaultValue: 'Son Yapılma:' })}
                         </span>
-                        <span className="text-[10px] font-extrabold text-[var(--hi-text)] tracking-wider">
+                        <span className="text-[10px] font-extrabold text-(--hi-text) tracking-wider">
                             {task.last_performed_at}
                         </span>
                     </div>
                 )}
             </div>
 
-            <div className="mt-5 border-t border-[var(--hi-border)] pt-4 flex items-center justify-between gap-4">
+            <div className="mt-5 border-t border-(--hi-border) pt-4 flex items-center justify-between gap-4">
                 <div className="min-w-0">
-                    <p className="text-[10px] uppercase tracking-wider text-[var(--hi-text-muted)] font-medium">
+                    <p className="text-[10px] uppercase tracking-wider text-(--hi-text-muted) font-medium">
                         {t('maintenance.card.next_due_label', { defaultValue: 'Planlanan Tarih' })}
                     </p>
-                    <p className={`text-sm font-semibold truncate flex items-center gap-1 ${isOverdue ? 'text-red-500 dark:text-red-400' : 'text-[var(--hi-text)]'}`}>
+                    <p className={`text-sm font-semibold truncate flex items-center gap-1 ${isOverdue ? 'text-red-500 dark:text-red-400' : 'text-(--hi-text)'}`}>
                         {isOverdue && <AlertTriangle className="w-3.5 h-3.5 text-red-500 shrink-0" />}
                         <span>{formattedDate}</span>
                     </p>
@@ -647,7 +647,7 @@ function TaskCard({ task, isOverdue, isPerforming, onEdit, onPerform, onDelete, 
                 <button
                     onClick={() => onPerform(task)}
                     disabled={isPerforming}
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)] hover:bg-[var(--hi-accent)] hover:text-white transition shadow-[var(--hi-shadow-soft)] cursor-pointer disabled:opacity-50 active:scale-[0.98]"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-(--hi-accent-soft) text-(--hi-accent) hover:bg-(--hi-accent) hover:text-white transition shadow-(--hi-shadow-soft) cursor-pointer disabled:opacity-50 active:scale-[0.98]"
                     title={t('maintenance.card.complete_tooltip', { defaultValue: 'Bakımı Bugün Yapıldı Olarak İşaretle' })}
                 >
                     {isPerforming ? <Loader2 className="w-4 h-4 animate-spin" /> : <Wrench className="w-4 h-4" />}

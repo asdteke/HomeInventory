@@ -389,10 +389,10 @@ function AdminTabButton({ active, icon: Icon, label, onClick }: AdminTabButtonPr
             type="button"
             onClick={onClick}
             aria-pressed={active}
-            className={`admin-v25-tab inline-flex min-h-[52px] items-center gap-2 rounded-[1rem] px-4 py-3 text-sm font-semibold transition ${
+            className={`admin-v25-tab inline-flex min-h-[52px] items-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold transition ${
                 active
-                    ? 'is-active bg-[var(--hi-accent)] text-white shadow-[0_16px_32px_rgba(45,82,65,0.18)]'
-                    : 'border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]'
+                    ? 'is-active bg-(--hi-accent) text-white shadow-[0_16px_32px_rgba(45,82,65,0.18)]'
+                    : 'border border-(--hi-border) bg-(--hi-panel) text-(--hi-text-soft) hover:border-(--hi-border-strong) hover:bg-(--hi-panel-strong) hover:text-(--hi-text)'
             }`}
         >
             <Icon className="h-4 w-4" />
@@ -413,27 +413,27 @@ interface OverviewMetricCardProps {
 function OverviewMetricCard({ icon: Icon, label, value, description, tone = 'accent', chips = [] }: OverviewMetricCardProps) {
     const toneMap = {
         accent: {
-            icon: 'bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
+            icon: 'bg-(--hi-accent-soft) text-(--hi-accent)'
         },
         secondary: {
-            icon: 'bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)]'
+            icon: 'bg-(--hi-secondary-soft) text-(--hi-secondary-strong)'
         },
         warning: {
-            icon: 'bg-[var(--hi-warning-soft)] text-[var(--hi-warning)]'
+            icon: 'bg-(--hi-warning-soft) text-(--hi-warning)'
         }
     };
 
     const style = toneMap[tone] || toneMap.accent;
 
     return (
-        <div className={`admin-v25-metric admin-v25-metric-${tone} relative overflow-hidden rounded-[1.65rem] border border-[var(--hi-border)] bg-[linear-gradient(180deg,var(--hi-panel-strong),var(--hi-panel))] p-5 shadow-[var(--hi-shadow-soft)]`}>
+        <div className={`admin-v25-metric admin-v25-metric-${tone} relative overflow-hidden rounded-[1.65rem] border border-(--hi-border) bg-[linear-gradient(180deg,var(--hi-panel-strong),var(--hi-panel))] p-5 shadow-(--hi-shadow-soft)`}>
             <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                    <p className="text-sm font-semibold text-[var(--hi-text-soft)]">{label}</p>
-                    <p className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[var(--hi-text)]">{value}</p>
-                    {description && <p className="mt-2 text-sm leading-6 text-[var(--hi-text-soft)]">{description}</p>}
+                    <p className="text-sm font-semibold text-(--hi-text-soft)">{label}</p>
+                    <p className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-(--hi-text)">{value}</p>
+                    {description && <p className="mt-2 text-sm leading-6 text-(--hi-text-soft)">{description}</p>}
                 </div>
-                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[1rem] ${style.icon}`}>
+                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${style.icon}`}>
                     <Icon className="h-5 w-5" />
                 </span>
             </div>
@@ -467,13 +467,13 @@ function SummaryList({ items }: SummaryListProps) {
             {items.map((item) => (
                 <div
                     key={item.label}
-                    className="admin-v25-row flex h-full items-start justify-between gap-4 rounded-[1.1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3"
+                    className="admin-v25-row flex h-full items-start justify-between gap-4 rounded-[1.1rem] border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3"
                 >
                     <div className="min-w-0">
-                        <p className="text-sm font-semibold text-[var(--hi-text)]">{item.label}</p>
-                        {item.description && <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">{item.description}</p>}
+                        <p className="text-sm font-semibold text-(--hi-text)">{item.label}</p>
+                        {item.description && <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">{item.description}</p>}
                     </div>
-                    <span className={`shrink-0 rounded-full px-3 py-1 text-sm font-semibold ${item.toneClass || 'bg-[var(--hi-panel-strong)] text-[var(--hi-text)]'}`}>
+                    <span className={`shrink-0 rounded-full px-3 py-1 text-sm font-semibold ${item.toneClass || 'bg-(--hi-panel-strong) text-(--hi-text)'}`}>
                         {item.value}
                     </span>
                 </div>
@@ -498,7 +498,7 @@ function ActivityFeed({ items, locale, t, emptyTitle, emptyDescription }: Activi
                 title={emptyTitle}
                 description={emptyDescription}
                 align="left"
-                className="!rounded-[1.5rem] !border !border-dashed !border-[var(--hi-border-strong)] !bg-transparent !p-5"
+                className="rounded-3xl! border! border-dashed! border-(--hi-border-strong)! bg-transparent! p-5!"
             />
         );
     }
@@ -512,14 +512,14 @@ function ActivityFeed({ items, locale, t, emptyTitle, emptyDescription }: Activi
                     return (
                         <div
                             key={`${item.id}-${item.created_at || item.timestamp || item.error}`}
-                            className="admin-v25-feed-item rounded-[1.15rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4"
+                            className="admin-v25-feed-item rounded-[1.15rem] border border-(--hi-border) bg-(--hi-panel-muted) p-4"
                         >
                             <div className="flex items-start justify-between gap-3">
                                 <div className="min-w-0">
-                                    <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--hi-text-muted)]">
+                                    <p className="text-sm font-semibold uppercase tracking-[0.16em] text-(--hi-text-muted)">
                                         {formatAdminLogType(item, t)}
                                     </p>
-                                    <p className="mt-2 text-base font-semibold text-[var(--hi-text)]">
+                                    <p className="mt-2 text-base font-semibold text-(--hi-text)">
                                         {item.action ? formatAdminLogAction(item, t) : item.error}
                                     </p>
                                 </div>
@@ -527,8 +527,8 @@ function ActivityFeed({ items, locale, t, emptyTitle, emptyDescription }: Activi
                                     {formatAdminDate(item.created_at || item.timestamp, locale)}
                                 </span>
                             </div>
-                            {formattedDetails && <p className="mt-3 text-sm leading-6 text-[var(--hi-text-soft)]">{formattedDetails}</p>}
-                            {item.error && !item.action && <p className="mt-3 text-sm leading-6 text-[var(--hi-text-soft)]">{item.error}</p>}
+                            {formattedDetails && <p className="mt-3 text-sm leading-6 text-(--hi-text-soft)">{formattedDetails}</p>}
+                            {item.error && !item.action && <p className="mt-3 text-sm leading-6 text-(--hi-text-soft)">{item.error}</p>}
                         </div>
                     );
                 })()
@@ -548,15 +548,15 @@ function UserActionButton({ icon: Icon, label, tone = 'default', onClick }: User
     const toneClass = tone === 'danger'
         ? 'border-red-500/18 bg-red-500/8 text-red-400 hover:bg-red-500/12'
         : tone === 'warning'
-            ? 'border-[var(--hi-warning)]/18 bg-[var(--hi-warning-soft)] text-[var(--hi-warning)] hover:bg-[var(--hi-warning-soft)]/80'
-            : 'border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text)] hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)]';
+            ? 'border-(--hi-warning)/18 bg-(--hi-warning-soft) text-(--hi-warning) hover:bg-(--hi-warning-soft)/80'
+            : 'border-(--hi-border) bg-(--hi-panel-muted) text-(--hi-text) hover:border-(--hi-border-strong) hover:bg-(--hi-panel-strong)';
 
     return (
         <button
             type="button"
             onClick={onClick}
             aria-label={label}
-            className={`inline-flex items-center gap-2 rounded-[0.95rem] border px-3 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)] ${toneClass}`}
+            className={`inline-flex items-center gap-2 rounded-[0.95rem] border px-3 py-2 text-sm font-semibold transition focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-bg-elevated) ${toneClass}`}
         >
             <Icon className="h-4 w-4" />
             <span>{label}</span>
@@ -584,16 +584,16 @@ function UserCard({
     const isAdminAccount = user.role === 'admin';
 
     return (
-        <article className="admin-v25-user-card rounded-[1.65rem] border border-[var(--hi-border)] bg-[linear-gradient(180deg,var(--hi-panel-strong),var(--hi-panel))] p-5 shadow-[var(--hi-shadow-soft)]">
+        <article className="admin-v25-user-card rounded-[1.65rem] border border-(--hi-border) bg-[linear-gradient(180deg,var(--hi-panel-strong),var(--hi-panel))] p-5 shadow-(--hi-shadow-soft)">
             <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                 <div className="min-w-0 flex-1">
                     <div className="flex items-start gap-4">
-                        <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[1.1rem] bg-[linear-gradient(135deg,var(--hi-accent-soft),var(--hi-secondary-soft))] text-xl font-semibold text-[var(--hi-text)]">
+                        <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[1.1rem] bg-[linear-gradient(135deg,var(--hi-accent-soft),var(--hi-secondary-soft))] text-xl font-semibold text-(--hi-text)">
                             {getInitials(user.username)}
                         </span>
                         <div className="min-w-0">
                             <div className="flex flex-wrap items-center gap-2">
-                                <h3 className="text-lg font-semibold tracking-[-0.03em] text-[var(--hi-text)]">{user.username}</h3>
+                                <h3 className="text-lg font-semibold tracking-[-0.03em] text-(--hi-text)">{user.username}</h3>
                                 <span className={`app-meta-pill ${isAdminAccount ? 'app-meta-pill-warning' : ''}`}>
                                     {isAdminAccount
                                         ? t('admin.users.role_admin', { defaultValue: 'Admin' })
@@ -602,36 +602,36 @@ function UserCard({
                                 {user.is_banned && <span className="app-meta-pill app-meta-pill-warning">{t('admin.users.banned')}</span>}
                                 {!user.is_banned && <span className="app-meta-pill app-meta-pill-accent">{t('admin.users.active')}</span>}
                             </div>
-                            <p className="mt-1 text-sm text-[var(--hi-text-soft)]">
+                            <p className="mt-1 text-sm text-(--hi-text-soft)">
                                 {t('admin.users.private_contact_hidden', { defaultValue: 'Private contact details stay hidden from the admin overview.' })}
                             </p>
                         </div>
                     </div>
 
                     <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                        <div className="admin-v25-inline-stat rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--hi-text-muted)]">
+                        <div className="admin-v25-inline-stat rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-(--hi-text-muted)">
                                 {t('admin.users.joined_label', { defaultValue: 'Joined' })}
                             </p>
-                            <p className="mt-2 text-sm font-semibold text-[var(--hi-text)]">{joinedAt || t('admin.users.no_date', { defaultValue: 'Unknown' })}</p>
+                            <p className="mt-2 text-sm font-semibold text-(--hi-text)">{joinedAt || t('admin.users.no_date', { defaultValue: 'Unknown' })}</p>
                         </div>
-                        <div className="admin-v25-inline-stat rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--hi-text-muted)]">
+                        <div className="admin-v25-inline-stat rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-(--hi-text-muted)">
                                 {t('admin.users.last_seen_label', { defaultValue: 'Last sign-in' })}
                             </p>
-                            <p className="mt-2 text-sm font-semibold text-[var(--hi-text)]">{lastLogin || t('admin.users.no_last_login', { defaultValue: 'No sign-in yet' })}</p>
+                            <p className="mt-2 text-sm font-semibold text-(--hi-text)">{lastLogin || t('admin.users.no_last_login', { defaultValue: 'No sign-in yet' })}</p>
                         </div>
-                        <div className="admin-v25-inline-stat rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--hi-text-muted)]">
+                        <div className="admin-v25-inline-stat rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-(--hi-text-muted)">
                                 {t('admin.users.households_label', { defaultValue: 'Households' })}
                             </p>
-                            <p className="mt-2 text-sm font-semibold text-[var(--hi-text)]">{formatNumberForLanguage(user.house_count || 0, locale)}</p>
+                            <p className="mt-2 text-sm font-semibold text-(--hi-text)">{formatNumberForLanguage(user.house_count || 0, locale)}</p>
                         </div>
-                        <div className="admin-v25-inline-stat rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--hi-text-muted)]">
+                        <div className="admin-v25-inline-stat rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-(--hi-text-muted)">
                                 {t('admin.users.items_label', { defaultValue: 'Owned items' })}
                             </p>
-                            <p className="mt-2 text-sm font-semibold text-[var(--hi-text)]">{formatNumberForLanguage(user.owned_item_count || 0, locale)}</p>
+                            <p className="mt-2 text-sm font-semibold text-(--hi-text)">{formatNumberForLanguage(user.owned_item_count || 0, locale)}</p>
                         </div>
                     </div>
 
@@ -659,7 +659,7 @@ function UserCard({
 
                 <div className="flex flex-wrap gap-2 md:justify-end">
                     {isAdminAccount ? (
-                        <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm font-medium text-[var(--hi-text-soft)]">
+                        <div className="rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3 text-sm font-medium text-(--hi-text-soft)">
                             {t('admin.users.protected_admin', { defaultValue: 'Protected admin account' })}
                         </div>
                     ) : (
@@ -1104,7 +1104,7 @@ export default function AdminPanel() {
                         </div>
 
                         <div className="admin-v25-section-grid grid items-stretch gap-6 xl:auto-rows-fr xl:grid-cols-2">
-                            <section className="card !mt-0 !flex !h-full !flex-col !p-5">
+                            <section className="card mt-0! flex! h-full! flex-col! p-5!">
                                 <SectionHeader
                                     eyebrow={t('admin.overview.sections.governance_eyebrow', { defaultValue: 'Access' })}
                                     title={t('admin.overview.sections.governance_title', { defaultValue: 'Governance snapshot' })}
@@ -1116,7 +1116,7 @@ export default function AdminPanel() {
                                             label: t('admin.overview.summary.admin_seats', { defaultValue: 'Protected admin seats' }),
                                             description: t('admin.overview.summary.admin_seats_body', { defaultValue: 'Accounts that can access the admin surface.' }),
                                             value: formatNumberForLanguage(stats.users.admins, locale),
-                                            toneClass: 'bg-[var(--hi-warning-soft)] text-[var(--hi-warning)]'
+                                            toneClass: 'bg-(--hi-warning-soft) text-(--hi-warning)'
                                         },
                                         {
                                             label: t('admin.overview.summary.banned_accounts', { defaultValue: 'Banned accounts' }),
@@ -1137,7 +1137,7 @@ export default function AdminPanel() {
                                 />
                             </section>
 
-                            <section className="card !mt-0 !flex !h-full !flex-col !p-5">
+                            <section className="card mt-0! flex! h-full! flex-col! p-5!">
                                 <SectionHeader
                                     eyebrow={t('admin.overview.sections.footprint_eyebrow', { defaultValue: 'Inventory' })}
                                     title={t('admin.overview.sections.footprint_title', { defaultValue: 'Inventory footprint' })}
@@ -1171,7 +1171,7 @@ export default function AdminPanel() {
                         </div>
 
                         <div className="admin-v25-section-grid grid items-stretch gap-6 xl:auto-rows-fr xl:grid-cols-[1.15fr_0.85fr]">
-                            <section className="card !mt-0 !flex !h-full !flex-col !p-5">
+                            <section className="card mt-0! flex! h-full! flex-col! p-5!">
                                 <SectionHeader
                                     eyebrow={t('admin.overview.sections.activity_eyebrow', { defaultValue: 'Audit' })}
                                     title={t('admin.overview.sections.activity_title', { defaultValue: 'Recent admin activity' })}
@@ -1186,7 +1186,7 @@ export default function AdminPanel() {
                                 />
                             </section>
 
-                            <section className="card !mt-0 !flex !h-full !flex-col !p-5">
+                            <section className="card mt-0! flex! h-full! flex-col! p-5!">
                                 <SectionHeader
                                     eyebrow={t('admin.overview.sections.recent_users_eyebrow', { defaultValue: 'New accounts' })}
                                     title={t('admin.overview.sections.recent_users_title', { defaultValue: 'Latest signups' })}
@@ -1197,24 +1197,24 @@ export default function AdminPanel() {
                                         {stats.recent_users.map((user) => (
                                             <div
                                                 key={user.id}
-                                                className="admin-v25-row flex items-center gap-3 rounded-[1.15rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3"
+                                                className="admin-v25-row flex items-center gap-3 rounded-[1.15rem] border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3"
                                             >
-                                                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[0.95rem] bg-[linear-gradient(135deg,var(--hi-accent-soft),var(--hi-secondary-soft))] text-sm font-semibold text-[var(--hi-text)]">
+                                                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[0.95rem] bg-[linear-gradient(135deg,var(--hi-accent-soft),var(--hi-secondary-soft))] text-sm font-semibold text-(--hi-text)">
                                                     {getInitials(user.username)}
                                                 </span>
                                                 <div className="min-w-0 flex-1">
-                                                    <p className="truncate text-sm font-semibold text-[var(--hi-text)]">{user.username}</p>
-                                                    <p className="text-sm text-[var(--hi-text-soft)]">
+                                                    <p className="truncate text-sm font-semibold text-(--hi-text)">{user.username}</p>
+                                                    <p className="text-sm text-(--hi-text-soft)">
                                                         {t('admin.overview.sections.recent_users_private_note', { defaultValue: 'Private contact details stay hidden.' })}
                                                     </p>
                                                 </div>
                                                 <div className="text-right">
-                                                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--hi-text-muted)]">
+                                                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-(--hi-text-muted)">
                                                         {user.last_login
                                                             ? t('admin.users.last_seen_short', { defaultValue: 'Seen' })
                                                             : t('admin.users.last_seen_short_never', { defaultValue: 'New' })}
                                                     </p>
-                                                    <p className="mt-1 text-sm text-[var(--hi-text)]">
+                                                    <p className="mt-1 text-sm text-(--hi-text)">
                                                         {formatAdminDate(user.last_login || user.created_at, locale) || t('admin.users.no_last_login', { defaultValue: 'No sign-in yet' })}
                                                     </p>
                                                 </div>
@@ -1227,7 +1227,7 @@ export default function AdminPanel() {
                                         title={t('admin.overview.sections.recent_users_empty_title', { defaultValue: 'No users yet' })}
                                         description={t('admin.overview.sections.recent_users_empty_body', { defaultValue: 'As people sign up, the newest accounts will appear here.' })}
                                         align="left"
-                                        className="!rounded-[1.5rem] !border !border-dashed !border-[var(--hi-border-strong)] !bg-transparent !p-5"
+                                        className="rounded-3xl! border! border-dashed! border-(--hi-border-strong)! bg-transparent! p-5!"
                                     />
                                 )}
                             </section>
@@ -1269,7 +1269,7 @@ export default function AdminPanel() {
                     />
                 ) : (
                     <div className="space-y-6">
-                        <section className="card !mt-0 !p-5">
+                        <section className="card mt-0! p-5!">
                             <SectionHeader
                                 eyebrow={t('admin.users.section_eyebrow', { defaultValue: 'Moderation' })}
                                 title={t('admin.users.section_title', { defaultValue: 'User access control' })}
@@ -1278,17 +1278,17 @@ export default function AdminPanel() {
 
                             <div className="mt-5 grid gap-4 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-end">
                                 <label className="block">
-                                    <span className="mb-2 block text-sm font-semibold text-[var(--hi-text)]">
+                                    <span className="mb-2 block text-sm font-semibold text-(--hi-text)">
                                         {t('admin.users.search_label', { defaultValue: 'Search users' })}
                                     </span>
                                     <span className="relative block">
-                                        <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--hi-text-muted)]" />
+                                        <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-(--hi-text-muted)" />
                                         <input
                                             type="search"
                                             value={userSearch}
                                             onChange={(event) => setUserSearch(event.target.value)}
                                             placeholder={t('admin.users.search_placeholder', { defaultValue: 'Search by username' })}
-                                            className="input-field !pl-11"
+                                            className="input-field pl-11!"
                                         />
                                     </span>
                                 </label>
@@ -1301,8 +1301,8 @@ export default function AdminPanel() {
                                             onClick={() => setUserFilter(filterId)}
                                             className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
                                                 userFilter === filterId
-                                                    ? 'border-[var(--hi-accent)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
-                                                    : 'border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)] hover:border-[var(--hi-border-strong)] hover:text-[var(--hi-text)]'
+                                                    ? 'border-(--hi-accent) bg-(--hi-accent-soft) text-(--hi-accent)'
+                                                    : 'border-(--hi-border) bg-(--hi-panel-muted) text-(--hi-text-soft) hover:border-(--hi-border-strong) hover:text-(--hi-text)'
                                             }`}
                                         >
                                             {t(`admin.users.filters.${filterId}`, {
@@ -1390,7 +1390,7 @@ export default function AdminPanel() {
                     />
                 ) : (
                     <div className="grid items-stretch gap-6 xl:grid-cols-[1.15fr_0.85fr]">
-                        <section className="admin-v25-surface card !mt-0 !flex !h-full !flex-col !p-5">
+                        <section className="admin-v25-surface card mt-0! flex! h-full! flex-col! p-5!">
                             <SectionHeader
                                 eyebrow={t('admin.logs.section_eyebrow', { defaultValue: 'Audit trail' })}
                                 title={t('admin.logs.title', { defaultValue: 'Admin activity' })}
@@ -1405,7 +1405,7 @@ export default function AdminPanel() {
                             />
                         </section>
 
-                        <section className="admin-v25-surface card !mt-0 !flex !h-full !flex-col !p-5">
+                        <section className="admin-v25-surface card mt-0! flex! h-full! flex-col! p-5!">
                             <SectionHeader
                                 eyebrow={t('admin.logs.errors_eyebrow', { defaultValue: 'Diagnostics' })}
                                 title={t('admin.logs.errors_title', { defaultValue: 'Recent system errors' })}
@@ -1420,8 +1420,8 @@ export default function AdminPanel() {
                                         >
                                             <div className="flex items-start justify-between gap-3">
                                                 <div className="min-w-0">
-                                                    <p className="text-sm font-semibold text-[var(--hi-text)]">{entry.error}</p>
-                                                    <p className="mt-2 text-xs uppercase tracking-[0.16em] text-[var(--hi-text-muted)]">{entry.file}</p>
+                                                    <p className="text-sm font-semibold text-(--hi-text)">{entry.error}</p>
+                                                    <p className="mt-2 text-xs uppercase tracking-[0.16em] text-(--hi-text-muted)">{entry.file}</p>
                                                 </div>
                                                 <span className="app-meta-pill app-meta-pill-warning">
                                                     {formatAdminDate(entry.timestamp, locale)}
@@ -1463,7 +1463,7 @@ export default function AdminPanel() {
                     />
                 ) : (
                     <div className="grid items-stretch gap-6 xl:grid-cols-[0.95fr_1.05fr]">
-                        <section className="card !mt-0 !flex !h-full !flex-col !p-5">
+                        <section className="card mt-0! flex! h-full! flex-col! p-5!">
                             <SectionHeader
                                 eyebrow={t('admin.email.status_eyebrow', { defaultValue: 'Delivery' })}
                                 title={t('admin.email.status_title', { defaultValue: 'Outbound email status' })}
@@ -1487,37 +1487,37 @@ export default function AdminPanel() {
                             )}
 
                             <div className="mt-5 space-y-3">
-                                <div className="admin-v25-row rounded-[1.1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--hi-text-muted)]">
+                                <div className="admin-v25-row rounded-[1.1rem] border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-(--hi-text-muted)">
                                         {t('admin.email.from_label', { defaultValue: 'Sender' })}
                                     </p>
-                                    <p className="mt-2 text-sm font-semibold text-[var(--hi-text)]">
+                                    <p className="mt-2 text-sm font-semibold text-(--hi-text)">
                                         {emailStatus?.configured
                                             ? (emailStatus?.from || '—')
                                             : t('admin.email.from_unconfigured', { defaultValue: 'Available after mail setup' })}
                                     </p>
                                 </div>
-                                <div className="admin-v25-row rounded-[1.1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--hi-text-muted)]">
+                                <div className="admin-v25-row rounded-[1.1rem] border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-(--hi-text-muted)">
                                         {t('admin.email.notes_label', { defaultValue: 'Usage note' })}
                                     </p>
-                                    <p className="mt-2 text-sm leading-6 text-[var(--hi-text-soft)]">
+                                    <p className="mt-2 text-sm leading-6 text-(--hi-text-soft)">
                                         {emailUsageNote}
                                     </p>
                                 </div>
                             </div>
                         </section>
 
-                        <section className="card !mt-0 !flex !h-full !flex-col !p-5">
+                        <section className="card mt-0! flex! h-full! flex-col! p-5!">
                             <SectionHeader
                                 eyebrow={t('admin.email.compose_eyebrow', { defaultValue: 'Message' })}
                                 title={t('admin.email.title', { defaultValue: 'Send Email' })}
                                 description={t('admin.email.compose_body', { defaultValue: 'Compose a single outbound email with safe HTML formatting and platform branding.' })}
                             />
 
-                            <form onSubmit={handleSendEmail} className="mt-5 space-y-4">
+                            <form onSubmit={handleSendEmail} className="flex flex-col mt-5 gap-y-4">
                                 <label className="block">
-                                    <span className="mb-2 block text-sm font-semibold text-[var(--hi-text)]">{t('admin.email.to', { defaultValue: 'Recipient (To)' })}</span>
+                                    <span className="mb-2 block text-sm font-semibold text-(--hi-text)">{t('admin.email.to', { defaultValue: 'Recipient (To)' })}</span>
                                     <input
                                         type="email"
                                         required
@@ -1529,7 +1529,7 @@ export default function AdminPanel() {
                                 </label>
 
                                 <label className="block">
-                                    <span className="mb-2 block text-sm font-semibold text-[var(--hi-text)]">{t('admin.email.subject', { defaultValue: 'Subject' })}</span>
+                                    <span className="mb-2 block text-sm font-semibold text-(--hi-text)">{t('admin.email.subject', { defaultValue: 'Subject' })}</span>
                                     <input
                                         type="text"
                                         required
@@ -1542,7 +1542,7 @@ export default function AdminPanel() {
                                 </label>
 
                                 <label className="block">
-                                    <span className="mb-2 block text-sm font-semibold text-[var(--hi-text)]">{t('admin.email.message', { defaultValue: 'Message' })}</span>
+                                    <span className="mb-2 block text-sm font-semibold text-(--hi-text)">{t('admin.email.message', { defaultValue: 'Message' })}</span>
                                     <textarea
                                         required
                                         rows={8}
@@ -1600,9 +1600,9 @@ export default function AdminPanel() {
                 onClose={() => !actionSubmitting && setPendingUserAction(null)}
                 onConfirm={handleConfirmUserAction}
             >
-                <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                    <p className="font-medium text-[var(--hi-text)]">{pendingUserAction?.username}</p>
-                    <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                <div className="rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                    <p className="font-medium text-(--hi-text)">{pendingUserAction?.username}</p>
+                    <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                         {pendingUserAction?.type === 'delete'
                             ? t('admin.users.delete_warning', { defaultValue: 'This action is irreversible and removes rooms, categories, items, and related ownership history tied to this account.' })
                             : pendingUserAction?.isBanned

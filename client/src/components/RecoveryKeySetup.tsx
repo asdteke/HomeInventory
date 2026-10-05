@@ -41,9 +41,9 @@ export default function RecoveryKeySetup() {
 
     return (
         <div className="auth-flow-page-v25">
-            <main className="auth-flow-shell-v25 flex min-h-[100svh] flex-col justify-center">
+            <main className="auth-flow-shell-v25 flex min-h-svh flex-col justify-center">
                 <div className="auth-flow-topbar-v25">
-                    <Link to="/" className="auth-flow-brand-v25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)]">
+                    <Link to="/" className="auth-flow-brand-v25 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent)">
                         <BrandLogo variant="full" size="md" />
                     </Link>
                     <div className="auth-flow-tools-v25">
@@ -51,7 +51,7 @@ export default function RecoveryKeySetup() {
                             <LanguageSwitcher
                                 showTooltip={false}
                                 showCodeBadge={false}
-                                className="!h-[2.65rem] !rounded-full !border-[var(--hi-border)] !bg-[var(--hi-panel-muted)] !px-3 !py-0 !text-[var(--hi-text)] max-[430px]:!h-[2.45rem]"
+                                className="h-[2.65rem]! rounded-full! border-(--hi-border)! bg-(--hi-panel-muted)! px-3! py-0! text-(--hi-text)! max-[430px]:h-[2.45rem]!"
                             />
                         </div>
                         <button
@@ -77,7 +77,7 @@ export default function RecoveryKeySetup() {
 
                         <div className="auth-flow-notice-v25 is-warning">
                             <div className="flex items-start gap-3">
-                                <ShieldAlert className="mt-0.5 h-5 w-5 shrink-0 text-[var(--hi-warning)]" />
+                                <ShieldAlert className="mt-0.5 h-5 w-5 shrink-0 text-(--hi-warning)" />
                                 <p>{t('auth.recovery_setup.warning')}</p>
                             </div>
                         </div>
@@ -88,7 +88,7 @@ export default function RecoveryKeySetup() {
                                 <span>{t('auth.recovery_setup.account', { username: user?.username || '-' })}</span>
                             </span>
                         </div>
-                        <p className="auth-flow-subtitle-v25 !mt-4 !text-sm">{t('auth.recovery_setup.description')}</p>
+                        <p className="auth-flow-subtitle-v25 mt-4! text-sm!">{t('auth.recovery_setup.description')}</p>
 
                         {error && (
                             <div className="auth-flow-feedback-v25 is-error mt-5" role="alert">

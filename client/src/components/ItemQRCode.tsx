@@ -277,10 +277,10 @@ export default function ItemQRCode({ itemId, size = 280 }: ItemQRCodeProps) {
 
                             {loading ? (
                                 <div className="absolute inset-0 z-10 flex items-center justify-center">
-                                    <RefreshCw className="h-8 w-8 animate-spin text-[var(--hi-accent)]" />
+                                    <RefreshCw className="h-8 w-8 animate-spin text-(--hi-accent)" />
                                 </div>
                             ) : qrError ? (
-                                <p className="absolute inset-0 z-10 flex items-center justify-center px-5 text-center text-sm leading-6 text-[var(--hi-text-soft)]">
+                                <p className="absolute inset-0 z-10 flex items-center justify-center px-5 text-center text-sm leading-6 text-(--hi-text-soft)">
                                     {qrError}
                                 </p>
                             ) : null}
@@ -289,16 +289,16 @@ export default function ItemQRCode({ itemId, size = 280 }: ItemQRCodeProps) {
                 </div>
 
                 <div className="min-w-0 space-y-3">
-                    <div className="item-qr-v25-actions grid gap-2 sm:grid-cols-2 xl:max-w-[22rem]">
+                    <div className="item-qr-v25-actions grid gap-2 sm:grid-cols-2 xl:max-w-88">
                         <Tooltip label={t('item_qr.copy_url_safe', { defaultValue: 'Copy link' })} className="w-full">
                             <button
                                 type="button"
                                 onClick={handleCopyUrl}
                                 aria-label={t('item_qr.copy_url_aria', { defaultValue: 'Copy item link' })}
                                 disabled={!itemUrl || loading || Boolean(qrError)}
-                                className="btn-secondary min-h-[44px] w-full justify-center rounded-[1rem] py-2.5"
+                                className="btn-secondary min-h-[44px] w-full justify-center rounded-2xl py-2.5"
                             >
-                                {copied ? <Check className="h-4 w-4 text-[var(--hi-accent)]" /> : <Copy className="h-4 w-4" />}
+                                {copied ? <Check className="h-4 w-4 text-(--hi-accent)" /> : <Copy className="h-4 w-4" />}
                                 {copied ? t('item_qr.copied') : t('item_qr.copy_url_safe', { defaultValue: 'Copy link' })}
                             </button>
                         </Tooltip>
@@ -309,7 +309,7 @@ export default function ItemQRCode({ itemId, size = 280 }: ItemQRCodeProps) {
                                 onClick={handleDownloadQr}
                                 aria-label={t('item_qr.download_aria', { defaultValue: 'Download QR code' })}
                                 disabled={loading || Boolean(qrError)}
-                                className="btn-primary min-h-[44px] w-full justify-center rounded-[1rem] py-2.5"
+                                className="btn-primary min-h-[44px] w-full justify-center rounded-2xl py-2.5"
                             >
                                 <Download className="h-4 w-4" />
                                 {t('item_qr.download')}
@@ -318,7 +318,7 @@ export default function ItemQRCode({ itemId, size = 280 }: ItemQRCodeProps) {
                     </div>
 
                     <div className="item-qr-v25-link max-w-full rounded-[1.15rem] px-3 py-2.5">
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-muted)]">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-(--hi-text-muted)">
                             {t('item_qr.link_preview_label', { defaultValue: 'Direct item link' })}
                         </p>
                         <div
@@ -328,19 +328,19 @@ export default function ItemQRCode({ itemId, size = 280 }: ItemQRCodeProps) {
                             aria-readonly="true"
                             aria-label={t('item_qr.link_preview_aria', { defaultValue: 'Preview of the direct item link' })}
                             title={itemUrl}
-                            className="item-qr-v25-url mt-1 break-all rounded-[0.85rem] px-2.5 py-1.5 font-mono text-[11px] leading-5 text-[var(--hi-text-soft)] outline-none focus-visible:ring-2 focus-visible:ring-[rgba(45,82,65,0.18)]"
+                            className="item-qr-v25-url mt-1 break-all rounded-[0.85rem] px-2.5 py-1.5 font-mono text-[11px] leading-5 text-(--hi-text-soft) outline-hidden focus-visible:ring-2 focus-visible:ring-[rgba(45,82,65,0.18)]"
                         >
                             {itemUrl || t('item_qr.url_loading', { defaultValue: 'Loading URL...' })}
                         </div>
                     </div>
 
                     {copyFallbackVisible && (
-                        <p className="max-w-[24rem] rounded-[0.8rem] border border-[var(--hi-secondary)] bg-[var(--hi-secondary-soft)] px-3 py-2 text-xs leading-5 text-[var(--hi-text)]">
+                        <p className="max-w-[24rem] rounded-[0.8rem] border border-(--hi-secondary) bg-(--hi-secondary-soft) px-3 py-2 text-xs leading-5 text-(--hi-text)">
                             {t('item_qr.copy_manual_help', { defaultValue: 'Tarayıcı otomatik kopyalamaya izin vermedi. Bağlantı seçildi; elle kopyalayabilirsiniz.' })}
                         </p>
                     )}
 
-                    <p className="max-w-[42rem] text-sm leading-6 text-[var(--hi-text-soft)]">
+                    <p className="max-w-2xl text-sm leading-6 text-(--hi-text-soft)">
                         {t('item_qr.helper', { defaultValue: 'Scan to open this item instantly, or copy the direct link when needed.' })}
                     </p>
                 </div>

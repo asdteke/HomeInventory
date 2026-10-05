@@ -120,16 +120,16 @@ export default function RoomManager() {
             {showForm && (
                 <section className="manager-form-v25">
                     <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-lg font-semibold text-[var(--hi-text)]">{editingId ? t('rooms.edit_title') : t('rooms.new_title')}</h3>
-                        <button type="button" onClick={resetForm} aria-label={t('common.close')} className="rounded-xl p-2 text-[var(--hi-text-soft)] transition hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]"><X className="w-5 h-5" /></button>
+                        <h3 className="text-lg font-semibold text-(--hi-text)">{editingId ? t('rooms.edit_title') : t('rooms.new_title')}</h3>
+                        <button type="button" onClick={resetForm} aria-label={t('common.close')} className="rounded-xl p-2 text-(--hi-text-soft) transition hover:bg-(--hi-panel-muted) hover:text-(--hi-text) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel-strong)"><X className="w-5 h-5" /></button>
                     </div>
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
                         <div>
-                            <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('rooms.name_label')}</label>
+                            <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('rooms.name_label')}</label>
                             <input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="input-field" placeholder={t('rooms.name_placeholder')} required />
                         </div>
                         <div>
-                            <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('rooms.description_label')}</label>
+                            <label className="mb-2 block text-sm font-medium text-(--hi-text)">{t('rooms.description_label')}</label>
                             <input type="text" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} className="input-field" placeholder={t('rooms.desc_placeholder')} />
                         </div>
                         <div className="flex gap-3 pt-2">
@@ -161,21 +161,21 @@ export default function RoomManager() {
                         <article key={room.id} className="manager-row-v25">
                             <div className="flex items-start justify-between gap-3">
                                 <div className="min-w-0 flex flex-1 items-start gap-3">
-                                    <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-[0.95rem] border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+                                    <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-[0.95rem] border border-(--hi-border) bg-(--hi-accent-soft) text-(--hi-accent)">
                                         <FolderOpen className="h-[18px] w-[18px]" />
                                     </div>
                                     <div className="min-w-0 flex-1">
-                                        <h3 className="truncate text-base font-semibold leading-6 text-[var(--hi-text)]">
+                                        <h3 className="truncate text-base font-semibold leading-6 text-(--hi-text)">
                                             {roomPresentation.name}
                                         </h3>
                                         {roomPresentation.description && (
-                                            <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                                            <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                                                 {roomPresentation.description}
                                             </p>
                                         )}
                                     </div>
                                 </div>
-                                <div className="flex shrink-0 items-center gap-1 rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-1">
+                                <div className="flex shrink-0 items-center gap-1 rounded-full border border-(--hi-border) bg-(--hi-panel-muted) p-1">
                                     <IconActionButton
                                         label={t('rooms.edit_action', { defaultValue: 'Edit room' })}
                                         icon={Edit3}
@@ -208,11 +208,11 @@ export default function RoomManager() {
                 onClose={() => !deleteSubmitting && setPendingDeleteRoom(null)}
                 onConfirm={handleDelete}
             >
-                <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                    <p className="font-medium text-[var(--hi-text)]">
+                <div className="rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                    <p className="font-medium text-(--hi-text)">
                         {pendingDeleteRoom ? getRoomPresentation(pendingDeleteRoom, i18n.resolvedLanguage || i18n.language).name : ''}
                     </p>
-                    <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                    <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                         {t('rooms.delete_warning', { defaultValue: 'Items assigned here may need a new room so search, counts, and placement history stay trustworthy.' })}
                     </p>
                 </div>

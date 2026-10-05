@@ -167,7 +167,7 @@ For isolation details and advanced settings, see [GUI_LAUNCHER.md](GUI_LAUNCHER.
 ### Option B: Terminal Setup
 
 #### Prerequisites
-- Node.js 22.22.0+
+- Node.js 22.23.3+
 - npm 9+
 - Git
 

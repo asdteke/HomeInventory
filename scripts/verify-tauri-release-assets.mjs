@@ -39,7 +39,7 @@ const manifestPublicKeyBase64 = readArg(
 if (!expectedVersion) fail('--version is required.');
 if (!existsSync(assetsDir)) fail(`Release assets directory not found: ${assetsDir}`);
 if (!Number.isInteger(expectedNodeMajor)) {
-  fail('package.json must declare a minimum Node.js engine such as >=22.22.0.');
+  fail('package.json must declare a minimum Node.js engine such as >=22.23.3.');
 }
 
 const files = walk(assetsDir);

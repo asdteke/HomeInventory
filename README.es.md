@@ -161,7 +161,7 @@ Para detalles de aislamiento y configuración avanzada, consulta [GUI_LAUNCHER.m
 
 #### Requisitos
 
-- Node.js 22.22.0+
+- Node.js 22.23.3+
 - npm 9+
 - Git
 

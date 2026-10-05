@@ -27,13 +27,13 @@ const HouseKeyModal = lazy(() => import('./HouseKeyModal'));
 const RecoveryKeyModal = lazy(() => import('./RecoveryKeyModal'));
 const TwoFactorSetup = lazy(() => import('./TwoFactorSetup'));
 
-const MODAL_CLOSE_BUTTON_CLASS = 'rounded-xl p-2 text-[var(--hi-text-soft)] transition hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]';
+const MODAL_CLOSE_BUTTON_CLASS = 'rounded-xl p-2 text-(--hi-text-soft) transition hover:bg-(--hi-panel-muted) hover:text-(--hi-text) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel-strong)';
 
 function ModalLoadingFallback() {
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
-            <div role="status" aria-live="polite" className="flex items-center gap-3 rounded-2xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] px-5 py-4 text-sm font-medium text-[var(--hi-text)] shadow-[var(--hi-shadow)]">
-                <Loader2 className="h-5 w-5 animate-spin text-[var(--hi-accent)]" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs">
+            <div role="status" aria-live="polite" className="flex items-center gap-3 rounded-2xl border border-(--hi-border) bg-(--hi-panel-strong) px-5 py-4 text-sm font-medium text-(--hi-text) shadow-(--hi-shadow)">
+                <Loader2 className="h-5 w-5 animate-spin text-(--hi-accent)" />
                 <span>Loading...</span>
             </div>
         </div>
@@ -938,24 +938,24 @@ export default function Settings() {
                         {/* Profile Info */}
                         <div className="flex items-center gap-4 py-2">
                             <div className="relative group shrink-0">
-                                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-2xl font-bold text-white shadow-md shadow-[var(--hi-shadow-soft)] transition-transform duration-300 group-hover:scale-105">
+                                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-2xl font-bold text-white shadow-md shadow-(--hi-shadow-soft) transition-transform duration-300 group-hover:scale-105">
                                     {user?.username?.[0]?.toUpperCase()}
                                 </div>
                             </div>
                             <div className="min-w-0">
                                 <div className="flex items-center gap-1.5 group/name">
-                                    <h2 className="text-xl font-bold text-[var(--hi-text)] tracking-tight">{user?.username}</h2>
+                                    <h2 className="text-xl font-bold text-(--hi-text) tracking-tight">{user?.username}</h2>
                                     <button
                                         onClick={openUsernameModal}
                                         type="button"
                                         aria-label={t('settings.user_profile.edit_username')}
-                                        className="text-[var(--hi-text-soft)] hover:text-[var(--hi-accent)] transition-colors duration-150 p-1 rounded hover:bg-[var(--hi-panel-strong)]"
+                                        className="text-(--hi-text-soft) hover:text-(--hi-accent) transition-colors duration-150 p-1 rounded-sm hover:bg-(--hi-panel-strong)"
                                         title={t('settings.user_profile.edit_username')}
                                     >
                                         <Edit3 className="w-3.5 h-3.5" />
                                     </button>
                                 </div>
-                                <p className="text-sm text-[var(--hi-text-soft)] mt-0.5 truncate">{user?.email}</p>
+                                <p className="text-sm text-(--hi-text-soft) mt-0.5 truncate">{user?.email}</p>
                             </div>
                         </div>
                     </div>
@@ -972,7 +972,7 @@ export default function Settings() {
                         {/* Household Switching/List */}
                         <div className="px-1 py-1">
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-                                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
+                                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-(--hi-text-soft)">
                                     {t('settings.my_houses.title')}
                                 </h3>
                                 {houses.length > 0 && (
@@ -1034,36 +1034,36 @@ export default function Settings() {
                                             key={house.id}
                                             className={`settings-house-row flex items-center justify-between p-4 rounded-xl border transition-all
                                                 ${house.id === activeHouseId
-                                                    ? 'bg-[var(--hi-accent-soft)] border-[var(--hi-border-strong)]'
-                                                    : 'bg-[var(--hi-panel-strong)] border-[var(--hi-border)] hover:border-[var(--hi-border-strong)]'
+                                                    ? 'bg-(--hi-accent-soft) border-(--hi-border-strong)'
+                                                    : 'bg-(--hi-panel-strong) border-(--hi-border) hover:border-(--hi-border-strong)'
                                                 }`}
                                         >
                                             <div className="flex items-center gap-3">
                                                 <div className={`w-10 h-10 rounded-lg flex items-center justify-center
                                                     ${house.id === activeHouseId
-                                                        ? 'bg-[var(--hi-panel-strong)] text-[var(--hi-accent)]'
-                                                        : 'bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]'
+                                                        ? 'bg-(--hi-panel-strong) text-(--hi-accent)'
+                                                        : 'bg-(--hi-panel-muted) text-(--hi-text-muted)'
                                                     }`}
                                                 >
                                                     <Home className="w-5 h-5" />
                                                 </div>
                                                 <div>
                                                     <div className="flex items-center gap-2">
-                                                        <h3 className={`font-semibold ${house.id === activeHouseId ? 'text-[var(--hi-accent)]' : 'text-[var(--hi-text)]'}`}>
+                                                        <h3 className={`font-semibold ${house.id === activeHouseId ? 'text-(--hi-accent)' : 'text-(--hi-text)'}`}>
                                                             {house.name}
                                                         </h3>
                                                         {house.is_owner === 1 && (
-                                                            <span className="rounded-full border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--hi-secondary-strong)]">
+                                                            <span className="rounded-full border border-[rgba(184,153,104,0.22)] bg-(--hi-secondary-soft) px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] text-(--hi-secondary-strong)">
                                                                 {t('settings.my_houses.owner')}
                                                             </span>
                                                         )}
                                                         {house.id === activeHouseId && (
-                                                            <span className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--hi-accent)]">
+                                                            <span className="rounded-full border border-(--hi-border) bg-(--hi-accent-soft) px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] text-(--hi-accent)">
                                                                 {t('settings.my_houses.active')}
                                                             </span>
                                                         )}
                                                     </div>
-                                                    <div className="mt-0.5 flex items-center gap-3 text-xs text-[var(--hi-text-soft)]">
+                                                    <div className="mt-0.5 flex items-center gap-3 text-xs text-(--hi-text-soft)">
                                                         <span>{t('settings.my_houses.member_count', { count: house.member_count })}</span>
                                                         <span>•</span>
                                                         <span>{t('settings.my_houses.item_count', { count: house.item_count || 0 })}</span>
@@ -1078,7 +1078,7 @@ export default function Settings() {
                                                         onClick={() => handleSwitchHouse(house.id)}
                                                         disabled={houseActionLoading}
                                                         aria-label={t('settings.my_houses.switch')}
-                                                        className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-3 py-1.5 text-sm font-medium text-[var(--hi-text-soft)] transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]"
+                                                        className="rounded-full border border-(--hi-border) bg-(--hi-panel-muted) px-3 py-1.5 text-sm font-medium text-(--hi-text-soft) transition hover:border-(--hi-border-strong) hover:bg-(--hi-panel-strong) hover:text-(--hi-text) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel-strong)"
                                                     >
                                                         {t('settings.my_houses.switch')}
                                                     </button>
@@ -1089,7 +1089,7 @@ export default function Settings() {
                                                         onClick={() => setPendingLeaveHouse(house)}
                                                         disabled={houseActionLoading}
                                                         aria-label={t('settings.my_houses.leave')}
-                                                        className="rounded-lg p-2 text-red-500 transition-colors hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] dark:hover:bg-red-500/10"
+                                                        className="rounded-lg p-2 text-red-500 transition-colors hover:bg-red-50 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel-strong) dark:hover:bg-red-500/10"
                                                         title={t('settings.my_houses.leave')}
                                                     >
                                                         <LogOut className="w-4 h-4" />
@@ -1100,30 +1100,30 @@ export default function Settings() {
                                     ))
                                 )}
                             </div>
-                            <p className="mt-3 px-1 text-xs text-[var(--hi-text-soft)]">
+                            <p className="mt-3 px-1 text-xs text-(--hi-text-soft)">
                                 {t('settings.my_houses.info')}
                             </p>
 
                             {userPendingRequests.length > 0 && (
-                                <div className="mt-5 border-t border-[var(--hi-border)] pt-4">
-                                    <h3 className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--hi-text-soft)]">
+                                <div className="mt-5 border-t border-(--hi-border) pt-4">
+                                    <h3 className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-(--hi-text-soft)">
                                         {t('settings.pending_requests.title')}
                                     </h3>
                                     <div className="space-y-2">
                                         {userPendingRequests.map((request) => (
                                             <div
                                                 key={request.id}
-                                                className="flex items-center justify-between rounded-xl border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-4 py-3 text-sm"
+                                                className="flex items-center justify-between rounded-xl border border-[rgba(184,153,104,0.22)] bg-(--hi-secondary-soft) px-4 py-3 text-sm"
                                             >
                                                 <div>
-                                                    <p className="font-medium text-[var(--hi-text)]">
+                                                    <p className="font-medium text-(--hi-text)">
                                                         {request.requested_house_name}
                                                     </p>
-                                                    <p className="text-[var(--hi-text-soft)]">
+                                                    <p className="text-(--hi-text-soft)">
                                                         {t('settings.pending_requests.waiting_since', { date: new Date(request.created_at) })}
                                                     </p>
                                                 </div>
-                                                <span className="rounded-full border border-[rgba(184,153,104,0.18)] bg-[var(--hi-panel-strong)] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--hi-secondary-strong)]">
+                                                <span className="rounded-full border border-[rgba(184,153,104,0.18)] bg-(--hi-panel-strong) px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-(--hi-secondary-strong)">
                                                     {t('settings.pending_requests.pending_badge')}
                                                 </span>
                                             </div>
@@ -1135,29 +1135,29 @@ export default function Settings() {
 
                         {/* Active House Key & Members Management */}
                         {activeHouseId && (
-                            <div className="settings-house-access border-t border-[var(--hi-border)] pt-6">
+                            <div className="settings-house-access border-t border-(--hi-border) pt-6">
                                 <div className="flex items-center gap-2 mb-4 px-1">
-                                    <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--hi-text-soft)]">
+                                    <h3 className="text-sm font-bold uppercase tracking-wider text-(--hi-text-soft)">
                                         {t('settings.house_info.access_section_title', { defaultValue: 'House access and members' })}
                                     </h3>
                                 </div>
                                 <div className="app-control-section-nested">
-                                    <div className="settings-house-access-grid grid grid-cols-1 gap-6 lg:grid-cols-2 lg:divide-x lg:divide-[var(--hi-border)]">
+                                    <div className="settings-house-access-grid grid grid-cols-1 gap-6 lg:grid-cols-2 lg:divide-x lg:divide-(--hi-border)">
                                         {/* Key Section */}
                                         <div className="lg:pr-6">
-                                            <h4 className="mb-3 flex items-center gap-2 text-base font-semibold text-[var(--hi-text)]">
-                                                <Key className="h-4.5 w-4.5 text-[var(--hi-secondary)]" />
+                                            <h4 className="mb-3 flex items-center gap-2 text-base font-semibold text-(--hi-text)">
+                                                <Key className="h-4.5 w-4.5 text-(--hi-secondary)" />
                                                 {t('settings.house_info.title')}
                                             </h4>
 
-                                            <div className="settings-key-card rounded-[1.25rem] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4">
+                                            <div className="settings-key-card rounded-[1.25rem] border border-(--hi-border) bg-(--hi-panel-strong) p-4">
                                                 <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                                    <span className="text-sm font-medium text-[var(--hi-text-soft)]">{t('settings.house_info.key_label')}</span>
+                                                    <span className="text-sm font-medium text-(--hi-text-soft)">{t('settings.house_info.key_label')}</span>
                                                     <div className="flex flex-wrap gap-2">
                                                         <button
                                                             type="button"
                                                             onClick={openHouseKeyRevealConfirm}
-                                                            className="inline-flex items-center gap-1 rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] px-3 py-1.5 text-xs font-medium text-[var(--hi-accent)] transition hover:border-[var(--hi-border-strong)]"
+                                                            className="inline-flex items-center gap-1 rounded-full border border-(--hi-border) bg-(--hi-panel-strong) px-3 py-1.5 text-xs font-medium text-(--hi-accent) transition hover:border-(--hi-border-strong)"
                                                         >
                                                             <Eye className="w-3 h-3" />
                                                             {t('settings.house_info.show_securely', { defaultValue: 'Anahtarı göster' })}
@@ -1165,18 +1165,18 @@ export default function Settings() {
                                                         <button
                                                             type="button"
                                                             onClick={openHouseKeyCopyConfirm}
-                                                            className="inline-flex items-center gap-1 rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] px-3 py-1.5 text-xs font-medium text-[var(--hi-accent)] transition hover:border-[var(--hi-border-strong)]"
+                                                            className="inline-flex items-center gap-1 rounded-full border border-(--hi-border) bg-(--hi-panel-strong) px-3 py-1.5 text-xs font-medium text-(--hi-accent) transition hover:border-(--hi-border-strong)"
                                                         >
                                                             <Copy className="w-3 h-3" />
                                                             {t('settings.house_info.copy_securely', { defaultValue: 'Copy securely' })}
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <code className="block w-full break-all rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] p-3 font-mono text-sm text-[var(--hi-text-soft)]">
+                                                <code className="block w-full break-all rounded-2xl border border-(--hi-border) bg-(--hi-bg-strong) p-3 font-mono text-sm text-(--hi-text-soft)">
                                                     {concealedHouseKey}
                                                 </code>
-                                                <div className="mt-3 rounded-[1rem] border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-4 py-3 text-sm leading-6 text-[var(--hi-text-soft)]">
-                                                    <p className="font-medium text-[var(--hi-text)]">
+                                                <div className="mt-3 rounded-2xl border border-[rgba(184,153,104,0.22)] bg-(--hi-secondary-soft) px-4 py-3 text-sm leading-6 text-(--hi-text-soft)">
+                                                    <p className="font-medium text-(--hi-text)">
                                                         {t('settings.house_info.share_warning_title', { defaultValue: 'Share carefully' })}
                                                     </p>
                                                     <p className="mt-1">
@@ -1187,20 +1187,20 @@ export default function Settings() {
                                         </div>
 
                                         {/* Members Section */}
-                                        <div className="pt-6 border-t border-[var(--hi-border)] lg:border-t-0 lg:pt-0 lg:pl-6">
-                                            <h4 className="mb-4 flex items-center gap-2 text-base font-semibold text-[var(--hi-text)]">
-                                                <Users className="h-4.5 w-4.5 text-[var(--hi-accent)]" />
+                                        <div className="pt-6 border-t border-(--hi-border) lg:border-t-0 lg:pt-0 lg:pl-6">
+                                            <h4 className="mb-4 flex items-center gap-2 text-base font-semibold text-(--hi-text)">
+                                                <Users className="h-4.5 w-4.5 text-(--hi-accent)" />
                                                 {t('settings.house_info.members_title', { count: members.length })}
                                             </h4>
 
                                             <div className="settings-members-panel space-y-4">
                                                 <div>
                                                     <div className="mb-2 flex items-center justify-between">
-                                                        <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
+                                                        <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-(--hi-text-soft)">
                                                             {t('settings.house_info.active_members')}
                                                         </h3>
                                                         {viewerCanManageMembers && (
-                                                            <span className="text-xs text-[var(--hi-text-soft)]">{t('settings.house_info.owner_controls')}</span>
+                                                            <span className="text-xs text-(--hi-text-soft)">{t('settings.house_info.owner_controls')}</span>
                                                         )}
                                                     </div>
 
@@ -1215,21 +1215,21 @@ export default function Settings() {
                                                         )}
 
                                                         {!loadingMembers && members.map((member) => (
-                                                            <div key={member.id} className="flex items-center gap-3 rounded-[1rem] p-3 transition hover:bg-[var(--hi-panel-strong)]">
-                                                                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-xs font-bold text-white shadow-[var(--hi-shadow-soft)]">
+                                                            <div key={member.id} className="flex items-center gap-3 rounded-2xl p-3 transition hover:bg-(--hi-panel-strong)">
+                                                                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-xs font-bold text-white shadow-(--hi-shadow-soft)">
                                                                     {member.username?.[0]?.toUpperCase() || '?'}
                                                                 </div>
                                                                 <div className="flex-1 min-w-0">
-                                                                    <p className="truncate text-sm font-medium text-[var(--hi-text)]">
+                                                                    <p className="truncate text-sm font-medium text-(--hi-text)">
                                                                         {member.username}
-                                                                        {member.id === user?.id && <span className="ml-1 font-normal text-[var(--hi-text-soft)]">{t('settings.house_info.you')}</span>}
+                                                                        {member.id === user?.id && <span className="ml-1 font-normal text-(--hi-text-soft)">{t('settings.house_info.you')}</span>}
                                                                     </p>
-                                                                    <p className="text-xs text-[var(--hi-text-soft)]">
+                                                                    <p className="text-xs text-(--hi-text-soft)">
                                                                         {member.joined_at ? t('settings.house_info.joined_at', { date: new Date(member.joined_at) }) : '-'}
                                                                     </p>
                                                                 </div>
                                                                 {member.is_owner === 1 && (
-                                                                    <Shield className="h-4 w-4 text-[var(--hi-secondary)]" />
+                                                                    <Shield className="h-4 w-4 text-(--hi-secondary)" />
                                                                 )}
                                                                 {viewerCanManageMembers && member.id !== user?.id && member.is_owner !== 1 && (
                                                                     <div className="flex shrink-0 flex-wrap justify-end gap-2">
@@ -1238,7 +1238,7 @@ export default function Settings() {
                                                                             onClick={() => setPendingTransferOwnerMember(member)}
                                                                             disabled={memberActionLoading === `transfer-${member.id}`}
                                                                             aria-label={t('settings.house_info.transfer_owner', { defaultValue: 'Transfer ownership' })}
-                                                                            className="inline-flex items-center gap-1 rounded-full border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--hi-accent)] transition hover:bg-[var(--hi-panel-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] disabled:opacity-50"
+                                                                            className="inline-flex items-center gap-1 rounded-full border border-(--hi-border) bg-(--hi-accent-soft) px-2.5 py-1 text-xs font-medium text-(--hi-accent) transition hover:bg-(--hi-panel-strong) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel-strong) disabled:opacity-50"
                                                                         >
                                                                             {memberActionLoading === `transfer-${member.id}` ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <ShieldCheck className="h-3.5 w-3.5" />}
                                                                             {t('settings.house_info.transfer_owner', { defaultValue: 'Make owner' })}
@@ -1248,7 +1248,7 @@ export default function Settings() {
                                                                             onClick={() => setPendingKickMember(member)}
                                                                             disabled={memberActionLoading === `kick-${member.id}`}
                                                                             aria-label={t('settings.house_info.kick')}
-                                                                            className="inline-flex items-center gap-1 rounded-full border border-red-500/20 bg-red-500/5 px-2.5 py-1 text-xs font-medium text-red-400 transition hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] disabled:opacity-50"
+                                                                            className="inline-flex items-center gap-1 rounded-full border border-red-500/20 bg-red-500/5 px-2.5 py-1 text-xs font-medium text-red-400 transition hover:bg-red-500/10 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel-strong) disabled:opacity-50"
                                                                         >
                                                                             {memberActionLoading === `kick-${member.id}` ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <UserX className="h-3.5 w-3.5" />}
                                                                             {t('settings.house_info.kick')}
@@ -1259,29 +1259,29 @@ export default function Settings() {
                                                         ))}
 
                                                         {!loadingMembers && members.length === 0 && (
-                                                            <p className="py-4 text-center text-sm text-[var(--hi-text-soft)]">{t('settings.house_info.no_members')}</p>
+                                                            <p className="py-4 text-center text-sm text-(--hi-text-soft)">{t('settings.house_info.no_members')}</p>
                                                         )}
                                                     </div>
                                                 </div>
 
                                                 {pendingRequests.length > 0 && (
-                                                    <div className="border-t border-[var(--hi-border)] pt-4">
-                                                        <h3 className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
+                                                    <div className="border-t border-(--hi-border) pt-4">
+                                                        <h3 className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-(--hi-text-soft)">
                                                             {t('settings.house_info.pending_requests')}
                                                         </h3>
 
                                                         <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
                                                             {pendingRequests.map((request) => (
-                                                                <div key={request.id} className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-3">
+                                                                <div key={request.id} className="rounded-xl border border-(--hi-border) bg-(--hi-panel-muted) p-3">
                                                                     <div className="flex items-start justify-between gap-3">
                                                                         <div>
-                                                                            <p className="text-sm font-medium text-[var(--hi-text)]">
+                                                                            <p className="text-sm font-medium text-(--hi-text)">
                                                                                 {request.username}
                                                                             </p>
-                                                                            <p className="text-xs text-[var(--hi-text-soft)]">
+                                                                            <p className="text-xs text-(--hi-text-soft)">
                                                                                 {request.requested_house_name}
                                                                             </p>
-                                                                            <p className="mt-1 text-xs text-[var(--hi-text-muted)]">
+                                                                            <p className="mt-1 text-xs text-(--hi-text-muted)">
                                                                                 {t('settings.pending_requests.waiting_since', { date: new Date(request.created_at) })}
                                                                             </p>
                                                                         </div>
@@ -1292,7 +1292,7 @@ export default function Settings() {
                                                                                     type="button"
                                                                                     onClick={() => handleApproveRequest(request.id)}
                                                                                     disabled={memberActionLoading === `approve-${request.id}`}
-                                                                                    className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--hi-accent)] transition hover:bg-[var(--hi-panel-strong)] disabled:opacity-50"
+                                                                                    className="rounded-full border border-(--hi-border) bg-(--hi-accent-soft) px-2.5 py-1 text-xs font-medium text-(--hi-accent) transition hover:bg-(--hi-panel-strong) disabled:opacity-50"
                                                                                 >
                                                                                     {memberActionLoading === `approve-${request.id}` ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : t('settings.house_info.approve')}
                                                                                 </button>
@@ -1337,17 +1337,17 @@ export default function Settings() {
                     className="mb-5"
                 >
                     <div className="px-1 py-2">
-                        <div className="settings-preference-grid grid grid-cols-1 gap-8 md:grid-cols-2 md:divide-x md:divide-[var(--hi-border)]">
+                        <div className="settings-preference-grid grid grid-cols-1 gap-8 md:grid-cols-2 md:divide-x md:divide-(--hi-border)">
                             {/* Theme block */}
                             <div className="flex flex-col gap-4 pr-0 md:pr-8">
-                                <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[var(--hi-text-soft)]">
-                                    {theme === 'dark' ? <Moon className="h-4 w-4 text-[var(--hi-accent)]" /> : <Sun className="h-4 w-4 text-[var(--hi-secondary)]" />}
+                                <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-(--hi-text-soft)">
+                                    {theme === 'dark' ? <Moon className="h-4 w-4 text-(--hi-accent)" /> : <Sun className="h-4 w-4 text-(--hi-secondary)" />}
                                     {t('settings.theme.title')}
                                 </h3>
                                 <div className="flex flex-col gap-1">
-                                    <p className="text-sm font-semibold text-[var(--hi-text)]">{t('settings.theme.workspace_title', { defaultValue: 'Workspace Theme' })}</p>
+                                    <p className="text-sm font-semibold text-(--hi-text)">{t('settings.theme.workspace_title', { defaultValue: 'Workspace Theme' })}</p>
                                 </div>
-                                <div className="settings-theme-control rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4 flex items-center justify-center w-full mt-2">
+                                <div className="settings-theme-control rounded-xl border border-(--hi-border) bg-(--hi-panel-strong) p-4 flex items-center justify-center w-full mt-2">
                                     <SegmentedToggle
                                         ariaLabel={t('settings.theme.title')}
                                         value={theme}
@@ -1377,16 +1377,16 @@ export default function Settings() {
                             </div>
 
                             {/* Language block */}
-                            <div className="settings-language-control flex flex-col gap-3 pl-0 md:pl-8 pt-6 border-t border-[var(--hi-border)] md:border-t-0 md:pt-0">
-                                <div className="flex items-center gap-2 text-sm font-semibold text-[var(--hi-text)]">
-                                    <Globe className="h-4 w-4 text-[var(--hi-accent)]" />
+                            <div className="settings-language-control flex flex-col gap-3 pl-0 md:pl-8 pt-6 border-t border-(--hi-border) md:border-t-0 md:pt-0">
+                                <div className="flex items-center gap-2 text-sm font-semibold text-(--hi-text)">
+                                    <Globe className="h-4 w-4 text-(--hi-accent)" />
                                     <span>{t('settings.language')}</span>
                                 </div>
                                 <div className="w-full">
                                     <LanguageSwitcher
                                         showCodeBadge={false}
                                         showTooltip={false}
-                                        className="!w-full !justify-between !rounded-xl !border-[var(--hi-border)] !bg-[var(--hi-panel-strong)] !px-4 !py-3.5 text-sm hover:!bg-[var(--hi-panel-strong)]"
+                                        className="w-full! justify-between! rounded-xl! border-(--hi-border)! bg-(--hi-panel-strong)! px-4! py-3.5! text-sm hover:bg-(--hi-panel-strong)!"
                                     />
                                 </div>
                             </div>
@@ -1403,12 +1403,12 @@ export default function Settings() {
                 >
                     <div className="px-1 py-2 space-y-6">
                         {/* 1. Change Password & Recovery Card */}
-                        <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-6">
-                            <h3 className="flex items-center gap-2.5 text-base font-semibold text-[var(--hi-text)] mb-2">
-                                <Shield className="h-5 w-5 text-[var(--hi-accent)]" />
+                        <div className="rounded-xl border border-(--hi-border) bg-(--hi-panel-strong) p-6">
+                            <h3 className="flex items-center gap-2.5 text-base font-semibold text-(--hi-text) mb-2">
+                                <Shield className="h-5 w-5 text-(--hi-accent)" />
                                 {t('settings.security.title')}
                             </h3>
-                            <p className="text-sm text-[var(--hi-text-soft)] mb-5 leading-relaxed">
+                            <p className="text-sm text-(--hi-text-soft) mb-5 leading-relaxed">
                                 {t('settings.security.description', { defaultValue: 'Manage your master password and vault recovery configurations.' })}
                             </p>
 
@@ -1416,13 +1416,13 @@ export default function Settings() {
                                 {/* Change Password Card */}
                                 <button
                                     onClick={() => setShowPasswordModal(true)}
-                                    className="group flex items-center justify-between rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4 transition-all duration-200 hover:border-[var(--hi-accent)] hover:bg-[var(--hi-panel-strong)] text-left"
+                                    className="group flex items-center justify-between rounded-xl border border-(--hi-border) bg-(--hi-panel-muted) p-4 transition-all duration-200 hover:border-(--hi-accent) hover:bg-(--hi-panel-strong) text-left"
                                 >
                                     <div className="min-w-0 flex-1">
-                                        <p className="font-semibold text-sm text-[var(--hi-text)]">{t('settings.security.change_password')}</p>
-                                        <p className="text-xs text-[var(--hi-text-soft)] mt-1 truncate">{t('settings.security.change_password_detail', { defaultValue: 'Update your password to keep your account secure' })}</p>
+                                        <p className="font-semibold text-sm text-(--hi-text)">{t('settings.security.change_password')}</p>
+                                        <p className="text-xs text-(--hi-text-soft) mt-1 truncate">{t('settings.security.change_password_detail', { defaultValue: 'Update your password to keep your account secure' })}</p>
                                     </div>
-                                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--hi-bg-strong)] text-[var(--hi-text-soft)] transition-colors group-hover:bg-[var(--hi-accent-soft)] group-hover:text-[var(--hi-accent)] ml-4">
+                                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-(--hi-bg-strong) text-(--hi-text-soft) transition-colors group-hover:bg-(--hi-accent-soft) group-hover:text-(--hi-accent) ml-4">
                                         <ArrowRightLeft className="h-4 w-4" />
                                     </div>
                                 </button>
@@ -1434,13 +1434,13 @@ export default function Settings() {
                                             setHouseError('');
                                             setShowRecoveryKeyRegenerateModal(true);
                                         }}
-                                        className="group flex items-center justify-between rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4 transition-all duration-200 hover:border-[var(--hi-accent)] hover:bg-[var(--hi-panel-strong)] text-left"
+                                        className="group flex items-center justify-between rounded-xl border border-(--hi-border) bg-(--hi-panel-muted) p-4 transition-all duration-200 hover:border-(--hi-accent) hover:bg-(--hi-panel-strong) text-left"
                                     >
                                         <div className="min-w-0 flex-1">
-                                            <p className="font-semibold text-sm text-[var(--hi-text)]">{t('settings.security.recovery_key_title')}</p>
-                                            <p className="text-xs text-[var(--hi-text-soft)] mt-1 truncate">{t('settings.security.recovery_key_detail', { defaultValue: 'Used to recover your vault if you forget your password' })}</p>
+                                            <p className="font-semibold text-sm text-(--hi-text)">{t('settings.security.recovery_key_title')}</p>
+                                            <p className="text-xs text-(--hi-text-soft) mt-1 truncate">{t('settings.security.recovery_key_detail', { defaultValue: 'Used to recover your vault if you forget your password' })}</p>
                                         </div>
-                                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--hi-bg-strong)] text-[var(--hi-text-soft)] transition-colors group-hover:bg-[var(--hi-accent-soft)] group-hover:text-[var(--hi-accent)] ml-4">
+                                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-(--hi-bg-strong) text-(--hi-text-soft) transition-colors group-hover:bg-(--hi-accent-soft) group-hover:text-(--hi-accent) ml-4">
                                             <Key className="h-4 w-4" />
                                         </div>
                                     </button>
@@ -1449,11 +1449,11 @@ export default function Settings() {
                         </div>
 
                         {/* 2. Two-Factor Authentication Card */}
-                        <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-6">
+                        <div className="rounded-xl border border-(--hi-border) bg-(--hi-panel-strong) p-6">
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                                 <div className="min-w-0 flex-1">
-                                    <h3 className="settings-2fa-heading flex items-center gap-2.5 text-base font-semibold text-[var(--hi-text)]">
-                                        <ShieldCheck className="h-5.5 w-5.5 text-[var(--hi-accent)]" />
+                                    <h3 className="settings-2fa-heading flex items-center gap-2.5 text-base font-semibold text-(--hi-text)">
+                                        <ShieldCheck className="h-5.5 w-5.5 text-(--hi-accent)" />
                                         {t('settings.two_factor.title')}
                                         <span className={`settings-2fa-status ml-2 inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${
                                             totpEnabled
@@ -1463,7 +1463,7 @@ export default function Settings() {
                                             {totpEnabled ? t('settings.two_factor.active') : t('common.disabled', { defaultValue: 'Disabled' })}
                                         </span>
                                     </h3>
-                                    <p className="text-sm text-[var(--hi-text-soft)] mt-2 leading-relaxed max-w-2xl">
+                                    <p className="text-sm text-(--hi-text-soft) mt-2 leading-relaxed max-w-2xl">
                                         {t('settings.two_factor.description')}
                                     </p>
                                 </div>
@@ -1481,18 +1481,18 @@ export default function Settings() {
                             </div>
 
                             {totpEnabled && (
-                                <div className="mt-6 pt-6 border-t border-[var(--hi-border)] space-y-4">
+                                <div className="mt-6 pt-6 border-t border-(--hi-border) space-y-4">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         {/* Disable 2FA */}
                                         <button
                                             onClick={() => { setShow2FADisableModal(true); setDisableError(''); setDisablePassword(''); setDisableCode(''); setDisableMethod('totp'); }}
-                                            className="group flex items-center justify-between rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4 transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)] text-left"
+                                            className="group flex items-center justify-between rounded-xl border border-(--hi-border) bg-(--hi-panel-muted) p-4 transition hover:border-(--hi-border-strong) hover:bg-(--hi-panel-strong) text-left"
                                         >
                                             <div className="min-w-0">
-                                                <p className="font-semibold text-sm text-[var(--hi-text)]">{t('settings.two_factor.disable')}</p>
-                                                <p className="text-xs text-[var(--hi-text-soft)] mt-1">{t('settings.two_factor.disable_desc')}</p>
+                                                <p className="font-semibold text-sm text-(--hi-text)">{t('settings.two_factor.disable')}</p>
+                                                <p className="text-xs text-(--hi-text-soft) mt-1">{t('settings.two_factor.disable_desc')}</p>
                                             </div>
-                                            <X className="h-4.5 w-4.5 text-[var(--hi-text-soft)] transition group-hover:text-red-400 shrink-0 ml-4" />
+                                            <X className="h-4.5 w-4.5 text-(--hi-text-soft) transition group-hover:text-red-400 shrink-0 ml-4" />
                                         </button>
 
                                         {/* Revoke Trusted Devices */}
@@ -1509,22 +1509,22 @@ export default function Settings() {
                                                     setRevokeLoading(false);
                                                 }
                                             }}
-                                            className="group flex items-center justify-between rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4 transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)] text-left"
+                                            className="group flex items-center justify-between rounded-xl border border-(--hi-border) bg-(--hi-panel-muted) p-4 transition hover:border-(--hi-border-strong) hover:bg-(--hi-panel-strong) text-left"
                                         >
                                             <div className="min-w-0">
-                                                <p className="font-semibold text-sm text-[var(--hi-text)]">{t('settings.two_factor.revoke_devices')}</p>
-                                                <p className="text-xs text-[var(--hi-text-soft)] mt-1">{t('settings.two_factor.revoke_devices_desc')}</p>
+                                                <p className="font-semibold text-sm text-(--hi-text)">{t('settings.two_factor.revoke_devices')}</p>
+                                                <p className="text-xs text-(--hi-text-soft) mt-1">{t('settings.two_factor.revoke_devices_desc')}</p>
                                             </div>
-                                            {revokeLoading ? <Loader2 className="h-4.5 w-4.5 animate-spin text-[var(--hi-text-soft)] shrink-0 ml-4" /> : <Trash2 className="h-4.5 w-4.5 text-[var(--hi-text-soft)] transition group-hover:text-red-400 shrink-0 ml-4" />}
+                                            {revokeLoading ? <Loader2 className="h-4.5 w-4.5 animate-spin text-(--hi-text-soft) shrink-0 ml-4" /> : <Trash2 className="h-4.5 w-4.5 text-(--hi-text-soft) transition group-hover:text-red-400 shrink-0 ml-4" />}
                                         </button>
                                     </div>
 
                                     {/* Regenerate Backup Codes */}
-                                    <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4">
+                                    <div className="rounded-xl border border-(--hi-border) bg-(--hi-panel-muted) p-4">
                                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
                                             <div>
-                                                <p className="font-semibold text-sm text-[var(--hi-text)]">{t('settings.two_factor.regenerate_codes')}</p>
-                                                <p className="text-xs text-[var(--hi-text-soft)] mt-1 leading-relaxed">{t('settings.two_factor.regenerate_codes_desc')}</p>
+                                                <p className="font-semibold text-sm text-(--hi-text)">{t('settings.two_factor.regenerate_codes')}</p>
+                                                <p className="text-xs text-(--hi-text-soft) mt-1 leading-relaxed">{t('settings.two_factor.regenerate_codes_desc')}</p>
                                             </div>
                                         </div>
                                         {!backupCodesResult ? (
@@ -1534,7 +1534,7 @@ export default function Settings() {
                                                     value={regeneratePassword}
                                                     onChange={(e) => setRegeneratePassword(e.target.value)}
                                                     placeholder={t('settings.two_factor.password_placeholder')}
-                                                    className="input-field text-sm py-2 px-3 bg-[var(--hi-panel-strong)]"
+                                                    className="input-field text-sm py-2 px-3 bg-(--hi-panel-strong)"
                                                 />
                                                 <button
                                                     disabled={regenerateLoading || !regeneratePassword}
@@ -1561,12 +1561,12 @@ export default function Settings() {
                                             <div className="mt-2">
                                                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
                                                     {backupCodesResult.map((code, i) => (
-                                                        <div key={i} className="select-all rounded-lg border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] px-2 py-1.5 text-center font-mono text-xs text-[var(--hi-text-soft)]">
+                                                        <div key={i} className="select-all rounded-lg border border-(--hi-border) bg-(--hi-bg-strong) px-2 py-1.5 text-center font-mono text-xs text-(--hi-text-soft)">
                                                             {code}
                                                         </div>
                                                     ))}
                                                 </div>
-                                                <button onClick={() => setBackupCodesResult(null)} className="text-xs font-semibold text-[var(--hi-accent)] transition hover:text-[var(--hi-accent-strong)]">
+                                                <button onClick={() => setBackupCodesResult(null)} className="text-xs font-semibold text-(--hi-accent) transition hover:text-(--hi-accent-strong)">
                                                     {t('settings.two_factor.close_codes')}
                                                 </button>
                                             </div>
@@ -1577,12 +1577,12 @@ export default function Settings() {
                         </div>
 
                         {/* 3. Borrow Request Privacy Card */}
-                        <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-6">
-                            <h3 className="flex items-center gap-2.5 text-base font-semibold text-[var(--hi-text)] mb-2">
-                                <Users className="h-5.5 w-5.5 text-[var(--hi-accent)]" />
+                        <div className="rounded-xl border border-(--hi-border) bg-(--hi-panel-strong) p-6">
+                            <h3 className="flex items-center gap-2.5 text-base font-semibold text-(--hi-text) mb-2">
+                                <Users className="h-5.5 w-5.5 text-(--hi-accent)" />
                                 {t('settings.borrow_requests.policy_title', { defaultValue: 'New Borrow Requests' })}
                             </h3>
-                            <p className="text-sm text-[var(--hi-text-soft)] mb-5 leading-relaxed">
+                            <p className="text-sm text-(--hi-text-soft) mb-5 leading-relaxed">
                                 {t('settings.borrow_requests.policy_description', { defaultValue: 'Control who can send borrow requests to you. Your inventory is never shown as a public listing.' })}
                             </p>
 
@@ -1603,10 +1603,10 @@ export default function Settings() {
                                         <UserX className="w-6 h-6" />
                                     </div>
                                     {borrowPolicy === 'none' && <CheckCircle className="borrow-policy-check" aria-hidden="true" />}
-                                    <span className="font-bold text-sm text-[var(--hi-text)]">
+                                    <span className="font-bold text-sm text-(--hi-text)">
                                         {t('settings.borrow_requests.policy_none', { defaultValue: 'Do not receive from anyone (Default)' })}
                                     </span>
-                                    <span className="text-xs text-[var(--hi-text-soft)] mt-1.5 leading-relaxed">
+                                    <span className="text-xs text-(--hi-text-soft) mt-1.5 leading-relaxed">
                                         {t('settings.borrow_requests.policy_none_desc', { defaultValue: 'All incoming requests are blocked automatically.' })}
                                     </span>
                                 </button>
@@ -1627,10 +1627,10 @@ export default function Settings() {
                                         <Users className="w-6 h-6" />
                                     </div>
                                     {borrowPolicy === 'house_only' && <CheckCircle className="borrow-policy-check" aria-hidden="true" />}
-                                    <span className="font-bold text-sm text-[var(--hi-text)]">
+                                    <span className="font-bold text-sm text-(--hi-text)">
                                         {t('settings.borrow_requests.policy_house_only', { defaultValue: 'Household members only' })}
                                     </span>
-                                    <span className="text-xs text-[var(--hi-text-soft)] mt-1.5 leading-relaxed">
+                                    <span className="text-xs text-(--hi-text-soft) mt-1.5 leading-relaxed">
                                         {t('settings.borrow_requests.policy_house_only_desc', { defaultValue: 'Only verified members of your active houses can request items that are already visible inside that shared house.' })}
                                     </span>
                                 </button>
@@ -1651,19 +1651,19 @@ export default function Settings() {
                                         <Globe className="w-6 h-6" />
                                     </div>
                                     {borrowPolicy === 'everyone' && <CheckCircle className="borrow-policy-check" aria-hidden="true" />}
-                                    <span className="font-bold text-sm text-[var(--hi-text)]">
+                                    <span className="font-bold text-sm text-(--hi-text)">
                                         {t('settings.borrow_requests.policy_everyone', { defaultValue: 'All registered users' })}
                                     </span>
-                                    <span className="text-xs text-[var(--hi-text-soft)] mt-1.5 leading-relaxed">
+                                    <span className="text-xs text-(--hi-text-soft) mt-1.5 leading-relaxed">
                                         {t('settings.borrow_requests.policy_everyone_desc', { defaultValue: 'Other users cannot browse or see your items. They can only send a request by entering your username or email directly.' })}
                                     </span>
                                 </button>
                             </div>
 
                             {/* Blocked Users section */}
-                            <div className="mt-6 pt-6 border-t border-[var(--hi-border)]">
+                            <div className="mt-6 pt-6 border-t border-(--hi-border)">
                                 <div className="flex items-center gap-2 mb-3">
-                                    <h4 className="font-semibold text-sm text-[var(--hi-text)]">
+                                    <h4 className="font-semibold text-sm text-(--hi-text)">
                                         {t('settings.borrow_requests.blocks_title', { defaultValue: 'Blocked Users' })}
                                     </h4>
                                     {blockedUsers.length > 0 && (
@@ -1672,28 +1672,28 @@ export default function Settings() {
                                         </span>
                                     )}
                                 </div>
-                                <p className="text-xs text-[var(--hi-text-soft)] mb-4">
+                                <p className="text-xs text-(--hi-text-soft) mb-4">
                                     {t('settings.borrow_requests.blocks_description', { defaultValue: 'Users you have blocked cannot send you new borrow requests.' })}
                                 </p>
 
                                 {blockedUsers.length === 0 ? (
-                                    <div className="flex flex-col items-center justify-center p-6 border border-dashed border-[var(--hi-border)] rounded-xl bg-[var(--hi-panel-muted)]/50 text-center">
-                                        <Shield className="w-5 h-5 text-[var(--hi-text-soft)] mb-2" />
-                                        <p className="text-xs font-medium text-[var(--hi-text-soft)]">
+                                    <div className="flex flex-col items-center justify-center p-6 border border-dashed border-(--hi-border) rounded-xl bg-(--hi-panel-muted)/50 text-center">
+                                        <Shield className="w-5 h-5 text-(--hi-text-soft) mb-2" />
+                                        <p className="text-xs font-medium text-(--hi-text-soft)">
                                             {t('settings.borrow_requests.no_blocks', { defaultValue: 'No blocked users found.' })}
                                         </p>
                                     </div>
                                 ) : (
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                         {blockedUsers.map(blockedUser => (
-                                            <div key={blockedUser.id} className="flex items-center justify-between p-3 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] animate-fade-in">
-                                                <span className="font-semibold text-sm text-[var(--hi-text)] truncate pr-4">
+                                            <div key={blockedUser.id} className="flex items-center justify-between p-3 rounded-xl border border-(--hi-border) bg-(--hi-panel-muted) animate-fade-in">
+                                                <span className="font-semibold text-sm text-(--hi-text) truncate pr-4">
                                                     {blockedUser.username}
                                                 </span>
                                                 <button
                                                     type="button"
                                                     onClick={() => handleUnblockUser(blockedUser.id)}
-                                                    className="inline-flex items-center gap-1 text-xs font-bold text-[var(--hi-accent)] hover:text-[var(--hi-accent-strong)] transition-colors"
+                                                    className="inline-flex items-center gap-1 text-xs font-bold text-(--hi-accent) hover:text-(--hi-accent-strong) transition-colors"
                                                 >
                                                     <Trash2 className="w-3.5 h-3.5" />
                                                     {t('settings.borrow_requests.unblock_btn', { defaultValue: 'Unblock' })}
@@ -1706,14 +1706,14 @@ export default function Settings() {
                         </div>
 
                         {/* 4. Collapsible Danger Zone Card */}
-                        <div className="rounded-xl border border-red-500/20 bg-[var(--hi-panel-strong)] p-6">
+                        <div className="rounded-xl border border-red-500/20 bg-(--hi-panel-strong) p-6">
                             <div className="flex items-center justify-between gap-4">
                                 <div className="min-w-0 flex-1">
                                     <h3 className="flex items-center gap-2.5 text-base font-semibold text-red-500">
                                         <UserX className="h-5.5 w-5.5 text-red-500" />
                                         {t('settings.danger_zone.title', { defaultValue: 'Danger Zone' })}
                                     </h3>
-                                    <p className="text-sm text-[var(--hi-text-soft)] mt-2 leading-relaxed">
+                                    <p className="text-sm text-(--hi-text-soft) mt-2 leading-relaxed">
                                         {t('settings.danger_zone.description', { defaultValue: 'Delete your account and permanently remove all inventory datasets.' })}
                                     </p>
                                 </div>
@@ -1732,7 +1732,7 @@ export default function Settings() {
                                         <h4 className="font-bold text-sm text-red-500">
                                             {t('settings.danger_zone.delete_title', { defaultValue: 'Delete account' })}
                                         </h4>
-                                        <p className="text-xs text-[var(--hi-text-soft)] mt-2 leading-relaxed">
+                                        <p className="text-xs text-(--hi-text-soft) mt-2 leading-relaxed">
                                             {t('settings.danger_zone.delete_description')}
                                         </p>
                                         <p className="text-xs text-red-400/90 mt-1.5 leading-relaxed font-medium">
@@ -1771,40 +1771,40 @@ export default function Settings() {
                     {canManageBackups ? (
                         <>
                             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                                <button onClick={openBackupModal} disabled={downloading} className="flex items-center gap-3 rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-left transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)]">
-                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+                                <button onClick={openBackupModal} disabled={downloading} className="flex items-center gap-3 rounded-full border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3 text-left transition hover:border-(--hi-border-strong) hover:bg-(--hi-panel-strong)">
+                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-(--hi-accent-soft) text-(--hi-accent)">
                                         {downloading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5" />}
                                     </div>
                                     <div className="min-w-0">
-                                        <p className="font-medium text-[var(--hi-text)]">{t('settings.data_management.download_backup')}</p>
-                                        <p className="text-xs text-[var(--hi-text-soft)]">{t('settings.data_management.export_json')}</p>
+                                        <p className="font-medium text-(--hi-text)">{t('settings.data_management.download_backup')}</p>
+                                        <p className="text-xs text-(--hi-text-soft)">{t('settings.data_management.export_json')}</p>
                                     </div>
                                 </button>
 
-                                <button onClick={() => fileInputRef.current?.click()} disabled={uploading} className="flex items-center gap-3 rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-left transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)]">
-                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)]">
+                                <button onClick={() => fileInputRef.current?.click()} disabled={uploading} className="flex items-center gap-3 rounded-full border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3 text-left transition hover:border-(--hi-border-strong) hover:bg-(--hi-panel-strong)">
+                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-(--hi-secondary-soft) text-(--hi-secondary-strong)">
                                         {uploading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Upload className="w-5 h-5" />}
                                     </div>
                                     <div className="min-w-0">
-                                        <p className="font-medium text-[var(--hi-text)]">{t('settings.data_management.upload_backup')}</p>
-                                        <p className="text-xs text-[var(--hi-text-soft)]">{t('settings.data_management.import_json')}</p>
+                                        <p className="font-medium text-(--hi-text)">{t('settings.data_management.upload_backup')}</p>
+                                        <p className="text-xs text-(--hi-text-soft)">{t('settings.data_management.import_json')}</p>
                                     </div>
                                 </button>
                             </div>
                             <input type="file" ref={fileInputRef} onChange={handleRestoreBackup} accept=".json" className="hidden" />
 
-                            <p className="mt-3 text-xs leading-5 text-[var(--hi-text-soft)]">
+                            <p className="mt-3 text-xs leading-5 text-(--hi-text-soft)">
                                 {t('settings.data_management.export_sensitive_notice', {
                                     defaultValue: 'Backups are exported from live household data first. Keep encryption enabled so the downloaded file stays protected with your passphrase.'
                                 })}
                             </p>
                         </>
                     ) : (
-                        <div className="rounded-[1rem] border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] p-4 text-sm text-[var(--hi-secondary-strong)] flex items-start gap-3">
+                        <div className="rounded-2xl border border-[rgba(184,153,104,0.22)] bg-(--hi-secondary-soft) p-4 text-sm text-(--hi-secondary-strong) flex items-start gap-3">
                             <Database className="w-5 h-5 shrink-0 mt-0.5" />
                             <div>
                                 <p className="font-medium">{t('settings.data_management.owner_only_title', { defaultValue: 'Yedekleme ve Geri Yükleme Kısıtlı' })}</p>
-                                <p className="mt-1 text-xs leading-5 text-[var(--hi-text-soft)]">
+                                <p className="mt-1 text-xs leading-5 text-(--hi-text-soft)">
                                     {t('settings.data_management.owner_only_desc', { defaultValue: 'Veri yedekleme ve geri yükleme yalnızca ev sahibi tarafından yönetilebilir.' })}
                                 </p>
                             </div>
@@ -1818,19 +1818,19 @@ export default function Settings() {
                     icon={Activity}
                     className="mb-5"
                 >
-                    <div className="flex flex-col gap-3 rounded-2xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex flex-col gap-3 rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) p-4 sm:flex-row sm:items-center sm:justify-between">
                         <div className="min-w-0">
-                            <p className="font-medium text-[var(--hi-text)]">
+                            <p className="font-medium text-(--hi-text)">
                                 {t('settings.activity_log.encrypted_title', { defaultValue: 'Aktivite kayıtları korumalı saklanır' })}
                             </p>
-                            <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                            <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                                 {t('settings.activity_log.encrypted_body', { defaultValue: 'Yeni aktivite aksiyonları ve detayları veritabanında şifreli tutulur; ekrandaki liste yalnızca oturumunuz açıkken çözülür.' })}
                             </p>
                         </div>
                         <button
                             type="button"
                             onClick={() => navigate('/activity')}
-                            className="btn-secondary shrink-0 !px-4 !py-2.5 text-sm"
+                            className="btn-secondary shrink-0 px-4! py-2.5! text-sm"
                         >
                             <Activity className="h-4 w-4" />
                             <span>{t('navigation.activity', { defaultValue: 'Aktivite' })}</span>
@@ -1852,9 +1852,9 @@ export default function Settings() {
                     onClose={() => !houseActionLoading && setPendingLeaveHouse(null)}
                     onConfirm={handleLeaveHouse}
                 >
-                    <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                        <p className="font-medium text-[var(--hi-text)]">{pendingLeaveHouse?.name}</p>
-                        <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                    <div className="rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                        <p className="font-medium text-(--hi-text)">{pendingLeaveHouse?.name}</p>
+                        <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                             {t('settings.my_houses.leave_warning', {
                                 defaultValue: 'You will lose access to this household workspace until another member invites or approves you again.'
                             })}
@@ -1874,9 +1874,9 @@ export default function Settings() {
                     onClose={() => memberActionLoading !== `kick-${pendingKickMember?.id}` && setPendingKickMember(null)}
                     onConfirm={handleKickMember}
                 >
-                    <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
-                        <p className="font-medium text-[var(--hi-text)]">{pendingKickMember?.username}</p>
-                        <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                    <div className="rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3">
+                        <p className="font-medium text-(--hi-text)">{pendingKickMember?.username}</p>
+                        <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                             {t('settings.house_info.kick_warning', {
                                 defaultValue: 'Their household access will end immediately and they will need a new invitation or approval to return.'
                             })}
@@ -1900,9 +1900,9 @@ export default function Settings() {
                     onClose={() => memberActionLoading !== `transfer-${pendingTransferOwnerMember?.id}` && setPendingTransferOwnerMember(null)}
                     onConfirm={handleTransferHouseOwner}
                 >
-                    <div className="rounded-[1rem] border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-4 py-3">
-                        <p className="font-medium text-[var(--hi-text)]">{pendingTransferOwnerMember?.username}</p>
-                        <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                    <div className="rounded-2xl border border-[rgba(184,153,104,0.22)] bg-(--hi-secondary-soft) px-4 py-3">
+                        <p className="font-medium text-(--hi-text)">{pendingTransferOwnerMember?.username}</p>
+                        <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                             {t('settings.house_info.transfer_owner_warning', {
                                 defaultValue: 'You will no longer be the owner of this household. The new owner will manage member approvals, removals, and future ownership changes.'
                             })}
@@ -1921,7 +1921,7 @@ export default function Settings() {
                     onClose={() => !logoutSubmitting && setShowLogoutConfirm(false)}
                     onConfirm={handleLogout}
                 >
-                    <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm leading-6 text-[var(--hi-text-soft)]">
+                    <div className="rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3 text-sm leading-6 text-(--hi-text-soft)">
                         {t('settings.about.logout_body', { defaultValue: 'Any unsaved changes in open forms may be lost after you leave this session.' })}
                     </div>
                 </ConfirmDialog>
@@ -1941,10 +1941,10 @@ export default function Settings() {
                     }}
                 >
                     <div className="space-y-4">
-                        <div className="rounded-[1rem] border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-4 py-3 text-sm leading-6 text-[var(--hi-text-soft)]">
+                        <div className="rounded-2xl border border-[rgba(184,153,104,0.22)] bg-(--hi-secondary-soft) px-4 py-3 text-sm leading-6 text-(--hi-text-soft)">
                             {t('settings.house_info.share_warning_body', { defaultValue: 'Anyone with this key can request access to the household inventory. Only share it with trusted members and use a private channel.' })}
                         </div>
-                        <label className="app-premium-checkbox-container flex items-start gap-3 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text)] cursor-pointer hover:border-[var(--hi-border-strong)] transition-all">
+                        <label className="app-premium-checkbox-container flex items-start gap-3 rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3 text-sm text-(--hi-text) cursor-pointer hover:border-(--hi-border-strong) transition-all">
                             <PremiumCheckbox
                                 checked={houseKeyRevealAcknowledged}
                                 onChange={(event) => setHouseKeyRevealAcknowledged(event.target.checked)}
@@ -1968,10 +1968,10 @@ export default function Settings() {
                     onConfirm={copyToClipboard}
                 >
                     <div className="space-y-4">
-                        <div className="rounded-[1rem] border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-4 py-3 text-sm leading-6 text-[var(--hi-text-soft)]">
+                        <div className="rounded-2xl border border-[rgba(184,153,104,0.22)] bg-(--hi-secondary-soft) px-4 py-3 text-sm leading-6 text-(--hi-text-soft)">
                             {t('settings.house_info.copy_confirm_tip', { defaultValue: 'Do not paste this into group chats, screenshots, or any channel you would not trust with your front-door code.' })}
                         </div>
-                        <label className="app-premium-checkbox-container flex items-start gap-3 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text)] cursor-pointer hover:border-[var(--hi-border-strong)] transition-all">
+                        <label className="app-premium-checkbox-container flex items-start gap-3 rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3 text-sm text-(--hi-text) cursor-pointer hover:border-(--hi-border-strong) transition-all">
                             <PremiumCheckbox
                                 checked={houseKeyCopyAcknowledged}
                                 onChange={(event) => setHouseKeyCopyAcknowledged(event.target.checked)}
@@ -2001,8 +2001,8 @@ export default function Settings() {
                     )}
                 >
                     <div className="space-y-4">
-                        <div className="rounded-[1rem] border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-4 py-3 text-sm leading-6 text-[var(--hi-text-soft)]">
-                            <p className="font-medium text-[var(--hi-text)]">
+                        <div className="rounded-2xl border border-[rgba(184,153,104,0.22)] bg-(--hi-secondary-soft) px-4 py-3 text-sm leading-6 text-(--hi-text-soft)">
+                            <p className="font-medium text-(--hi-text)">
                                 {backupEncryptEnabled
                                     ? t('settings.data_management.export_encrypted_title', { defaultValue: 'Encryption will be applied before download' })
                                     : t('settings.data_management.export_sensitive_title')}
@@ -2016,31 +2016,31 @@ export default function Settings() {
                             </p>
                         </div>
 
-                        <label className="app-premium-checkbox-container flex items-start gap-3 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 cursor-pointer hover:border-[var(--hi-border-strong)] transition-all">
+                        <label className="app-premium-checkbox-container flex items-start gap-3 rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3 cursor-pointer hover:border-(--hi-border-strong) transition-all">
                             <PremiumCheckbox
                                 checked={backupEncryptEnabled}
                                 onChange={(event) => setBackupEncryptEnabled(event.target.checked)}
                             />
                             <div>
-                                <p className="font-medium text-[var(--hi-text)]">
+                                <p className="font-medium text-(--hi-text)">
                                     {t('settings.data_management.encrypt_toggle_title', { defaultValue: 'Encrypt backup before download' })}
                                 </p>
-                                <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                                <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                                     {t('settings.data_management.encrypt_toggle_body', { defaultValue: 'Recommended. The downloaded file is wrapped with a passphrase you choose and can be restored later with the same passphrase.' })}
                                 </p>
                             </div>
                         </label>
 
-                        <label className="app-premium-checkbox-container flex items-start gap-3 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 cursor-pointer hover:border-[var(--hi-border-strong)] transition-all">
+                        <label className="app-premium-checkbox-container flex items-start gap-3 rounded-2xl border border-(--hi-border) bg-(--hi-panel-muted) px-4 py-3 cursor-pointer hover:border-(--hi-border-strong) transition-all">
                             <PremiumCheckbox
                                 checked={backupIncludeMedia}
                                 onChange={(event) => setBackupIncludeMedia(event.target.checked)}
                             />
                             <div>
-                                <p className="font-medium text-[var(--hi-text)]">
+                                <p className="font-medium text-(--hi-text)">
                                     {t('settings.data_management.include_media_title', { defaultValue: 'Fotoğraf ve fatura görsellerini dahil et' })}
                                 </p>
-                                <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                                <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                                     {t('settings.data_management.include_media_body', { defaultValue: 'Tam yedek daha büyük olabilir, ancak eşya fotoğrafları ve fatura görselleri de geri yüklenebilir.' })}
                                 </p>
                             </div>
@@ -2049,7 +2049,7 @@ export default function Settings() {
                         {backupEncryptEnabled ? (
                             <div className="grid gap-4 sm:grid-cols-2">
                                 <div>
-                                    <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">
+                                    <label className="mb-2 block text-sm font-medium text-(--hi-text)">
                                         {t('settings.data_management.passphrase_label', { defaultValue: 'Backup passphrase' })}
                                     </label>
                                     <input
@@ -2061,7 +2061,7 @@ export default function Settings() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">
+                                    <label className="mb-2 block text-sm font-medium text-(--hi-text)">
                                         {t('settings.data_management.passphrase_confirm_label', { defaultValue: 'Confirm passphrase' })}
                                     </label>
                                     <input
@@ -2074,13 +2074,13 @@ export default function Settings() {
                                 </div>
                             </div>
                         ) : (
-                            <div className="rounded-[1rem] border border-[rgba(187,66,87,0.18)] bg-[var(--hi-danger-soft)] px-4 py-3 text-sm leading-6 text-[var(--hi-text-soft)]">
+                            <div className="rounded-2xl border border-[rgba(187,66,87,0.18)] bg-(--hi-danger-soft) px-4 py-3 text-sm leading-6 text-(--hi-text-soft)">
                                 {t('settings.data_management.unencrypted_warning', { defaultValue: 'Plain JSON exports are easier to inspect, but anyone who opens the file can read your household data immediately.' })}
                             </div>
                         )}
 
                         {backupModalError && (
-                            <div className="rounded-[1rem] border border-[rgba(187,66,87,0.18)] bg-[var(--hi-danger-soft)] px-4 py-3 text-sm text-[var(--hi-danger)]">
+                            <div className="rounded-2xl border border-[rgba(187,66,87,0.18)] bg-(--hi-danger-soft) px-4 py-3 text-sm text-(--hi-danger)">
                                 {backupModalError}
                             </div>
                         )}
@@ -2106,7 +2106,7 @@ export default function Settings() {
                 >
                     <div className="space-y-4">
                         <div>
-                            <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">
+                            <label className="mb-2 block text-sm font-medium text-(--hi-text)">
                                 {t('settings.data_management.passphrase_label', { defaultValue: 'Backup passphrase' })}
                             </label>
                             <input
@@ -2119,7 +2119,7 @@ export default function Settings() {
                         </div>
 
                         {backupImportError && (
-                            <div className="rounded-[1rem] border border-[rgba(187,66,87,0.18)] bg-[var(--hi-danger-soft)] px-4 py-3 text-sm text-[var(--hi-danger)]">
+                            <div className="rounded-2xl border border-[rgba(187,66,87,0.18)] bg-(--hi-danger-soft) px-4 py-3 text-sm text-(--hi-danger)">
                                 {backupImportError}
                             </div>
                         )}
@@ -2128,27 +2128,27 @@ export default function Settings() {
 
                 {/* Password Change Modal */}
                 {showPasswordModal && (
-                    <div className="app-modal-backdrop house-action-backdrop fixed inset-0 z-[80] flex items-center justify-center p-4">
+                    <div className="app-modal-backdrop house-action-backdrop fixed inset-0 z-80 flex items-center justify-center p-4">
                         <div className="house-action-scrim absolute inset-0" onClick={() => setShowPasswordModal(false)} />
                         <div role="dialog" aria-modal="true" className="house-action-dialog relative w-full max-w-md overflow-hidden animate-slide-up">
                             <div className="house-action-dialog-header flex items-center justify-between gap-4">
-                                <h2 className="text-xl font-semibold text-[var(--hi-text)]">{t('settings.modals.password.title')}</h2>
+                                <h2 className="text-xl font-semibold text-(--hi-text)">{t('settings.modals.password.title')}</h2>
                                 <button type="button" onClick={() => setShowPasswordModal(false)} aria-label={t('common.close')} className={MODAL_CLOSE_BUTTON_CLASS}>
                                     <X className="w-5 h-5" />
                                 </button>
                             </div>
-                            <form onSubmit={handleSubmit} className="house-action-dialog-body space-y-4">
+                            <form onSubmit={handleSubmit} className="flex flex-col house-action-dialog-body gap-y-4">
                                 <div>
-                                    <label className="mb-1 block text-sm font-medium text-[var(--hi-text)]">{t('settings.modals.password.current')}</label>
+                                    <label className="mb-1 block text-sm font-medium text-(--hi-text)">{t('settings.modals.password.current')}</label>
                                     <input type="password" name="currentPassword" value={formData.currentPassword} onChange={handleChange} className="input-field" required />
                                 </div>
                                 <div>
-                                    <label className="mb-1 block text-sm font-medium text-[var(--hi-text)]">{t('settings.modals.password.new')}</label>
+                                    <label className="mb-1 block text-sm font-medium text-(--hi-text)">{t('settings.modals.password.new')}</label>
                                     <input type="password" name="newPassword" value={formData.newPassword} onChange={handleChange} className="input-field" required minLength={MIN_PASSWORD_LENGTH} aria-describedby="settings-password-guidance" />
-                                    <p id="settings-password-guidance" className="mt-2 text-xs leading-5 text-[var(--hi-text-muted)]">{getPasswordGuidanceMessage(t)}</p>
+                                    <p id="settings-password-guidance" className="mt-2 text-xs leading-5 text-(--hi-text-muted)">{getPasswordGuidanceMessage(t)}</p>
                                 </div>
                                 <div>
-                                    <label className="mb-1 block text-sm font-medium text-[var(--hi-text)]">{t('settings.modals.password.confirm')}</label>
+                                    <label className="mb-1 block text-sm font-medium text-(--hi-text)">{t('settings.modals.password.confirm')}</label>
                                     <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} className="input-field" required minLength={MIN_PASSWORD_LENGTH} />
                                 </div>
                                 <div className="house-action-dialog-actions pt-2">
@@ -2163,7 +2163,7 @@ export default function Settings() {
                 )}
 
                 {showDeleteAccountModal && (
-                    <div className="app-modal-backdrop house-action-backdrop fixed inset-0 z-[80] flex items-center justify-center p-4">
+                    <div className="app-modal-backdrop house-action-backdrop fixed inset-0 z-80 flex items-center justify-center p-4">
                         <div className="house-action-scrim absolute inset-0" onClick={closeDeleteAccountModal} />
                         <div role="dialog" aria-modal="true" className="house-action-dialog relative w-full max-w-md overflow-hidden">
                             <div className="house-action-dialog-header flex items-center justify-between gap-4">
@@ -2171,7 +2171,7 @@ export default function Settings() {
                                     <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-red-500/10">
                                         <UserX className="h-5 w-5 text-red-400" />
                                     </div>
-                                    <h2 className="text-xl font-semibold text-[var(--hi-text)]">
+                                    <h2 className="text-xl font-semibold text-(--hi-text)">
                                         {t('settings.danger_zone.modal_title')}
                                     </h2>
                                 </div>
@@ -2185,21 +2185,21 @@ export default function Settings() {
                                 </button>
                             </div>
 
-                            <form onSubmit={handleDeleteAccount} className="house-action-dialog-body space-y-4">
+                            <form onSubmit={handleDeleteAccount} className="flex flex-col house-action-dialog-body gap-y-4">
                                 {deleteAccountError && (
                                     <div className="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-600 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400">
-                                        <AlertCircle className="h-4 w-4 flex-shrink-0" />
+                                        <AlertCircle className="h-4 w-4 shrink-0" />
                                         {deleteAccountError}
                                     </div>
                                 )}
 
-                                <div className="rounded-xl border border-red-500/16 bg-red-500/5 p-4 text-sm text-[var(--hi-text-soft)]">
+                                <div className="rounded-xl border border-red-500/16 bg-red-500/5 p-4 text-sm text-(--hi-text-soft)">
                                     <p className="font-medium">{t('settings.danger_zone.modal_warning_title')}</p>
                                     <p className="mt-2">{t('settings.danger_zone.modal_warning_body')}</p>
                                 </div>
 
                                 <div>
-                                    <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">
+                                    <label className="mb-2 block text-sm font-medium text-(--hi-text)">
                                         {t('settings.danger_zone.password_label')}
                                     </label>
                                     <input
@@ -2234,30 +2234,30 @@ export default function Settings() {
 
                 {/* Join House Modal */}
                 {showJoinHouseModal && (
-                    <div className="app-modal-backdrop house-action-backdrop fixed inset-0 z-[80] flex items-center justify-center p-4">
+                    <div className="app-modal-backdrop house-action-backdrop fixed inset-0 z-80 flex items-center justify-center p-4">
                         <div className="house-action-scrim absolute inset-0" onClick={() => setShowJoinHouseModal(false)} />
                         <div role="dialog" aria-modal="true" className="house-action-dialog relative w-full max-w-md overflow-hidden animate-slide-up">
                             <div className="house-action-dialog-header flex items-center justify-between gap-4">
                                 <div className="flex items-center gap-3">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)]">
-                                        <Users className="h-5 w-5 text-[var(--hi-accent)]" />
+                                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-(--hi-accent-soft)">
+                                        <Users className="h-5 w-5 text-(--hi-accent)" />
                                     </div>
-                                    <h2 className="text-xl font-semibold text-[var(--hi-text)]">{t('settings.modals.join_house.title')}</h2>
+                                    <h2 className="text-xl font-semibold text-(--hi-text)">{t('settings.modals.join_house.title')}</h2>
                                 </div>
                                 <button type="button" onClick={() => setShowJoinHouseModal(false)} aria-label={t('common.close')} className={MODAL_CLOSE_BUTTON_CLASS}>
                                     <X className="w-5 h-5" />
                                 </button>
                             </div>
 
-                            <form onSubmit={handleJoinHouse} className="house-action-dialog-body space-y-5">
+                            <form onSubmit={handleJoinHouse} className="flex flex-col house-action-dialog-body gap-y-5">
                                 {houseError && (
                                     <div className="flex items-center gap-2 p-3 rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 text-red-600 dark:text-red-400 text-sm">
-                                        <AlertCircle className="w-4 h-4 flex-shrink-0" />{houseError}
+                                        <AlertCircle className="w-4 h-4 shrink-0" />{houseError}
                                     </div>
                                 )}
 
                                 <div>
-                                    <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">
+                                    <label className="mb-2 block text-sm font-medium text-(--hi-text)">
                                         <Key className="w-4 h-4 inline mr-1" />
                                         {t('settings.house_info.key_label')}
                                     </label>
@@ -2269,11 +2269,11 @@ export default function Settings() {
                                         placeholder={t('settings.modals.join_house.key_placeholder')}
                                         required
                                     />
-                                    <p className="mt-1 text-xs text-[var(--hi-text-soft)]">{t('settings.modals.join_house.key_help')}</p>
+                                    <p className="mt-1 text-xs text-(--hi-text-soft)">{t('settings.modals.join_house.key_help')}</p>
                                 </div>
 
                                 <div>
-                                    <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">
+                                    <label className="mb-2 block text-sm font-medium text-(--hi-text)">
                                         <Home className="w-4 h-4 inline mr-1" />
                                         {t('settings.modals.join_house.name_label')}
                                     </label>
@@ -2300,30 +2300,30 @@ export default function Settings() {
 
                 {/* Create House Modal */}
                 {showCreateHouseModal && (
-                    <div className="app-modal-backdrop house-action-backdrop fixed inset-0 z-[80] flex items-center justify-center p-4">
+                    <div className="app-modal-backdrop house-action-backdrop fixed inset-0 z-80 flex items-center justify-center p-4">
                         <div className="house-action-scrim absolute inset-0" onClick={() => setShowCreateHouseModal(false)} />
                         <div role="dialog" aria-modal="true" className="house-action-dialog relative w-full max-w-md overflow-hidden animate-slide-up">
                             <div className="house-action-dialog-header flex items-center justify-between gap-4">
                                 <div className="flex items-center gap-3">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)]">
-                                        <Plus className="h-5 w-5 text-[var(--hi-accent)]" />
+                                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-(--hi-accent-soft)">
+                                        <Plus className="h-5 w-5 text-(--hi-accent)" />
                                     </div>
-                                    <h2 className="text-xl font-semibold text-[var(--hi-text)]">{t('settings.modals.create_house.title')}</h2>
+                                    <h2 className="text-xl font-semibold text-(--hi-text)">{t('settings.modals.create_house.title')}</h2>
                                 </div>
                                 <button type="button" onClick={() => setShowCreateHouseModal(false)} aria-label={t('common.close')} className={MODAL_CLOSE_BUTTON_CLASS}>
                                     <X className="w-5 h-5" />
                                 </button>
                             </div>
 
-                            <form onSubmit={handleCreateHouse} className="house-action-dialog-body space-y-5">
+                            <form onSubmit={handleCreateHouse} className="flex flex-col house-action-dialog-body gap-y-5">
                                 {houseError && (
                                     <div className="flex items-center gap-2 p-3 rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 text-red-600 dark:text-red-400 text-sm">
-                                        <AlertCircle className="w-4 h-4 flex-shrink-0" />{houseError}
+                                        <AlertCircle className="w-4 h-4 shrink-0" />{houseError}
                                     </div>
                                 )}
 
                                 <div>
-                                    <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">
+                                    <label className="mb-2 block text-sm font-medium text-(--hi-text)">
                                         <Home className="w-4 h-4 inline mr-1" />
                                         {t('settings.modals.create_house.name_label')}
                                     </label>
@@ -2334,12 +2334,12 @@ export default function Settings() {
                                         className="input-field"
                                         placeholder={t('settings.modals.create_house.name_placeholder')}
                                     />
-                                    <p className="mt-1 text-xs text-[var(--hi-text-soft)]">{t('settings.modals.create_house.name_help')}</p>
+                                    <p className="mt-1 text-xs text-(--hi-text-soft)">{t('settings.modals.create_house.name_help')}</p>
                                 </div>
 
                                 <div className="house-action-dialog-note flex items-start gap-2.5">
-                                    <Info className="h-4.5 w-4.5 shrink-0 text-[var(--hi-secondary-strong)] mt-0.5" />
-                                    <p className="text-sm text-[var(--hi-secondary-strong)] leading-5">
+                                    <Info className="h-4.5 w-4.5 shrink-0 text-(--hi-secondary-strong) mt-0.5" />
+                                    <p className="text-sm text-(--hi-secondary-strong) leading-5">
                                         {t('settings.modals.create_house.info').replace(/^[ℹ️ℹ\s\uFE0F\u2139]+/g, '')}
                                     </p>
                                 </div>
@@ -2357,15 +2357,15 @@ export default function Settings() {
                 )}
 
                 {showRecoveryKeyRegenerateModal && (
-                    <div className="app-modal-backdrop house-action-backdrop fixed inset-0 z-[80] flex items-center justify-center p-4">
+                    <div className="app-modal-backdrop house-action-backdrop fixed inset-0 z-80 flex items-center justify-center p-4">
                         <div className="house-action-scrim absolute inset-0" onClick={() => setShowRecoveryKeyRegenerateModal(false)} />
                         <div role="dialog" aria-modal="true" className="house-action-dialog relative w-full max-w-md overflow-hidden">
                             <div className="house-action-dialog-header flex items-center justify-between gap-4">
                                 <div className="flex items-center gap-3">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--hi-secondary-soft)]">
-                                        <Key className="h-5 w-5 text-[var(--hi-secondary-strong)]" />
+                                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-(--hi-secondary-soft)">
+                                        <Key className="h-5 w-5 text-(--hi-secondary-strong)" />
                                     </div>
-                                    <h2 className="text-xl font-semibold text-[var(--hi-text)]">
+                                    <h2 className="text-xl font-semibold text-(--hi-text)">
                                         {t('settings.security.recovery_key_action')}
                                     </h2>
                                 </div>
@@ -2379,20 +2379,20 @@ export default function Settings() {
                                 </button>
                             </div>
 
-                            <form onSubmit={handleRegenerateRecoveryKey} className="house-action-dialog-body space-y-4">
+                            <form onSubmit={handleRegenerateRecoveryKey} className="flex flex-col house-action-dialog-body gap-y-4">
                                 {houseError && (
                                     <div className="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-600 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400">
-                                        <AlertCircle className="h-4 w-4 flex-shrink-0" />
+                                        <AlertCircle className="h-4 w-4 shrink-0" />
                                         {houseError}
                                     </div>
                                 )}
 
-                                <p className="text-sm text-[var(--hi-text-soft)]">
+                                <p className="text-sm text-(--hi-text-soft)">
                                     {t('settings.security.recovery_key_modal_desc')}
                                 </p>
 
                                 <div>
-                                    <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">
+                                    <label className="mb-2 block text-sm font-medium text-(--hi-text)">
                                         {t('settings.modals.password.current')}
                                     </label>
                                     <input
@@ -2426,35 +2426,35 @@ export default function Settings() {
 
                 {/* Username Change Modal */}
                 {showUsernameModal && (
-                    <div className="app-modal-backdrop house-action-backdrop fixed inset-0 z-[80] flex items-center justify-center p-4">
+                    <div className="app-modal-backdrop house-action-backdrop fixed inset-0 z-80 flex items-center justify-center p-4">
                         <div className="house-action-scrim absolute inset-0" onClick={closeUsernameModal} />
                         <div role="dialog" aria-modal="true" className="house-action-dialog relative w-full max-w-md overflow-hidden animate-slide-up">
                             <div className="house-action-dialog-header flex items-center justify-between gap-4">
                                 <div className="flex items-center gap-3">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)]">
-                                        <Edit3 className="h-5 w-5 text-[var(--hi-accent)]" />
+                                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-(--hi-accent-soft)">
+                                        <Edit3 className="h-5 w-5 text-(--hi-accent)" />
                                     </div>
-                                    <h2 className="text-xl font-semibold text-[var(--hi-text)]">{t('settings.modals.username.title')}</h2>
+                                    <h2 className="text-xl font-semibold text-(--hi-text)">{t('settings.modals.username.title')}</h2>
                                 </div>
                                 <button type="button" onClick={closeUsernameModal} aria-label={t('common.close')} className={MODAL_CLOSE_BUTTON_CLASS}>
                                     <X className="w-5 h-5" />
                                 </button>
                             </div>
 
-                            <form onSubmit={handleUsernameChange} className="house-action-dialog-body space-y-4">
+                            <form onSubmit={handleUsernameChange} className="flex flex-col house-action-dialog-body gap-y-4">
                                 {usernameError && (
                                     <div className="flex items-center gap-2 p-3 rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 text-red-600 dark:text-red-400 text-sm">
-                                        <AlertCircle className="w-4 h-4 flex-shrink-0" />{usernameError}
+                                        <AlertCircle className="w-4 h-4 shrink-0" />{usernameError}
                                     </div>
                                 )}
                                 {usernameSuccess && (
-                                    <div className="flex items-center gap-2 rounded-xl border border-[rgba(111,153,120,0.18)] bg-[rgba(111,153,120,0.10)] p-3 text-sm text-[var(--hi-text)]">
-                                        <CheckCircle className="w-4 h-4 flex-shrink-0 text-[var(--hi-accent)]" />{usernameSuccess}
+                                    <div className="flex items-center gap-2 rounded-xl border border-[rgba(111,153,120,0.18)] bg-[rgba(111,153,120,0.10)] p-3 text-sm text-(--hi-text)">
+                                        <CheckCircle className="w-4 h-4 shrink-0 text-(--hi-accent)" />{usernameSuccess}
                                     </div>
                                 )}
 
                                 <div>
-                                    <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">
+                                    <label className="mb-2 block text-sm font-medium text-(--hi-text)">
                                         {t('settings.modals.username.new_label')}
                                     </label>
                                     <input
@@ -2467,7 +2467,7 @@ export default function Settings() {
                                         maxLength={30}
                                         required
                                     />
-                                    <p className="mt-1 text-xs text-[var(--hi-text-soft)]">{t('settings.modals.username.help')}</p>
+                                    <p className="mt-1 text-xs text-(--hi-text-soft)">{t('settings.modals.username.help')}</p>
                                 </div>
 
                                 <div className="house-action-dialog-actions pt-4">
@@ -2528,14 +2528,14 @@ export default function Settings() {
             {/* 2FA Disable Modal */}
             {show2FADisableModal && (
                 <div
-                    className="app-modal-backdrop house-action-backdrop fixed inset-0 z-[80] flex items-center justify-center p-4 animate-fade-in"
+                    className="app-modal-backdrop house-action-backdrop fixed inset-0 z-80 flex items-center justify-center p-4 animate-fade-in"
                     onMouseDown={(event) => {
                         if (event.target === event.currentTarget) setShow2FADisableModal(false);
                     }}
                 >
                     <div role="dialog" aria-modal="true" className="house-action-dialog w-full max-w-md overflow-hidden">
                         <div className="house-action-dialog-header flex items-center justify-between gap-4">
-                            <h2 className="text-lg font-semibold text-[var(--hi-text)]">
+                            <h2 className="text-lg font-semibold text-(--hi-text)">
                                 {t('settings.two_factor.disable_title')}
                             </h2>
                             <button type="button" onClick={() => setShow2FADisableModal(false)} aria-label={t('common.close')} className={MODAL_CLOSE_BUTTON_CLASS}>
@@ -2572,7 +2572,7 @@ export default function Settings() {
                             )}
 
                             <div>
-                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">
+                                <label className="mb-2 block text-sm font-medium text-(--hi-text)">
                                     {t('settings.two_factor.password_label')}
                                 </label>
                                 <input
@@ -2585,7 +2585,7 @@ export default function Settings() {
                             </div>
 
                             {/* Method Selector */}
-                            <div className="flex gap-1 rounded-lg border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-1">
+                            <div className="flex gap-1 rounded-lg border border-(--hi-border) bg-(--hi-panel-muted) p-1">
                                 {[
                                     { key: 'totp', label: t('settings.two_factor.method_totp') },
                                     { key: 'backup', label: t('settings.two_factor.method_backup') },
@@ -2595,7 +2595,7 @@ export default function Settings() {
                                         key={m.key}
                                         type="button"
                                         onClick={() => { setDisableMethod(m.key); setDisableCode(''); }}
-                                        className={`flex-1 rounded-lg px-2 py-1.5 text-xs font-medium transition-all ${disableMethod === m.key ? 'bg-[var(--hi-panel-strong)] text-[var(--hi-text)] shadow-[var(--hi-shadow-soft)]' : 'text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]'}`}
+                                        className={`flex-1 rounded-lg px-2 py-1.5 text-xs font-medium transition-all ${disableMethod === m.key ? 'bg-(--hi-panel-strong) text-(--hi-text) shadow-(--hi-shadow-soft)' : 'text-(--hi-text-soft) hover:text-(--hi-text)'}`}
                                     >
                                         {m.label}
                                     </button>
@@ -2603,7 +2603,7 @@ export default function Settings() {
                             </div>
 
                             <div>
-                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">
+                                <label className="mb-2 block text-sm font-medium text-(--hi-text)">
                                     {disableMethod === 'totp' && t('settings.two_factor.totp_code_label')}
                                     {disableMethod === 'backup' && t('settings.two_factor.backup_code_label')}
                                     {disableMethod === 'recovery' && t('settings.two_factor.recovery_key_label')}
