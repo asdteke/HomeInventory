@@ -48,6 +48,10 @@ otherwise asks `api.github.com` for the latest release when an admin opens the
 panel (cached for 12 hours, no user data sent). The desktop launcher sets it
 automatically because it has its own updater.
 
+### Automatic backups
+
+Automatic server backups run daily by default and keep the last 7 snapshots in `<data dir>/backups`. Override them with `BACKUP_SCHEDULE` (`daily`, `weekly`, `off`), `BACKUP_KEEP`, `BACKUP_DIR`, `BACKUP_UPLOAD_MAX_MB`, and `BACKUP_STARTUP_DELAY_SECONDS`. Admins can also change the schedule in **Admin panel → Backups**. Backups are only usable with the same `APP_ENCRYPTION_KEY` (and keyring). See [DOCKER.md](DOCKER.md#backup).
+
 ### Docker secrets
 
 If you use `docker-compose.yml`, keep runtime secrets in files instead of `.env`.

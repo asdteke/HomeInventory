@@ -124,6 +124,8 @@ This keeps launcher-managed local runs separate from the normal repository `.env
 
 The launcher also sets `UPDATE_CHECK=false`: it updates HomeInventory itself, so the admin panel's GitHub new-version notice (meant for Docker and command-line installs) is turned off and never contacts GitHub.
 
+The server's own automatic backups (**Admin panel → Backups**) are written to `data/backups/` inside the profile, next to `inventory.db`. The launcher does not restart the server by itself. After you stage a restore in the admin panel, stop and start the profile in the launcher so the restore is applied. These backups do not include `uploads/` and are only usable with the profile's encryption key, so keep the launcher's own backups as well.
+
 ## Release Packaging
 
 The launcher is shared as release artifacts, separate from the source archive:

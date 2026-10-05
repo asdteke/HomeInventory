@@ -108,6 +108,7 @@ HomeInventory is built for families, roommates, and small households that need a
 | Labels and scanning | Local-first barcode lookup with opt-in public catalogue search, responsive Full HD barcode/QR scanning, supported-device flash and zoom controls, branded item/box QR label sheets, room/shelf labels, and print cut guides |
 | Alerts and service | Focused low-stock, expiration, warranty, maintenance, and borrow-return surfaces |
 | Backup and restore | Owner-only standard/full export and import with passphrase encryption, box metadata/assignments/archive state, and optional media/attachment coverage |
+| Automatic server backups | Admin-only scheduled SQLite snapshots (daily by default, keep 7) with download, upload, and a verified restore that is applied on the next restart after a safety snapshot; see [DOCKER.md](DOCKER.md#backup) |
 | Activity history | Protected item activity log for edits, stock changes, attachments, borrowing, and bulk actions |
 | Auth and recovery | JWT auth, Google OAuth, email verification, TOTP 2FA, trusted devices, and recovery keys |
 | Desktop Launcher | Optional Tauri GUI plus release packages for local setup, dependency checks, profile start/stop, automatic browser opening, backups, logs, advanced settings, port checks, QR/LAN access, and [opt-in offline HTTPS for mobile camera access](docs/offline-mobile-https.md) |

@@ -108,6 +108,7 @@ HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtl
 | Etiket ve tarama | Önce yerel envanteri kullanan, dış katalog aramasını onaya bağlayan barkod akışı; responsive Full HD barkod/QR tarama, desteklenen cihazlarda flaş/zoom, markalı eşya/kutu QR etiketleri, oda/raf etiketleri ve kesim çizgileri |
 | Uyarılar ve servis | Düşük stok, son kullanma, garanti, bakım ve ödünç iade için odaklı takip ekranları |
 | Yedekleme ve geri yükleme | Sadece ev sahibine açık standart/tam dışa ve içe aktarma; parola ile şifreleme, kutu metadata'sı, atamaları ve arşiv durumu ile isteğe bağlı medya/ek dosya kapsamı |
+| Otomatik sunucu yedekleri | Yalnızca yöneticiye açık, zamanlanmış SQLite anlık görüntüleri (varsayılan: günlük, son 7 yedek saklanır); indirme, yükleme ve bir güvenlik kopyası alındıktan sonra sonraki yeniden başlatmada uygulanan doğrulanmış geri yükleme. Ayrıntılar: [DOCKER.md](DOCKER.md#backup) |
 | Aktivite geçmişi | Düzenleme, stok değişimi, ek dosya, ödünç ve toplu işlemler için korumalı eşya aktivite kaydı |
 | Kimlik doğrulama | JWT, Google OAuth, e-posta doğrulama, TOTP 2FA, güvenilen cihaz ve recovery key |
 | Masaüstü Başlatıcı | Yerel kurulum, bağımlılık kontrolü, profil başlatma/durdurma, otomatik tarayıcı açma, yedekleme, log, gelişmiş ayarlar, port kontrolü, QR/LAN erişimi ve [mobil kamera için isteğe bağlı offline HTTPS](docs/offline-mobile-https.md) sunan Tauri GUI ve release paketleri |

@@ -124,6 +124,8 @@ Bu yapı, kullanıcı açıkça yolları değiştirmediği sürece launcher tara
 
 Launcher ayrıca `UPDATE_CHECK=false` ayarlar: HomeInventory'yi kendisi güncellediği için yönetici panelindeki GitHub yeni sürüm bildirimi (Docker ve komut satırı kurulumları içindir) kapalıdır ve GitHub'a hiç istek gönderilmez.
 
+Sunucunun kendi otomatik yedekleri (**Yönetim paneli → Yedekler**) profil içinde, `inventory.db` dosyasının yanındaki `data/backups/` klasörüne yazılır. Launcher sunucuyu kendiliğinden yeniden başlatmaz. Yönetim panelinde bir geri yükleme hazırladıktan sonra, uygulanması için profili launcher'da durdurup yeniden başlatın. Bu yedekler `uploads/` klasörünü içermez ve yalnızca profilin şifreleme anahtarıyla kullanılabilir. Bu yüzden launcher'ın kendi yedeklerini de saklayın.
+
 ## Release Paketleme
 
 Launcher, kaynak kod arşivinden ayrı release artifact'ları olarak paylaşılır:

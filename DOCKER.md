@@ -129,6 +129,11 @@ curl http://localhost:3001/api/health
 | `BOOTSTRAP_ADMIN_EMAIL` | ⬜ | Auto-promote this email to admin |
 | `DOCKER_SECRETS_DIR` | ⬜ | Override the in-container secret directory when it is not `/run/secrets` |
 | `UPDATE_CHECK` | ⬜ | Set to `false` to turn off the admin panel's new-version notice and its request to GitHub (see [Updating](#updating)) |
+| `BACKUP_SCHEDULE` | ⬜ | Automatic server backups: `daily` (default), `weekly`, or `off`. The admin panel can override it |
+| `BACKUP_KEEP` | ⬜ | How many automatic backups to keep (default `7`, max `365`) |
+| `BACKUP_DIR` | ⬜ | Where backups are written (default: `backups` next to the database, `/app/data/backups` in Docker) |
+| `BACKUP_UPLOAD_MAX_MB` | ⬜ | Size limit for backups uploaded in the admin panel (default `512`) |
+| `BACKUP_STARTUP_DELAY_SECONDS` | ⬜ | Delay before an overdue backup runs after startup (default `60`) |
 
 `docker compose` loads the full `.env` file into the container, so optional settings from [`.env.example`](.env.example) such as `APP_ENCRYPTION_KEYRING`, `EXPOSE_SERVER_INFO`, and `INDEXNOW_*` work without editing `docker-compose.yml`.
 
@@ -138,41 +143,86 @@ Docker Compose creates project-scoped volumes for persistent data:
 
 | Volume | Path | Contents |
 |--------|------|----------|
-| `homeinventory_data` | `/app/data` | SQLite database |
-| `homeinventory_uploads` | `/app/uploads` | Encrypted photos |
+| `homeinventory_data` | `/app/data` | SQLite database, automatic backups (`/app/data/backups`), and logs |
+| `homeinventory_uploads` | `/app/uploads` | Encrypted photos and attachments |
 
 The actual Docker volume names are automatically prefixed with the Compose project name, which prevents collisions when you run multiple stacks on the same host.
 
 ### Backup
 
+#### Automatic backups
+
+The server takes a consistent snapshot of the whole SQLite database on a schedule, **daily by default**, and keeps the **last 7** automatic backups. Files are written to `/app/data/backups` as `homeinventory-<UTC timestamp>-<kind>.db` with owner-only permissions (`0600`, directory `0700`). If a scheduled backup was missed while the server was down, it runs about a minute after the next start. A failed backup is logged and shown in the admin panel. It never stops the server.
+
+Admins manage this in **Admin panel → Backups**:
+
+- change the schedule (`off`, `daily`, `weekly`) and how many automatic backups to keep; this overrides `BACKUP_SCHEDULE` / `BACKUP_KEEP`
+- see the last result and the next run
+- **Back up now**, **Download**, **Delete**, and **Restore** any listed backup
+- **Upload** a backup file (for example one downloaded from another host) so it can be restored
+
+Retention only removes automatic backups (and keeps the 3 newest pre-restore safety snapshots). Manual and uploaded backups stay until you delete them. Only files that match the backup naming pattern are ever touched.
+
+> **Keep backups off the host.** The backups live on the same `homeinventory_data` volume as the database, so they protect against mistakes and bad updates but not against losing the disk. Download a backup from the admin panel regularly, or copy the folder off the host:
+>
+> ```bash
+> CONTAINER_ID=$(docker compose ps -q homeinventory)
+> docker cp "$CONTAINER_ID":/app/data/backups ./homeinventory-backups
+> ```
+
+#### Uploads are backed up separately
+
+Database backups do **not** include photos and attachments. Back up the uploads volume as well:
+
 ```bash
 CONTAINER_ID=$(docker compose ps -q homeinventory)
-
-# Backup database
-docker cp "$CONTAINER_ID":/app/data/inventory.db ./backup-$(date +%Y%m%d).db
-
-# Backup uploads
 docker cp "$CONTAINER_ID":/app/uploads ./uploads-backup-$(date +%Y%m%d)
 ```
 
+`scripts/backup-cron.sh` is still available for host-level cron backups.
+
+#### Encryption key warning
+
+Sensitive fields and uploads are encrypted with `APP_ENCRYPTION_KEY`. **A backup is only usable together with the key (and any older keys in `APP_ENCRYPTION_KEYRING`) that encrypted it.** Store the contents of your `secrets/` directory somewhere safe and separate from the backups. Without the key, a backup cannot be read. HomeInventory refuses to restore a backup that the current key cannot decrypt.
+
 ### Restore
 
+#### From the admin panel (recommended)
+
+1. Open **Admin panel → Backups**, pick a backup (or upload one), and choose **Restore**.
+2. Confirm. The server checks the file (`PRAGMA integrity_check`, HomeInventory schema, encryption key) and **stages** it. Nothing changes yet.
+3. Restart the container:
+
+   ```bash
+   docker compose restart homeinventory
+   ```
+
+On startup, before the database is opened, HomeInventory always saves a `prerestore` safety snapshot of the current database to the backups folder, re-checks the staged file, and swaps it in. The Backups tab then shows whether the restore was applied. If a check fails, the current database is kept and the reason is shown. Until the restart, a staged restore can be cancelled from the same screen.
+
+Restoring replaces the **whole instance** (all users and households) with the state of the backup. Everything changed after the backup was taken is lost, except in the safety snapshot.
+
+#### Manual restore
+
+Use this if the server cannot start. Stop the stack first so SQLite is not writing:
+
 ```bash
-# Stop and recreate the service container without starting it
 docker compose down
-docker compose pull
 docker compose create
 CONTAINER_ID=$(docker compose ps -q homeinventory)
 
-# Restore database
-docker cp ./backup.db "$CONTAINER_ID":/app/data/inventory.db
+# Restore database (use a backup file from /app/data/backups or one you downloaded)
+docker cp ./homeinventory-backup.db "$CONTAINER_ID":/app/data/inventory.db
 
 # Restore uploads
 docker cp ./uploads-backup/. "$CONTAINER_ID":/app/uploads/
 
-# Start container
+# Remove stale SQLite journal files of the old database and fix ownership, then start
+docker compose run --rm --no-deps --user root --entrypoint sh homeinventory \
+  -c 'rm -f /app/data/inventory.db-wal /app/data/inventory.db-shm && chown -R homeinv:nodejs /app/data /app/uploads'
 docker compose start
 ```
+
+Do not copy `inventory.db` out of a running container to make a backup. Use the automatic backups or **Back up now** instead, because they create a consistent snapshot even while the server is writing.
 
 ## Reverse Proxy
 

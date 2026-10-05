@@ -104,6 +104,7 @@ HomeInventory está pensado para familias, compañeros de piso y hogares pequeñ
 | Mantenimiento inteligente | Tareas recurrentes de cuidado, indicadores de vencimiento y cálculo automático de la próxima fecha |
 | Etiquetas y escaneo | Escaneo de códigos de barras, etiquetas QR de objetos y acceso rápido móvil |
 | Backup y restore | Exportación e importación estándar o completa solo para propietarios, con cifrado por frase de contraseña, metadatos, asignaciones y estado de archivo de las cajas, además de medios/adjuntos opcionales |
+| Backups automáticos del servidor | Instantáneas SQLite programadas solo para administradores (diarias por defecto, se conservan 7) con descarga, subida y restauración verificada que se aplica en el siguiente reinicio tras una copia de seguridad previa; ver [DOCKER.md](DOCKER.md#backup) |
 | Auth y recuperación | JWT, Google OAuth, verificación por correo, TOTP 2FA, dispositivos de confianza y recovery keys |
 | Desktop Launcher | GUI opcional con Tauri para setup local, chequeo de dependencias, inicio/parada de perfiles, backups, logs, puertos fijos o aleatorios, acceso QR/LAN y [HTTPS offline opcional para la cámara móvil](docs/offline-mobile-https.md) |
 | Internacionalización | 100+ paquetes de locale seleccionables con fallback y validaciones automatizadas |

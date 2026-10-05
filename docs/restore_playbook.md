@@ -50,6 +50,9 @@ sqlite3 /path/to/inventory.db "PRAGMA quick_check;"
 
 Follow this procedure if the database becomes corrupted or has invalid/lost data, and you want to restore it from an hourly database snapshot.
 
+> [!TIP]
+> If the server still starts, prefer **Admin panel → Backups → Restore**. It checks the backup (integrity, schema, encryption key), takes a `prerestore` safety snapshot, and applies the restore on the next restart. The server's built-in snapshots live in `<data dir>/backups` (`BACKUP_DIR`). See [DOCKER.md](../DOCKER.md#restore). The manual sequence below is for hosts where the server cannot start.
+
 1. **Identify the Target Backup:**
    Locate the target database backup in `/home/ubuntu/backups/hourly/db-backup-YYYYMMDD_HHMMSS.db`.
    
