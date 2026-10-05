@@ -23,6 +23,7 @@ import emailRoutes from './routes/email.js';
 import adminRoutes from './routes/admin.js';
 import housesRoutes from './routes/houses.js';
 import backupRoutes from './routes/backup.js';
+import instanceBackupRoutes, { startInstanceBackupScheduler } from './routes/instanceBackups.js';
 import vaultRoutes from './routes/vault.js';
 import borrowRequestsRoutes from './routes/borrowRequests.js';
 import maintenanceRoutes from './routes/maintenance.js';
@@ -490,6 +491,7 @@ app.use('/api/locations', locationsRoutes);
 app.use('/api/boxes', boxesRoutes);
 app.use('/api/barcode', barcodeRoutes);
 app.use('/api/email', emailRoutes);
+app.use('/api/admin/backups', instanceBackupRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/houses', housesRoutes);
 app.use('/api/backup', backupRoutes);
@@ -571,4 +573,6 @@ app.listen(PORT, HOST, () => {
         lanApiUrl: networkBackendUrl,
         helpText: 'Use Ctrl+C to stop'
     }));
+
+    startInstanceBackupScheduler();
 });

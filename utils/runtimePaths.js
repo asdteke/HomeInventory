@@ -18,3 +18,23 @@ export function getUploadsRoot(repoRoot) {
         path.join(repoRoot, 'uploads')
     );
 }
+
+export function getDatabasePath(repoRoot) {
+    const dataDir = resolveRuntimePath(
+        process.env.HOMEINVENTORY_DATA_DIR,
+        path.join(repoRoot, 'data')
+    );
+
+    return resolveRuntimePath(
+        process.env.HOMEINVENTORY_DB_PATH,
+        path.join(dataDir, 'inventory.db')
+    );
+}
+
+// Instance snapshots live next to the database unless BACKUP_DIR points elsewhere.
+export function getBackupDir(repoRoot) {
+    return resolveRuntimePath(
+        process.env.BACKUP_DIR,
+        path.join(path.dirname(getDatabasePath(repoRoot)), 'backups')
+    );
+}

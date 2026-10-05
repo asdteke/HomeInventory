@@ -1,6 +1,6 @@
 import Database from 'better-sqlite3';
 import { fileURLToPath } from 'url';
-import { dirname, join, resolve } from 'path';
+import { dirname, join } from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
 import {
@@ -35,6 +35,9 @@ import {
   encryptUsername
 } from './utils/protectedFields.js';
 import { formatScopedLog, stripLogNamespace } from './utils/devConsole.js';
+import { getBackupDir, getDatabasePath } from './utils/runtimePaths.js';
+import { applyStagedRestore } from './utils/instanceBackups.js';
+import { verifyBackupEncryptionKey } from './utils/backupKeyCheck.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -77,17 +80,23 @@ function resolveStoredPath(storedPath) {
 }
 
 // Ensure data directory exists
-const configuredDbPath = String(process.env.HOMEINVENTORY_DB_PATH || '').trim();
-const dataDir = String(process.env.HOMEINVENTORY_DATA_DIR || '').trim()
-  ? resolve(process.cwd(), String(process.env.HOMEINVENTORY_DATA_DIR || '').trim())
-  : join(__dirname, 'data');
-const databasePath = configuredDbPath
-  ? resolve(process.cwd(), configuredDbPath)
-  : join(dataDir, 'inventory.db');
+const databasePath = getDatabasePath(__dirname);
 const databaseDir = dirname(databasePath);
 
 if (!fs.existsSync(databaseDir)) {
   fs.mkdirSync(databaseDir, { recursive: true });
+}
+
+// An admin-staged restore is swapped in here, before any module holds the
+// shared handle. It verifies the copy and snapshots the current file first.
+try {
+  applyStagedRestore({
+    databasePath,
+    backupDir: getBackupDir(__dirname),
+    verifyKey: verifyBackupEncryptionKey
+  });
+} catch (error) {
+  console.error(formatScopedLog('backup', `Staged restore check failed: ${error.message}`));
 }
 
 // Initialize database
