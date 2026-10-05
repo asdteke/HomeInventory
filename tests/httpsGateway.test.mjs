@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, readdirSync, readFileSync, rmSync } from 'node:fs';
 import http from 'node:http';
 import https from 'node:https';
 import { tmpdir } from 'node:os';
@@ -181,7 +181,11 @@ test('launcher keeps mobile HTTPS optional and its tall setup card scrollable', 
     const appSource = readFileSync(new URL('../apps/launcher/src/App.tsx', import.meta.url), 'utf8');
     const i18nSource = readFileSync(new URL('../apps/launcher/src/i18n.tsx', import.meta.url), 'utf8');
     const styles = readFileSync(new URL('../apps/launcher/src/styles.css', import.meta.url), 'utf8');
-    const rustSource = readFileSync(new URL('../apps/launcher/src-tauri/src/lib.rs', import.meta.url), 'utf8');
+    const rustDir = new URL('../apps/launcher/src-tauri/src/', import.meta.url);
+    const rustSource = readdirSync(rustDir)
+        .filter((name) => name.endsWith('.rs'))
+        .map((name) => readFileSync(new URL(name, rustDir), 'utf8'))
+        .join('\n');
     assert.match(appSource, /mobileHttps:\s*false/);
     assert.match(appSource, /t\('https\.normalRemains'\)/);
     assert.match(appSource, /t\('https\.iosHelp'\)/);

@@ -1,12 +1,17 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 
 const lockfile = JSON.parse(readFileSync(new URL('../package-lock.json', import.meta.url), 'utf8'));
 const packageManifest = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
 const clientLockfile = JSON.parse(readFileSync(new URL('../client/package-lock.json', import.meta.url), 'utf8'));
 const launcherLockfile = JSON.parse(readFileSync(new URL('../apps/launcher/package-lock.json', import.meta.url), 'utf8'));
-const launcherRust = readFileSync(new URL('../apps/launcher/src-tauri/src/lib.rs', import.meta.url), 'utf8');
+const launcherRustDir = new URL('../apps/launcher/src-tauri/src/', import.meta.url);
+const launcherRust = readdirSync(launcherRustDir)
+    .filter((name) => name.endsWith('.rs'))
+    .sort()
+    .map((name) => readFileSync(new URL(name, launcherRustDir), 'utf8'))
+    .join('\n');
 const storeBuildScript = readFileSync(new URL('../scripts/build-store-windows.mjs', import.meta.url), 'utf8');
 
 function numericVersion(version) {
