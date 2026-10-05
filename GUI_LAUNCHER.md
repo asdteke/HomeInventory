@@ -62,6 +62,16 @@ Updates never block or replace **Launch HomeInventory**: Start always runs the i
 
 The launcher still checks for updates when it opens, but it only checks; nothing is downloaded or installed until you choose **Update Now**.
 
+### Optional App Window (Beta)
+
+By default the launcher opens HomeInventory in your browser, and the classic launcher is unchanged. To use HomeInventory inside a launcher window instead, turn on **Developer Tools > Settings > App window (beta)**.
+
+- When HomeInventory is ready (or when you click **Open App Window**), the launcher opens a HomeInventory window with a collapsible sidebar and hides the classic launcher window.
+- The sidebar shows the status and port and offers **Start**, **Stop**, **Restart**, **Open in browser**, **Logs**, **Updates** and **Settings** (the last two open the classic launcher on that panel), and **Back to classic launcher**, which turns app mode off again.
+- Closing the app window brings the classic launcher back and keeps HomeInventory running. Closing the classic launcher still stops HomeInventory and closes the app window.
+- The app runs in its own webview as a normal local page. Only the sidebar can call launcher commands (`capabilities/app-sidebar.json`); the HomeInventory page has no launcher access, stays on the local app, and cannot open pop-ups or other sites.
+- Limitations: the camera, file downloads, pop-ups, and links to other websites may not work inside the app window, depending on the operating system's webview. Use **Open in browser** for barcode scanning and those cases. The app window uses Tauri's multi-webview API, which Tauri still marks as unstable.
+
 Live mobile camera access over a LAN IP requires a secure browser context. The opt-in, domain-free setup and its trust/rotation limits are documented in [Optional Offline Mobile HTTPS](docs/offline-mobile-https.md).
 
 ## Building from Source

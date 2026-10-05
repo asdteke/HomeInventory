@@ -52,13 +52,13 @@ type SetupStatus = {
   rootDependencies: boolean; clientDependencies: boolean; envFile: boolean;
 };
 
-type ProfileStatus = {
+export type ProfileStatus = {
   id: string; name: string; description: string; available: boolean; running: boolean;
   backendPort: number; frontendPort: number; frontendUrl: string; backendUrl: string;
   dataDir: string; dbPath: string; uploadsDir: string; brandAssets: boolean;
 };
 
-type LogEntry = { timestamp: number; source: string; level: string; message: string };
+export type LogEntry = { timestamp: number; source: string; level: string; message: string };
 
 type LanAccessStatus = {
   ok: boolean;
@@ -83,7 +83,7 @@ type HttpsStatus = {
   localIp: string;
 };
 
-type LauncherSnapshot = {
+export type LauncherSnapshot = {
   projectRoot: string; appDataDir: string; localIp?: string | null;
   tools: ToolStatus[]; setup: SetupStatus; profiles: ProfileStatus[];
   activeProfileId?: string | null; lanStatus?: LanAccessStatus | null; logs: LogEntry[];
@@ -134,6 +134,8 @@ type LauncherSettings = {
   projectPath: string; nodePath: string; npmPath: string; autoOpen: boolean; mobileHttps: boolean;
   /** Update version the user chose to skip; newer versions are offered again. */
   skippedUpdateVersion: string;
+  /** Optional app mode: open HomeInventory in the launcher's app window. */
+  appMode: boolean;
 };
 
 type UpdateOffer = { kind: 'bundled' | 'online'; version: string; blockedByNode: boolean };
@@ -146,12 +148,13 @@ const LAUNCHER_VERSION = launcherPackage.version;
 const defaultSettings: LauncherSettings = {
   projectPath: '', nodePath: '', npmPath: '', autoOpen: true, mobileHttps: false,
   skippedUpdateVersion: '',
+  appMode: false,
 };
 
-const hasTauriRuntime = () =>
+export const hasTauriRuntime = () =>
   Boolean((window as Window & { __TAURI_INTERNALS__?: unknown }).__TAURI_INTERNALS__);
 
-function loadSettings(): LauncherSettings {
+export function loadSettings(): LauncherSettings {
   try {
     return { ...defaultSettings, ...JSON.parse(localStorage.getItem('hi-settings') || '{}') };
   } catch { return defaultSettings; }
@@ -161,7 +164,7 @@ function saveSettings(s: LauncherSettings) {
   localStorage.setItem('hi-settings', JSON.stringify(s));
 }
 
-function overrides(s: LauncherSettings) {
+export function overrides(s: LauncherSettings) {
   return { projectPath: s.projectPath || null, nodePath: s.nodePath || null, npmPath: s.npmPath || null };
 }
 
@@ -442,6 +445,30 @@ function AppContent() {
       if (unlisten) unlisten();
     };
   }, []);
+
+  // Events from the optional app window (app mode)
+  useEffect(() => {
+    if (!hasTauriRuntime()) return;
+    let mounted = true;
+    const unlisteners: Array<() => void> = [];
+    const keep = (fn: () => void) => {
+      if (mounted) unlisteners.push(fn);
+      else fn();
+    };
+    listen<{ classic: boolean }>('app-window-closed', (event) => {
+      if (!event.payload.classic) return;
+      setSettings(current => ({ ...current, appMode: false }));
+      setNotice(t('appMode.classicNotice'));
+    }).then(keep).catch(() => undefined);
+    listen<{ tab: ViewKey }>('launcher-open-tab', (event) => {
+      setDevTab(event.payload.tab);
+      setShowDevPanel(true);
+    }).then(keep).catch(() => undefined);
+    return () => {
+      mounted = false;
+      unlisteners.forEach(fn => fn());
+    };
+  }, [t]);
 
   const checkForUpdates = async () => {
     setCheckingUpdates(true);
@@ -868,8 +895,18 @@ function AppContent() {
       || !hasTauriRuntime()
     ) return;
     setOpenedUrl(active.frontendUrl);
-    invoke('open_app', { url: active.frontendUrl }).catch(e => setNotice(String(e)));
-  }, [active, busy, serverReady, settings.autoOpen, openedUrl]);
+    const opened = settings.appMode
+      ? invoke('open_app_window', { url: active.frontendUrl, reload: true })
+      : invoke('open_app', { url: active.frontendUrl });
+    opened.catch(e => setNotice(String(e)));
+  }, [active, busy, serverReady, settings.autoOpen, settings.appMode, openedUrl]);
+
+  const openActiveApp = (url: string) => run(
+    'open browser',
+    () => settings.appMode
+      ? invoke('open_app_window', { url })
+      : invoke('open_app', { url }),
+  );
 
   useEffect(() => {
     const certificateNeedsRefresh = Boolean(
@@ -1613,12 +1650,21 @@ function AppContent() {
 
           <button
             className="open-app-button"
-            onClick={() => run('open browser', () => invoke('open_app', { url: active.frontendUrl }))}
-            title={t('running.openBrowser')}
+            onClick={() => openActiveApp(active.frontendUrl)}
+            title={settings.appMode ? t('appMode.open') : t('running.openBrowser')}
           >
             <span className="open-app-icon"><ExternalLink size={16} /></span>
-            <span>{t('running.openApp')}</span>
+            <span>{settings.appMode ? t('appMode.open') : t('running.openApp')}</span>
           </button>
+          {settings.appMode && (
+            <button
+              type="button"
+              className="mini-action open-browser-secondary"
+              onClick={() => run('open browser', () => invoke('open_app', { url: active.frontendUrl }))}
+            >
+              <Globe size={12} /> {t('running.openBrowser')}
+            </button>
+          )}
 
           <div className="running-meta">
             <span>App v{snapshot.appVersion}</span>
@@ -2258,6 +2304,20 @@ function DevPanelContent({
               </div>
             </section>
 
+            <section className="language-settings-card app-mode-card" aria-label={t('appMode.title')}>
+              <label className="app-mode-toggle">
+                <input
+                  type="checkbox"
+                  checked={settings.appMode}
+                  onChange={event => setSettings({ ...settings, appMode: event.target.checked })}
+                />
+                <span>
+                  <strong>{t('appMode.title')}</strong>
+                  <small>{t('appMode.toggleHelp')}</small>
+                </span>
+              </label>
+            </section>
+
             {!isStoreBuild && <>
               <PathSettingField
                 label={t('dev.installFolder')}
@@ -2318,7 +2378,7 @@ function DevPanelContent({
 }
 
 /* ── Small components ── */
-function LogRows({ logs }: { logs: LogEntry[] }) {
+export function LogRows({ logs }: { logs: LogEntry[] }) {
   const { t } = useLauncherI18n();
   if (!logs.length) return <div className="empty-log">{t('dev.noLogs')}</div>;
   return (

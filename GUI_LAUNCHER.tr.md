@@ -62,6 +62,16 @@ Güncellemeler **HomeInventory'yi Başlat** butonunu hiçbir zaman engellemez ve
 
 Launcher açılırken güncellemeleri yine kontrol eder, ancak yalnızca kontrol eder; **Şimdi Güncelle** seçilmeden hiçbir şey indirilmez veya kurulmaz.
 
+### İsteğe Bağlı Uygulama Penceresi (Beta)
+
+Launcher varsayılan olarak HomeInventory'yi tarayıcınızda açar ve klasik launcher değişmeden kalır. HomeInventory'yi bir launcher penceresi içinde kullanmak için **Geliştirici Araçları > Ayarlar > Uygulama penceresi (beta)** seçeneğini açın.
+
+- HomeInventory hazır olduğunda (veya **Uygulama Penceresini Aç** butonuna tıkladığınızda) launcher, daraltılabilir kenar çubuklu bir HomeInventory penceresi açar ve klasik launcher penceresini gizler.
+- Kenar çubuğu durumu ve portu gösterir; **Başlat**, **Durdur**, **Yeniden Başlat**, **Tarayıcıda aç**, **Günlükler**, **Güncellemeler** ve **Ayarlar** (son ikisi klasik launcher'ı ilgili panelde açar) ile uygulama modunu yeniden kapatan **Klasik launcher'a dön** seçeneklerini sunar.
+- Uygulama penceresini kapatmak klasik launcher'ı geri getirir ve HomeInventory'yi çalışır durumda bırakır. Klasik launcher'ı kapatmak ise yine HomeInventory'yi durdurur ve uygulama penceresini de kapatır.
+- Uygulama, kendi webview'ında normal bir yerel sayfa olarak çalışır. Launcher komutlarını yalnızca kenar çubuğu çağırabilir (`capabilities/app-sidebar.json`); HomeInventory sayfasının launcher erişimi yoktur, yerel uygulamada kalır ve açılır pencere ya da başka siteler açamaz.
+- Sınırlamalar: İşletim sisteminin webview'ına bağlı olarak kamera, dosya indirmeleri, açılır pencereler ve başka sitelere giden bağlantılar uygulama penceresinde çalışmayabilir. Barkod taraması ve bu durumlar için **Tarayıcıda aç** seçeneğini kullanın. Uygulama penceresi, Tauri'nin hâlâ kararsız (unstable) olarak işaretlediği çoklu webview API'sini kullanır.
+
 LAN IP adresinde canlı mobil kamera erişimi güvenli tarayıcı bağlamı gerektirir. İsteğe bağlı, alan adsız kurulum ile güven/rotasyon sınırları [Offline Mobil HTTPS](docs/offline-mobile-https.md) belgesinde açıklanır.
 
 ## Kaynak Koddan Derleme

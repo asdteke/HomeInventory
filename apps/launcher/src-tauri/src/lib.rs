@@ -1,3 +1,4 @@
+mod app_window;
 mod archive;
 mod commands;
 mod config;
@@ -55,16 +56,27 @@ pub fn run() {
             health::is_server_ready,
             https::enable_https,
             https::disable_https,
-            https::rotate_https_ca
+            https::rotate_https_ca,
+            app_window::open_app_window,
+            app_window::set_app_sidebar,
+            app_window::close_app_window,
+            app_window::show_launcher
         ])
-        .on_window_event(|window, event| {
-            if matches!(
-                event,
-                tauri::WindowEvent::Destroyed | tauri::WindowEvent::CloseRequested { .. }
-            ) {
-                let state = window.state::<LauncherState>();
-                let _ = stop_all_internal(state.inner());
+        .on_window_event(|window, event| match window.label() {
+            // Closing the classic launcher stops HomeInventory and closes the
+            // optional app window with it.
+            app_window::MAIN_WINDOW_LABEL => {
+                if matches!(
+                    event,
+                    tauri::WindowEvent::Destroyed | tauri::WindowEvent::CloseRequested { .. }
+                ) {
+                    let state = window.state::<LauncherState>();
+                    let _ = stop_all_internal(state.inner());
+                    app_window::close_app_window_on_exit(window.app_handle());
+                }
             }
+            app_window::APP_WINDOW_LABEL => app_window::handle_app_window_event(window, event),
+            _ => {}
         })
         .run(tauri::generate_context!())
         .expect("error while running HomeInventory Launcher");
