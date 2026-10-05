@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Sürüm durumu: v2.7.0 release line. -->
+<!-- Sürüm durumu: v2.8.0 release line. -->
 
 <p align="center">
   <strong>Paylaşımlı evler için özel, self-host edilebilir ev envanteri.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
 
 > [!NOTE]
-> **v2.7.0 güncel release hattıdır.** Pratik parola kuralları, hesap bazlı kademeli giriş gecikmesi, offline zayıf parola koruması, mobil kamera için isteğe bağlı LAN HTTPS, beş launcher dili, rastgele port seçimi ve senkron yönetilen uygulama/Launcher güncellemeleri getirir.
+> **v2.8.0 güncel release hattıdır.** Hazır çok mimarili Docker imajı, tek komutla gizli anahtar kurulumu, geri yüklemeli otomatik sunucu yedekleri, self-host kullanıcıları için yeni sürüm bildirimi ve isteğe bağlı güncellemeler ile isteğe bağlı uygulama penceresi sunan daha hızlı bir masaüstü launcher getirir.
 
 ## Neden HomeInventory
 

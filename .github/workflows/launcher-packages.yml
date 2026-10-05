@@ -483,9 +483,9 @@ jobs:
           tag_name: ${{ needs.managed-app.outputs.release_tag }}
           name: HomeInventory ${{ needs.managed-app.outputs.release_tag }}
           body: |
-            ## HomeInventory v2.7.4
+            ## HomeInventory v2.8.0
 
-            This release fixes the 13 open Dependabot alerts affecting Undici, Multer, and ip-address. It pins Multer 2.4.0, Undici 7.30.0, ip-address 10.7.3, and Sharp 0.35.5; refreshes compatible server, client, and launcher dependencies; and upgrades the checksum-verified portable Node.js runtime to 22.23.3. The managed app and desktop launcher are synchronized at v2.7.4. Tailwind CSS 4.3.3 removes the unpatched braces vulnerability. No database migration is required.
+            The self-hosting release. A ready-made Docker image (`ghcr.io/asdteke/homeinventory`) for amd64, arm64, and armv7 bundles every dependency and starts offline; `npm run setup` generates secrets; automatic server backups with an admin restore screen run daily by default; self-hosted admins get a new-version notice; and the desktop launcher now runs the prebuilt app, installs faster, makes updates optional, and offers an optional app window (beta). Production dependencies shrink from about 616 MB to about 52 MB, and server-side Google scraping is removed. No manual database migration is required.
 
             ## Recommended downloads
 
@@ -501,7 +501,8 @@ jobs:
             - Supported browsers: Safari 16.4+, Chrome 111+, or Firefox 128+.
             - macOS packages use ad-hoc signing when Apple Developer ID/notarization credentials are unavailable.
             - Physical iOS Safari certificate/camera validation remains a separate device check.
-            - Back up the SQLite database and uploads before upgrading a self-hosted installation.
+            - Back up the SQLite database, uploads, and your encryption key before upgrading a self-hosted installation.
+            - Docker users: `docker compose pull && docker compose up -d` switches to the published image.
             - Rebuild the client and refresh the PWA/service worker after upgrading.
             - Flash and zoom availability depends on the mobile browser and camera hardware; unsupported controls remain disabled.
             - See `CHANGELOG.md` in the source archive for the complete patch notes.

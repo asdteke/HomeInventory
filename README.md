@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.7.0 release line. -->
+<!-- Release status: v2.8.0 release line. -->
 
 <p align="center">
   <strong>Private, self-hostable household inventory for shared homes.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory is built for families, roommates, and small households that need a practical inventory without turning private records into a shared spreadsheet.
 
 > [!NOTE]
-> **v2.7.0 is the current release line.** It adds practical password rules, progressive account throttling, offline weak-password protection, optional LAN HTTPS for mobile camera access, five launcher languages, random-port selection, and synchronized managed-app/launcher updates.
+> **v2.8.0 is the current release line.** It adds a ready-made multi-architecture Docker image, one-command secret setup, automatic server backups with restore, a new-version notice for self-hosters, and a faster desktop launcher with optional updates and an optional app window.
 
 ## Why HomeInventory
 

@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.7.0 release line. -->
+<!-- Release status: v2.8.0 release line. -->
 
 <p align="center">
   <strong>Private, selbst hostbare Haushaltsinventur für gemeinsam genutzte Zuhause.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory ist für Familien, Wohngemeinschaften und kleine Haushalte gedacht, die ein praktisches Inventar brauchen, ohne private Datensätze in eine gemeinsame Tabelle zu verwandeln.
 
 > [!NOTE]
-> **v2.7.0 ist die aktuelle Release-Linie.** Sie ergänzt praxisnahe Passwortregeln, progressive Anmeldeverzögerung, offline Schwachpasswortschutz, optionales LAN-HTTPS für mobile Kameras und einen lokalisierten Desktop Launcher.
+> **v2.8.0 ist die aktuelle Release-Linie.** Sie bringt ein fertiges Docker-Image für mehrere Architekturen, die Einrichtung der Secrets mit einem Befehl, automatische Server-Backups mit Wiederherstellung, einen Hinweis auf neue Versionen für Selbsthoster und einen schnelleren Desktop Launcher mit optionalen Updates und optionalem App-Fenster.
 
 ## Warum HomeInventory
 

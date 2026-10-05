@@ -2,6 +2,30 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.8.0 - Self-Hosting, Backups, and Launcher Release
+
+### Highlights
+
+- **Ready-made Docker image:** `ghcr.io/asdteke/homeinventory` is published for `linux/amd64`, `linux/arm64`, and `linux/arm/v7` with every dependency bundled, so it starts without internet access. Releases are tagged `latest`, `X.Y.Z`, and `X.Y`; `main` builds are tagged `edge`. Compose now pulls the image instead of building it. Thanks to Simon Schmid (schms27) for the original publishing workflow and pull-based setup.
+- **Docker fixes:** the image now includes `vendor/` (the `uuid` link was dangling, breaking OCI Vault), writes logs to the data volume (the non-root container used to exit on startup), and the startup check accepts Docker secret files, so the documented Compose setup starts.
+- **One-command secrets:** `npm run setup` creates `.env` with strong secrets, and `node scripts/setup.mjs --docker` (also runnable from the published image) writes the Compose `secrets/` files. Existing values are never overwritten.
+- **Automatic server backups:** daily snapshots (keep 7 by default) with a new **Admin panel → Backups** tab to change the schedule, back up now, download, upload, delete, and restore. Restores are staged, verified against the current encryption key, and applied on the next start after a safety snapshot.
+- **New-version notice:** self-hosted admins see a dismissible notice when a newer release exists. It asks GitHub only when an admin opens the panel; `UPDATE_CHECK=false` turns it off.
+- **Faster, clearer desktop install:** the launcher runs the prebuilt production app on one port instead of the development server, installs only runtime dependencies, shows a real "Install" flow (no start-then-stop), and waits up to 120 seconds until the UI is served before opening it.
+- **Optional updates:** Start always launches the installed version; updates are offered separately with Update now, Later, or Skip this version.
+- **App window (beta):** an optional launcher mode opens HomeInventory in its own window with a sidebar of launcher controls. The classic launcher stays the default.
+- **Lighter and cleaner:** production dependencies shrink from about 616 MB to about 52 MB by replacing `oci-sdk` with `oci-common` and `oci-secrets` (OCI Vault still works) and dropping unused packages. Server-side Google scraping and unofficial Google/Bing translation endpoints are removed; barcode lookup uses Open Food/Products/Beauty Facts with an identifying User-Agent, and privacy texts were updated in all locales.
+- **Testing:** `npm test` runs the full suite, CI builds and boots the Docker image offline on all three architectures, and new tests cover backups, restore, a household export/import round trip, setup, and the update check.
+
+### Upgrade notes
+
+- No manual database migration is required. Back up the SQLite database, uploads, and your encryption key before upgrading.
+- Docker: switch to the published image with `docker compose pull && docker compose up -d`. Set `HOMEINVENTORY_IMAGE=homeinventory:local` to keep using a local build.
+- Automatic backups are on by default (`BACKUP_SCHEDULE=daily`, `BACKUP_KEEP=7`). They do not include uploads; back up the uploads volume separately and copy backups off the host.
+- Backups are only usable with the same `APP_ENCRYPTION_KEY` (and keyring).
+- The launcher updates HomeInventory itself, so it turns off the GitHub new-version check.
+- Physical iOS Safari certificate and camera validation remains a separate device check.
+
 ## v2.7.4 - Dependency and Runtime Security Update
 
 ### Highlights

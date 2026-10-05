@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Estado de la versión: línea de lanzamiento v2.7.0. -->
+<!-- Estado de la versión: línea de lanzamiento v2.8.0. -->
 
 <p align="center">
   <strong>Inventario privado y autoalojable para hogares compartidos.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory está pensado para familias, compañeros de piso y hogares pequeños que necesitan un inventario práctico sin convertir registros privados en una hoja compartida.
 
 > [!NOTE]
-> **v2.7.0 es la línea de versión actual.** Añade una política de contraseñas práctica, retraso progresivo de acceso, bloqueo offline de contraseñas débiles, HTTPS LAN opcional para la cámara móvil y un lanzador localizado.
+> **v2.8.0 es la línea de versión actual.** Añade una imagen Docker lista para varias arquitecturas, configuración de secretos con un solo comando, copias de seguridad automáticas del servidor con restauración, un aviso de nueva versión para instalaciones propias y un lanzador más rápido con actualizaciones opcionales y una ventana de aplicación opcional.
 
 ## Por qué HomeInventory
 
