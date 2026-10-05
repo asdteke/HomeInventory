@@ -25,6 +25,7 @@ import {
     LucideIcon
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import AdminUpdateNotice from './AdminUpdateNotice';
 import FloatingToast from './FloatingToast';
 import { ConfirmDialog } from './ModalDialog';
 import { EmptyState, NoticeBanner, PageHeader, SectionHeader } from './ProductUI';
@@ -982,6 +983,8 @@ export default function AdminPanel() {
                     ))}
                 </div>
             </PageHeader>
+
+            <AdminUpdateNotice />
 
             {activeTab === 'dashboard' && (
                 shouldShowOverviewLoader ? (

@@ -43,6 +43,11 @@ Set these only if you need the related feature locally:
 - `RESEND_API_KEY`
 - `SUPPORT_EMAIL`
 
+`UPDATE_CHECK=false` turns off the admin panel's new-version notice, which
+otherwise asks `api.github.com` for the latest release when an admin opens the
+panel (cached for 12 hours, no user data sent). The desktop launcher sets it
+automatically because it has its own updater.
+
 ### Docker secrets
 
 If you use `docker-compose.yml`, keep runtime secrets in files instead of `.env`.

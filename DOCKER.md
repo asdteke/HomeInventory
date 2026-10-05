@@ -128,6 +128,7 @@ curl http://localhost:3001/api/health
 | `SUPPORT_EMAIL` | ⬜ | Support email address |
 | `BOOTSTRAP_ADMIN_EMAIL` | ⬜ | Auto-promote this email to admin |
 | `DOCKER_SECRETS_DIR` | ⬜ | Override the in-container secret directory when it is not `/run/secrets` |
+| `UPDATE_CHECK` | ⬜ | Set to `false` to turn off the admin panel's new-version notice and its request to GitHub (see [Updating](#updating)) |
 
 `docker compose` loads the full `.env` file into the container, so optional settings from [`.env.example`](.env.example) such as `APP_ENCRYPTION_KEYRING`, `EXPOSE_SERVER_INFO`, and `INDEXNOW_*` work without editing `docker-compose.yml`.
 
@@ -232,6 +233,12 @@ To roll back, pin the previous release (or a `sha-` tag):
 ```bash
 HOMEINVENTORY_IMAGE=ghcr.io/asdteke/homeinventory:2.8.0 docker compose up -d
 ```
+
+### New-version notice
+
+When a newer release exists, admins see a notice at the top of the admin panel with the new version number, a link to the release notes and the upgrade command above. Each admin can dismiss it per version in their browser.
+
+To know about new releases, the server asks GitHub's public releases API (`https://api.github.com/repos/asdteke/HomeInventory/releases/latest`) for the latest version number. It does so only when an admin opens the admin panel, never at startup or for regular users, sends no user or inventory data (only a `HomeInventory/<version>` User-Agent), and caches the answer in memory for 12 hours. Without internet access the notice simply stays hidden. Set `UPDATE_CHECK=false` in `.env` to never contact GitHub.
 
 ## Troubleshooting
 

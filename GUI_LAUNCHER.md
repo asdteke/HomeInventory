@@ -93,6 +93,8 @@ HOMEINVENTORY_UPLOADS_DIR=<launcher-app-data>/profiles/homeinventory/uploads
 
 This keeps launcher-managed local runs separate from the normal repository `.env`, database, and uploads unless the user explicitly changes paths.
 
+The launcher also sets `UPDATE_CHECK=false`: it updates HomeInventory itself, so the admin panel's GitHub new-version notice (meant for Docker and command-line installs) is turned off and never contacts GitHub.
+
 ## Release Packaging
 
 The launcher is shared as release artifacts, separate from the source archive:

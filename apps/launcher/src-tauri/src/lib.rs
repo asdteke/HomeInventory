@@ -612,6 +612,8 @@ fn start_profile_internal(
         format!("http://127.0.0.1:{}", actual_frontend_port),
     );
     command_env.insert("EXPOSE_SERVER_INFO".into(), "true".into());
+    // The launcher updates the app itself; skip the admin panel's GitHub release check.
+    command_env.insert("UPDATE_CHECK".into(), "false".into());
     if !npm.is_empty() {
         command_env.insert("HOMEINVENTORY_NPM_EXEC".into(), npm);
     }

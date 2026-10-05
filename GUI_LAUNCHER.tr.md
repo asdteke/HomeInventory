@@ -93,6 +93,8 @@ HOMEINVENTORY_UPLOADS_DIR=<launcher-app-data>/profiles/homeinventory/uploads
 
 Bu yapı, kullanıcı açıkça yolları değiştirmediği sürece launcher tarafından yönetilen yerel çalıştırmaları normal repository `.env`, veritabanı ve uploads klasöründen ayrı tutar.
 
+Launcher ayrıca `UPDATE_CHECK=false` ayarlar: HomeInventory'yi kendisi güncellediği için yönetici panelindeki GitHub yeni sürüm bildirimi (Docker ve komut satırı kurulumları içindir) kapalıdır ve GitHub'a hiç istek gönderilmez.
+
 ## Release Paketleme
 
 Launcher, kaynak kod arşivinden ayrı release artifact'ları olarak paylaşılır:
