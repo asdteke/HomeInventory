@@ -7,6 +7,7 @@ import {
     AlertTriangle,
     Ban,
     CheckCircle2,
+    DatabaseBackup,
     House,
     HousePlus,
     LayoutDashboard,
@@ -25,6 +26,7 @@ import {
     LucideIcon
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import AdminBackupsSection from './AdminBackupsSection';
 import AdminUpdateNotice from './AdminUpdateNotice';
 import FloatingToast from './FloatingToast';
 import { ConfirmDialog } from './ModalDialog';
@@ -32,8 +34,10 @@ import { EmptyState, NoticeBanner, PageHeader, SectionHeader } from './ProductUI
 import { formatDateForLanguage, formatNumberForLanguage } from '../utils/appFormatting';
 import '../admin-overlays-v25.css';
 
+type AdminTabId = 'dashboard' | 'users' | 'logs' | 'email' | 'backups';
+
 interface TabItem {
-    id: 'dashboard' | 'users' | 'logs' | 'email';
+    id: AdminTabId;
     icon: LucideIcon;
 }
 
@@ -41,7 +45,8 @@ const TAB_ITEMS: TabItem[] = [
     { id: 'dashboard', icon: LayoutDashboard },
     { id: 'users', icon: Users },
     { id: 'logs', icon: Activity },
-    { id: 'email', icon: Mail }
+    { id: 'email', icon: Mail },
+    { id: 'backups', icon: DatabaseBackup }
 ];
 
 const USER_FILTERS = ['all', 'active', 'banned', 'admin'] as const;
@@ -694,8 +699,8 @@ interface PendingUserAction {
 
 interface ToastState {
     title: string;
-    description: string;
-    tone?: 'success' | 'danger' | 'info';
+    description?: string;
+    tone?: 'success' | 'danger' | 'info' | 'warning';
 }
 
 export default function AdminPanel() {
@@ -704,7 +709,7 @@ export default function AdminPanel() {
     const { isAdmin } = useAuth();
     const locale = i18n.language || 'en';
 
-    const [activeTab, setActiveTab] = useState<'dashboard' | 'users' | 'logs' | 'email'>('dashboard');
+    const [activeTab, setActiveTab] = useState<AdminTabId>('dashboard');
     const [stats, setStats] = useState<AdminStats | null>(null);
     const [users, setUsers] = useState<AdminUser[]>([]);
     const [logs, setLogs] = useState<AdminLogs>({ adminLogs: [], errorLogs: [] });
@@ -721,6 +726,7 @@ export default function AdminPanel() {
     const [userFilter, setUserFilter] = useState<UserFilterType>('all');
     const [emailForm, setEmailForm] = useState({ to: '', subject: '', message: '' });
     const [sending, setSending] = useState(false);
+    const [backupsRefreshKey, setBackupsRefreshKey] = useState(0);
 
     if (!isAdmin) {
         return <Navigate to="/" replace />;
@@ -790,7 +796,7 @@ export default function AdminPanel() {
     }, [t]);
 
     useEffect(() => {
-        if (activeTab === 'dashboard') {
+        if (activeTab === 'dashboard' || activeTab === 'backups') {
             return;
         }
 
@@ -801,7 +807,9 @@ export default function AdminPanel() {
         setRefreshing(true);
         try {
             await fetchOverview();
-            if (activeTab !== 'dashboard') {
+            if (activeTab === 'backups') {
+                setBackupsRefreshKey((current) => current + 1);
+            } else if (activeTab !== 'dashboard') {
                 await loadActiveSection(activeTab, { forceRefresh: true });
             }
             setToast({
@@ -969,7 +977,7 @@ export default function AdminPanel() {
                             key={tab.id}
                             active={activeTab === tab.id}
                             icon={tab.icon}
-                            label={t(`admin.tabs.${tab.id}`, {
+                            label={tab.id === 'backups' ? t('autoBackup.tab') : t(`admin.tabs.${tab.id}`, {
                                 defaultValue: tab.id === 'dashboard'
                                     ? 'Overview'
                                     : tab.id === 'users'
@@ -1568,6 +1576,10 @@ export default function AdminPanel() {
                         </section>
                     </div>
                 )
+            )}
+
+            {activeTab === 'backups' && (
+                <AdminBackupsSection key={backupsRefreshKey} onToast={setToast} />
             )}
 
             <ConfirmDialog
