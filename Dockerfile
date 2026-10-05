@@ -87,6 +87,8 @@ RUN chmod -R a+rX /app && \
 # Set environment defaults
 ENV NODE_ENV=production
 ENV PORT=3001
+# Application files are read-only for the runtime user; keep error logs on the data volume.
+ENV HOMEINVENTORY_LOG_DIR=/app/data/logs
 
 # Expose port
 EXPOSE 3001

@@ -11,12 +11,13 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { resolveRuntimePath } from './runtimePaths.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Log dosyası yolu
-const LOG_DIR = path.join(__dirname, 'logs');
+// Log dosyası yolu (Docker gibi salt okunur kurulumlar için HOMEINVENTORY_LOG_DIR ile değiştirilebilir)
+const LOG_DIR = resolveRuntimePath(process.env.HOMEINVENTORY_LOG_DIR, path.join(__dirname, 'logs'));
 const LOG_RETENTION_DAYS = 7;
 
 // Log klasörünü oluştur
