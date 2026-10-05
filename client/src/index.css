@@ -597,11 +597,9 @@
     --hi-warning-soft: rgba(240, 179, 92, 0.17);
   }
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  /* No universal margin/padding reset here: Tailwind's preflight already does
+     it in the base layer. Repeating it in this layer would override the
+     zero-specificity space-x/space-y utilities and collapse their gaps. */
 
   html {
     scroll-behavior: smooth;
