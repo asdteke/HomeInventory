@@ -33,6 +33,7 @@ import logoFull from './logo-full.svg';
 import logoSymbolLight from './logo-symbol-light.svg';
 import logoSymbolLightSvg from './logo-symbol-light.svg?raw';
 import { QrCodeCard } from './QrCode';
+import { LogConsole } from './LogConsole';
 import {
   LANGUAGE_OPTIONS,
   LauncherI18nProvider,
@@ -41,7 +42,7 @@ import {
 } from './i18n';
 
 /* ── Types ── */
-type ViewKey = 'logs' | 'backups' | 'settings' | 'updates';
+export type ViewKey = 'logs' | 'backups' | 'settings' | 'updates';
 
 type ToolStatus = { name: string; path?: string | null; ok: boolean; detail: string };
 
@@ -60,7 +61,7 @@ export type ProfileStatus = {
 
 export type LogEntry = { timestamp: number; source: string; level: string; message: string };
 
-type LanAccessStatus = {
+export type LanAccessStatus = {
   ok: boolean;
   frontendOk: boolean;
   backendOk: boolean;
@@ -69,7 +70,7 @@ type LanAccessStatus = {
   message: string;
 };
 
-type HttpsStatus = {
+export type HttpsStatus = {
   enabled: boolean;
   httpsPort: number;
   enrollmentPort: number;
@@ -98,7 +99,7 @@ export type LauncherSnapshot = {
   httpsStatus?: HttpsStatus | null;
 };
 
-type UpdateCheckResult = {
+export type UpdateCheckResult = {
   currentAppVersion: string;
   latestAppVersion: string;
   currentLauncherVersion: string;
@@ -112,10 +113,10 @@ type UpdateCheckResult = {
 
 type InstallProgress = { state: string; message: string; progress: number; error?: string | null };
 
-type CommandResult = { ok: boolean; message: string };
-type BackupResult = CommandResult & { path: string };
+export type CommandResult = { ok: boolean; message: string };
+export type BackupResult = CommandResult & { path: string };
 
-type PortCheckResult = {
+export type PortCheckResult = {
   ok: boolean;
   backendPort: number;
   frontendPort: number;
@@ -128,9 +129,9 @@ type PortCheckResult = {
   message: string;
 };
 
-type SuggestedPorts = { backendPort: number; frontendPort: number };
+export type SuggestedPorts = { backendPort: number; frontendPort: number };
 
-type LauncherSettings = {
+export type LauncherSettings = {
   projectPath: string; nodePath: string; npmPath: string; autoOpen: boolean; mobileHttps: boolean;
   /** Update version the user chose to skip; newer versions are offered again. */
   skippedUpdateVersion: string;
@@ -160,7 +161,7 @@ export function loadSettings(): LauncherSettings {
   } catch { return defaultSettings; }
 }
 
-function saveSettings(s: LauncherSettings) {
+export function saveSettings(s: LauncherSettings) {
   localStorage.setItem('hi-settings', JSON.stringify(s));
 }
 
@@ -168,22 +169,22 @@ export function overrides(s: LauncherSettings) {
   return { projectPath: s.projectPath || null, nodePath: s.nodePath || null, npmPath: s.npmPath || null };
 }
 
-function isCmd(v: unknown): v is CommandResult {
+export function isCmd(v: unknown): v is CommandResult {
   return Boolean(v && typeof v === 'object' && 'message' in v);
 }
 
-function sanitizePortInput(value: string) {
+export function sanitizePortInput(value: string) {
   return value.replace(/\D/g, '').slice(0, 5);
 }
 
-function parsePort(value: string, fallback: number) {
+export function parsePort(value: string, fallback: number) {
   const normalized = sanitizePortInput(value);
   if (!normalized) return fallback;
   const parsed = Number.parseInt(normalized, 10);
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
-function validatePortInputs(apiPort: string, uiPort: string, profile: ProfileStatus | null, t: Translate) {
+export function validatePortInputs(apiPort: string, uiPort: string, profile: ProfileStatus | null, t: Translate) {
   if (!profile) return t('status.noProfile');
   const backendPort = parsePort(apiPort, profile.backendPort);
   const frontendPort = parsePort(uiPort, profile.frontendPort);
@@ -193,7 +194,7 @@ function validatePortInputs(apiPort: string, uiPort: string, profile: ProfileSta
   return '';
 }
 
-function localizedPortMessage(status: PortCheckResult | null, t: Translate, singlePort = false) {
+export function localizedPortMessage(status: PortCheckResult | null, t: Translate, singlePort = false) {
   if (!status) return t('status.portsAvailable');
   if (status.existingHomeInventory) return t('status.existingInstance');
   if (status.ok) return t('status.portsAvailable');
@@ -252,7 +253,7 @@ function formatElapsed(seconds: number) {
   return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
 }
 
-function LanguageQuickPicker() {
+export function LanguageQuickPicker() {
   const { locale, setLocale, t } = useLauncherI18n();
 
   return (
@@ -269,6 +270,25 @@ function LanguageQuickPicker() {
       </select>
       <ChevronDown size={13} aria-hidden="true" />
     </label>
+  );
+}
+
+// One-click switch for the beta app window, next to the language picker.
+function AppModeQuickToggle({ checked, onChange }: { checked: boolean; onChange: (checked: boolean) => void }) {
+  const { t } = useLauncherI18n();
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      className={`app-mode-quick-toggle ${checked ? 'on' : ''}`}
+      onClick={() => onChange(!checked)}
+      title={t('appMode.toggleHelp')}
+    >
+      <span className="app-mode-quick-track" aria-hidden="true"><span /></span>
+      <span>{t('appMode.quickLabel')}</span>
+      <span className="app-mode-quick-beta">{t('appMode.beta')}</span>
+    </button>
   );
 }
 
@@ -303,12 +323,6 @@ function AppContent() {
   const [portUi, setPortUi] = useState('');
   const [portCheck, setPortCheck] = useState<PortCheckResult | null>(null);
   const [portCheckRevision, setPortCheckRevision] = useState(0);
-  const [androidGuideBrand, setAndroidGuideBrand] = useState<AndroidGuideBrand>('samsung');
-  const androidCertificateGuides = useMemo<Record<AndroidGuideBrand, { label: string; path: string }>>(() => ({
-    samsung: { label: t('android.samsung'), path: t('android.samsungPath') },
-    pixel: { label: t('android.pixel'), path: t('android.pixelPath') },
-    other: { label: t('android.other'), path: t('android.otherPath') },
-  }), [t]);
 
   // User must click to start — no auto-boot
   const [userStarted, setUserStarted] = useState(false);
@@ -368,6 +382,14 @@ function AppContent() {
 
   useEffect(() => { saveSettings(settings); refresh(); }, [settings, refresh]);
   useEffect(() => { const t = setInterval(refresh, 2000); return () => clearInterval(t); }, [refresh]);
+  // The app window sidebar edits the same settings; keep both windows in sync.
+  useEffect(() => {
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === 'hi-settings') setSettings(loadSettings());
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
 
   // Listener for update-progress
   useEffect(() => {
@@ -1495,7 +1517,7 @@ function AppContent() {
                 <h3>{t('setup.systemConsole')}</h3>
                 <button className="btn-secondary compact" onClick={() => setShowLogs(false)}>{t('common.close')}</button>
               </div>
-              <div className="drawer-body"><LogRows logs={snapshot.logs} /></div>
+              <div className="drawer-body"><LogConsole logs={snapshot.logs} /></div>
             </div>
           </div>
         )}
@@ -1572,101 +1594,14 @@ function AppContent() {
             <p>{t('running.help')}</p>
           </div>
 
-          <div className="running-qr">
-            <span className="running-qr-label">{t('running.standardLan')}</span>
-            <QrCodeCard url={activeLanUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
-            <div className={`lan-status ${lanStatus?.ok ? 'ok' : 'blocked'}`}>
-              <Wifi size={12} />
-              <span>{lanStatus ? localizedLanMessage(lanStatus, t) : t('running.lanPending')}</span>
-            </div>
-          </div>
-
-          {snapshot.httpsStatus ? (
-            <section className="mobile-https-card" aria-label={t('https.setupLabel')}>
-              <div className="mobile-https-heading">
-                <span className="mobile-https-icon"><ShieldCheck size={16} /></span>
-                <div>
-                  <strong>{t('https.title')}</strong>
-                  <span>{t('https.subtitle')}</span>
-                </div>
-              </div>
-
-              <div className="mobile-https-step-title">
-                <strong>{t('https.installTitle')}</strong>
-                <span>{t('https.choosePlatform')}</span>
-              </div>
-              <div className="mobile-https-qr-grid">
-                <div className="mobile-https-qr">
-                  <span>{t('https.ios')}</span>
-                  <QrCodeCard url={snapshot.httpsStatus.iosEnrollmentUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
-                  <small>{t('https.iosHelp')}</small>
-                </div>
-                <div className="mobile-https-qr">
-                  <span>{t('https.android')}</span>
-                  <QrCodeCard url={snapshot.httpsStatus.androidEnrollmentUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
-                  <div className="certificate-download-notice">
-                    <Download size={13} />
-                    <p>{t('https.downloadPrefix')} <strong>HomeInventory-Local-CA.crt</strong>, {t('https.downloadSuffix')}</p>
-                  </div>
-                  <label className="android-guide-picker">
-                    <span>{t('https.phoneBrand')}</span>
-                    <select
-                      value={androidGuideBrand}
-                      onChange={event => setAndroidGuideBrand(event.target.value as AndroidGuideBrand)}
-                    >
-                      {Object.entries(androidCertificateGuides).map(([value, guide]) => (
-                        <option key={value} value={value}>{guide.label}</option>
-                      ))}
-                    </select>
-                  </label>
-                  <ol className="android-guide-steps">
-                    <li>{t('https.scanDownload')}</li>
-                    <li><span>{t('https.typicalPath')}</span> {androidCertificateGuides[androidGuideBrand].path}</li>
-                    <li>{t('https.finishInstall')} <strong>{t('https.openSecureApp')}</strong>.</li>
-                  </ol>
-                  <small>{t('https.menuVariation')}</small>
-                </div>
-                <div className="mobile-https-qr secure-app-qr">
-                  <span>{t('https.openSecureApp')}</span>
-                  <QrCodeCard url={snapshot.httpsStatus.httpsUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
-                  <small>{t('https.secureHelp')}</small>
-                </div>
-              </div>
-
-              <div className="mobile-https-identity">
-                <span><strong>CA:</strong> {snapshot.httpsStatus.caName}</span>
-                <code title={snapshot.httpsStatus.caFingerprint}>{snapshot.httpsStatus.caFingerprint}</code>
-                <small>{t('https.linksExpire')}</small>
-              </div>
-              <div className="mobile-https-actions">
-                <button type="button" className="settings-action" onClick={enableMobileHttps} disabled={busy === 'mobile-https'}>
-                  <RefreshCw size={13} /> {t('https.refreshLinks')}
-                </button>
-                <button type="button" className="settings-action danger" onClick={disableMobileHttps} disabled={busy === 'mobile-https'}>
-                  <Power size={13} /> {t('https.disable')}
-                </button>
-                <button type="button" className="settings-action danger wide" onClick={rotateMobileCa} disabled={busy === 'mobile-https'}>
-                  <RotateCcw size={13} /> {t('https.rotate')}
-                </button>
-              </div>
-              <small className="mobile-https-removal">{t('https.removal')}</small>
-            </section>
-          ) : (
-            <section className="mobile-https-card mobile-https-compact" aria-label={t('https.optionalLabel')}>
-              <div className="mobile-https-heading">
-                <span className="mobile-https-icon"><Smartphone size={16} /></span>
-                <div>
-                  <strong>{t('https.wantCamera')}</strong>
-                  <span>{t('https.oneTimeSetup')}</span>
-                </div>
-              </div>
-              <button type="button" className="btn-secondary mobile-https-enable" onClick={enableMobileHttps} disabled={busy === 'mobile-https'}>
-                {busy === 'mobile-https' ? <Loader2 size={14} className="spin" /> : <ShieldCheck size={14} />}
-                {t('https.enable')}
-              </button>
-              <small>{t('https.normalRemains')}</small>
-            </section>
-          )}
+          <NetworkAccessPanel
+            snapshot={snapshot}
+            lanUrl={activeLanUrl}
+            busy={busy === 'mobile-https'}
+            onEnable={enableMobileHttps}
+            onDisable={disableMobileHttps}
+            onRotate={rotateMobileCa}
+          />
 
           <button
             className="open-app-button"
@@ -1740,7 +1675,13 @@ function AppContent() {
         </div>
         <p className="splash-subtitle dimmed">{stopped ? t('setup.servicesStopped') : t('setup.readyToLaunch')}</p>
         <span className="version-badge">{stopped ? t('common.offline') : t('common.ready')}</span>
-        <LanguageQuickPicker />
+        <div className="quick-row">
+          <LanguageQuickPicker />
+          <AppModeQuickToggle
+            checked={settings.appMode}
+            onChange={appMode => setSettings({ ...settings, appMode })}
+          />
+        </div>
 
         <div className="action-stack" style={{ marginTop: 24 }}>
           {renderPreLaunchUpdateCheck()}
@@ -1851,13 +1792,13 @@ function AppContent() {
 }
 
 /* ── Shared Advanced Config Panel ── */
-function AdvancedConfigPanel({
+export function AdvancedConfigPanel({
   showAdvanced, setShowAdvanced, resendKey, setResendKey,
   emailFrom, setEmailFrom, supportEmail, setSupportEmail,
   bootstrapAdminEmail, setBootstrapAdminEmail,
   portApi, setPortApi, portUi, setPortUi, localIp,
   lanStatus, portCheck, portMessage, portBlocked, storeBuild, singlePort, randomPortBusy,
-  onChooseRandomPorts, onUseSuggestedPorts,
+  onChooseRandomPorts, onUseSuggestedPorts, embedded = false,
 }: {
   showAdvanced: boolean; setShowAdvanced: (v: boolean) => void;
   resendKey: string; setResendKey: (v: string) => void;
@@ -1877,6 +1818,8 @@ function AdvancedConfigPanel({
   randomPortBusy: boolean;
   onChooseRandomPorts: () => void;
   onUseSuggestedPorts: () => void;
+  /** Inside the app window drawer: always open, network help lives elsewhere. */
+  embedded?: boolean;
 }) {
   const { t } = useLauncherI18n();
   const uiPort = singlePort ? portApi.trim() || '3001' : portUi.trim() || '5173';
@@ -1884,14 +1827,14 @@ function AdvancedConfigPanel({
 
   return (
     <>
-      <div className="divider"><span>{t('advanced.title')}</span></div>
+      {!embedded && <div className="divider"><span>{t('advanced.title')}</span></div>}
 
-      <button className="advanced-toggle" onClick={() => setShowAdvanced(!showAdvanced)}>
+      {!embedded && <button className="advanced-toggle" onClick={() => setShowAdvanced(!showAdvanced)}>
         <ChevronRight size={12} className={`chevron ${showAdvanced ? 'open' : ''}`} />
         {t('advanced.configuration')}
-      </button>
+      </button>}
 
-      <div className={`collapse-panel ${showAdvanced ? 'open' : ''}`}>
+      <div className={`collapse-panel ${showAdvanced || embedded ? 'open' : ''}`}>
         <div className="config-grid">
           <div className="guide-box">
             <div className="guide-title">
@@ -1991,7 +1934,7 @@ function AdvancedConfigPanel({
           </div>
 
           {/* LAN Access Guide + QR */}
-          <div className="tip-box">
+          {!embedded && <div className="tip-box">
             <div className="tip-header">
               <Wifi size={13} />
               <span>{t('advanced.otherDevices')}</span>
@@ -2019,7 +1962,7 @@ function AdvancedConfigPanel({
                 </div>
               </>
             )}
-          </div>
+          </div>}
 
         </div>
       </div>
@@ -2028,10 +1971,129 @@ function AdvancedConfigPanel({
 }
 
 /* ── Shared Dev Panel ── */
-function DevPanelContent({
+/* LAN address and optional mobile HTTPS: shown by the classic launcher and
+ * by the app window sidebar. */
+export function NetworkAccessPanel({ snapshot, lanUrl, busy, onEnable, onDisable, onRotate }: {
+  snapshot: LauncherSnapshot;
+  lanUrl: string;
+  busy: boolean;
+  onEnable: () => void;
+  onDisable: () => void;
+  onRotate: () => void;
+}) {
+  const { t } = useLauncherI18n();
+  const [androidGuideBrand, setAndroidGuideBrand] = useState<AndroidGuideBrand>('samsung');
+  const androidCertificateGuides = useMemo<Record<AndroidGuideBrand, { label: string; path: string }>>(() => ({
+    samsung: { label: t('android.samsung'), path: t('android.samsungPath') },
+    pixel: { label: t('android.pixel'), path: t('android.pixelPath') },
+    other: { label: t('android.other'), path: t('android.otherPath') },
+  }), [t]);
+
+  return (
+    <>
+      <div className="running-qr">
+        <span className="running-qr-label">{t('running.standardLan')}</span>
+        <QrCodeCard url={lanUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
+        <div className={`lan-status ${snapshot.lanStatus?.ok ? 'ok' : 'blocked'}`}>
+          <Wifi size={12} />
+          <span>{snapshot.lanStatus ? localizedLanMessage(snapshot.lanStatus, t) : t('running.lanPending')}</span>
+        </div>
+      </div>
+
+      {snapshot.httpsStatus ? (
+        <section className="mobile-https-card" aria-label={t('https.setupLabel')}>
+          <div className="mobile-https-heading">
+            <span className="mobile-https-icon"><ShieldCheck size={16} /></span>
+            <div>
+              <strong>{t('https.title')}</strong>
+              <span>{t('https.subtitle')}</span>
+            </div>
+          </div>
+
+          <div className="mobile-https-step-title">
+            <strong>{t('https.installTitle')}</strong>
+            <span>{t('https.choosePlatform')}</span>
+          </div>
+          <div className="mobile-https-qr-grid">
+            <div className="mobile-https-qr">
+              <span>{t('https.ios')}</span>
+              <QrCodeCard url={snapshot.httpsStatus.iosEnrollmentUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
+              <small>{t('https.iosHelp')}</small>
+            </div>
+            <div className="mobile-https-qr">
+              <span>{t('https.android')}</span>
+              <QrCodeCard url={snapshot.httpsStatus.androidEnrollmentUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
+              <div className="certificate-download-notice">
+                <Download size={13} />
+                <p>{t('https.downloadPrefix')} <strong>HomeInventory-Local-CA.crt</strong>, {t('https.downloadSuffix')}</p>
+              </div>
+              <label className="android-guide-picker">
+                <span>{t('https.phoneBrand')}</span>
+                <select
+                  value={androidGuideBrand}
+                  onChange={event => setAndroidGuideBrand(event.target.value as AndroidGuideBrand)}
+                >
+                  {Object.entries(androidCertificateGuides).map(([value, guide]) => (
+                    <option key={value} value={value}>{guide.label}</option>
+                  ))}
+                </select>
+              </label>
+              <ol className="android-guide-steps">
+                <li>{t('https.scanDownload')}</li>
+                <li><span>{t('https.typicalPath')}</span> {androidCertificateGuides[androidGuideBrand].path}</li>
+                <li>{t('https.finishInstall')} <strong>{t('https.openSecureApp')}</strong>.</li>
+              </ol>
+              <small>{t('https.menuVariation')}</small>
+            </div>
+            <div className="mobile-https-qr secure-app-qr">
+              <span>{t('https.openSecureApp')}</span>
+              <QrCodeCard url={snapshot.httpsStatus.httpsUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
+              <small>{t('https.secureHelp')}</small>
+            </div>
+          </div>
+
+          <div className="mobile-https-identity">
+            <span><strong>CA:</strong> {snapshot.httpsStatus.caName}</span>
+            <code title={snapshot.httpsStatus.caFingerprint}>{snapshot.httpsStatus.caFingerprint}</code>
+            <small>{t('https.linksExpire')}</small>
+          </div>
+          <div className="mobile-https-actions">
+            <button type="button" className="settings-action" onClick={onEnable} disabled={busy}>
+              <RefreshCw size={13} /> {t('https.refreshLinks')}
+            </button>
+            <button type="button" className="settings-action danger" onClick={onDisable} disabled={busy}>
+              <Power size={13} /> {t('https.disable')}
+            </button>
+            <button type="button" className="settings-action danger wide" onClick={onRotate} disabled={busy}>
+              <RotateCcw size={13} /> {t('https.rotate')}
+            </button>
+          </div>
+          <small className="mobile-https-removal">{t('https.removal')}</small>
+        </section>
+      ) : (
+        <section className="mobile-https-card mobile-https-compact" aria-label={t('https.optionalLabel')}>
+          <div className="mobile-https-heading">
+            <span className="mobile-https-icon"><Smartphone size={16} /></span>
+            <div>
+              <strong>{t('https.wantCamera')}</strong>
+              <span>{t('https.oneTimeSetup')}</span>
+            </div>
+          </div>
+          <button type="button" className="btn-secondary mobile-https-enable" onClick={onEnable} disabled={busy}>
+            {busy ? <Loader2 size={14} className="spin" /> : <ShieldCheck size={14} />}
+            {t('https.enable')}
+          </button>
+          <small>{t('https.normalRemains')}</small>
+        </section>
+      )}
+    </>
+  );
+}
+
+export function DevPanelContent({
   snapshot, profiles, settings, setSettings, devTab, setDevTab, busy, notice,
   onNotice, onClose, onBackup, onStop,
-  updateResult, checkingUpdates, updateProgress, updateNotice, onCheckUpdates, onTriggerUpdate,
+  updateResult, checkingUpdates, updateProgress, updateNotice, onCheckUpdates, onTriggerUpdate, embedded = false,
 }: {
   snapshot: LauncherSnapshot; profiles: ProfileStatus[];
   settings: LauncherSettings; setSettings: (s: LauncherSettings) => void;
@@ -2045,6 +2107,8 @@ function DevPanelContent({
   updateNotice: string;
   onCheckUpdates: () => Promise<void>;
   onTriggerUpdate: () => Promise<void>;
+  /** Inside the app window drawer, which brings its own header and tabs. */
+  embedded?: boolean;
 }) {
   const { locale, setLocale, t } = useLauncherI18n();
   const isStoreBuild = snapshot.storeBuild;
@@ -2100,23 +2164,23 @@ function DevPanelContent({
 
   return (
     <>
-      <header className="modal-header">
+      {!embedded && <header className="modal-header">
         <div className="modal-header-left">
           <Archive size={15} className="accent-icon" />
           <h3>{t('dev.console')}</h3>
         </div>
         <button className="close-x" onClick={onClose} aria-label={t('common.close')}>✕</button>
-      </header>
+      </header>}
 
-      <nav className="modal-tabs">
+      {!embedded && <nav className="modal-tabs">
         <button className={devTab === 'logs' ? 'active' : ''} onClick={() => setDevTab('logs')}>{t('dev.logs')}</button>
         <button className={devTab === 'backups' ? 'active' : ''} onClick={() => setDevTab('backups')}>{t('dev.backups')}</button>
         <button className={devTab === 'settings' ? 'active' : ''} onClick={() => setDevTab('settings')}>{t('dev.settings')}</button>
         {!isStoreBuild && <button className={devTab === 'updates' ? 'active' : ''} onClick={() => setDevTab('updates')}>{t('dev.updates')}</button>}
-      </nav>
+      </nav>}
 
       <div className="modal-body">
-        {devTab === 'logs' && <div className="tab-logs"><LogRows logs={snapshot.logs} /></div>}
+        {devTab === 'logs' && <div className="tab-logs"><LogConsole logs={snapshot.logs} /></div>}
 
         {!isStoreBuild && devTab === 'updates' && (
           <div className="tab-updates">
@@ -2389,30 +2453,15 @@ function DevPanelContent({
         )}
       </div>
 
-      <footer className="modal-footer">
+      {!embedded && <footer className="modal-footer">
         {onStop && <button className="btn-danger" onClick={onStop}><Power size={13} /> {t('dev.stopServer')}</button>}
         <span className="notice-text">{notice}</span>
-      </footer>
+      </footer>}
     </>
   );
 }
 
 /* ── Small components ── */
-export function LogRows({ logs }: { logs: LogEntry[] }) {
-  const { t } = useLauncherI18n();
-  if (!logs.length) return <div className="empty-log">{t('dev.noLogs')}</div>;
-  return (
-    <div className="log-rows">
-      {logs.map((l, i) => (
-        <div className="log-row" key={`${l.timestamp}-${i}`}>
-          <span className={`log-dot ${l.level}`} />
-          <span className="log-source">{l.source}</span>
-          <code>{l.message}</code>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 function PathSettingField({ label, value, placeholder, hint, onChange, onChoose, onOpen, onReset }: {
   label: string;
@@ -2448,7 +2497,7 @@ function PathSettingField({ label, value, placeholder, hint, onChange, onChoose,
 }
 
 /* ── Mock data for browser preview ── */
-function mockSnapshot(settings: LauncherSettings, t: Translate): LauncherSnapshot {
+export function mockSnapshot(settings: LauncherSettings, t: Translate): LauncherSnapshot {
   const root = settings.projectPath || '/Users/demo/HomeInventory';
   const data = '/Users/demo/Library/Application Support/net.homeinventory.launcher';
   const runningPreview = new URLSearchParams(window.location.search).get('preview') === 'running';

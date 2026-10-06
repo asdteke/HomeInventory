@@ -30,6 +30,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 import SegmentedToggle from './SegmentedToggle';
 import Tooltip from './Tooltip';
 import { ConfirmDialog } from './ModalDialog';
+import { isLauncherShell, LAUNCHER_ACCOUNT_EVENT, LAUNCHER_NAVIGATE_EVENT, LAUNCHER_SHELL_ROUTES, publishLauncherState } from '../utils/launcherShell';
 
 const COMPACT_ICON_BUTTON_SIZE = 'h-[64px] w-[64px]';
 const COMPACT_ICON_INNER_SIZE = 'h-[48px] w-[48px]';
@@ -205,6 +206,8 @@ export default function Layout() {
     const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
     const mobileMenuDialogRef = useRef<HTMLDivElement>(null);
     const compactSidebar = !sidebarOpen;
+    // In the launcher's app window the launcher sidebar is the only sidebar.
+    const [launcherShell] = useState(isLauncherShell);
     const isCustomBrand = BRAND_KEY !== 'homeinventory';
     const userInitial = user?.username?.charAt(0)?.toUpperCase() || 'H';
     const [shouldMountIntroTour] = useState<boolean>(() => {
@@ -344,6 +347,30 @@ export default function Layout() {
         }
     };
 
+    // Layout only renders for a signed-in user; the launcher mirrors that.
+    useEffect(() => {
+        if (!launcherShell) return undefined;
+        publishLauncherState({ signedIn: true, isAdmin: Boolean(isAdmin), userName: user?.username || undefined });
+        return () => publishLauncherState({ signedIn: false, isAdmin: false, userName: undefined });
+    }, [launcherShell, isAdmin, user?.username]);
+
+    useEffect(() => {
+        if (!launcherShell) return undefined;
+        const handleNavigate = (event: Event) => {
+            const route = (event as CustomEvent<unknown>).detail;
+            if (typeof route === 'string' && LAUNCHER_SHELL_ROUTES.includes(route)) {
+                navigate(route);
+            }
+        };
+        const handleAccount = () => setProfileMenuOpen((current) => !current);
+        window.addEventListener(LAUNCHER_NAVIGATE_EVENT, handleNavigate);
+        window.addEventListener(LAUNCHER_ACCOUNT_EVENT, handleAccount);
+        return () => {
+            window.removeEventListener(LAUNCHER_NAVIGATE_EVENT, handleNavigate);
+            window.removeEventListener(LAUNCHER_ACCOUNT_EVENT, handleAccount);
+        };
+    }, [launcherShell, navigate]);
+
     const navItems = useMemo(() => ([
         {
             to: '/',
@@ -384,15 +411,107 @@ export default function Layout() {
         }
     ]), [t]);
 
+    const accountMenuStack = (
+                            <div className="sidebar-account-menu-stack-v27 space-y-2">
+                                <Link
+                                    to="/settings#settings-account"
+                                    onClick={() => setProfileMenuOpen(false)}
+                                    aria-label={t('settings.account_overview.title', { defaultValue: 'Account overview' }) || undefined}
+                                    className="sidebar-account-overview-v27 flex w-full items-center gap-3 rounded-[0.95rem] border border-transparent px-3 py-2.5 text-left text-sm font-medium text-(--hi-text) transition hover:border-(--hi-border) hover:bg-(--hi-panel-muted) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-bg-elevated)"
+                                >
+                                    <span className="sidebar-account-overview-icon-v27 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-(--hi-panel-muted) text-(--hi-text-muted)">
+                                        <User className="h-4 w-4" />
+                                    </span>
+                                    <span>{t('settings.account_overview.title', { defaultValue: 'Account overview' })}</span>
+                                </Link>
+
+                                {launcherShell && isAdmin && (
+                                    <Link
+                                        to="/admin"
+                                        onClick={() => setProfileMenuOpen(false)}
+                                        className="sidebar-account-overview-v27 flex w-full items-center gap-3 rounded-[0.95rem] border border-transparent px-3 py-2.5 text-left text-sm font-medium text-(--hi-text) transition hover:border-(--hi-border) hover:bg-(--hi-panel-muted) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-bg-elevated)"
+                                    >
+                                        <span className="sidebar-account-overview-icon-v27 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-(--hi-panel-muted) text-(--hi-text-muted)">
+                                            <Shield className="h-4 w-4" />
+                                        </span>
+                                        <span>{t('navigation.admin_panel')}</span>
+                                    </Link>
+                                )}
+
+                                <div className="sidebar-account-group-v27 rounded-2xl border border-(--hi-border) bg-(--hi-panel) p-3">
+                                    <p className="sidebar-account-label-v27 mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-(--hi-text-soft)">
+                                        {t('settings.language', { defaultValue: 'Language' })}
+                                    </p>
+                                    <LanguageSwitcher
+                                        showCodeBadge={false}
+                                        className="sidebar-account-language-v27 h-11! rounded-[0.95rem]! border-(--hi-border)! bg-(--hi-panel-strong)! px-3! py-0! text-(--hi-text)! hover:bg-(--hi-panel-muted)!"
+                                    />
+                                </div>
+
+                                <div className="sidebar-account-group-v27 rounded-2xl border border-(--hi-border) bg-(--hi-panel) p-3">
+                                    <div className="mb-3 flex items-center justify-between gap-3">
+                                        <p className="sidebar-account-label-v27 text-xs font-semibold uppercase tracking-[0.18em] text-(--hi-text-soft)">
+                                            {t('settings.theme.title')}
+                                        </p>
+                                        <Link
+                                            to="/settings#settings-preferences"
+                                            onClick={() => setProfileMenuOpen(false)}
+                                            aria-label={t('settings.theme.title') || undefined}
+                                            className="sidebar-account-manage-v27 text-xs font-medium text-(--hi-accent) transition hover:text-(--hi-accent-strong) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel)"
+                                        >
+                                            {t('common.manage')}
+                                        </Link>
+                                    </div>
+                                    <SegmentedToggle
+                                        ariaLabel={t('settings.theme.title') || ''}
+                                        value={theme}
+                                        onChange={setTheme as any}
+                                        fullWidth
+                                        className="sidebar-account-theme-v27"
+                                        buttonClassName="min-h-[40px] px-3 py-2 text-sm"
+                                        activeClassName="bg-(--hi-panel-strong) text-(--hi-text) shadow-(--hi-shadow-soft)"
+                                        options={[
+                                            {
+                                                value: 'light',
+                                                label: t('settings.theme.light') || '',
+                                                icon: Sun,
+                                                tooltip: t('settings.theme.light') || '',
+                                                ariaLabel: t('settings.theme.light_aria', { defaultValue: 'Switch to light theme' }) || ''
+                                            },
+                                            {
+                                                value: 'dark',
+                                                label: t('settings.theme.dark') || '',
+                                                icon: Moon,
+                                                tooltip: t('settings.theme.dark') || '',
+                                                ariaLabel: t('settings.theme.dark_aria', { defaultValue: 'Switch to dark theme' }) || ''
+                                            }
+                                        ]}
+                                    />
+                                </div>
+
+                                <button
+                                    type="button"
+                                    onClick={openLogoutConfirm}
+                                    aria-label={t('navigation.logout_aria', { defaultValue: 'Log out of your account' }) || undefined}
+                                    className="sidebar-account-logout-v27 flex w-full items-center gap-3 rounded-[0.95rem] border border-red-500/18 bg-red-500/6 px-3 py-2.5 text-left text-sm font-medium text-red-400 transition hover:bg-red-500/10 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-bg-elevated)"
+                                >
+                                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-red-500/12 text-current">
+                                        <LogOut className="h-4 w-4" />
+                                    </span>
+                                    <span>{t('navigation.logout')}</span>
+                                </button>
+                            </div>
+    );
+
     return (
-        <div className="premium-shell min-h-screen">
+        <div className={`premium-shell min-h-screen ${launcherShell ? 'launcher-shell' : ''}`}>
             {shouldMountIntroTour && (
                 <Suspense fallback={null}>
                     <IntroTour />
                 </Suspense>
             )}
 
-            <aside
+            {!launcherShell && <aside
                 className={`
                     desktop-sidebar-v27 ${sidebarOpen ? 'is-expanded' : 'is-compact'}
                     fixed inset-y-0 left-0 z-40 hidden lg:flex flex-col border-r border-(--hi-border)
@@ -493,82 +612,7 @@ export default function Layout() {
                             aria-label={t('layout.account_menu_title', { defaultValue: 'Account menu' }) || undefined}
                             className={`sidebar-account-menu-v27 absolute z-50 rounded-[1.2rem] border border-(--hi-border) bg-(--hi-bg-elevated) p-3 shadow-(--hi-shadow) backdrop-blur-2xl ${sidebarOpen ? 'left-0 right-0 top-full mt-3' : 'left-full top-0 ml-3 w-[18rem]'}`}
                         >
-                            <div className="sidebar-account-menu-stack-v27 space-y-2">
-                                <Link
-                                    to="/settings#settings-account"
-                                    onClick={() => setProfileMenuOpen(false)}
-                                    aria-label={t('settings.account_overview.title', { defaultValue: 'Account overview' }) || undefined}
-                                    className="sidebar-account-overview-v27 flex w-full items-center gap-3 rounded-[0.95rem] border border-transparent px-3 py-2.5 text-left text-sm font-medium text-(--hi-text) transition hover:border-(--hi-border) hover:bg-(--hi-panel-muted) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-bg-elevated)"
-                                >
-                                    <span className="sidebar-account-overview-icon-v27 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-(--hi-panel-muted) text-(--hi-text-muted)">
-                                        <User className="h-4 w-4" />
-                                    </span>
-                                    <span>{t('settings.account_overview.title', { defaultValue: 'Account overview' })}</span>
-                                </Link>
-
-                                <div className="sidebar-account-group-v27 rounded-2xl border border-(--hi-border) bg-(--hi-panel) p-3">
-                                    <p className="sidebar-account-label-v27 mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-(--hi-text-soft)">
-                                        {t('settings.language', { defaultValue: 'Language' })}
-                                    </p>
-                                    <LanguageSwitcher
-                                        showCodeBadge={false}
-                                        className="sidebar-account-language-v27 h-11! rounded-[0.95rem]! border-(--hi-border)! bg-(--hi-panel-strong)! px-3! py-0! text-(--hi-text)! hover:bg-(--hi-panel-muted)!"
-                                    />
-                                </div>
-
-                                <div className="sidebar-account-group-v27 rounded-2xl border border-(--hi-border) bg-(--hi-panel) p-3">
-                                    <div className="mb-3 flex items-center justify-between gap-3">
-                                        <p className="sidebar-account-label-v27 text-xs font-semibold uppercase tracking-[0.18em] text-(--hi-text-soft)">
-                                            {t('settings.theme.title')}
-                                        </p>
-                                        <Link
-                                            to="/settings#settings-preferences"
-                                            onClick={() => setProfileMenuOpen(false)}
-                                            aria-label={t('settings.theme.title') || undefined}
-                                            className="sidebar-account-manage-v27 text-xs font-medium text-(--hi-accent) transition hover:text-(--hi-accent-strong) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--hi-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-panel)"
-                                        >
-                                            {t('common.manage')}
-                                        </Link>
-                                    </div>
-                                    <SegmentedToggle
-                                        ariaLabel={t('settings.theme.title') || ''}
-                                        value={theme}
-                                        onChange={setTheme as any}
-                                        fullWidth
-                                        className="sidebar-account-theme-v27"
-                                        buttonClassName="min-h-[40px] px-3 py-2 text-sm"
-                                        activeClassName="bg-(--hi-panel-strong) text-(--hi-text) shadow-(--hi-shadow-soft)"
-                                        options={[
-                                            {
-                                                value: 'light',
-                                                label: t('settings.theme.light') || '',
-                                                icon: Sun,
-                                                tooltip: t('settings.theme.light') || '',
-                                                ariaLabel: t('settings.theme.light_aria', { defaultValue: 'Switch to light theme' }) || ''
-                                            },
-                                            {
-                                                value: 'dark',
-                                                label: t('settings.theme.dark') || '',
-                                                icon: Moon,
-                                                tooltip: t('settings.theme.dark') || '',
-                                                ariaLabel: t('settings.theme.dark_aria', { defaultValue: 'Switch to dark theme' }) || ''
-                                            }
-                                        ]}
-                                    />
-                                </div>
-
-                                <button
-                                    type="button"
-                                    onClick={openLogoutConfirm}
-                                    aria-label={t('navigation.logout_aria', { defaultValue: 'Log out of your account' }) || undefined}
-                                    className="sidebar-account-logout-v27 flex w-full items-center gap-3 rounded-[0.95rem] border border-red-500/18 bg-red-500/6 px-3 py-2.5 text-left text-sm font-medium text-red-400 transition hover:bg-red-500/10 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-bg-elevated)"
-                                >
-                                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-red-500/12 text-current">
-                                        <LogOut className="h-4 w-4" />
-                                    </span>
-                                    <span>{t('navigation.logout')}</span>
-                                </button>
-                            </div>
+                            {accountMenuStack}
                         </div>
                     )}
                 </div>
@@ -596,9 +640,27 @@ export default function Layout() {
                     )}
                 </nav>
 
-            </aside>
+            </aside>}
 
-            <header className="mobile-topbar lg:hidden sticky top-0 z-40">
+            {launcherShell && profileMenuOpen && (
+                <div
+                    ref={profileMenuRef}
+                    role="dialog"
+                    aria-modal="false"
+                    aria-label={t('layout.account_menu_title', { defaultValue: 'Account menu' }) || undefined}
+                    className="launcher-shell-account-menu sidebar-account-menu-v27 fixed top-4 left-4 z-50 w-[19rem] rounded-[1.2rem] border border-(--hi-border) bg-(--hi-bg-elevated) p-3 shadow-(--hi-shadow) backdrop-blur-2xl"
+                >
+                    <div className="mb-2 flex items-center gap-3 px-1 pb-2">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-sm font-extrabold text-white">
+                            {userInitial}
+                        </div>
+                        <p className="min-w-0 truncate text-sm font-semibold text-(--hi-text)">{user?.username}</p>
+                    </div>
+                    {accountMenuStack}
+                </div>
+            )}
+
+            {!launcherShell && <header className="mobile-topbar lg:hidden sticky top-0 z-40">
                 <div className="flex items-center justify-between gap-3">
                     <Link to="/" aria-label={BRAND_NAME} className="min-w-0">
                         <BrandLogo variant="symbol" size="sm" className="max-h-[34px]" />
@@ -617,7 +679,7 @@ export default function Layout() {
                         <Menu className="h-5 w-5" />
                     </button>
                 </div>
-            </header>
+            </header>}
 
             {mobileMenuOpen && (
                 <div className="mobile-drawer-root fixed inset-0 z-50 lg:hidden">
@@ -786,7 +848,7 @@ export default function Layout() {
                 </div>
             )}
 
-            <main className={`transition-all duration-300 ${sidebarOpen ? 'lg:ml-[288px]' : 'lg:ml-[112px]'}`}>
+            <main className={`transition-all duration-300 ${launcherShell ? '' : sidebarOpen ? 'lg:ml-[288px]' : 'lg:ml-[112px]'}`}>
                 <div className="px-3 pb-28 pt-4 lg:px-8 lg:pb-10 lg:pt-8">
                     <div key={`${location.pathname}${location.search}`} className="animate-fade-in">
                         <Suspense

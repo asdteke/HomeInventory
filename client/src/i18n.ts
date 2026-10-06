@@ -6,6 +6,7 @@ import axios from 'axios';
 import { BRAND_HOST, BRAND_NAME, BRAND_KEY, SUPPORT_EMAIL } from './constants/branding';
 import { formatDateForLanguage, formatNumberForLanguage } from './utils/appFormatting';
 import { resolveSupportedLanguageCode, SUPPORTED_PRODUCT_LANGUAGE_CODES } from './utils/languageSupport';
+import { LAUNCHER_LANGUAGE_EVENT, publishLauncherState } from './utils/launcherShell';
 
 declare const __APP_BUILD_ID__: string | undefined;
 
@@ -219,5 +220,21 @@ applyRequestLanguage(i18n.resolvedLanguage || i18n.language);
 installRequestLanguageInterceptor();
 i18n.on('languageChanged', applyDocumentLanguage);
 i18n.on('languageChanged', applyRequestLanguage);
+
+publishLauncherState({ language: normalizeLanguageCode(i18n.resolvedLanguage || i18n.language) });
+i18n.on('languageChanged', (lang) => publishLauncherState({ language: normalizeLanguageCode(lang) }));
+
+// The desktop launcher's app window shares its language through this DOM
+// event; the page itself has no launcher IPC.
+if (typeof window !== 'undefined') {
+    window.addEventListener(LAUNCHER_LANGUAGE_EVENT, (event) => {
+        const requested = (event as CustomEvent<unknown>).detail;
+        if (typeof requested !== 'string') return;
+        const next = normalizeLanguageCode(requested);
+        if (next !== normalizeLanguageCode(i18n.resolvedLanguage || i18n.language)) {
+            void i18n.changeLanguage(next);
+        }
+    });
+}
 
 export default i18n;

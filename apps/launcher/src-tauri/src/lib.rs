@@ -59,6 +59,12 @@ pub fn run() {
             https::rotate_https_ca,
             app_window::open_app_window,
             app_window::set_app_sidebar,
+            app_window::set_app_content_language,
+            app_window::navigate_app_content,
+            app_window::reload_app_content,
+            app_window::app_content_history,
+            app_window::toggle_app_account_menu,
+            app_window::app_content_state,
             app_window::close_app_window,
             app_window::show_launcher
         ])

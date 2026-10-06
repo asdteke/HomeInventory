@@ -10451,3 +10451,10 @@ html.dark .shell-link-v27.is-compact.is-active .shell-link-icon-v27 {
   box-shadow: none !important;
   transform: none;
 }
+
+/* Light/dark switch: a calm cross-fade (see ThemeContext). */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 420ms;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

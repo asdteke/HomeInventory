@@ -116,9 +116,11 @@ interface Props {
   size?: number;
   logoSrc?: string;
   logoSvg?: string;
+  /** Only the code, for layouts that show the address themselves. */
+  bare?: boolean;
 }
 
-export function QrCodeCard({ url, size = 200, logoSrc, logoSvg }: Props) {
+export function QrCodeCard({ url, size = 200, logoSrc, logoSvg, bare = false }: Props) {
   const { t } = useLauncherI18n();
   const [markup, setMarkup] = useState('');
 
@@ -136,6 +138,10 @@ export function QrCodeCard({ url, size = 200, logoSrc, logoSvg }: Props) {
   }, [url, size, logoSrc, logoSvg, t]);
 
   if (!markup) return null;
+
+  if (bare) {
+    return <div className="qr-bare" dangerouslySetInnerHTML={{ __html: markup }} />;
+  }
 
   return (
     <div className="qr-card">

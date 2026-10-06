@@ -35,3 +35,33 @@ test('closing the app window does not stop HomeInventory', () => {
   assert.doesNotMatch(appWindowArm.slice(0, 200), /stop_all_internal/);
   assert.doesNotMatch(appWindowSource, /stop_all_internal/);
 });
+
+const sidebarSource = read('../apps/launcher/src/AppSidebar.tsx');
+const shellSource = read('../client/src/utils/launcherShell.ts');
+
+test('the launcher only sends fixed, validated values into the page', () => {
+  // Events carry a known route, a validated language code or a constant.
+  assert.match(appWindowSource, /fn set_app_content_language[\s\S]*?shared_language\(&language\)/);
+  assert.match(appWindowSource, /fn navigate_app_content[\s\S]*?CONTENT_ROUTES[\s\S]*?\.find\(/);
+  assert.match(appWindowSource, /"back" => "history\.back\(\);",\s*"forward" => "history\.forward\(\);",/);
+  // The page script never reaches for the launcher's IPC.
+  const script = appWindowSource.slice(appWindowSource.indexOf('const CONTENT_SHELL_SCRIPT'), appWindowSource.indexOf('"#;', appWindowSource.indexOf('const CONTENT_SHELL_SCRIPT')));
+  assert.doesNotMatch(script, /__TAURI|invoke|ipc/i);
+  assert.doesNotMatch(shellSource, /__TAURI|invoke\(/);
+});
+
+test('what the page reports is sanitized before the sidebar sees it', () => {
+  assert.match(appWindowSource, /async fn app_content_state[\s\S]*?sanitize_content_state\(path, &raw\)/);
+  assert.match(appWindowSource, /Path of the page, taken from the webview URL[^\n]*\n\s*path: String,/);
+  assert.match(sidebarSource, /invoke<ContentState \| null>\('app_content_state'\)/);
+});
+
+test('the app window sidebar follows the app and respects reduced motion', () => {
+  assert.match(sidebarSource, /prefers-reduced-motion: reduce/);
+  assert.match(sidebarSource, /set_app_sidebar', \{ mode, animate: !reducedMotion\(\) \}/);
+  assert.match(sidebarSource, /document\.body\.dataset\.theme = theme/);
+  assert.match(sidebarSource, /page\.language !== appLanguage\) setAppLanguage\(page\.language\)/);
+  // A new sidebar resets any layout left behind by an earlier one.
+  assert.match(sidebarSource, /set_app_sidebar', \{ mode: 'expanded', animate: false \}/);
+  assert.match(appWindowSource, /SIDEBAR_MODE\.store\(SidebarMode::Expanded\.as_u8\(\)/);
+});
