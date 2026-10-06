@@ -1,4 +1,4 @@
-# HomeInventory v2.7.4 Release Checklist
+# HomeInventory v2.8.0 Release Checklist
 
 Use this checklist for public HomeInventory source and launcher releases. Local/private branding is deliberately outside this workflow.
 
@@ -12,7 +12,7 @@ Use this checklist for public HomeInventory source and launcher releases. Local/
 
 ## 2. Deterministic validation
 
-Use the Node.js version configured in CI (Node 22.23.3 for v2.7.4):
+Use the Node.js version configured in CI (Node 22.23.3 for v2.8.0):
 
 ```bash
 npm ci
@@ -21,9 +21,8 @@ npm ci --prefix apps/launcher
 git diff --check
 npm run version:check
 npm run i18n:check
-npm run build
 npm run build --prefix apps/launcher
-node --test --test-concurrency=1 tests/*.test.mjs
+npm test
 cargo test --locked --manifest-path apps/launcher/src-tauri/Cargo.toml
 npm audit --audit-level=moderate
 npm audit --audit-level=moderate --prefix client

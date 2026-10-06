@@ -14,9 +14,8 @@ Note any effect on authentication, authorization, encryption, backups, uploads, 
 
 ## Testing
 
-- [ ] `npm run build`
+- [ ] `npm test` (builds the client, then runs the Node test suite)
 - [ ] `npm run build --prefix apps/launcher`
-- [ ] `node --test tests/*.test.mjs`
 - [ ] `npm audit --audit-level=moderate` (root, client, and launcher)
 - [ ] Manual verification completed where relevant
 

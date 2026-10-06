@@ -50,10 +50,11 @@ export function renderStartupSummary({
     backendUrl,
     lanAppUrl,
     lanApiUrl,
+    mode = 'Development',
     helpText = 'Press Ctrl+C to stop'
 }) {
-    const title = `${appName} ${paint(ANSI.gray, '•')} ${paint(ANSI.dim, 'Development')}`;
-    const titlePlain = `${appName} • Development`;
+    const title = `${appName} ${paint(ANSI.gray, '•')} ${paint(ANSI.dim, mode)}`;
+    const titlePlain = `${appName} • ${mode}`;
     const rows = [
         { label: 'Status', value: status, tone: String(status).toLowerCase() === 'ready' ? 'success' : 'muted' },
         { label: 'Frontend', value: frontendUrl, tone: 'accent' },

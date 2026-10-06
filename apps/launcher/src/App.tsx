@@ -33,6 +33,7 @@ import logoFull from './logo-full.svg';
 import logoSymbolLight from './logo-symbol-light.svg';
 import logoSymbolLightSvg from './logo-symbol-light.svg?raw';
 import { QrCodeCard } from './QrCode';
+import { LogConsole } from './LogConsole';
 import {
   LANGUAGE_OPTIONS,
   LauncherI18nProvider,
@@ -41,7 +42,7 @@ import {
 } from './i18n';
 
 /* ── Types ── */
-type ViewKey = 'logs' | 'backups' | 'settings' | 'updates';
+export type ViewKey = 'logs' | 'backups' | 'settings' | 'updates';
 
 type ToolStatus = { name: string; path?: string | null; ok: boolean; detail: string };
 
@@ -52,15 +53,15 @@ type SetupStatus = {
   rootDependencies: boolean; clientDependencies: boolean; envFile: boolean;
 };
 
-type ProfileStatus = {
+export type ProfileStatus = {
   id: string; name: string; description: string; available: boolean; running: boolean;
   backendPort: number; frontendPort: number; frontendUrl: string; backendUrl: string;
   dataDir: string; dbPath: string; uploadsDir: string; brandAssets: boolean;
 };
 
-type LogEntry = { timestamp: number; source: string; level: string; message: string };
+export type LogEntry = { timestamp: number; source: string; level: string; message: string };
 
-type LanAccessStatus = {
+export type LanAccessStatus = {
   ok: boolean;
   frontendOk: boolean;
   backendOk: boolean;
@@ -69,7 +70,7 @@ type LanAccessStatus = {
   message: string;
 };
 
-type HttpsStatus = {
+export type HttpsStatus = {
   enabled: boolean;
   httpsPort: number;
   enrollmentPort: number;
@@ -83,7 +84,7 @@ type HttpsStatus = {
   localIp: string;
 };
 
-type LauncherSnapshot = {
+export type LauncherSnapshot = {
   projectRoot: string; appDataDir: string; localIp?: string | null;
   tools: ToolStatus[]; setup: SetupStatus; profiles: ProfileStatus[];
   activeProfileId?: string | null; lanStatus?: LanAccessStatus | null; logs: LogEntry[];
@@ -91,12 +92,14 @@ type LauncherSnapshot = {
   appVersion: string;
   appSource: 'managed' | 'custom' | 'store' | 'development' | 'missing';
   bundledSyncRequired: boolean;
+  /** production: prebuilt client on one port; development: dev server on two ports. */
+  runMode: 'production' | 'development';
   distribution: string;
   storeBuild: boolean;
   httpsStatus?: HttpsStatus | null;
 };
 
-type UpdateCheckResult = {
+export type UpdateCheckResult = {
   currentAppVersion: string;
   latestAppVersion: string;
   currentLauncherVersion: string;
@@ -108,10 +111,12 @@ type UpdateCheckResult = {
   requiredActions: string[];
 };
 
-type CommandResult = { ok: boolean; message: string };
-type BackupResult = CommandResult & { path: string };
+type InstallProgress = { state: string; message: string; progress: number; error?: string | null };
 
-type PortCheckResult = {
+export type CommandResult = { ok: boolean; message: string };
+export type BackupResult = CommandResult & { path: string };
+
+export type PortCheckResult = {
   ok: boolean;
   backendPort: number;
   frontendPort: number;
@@ -124,11 +129,17 @@ type PortCheckResult = {
   message: string;
 };
 
-type SuggestedPorts = { backendPort: number; frontendPort: number };
+export type SuggestedPorts = { backendPort: number; frontendPort: number };
 
-type LauncherSettings = {
+export type LauncherSettings = {
   projectPath: string; nodePath: string; npmPath: string; autoOpen: boolean; mobileHttps: boolean;
+  /** Update version the user chose to skip; newer versions are offered again. */
+  skippedUpdateVersion: string;
+  /** Optional app mode: open HomeInventory in the launcher's app window. */
+  appMode: boolean;
 };
+
+type UpdateOffer = { kind: 'online'; version: string; blockedByNode: boolean };
 
 type PathKind = 'project' | 'node' | 'npm';
 type AndroidGuideBrand = 'samsung' | 'pixel' | 'other';
@@ -137,41 +148,43 @@ const LAUNCHER_VERSION = launcherPackage.version;
 
 const defaultSettings: LauncherSettings = {
   projectPath: '', nodePath: '', npmPath: '', autoOpen: true, mobileHttps: false,
+  skippedUpdateVersion: '',
+  appMode: false,
 };
 
-const hasTauriRuntime = () =>
+export const hasTauriRuntime = () =>
   Boolean((window as Window & { __TAURI_INTERNALS__?: unknown }).__TAURI_INTERNALS__);
 
-function loadSettings(): LauncherSettings {
+export function loadSettings(): LauncherSettings {
   try {
     return { ...defaultSettings, ...JSON.parse(localStorage.getItem('hi-settings') || '{}') };
   } catch { return defaultSettings; }
 }
 
-function saveSettings(s: LauncherSettings) {
+export function saveSettings(s: LauncherSettings) {
   localStorage.setItem('hi-settings', JSON.stringify(s));
 }
 
-function overrides(s: LauncherSettings) {
+export function overrides(s: LauncherSettings) {
   return { projectPath: s.projectPath || null, nodePath: s.nodePath || null, npmPath: s.npmPath || null };
 }
 
-function isCmd(v: unknown): v is CommandResult {
+export function isCmd(v: unknown): v is CommandResult {
   return Boolean(v && typeof v === 'object' && 'message' in v);
 }
 
-function sanitizePortInput(value: string) {
+export function sanitizePortInput(value: string) {
   return value.replace(/\D/g, '').slice(0, 5);
 }
 
-function parsePort(value: string, fallback: number) {
+export function parsePort(value: string, fallback: number) {
   const normalized = sanitizePortInput(value);
   if (!normalized) return fallback;
   const parsed = Number.parseInt(normalized, 10);
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
-function validatePortInputs(apiPort: string, uiPort: string, profile: ProfileStatus | null, t: Translate) {
+export function validatePortInputs(apiPort: string, uiPort: string, profile: ProfileStatus | null, t: Translate) {
   if (!profile) return t('status.noProfile');
   const backendPort = parsePort(apiPort, profile.backendPort);
   const frontendPort = parsePort(uiPort, profile.frontendPort);
@@ -181,10 +194,13 @@ function validatePortInputs(apiPort: string, uiPort: string, profile: ProfileSta
   return '';
 }
 
-function localizedPortMessage(status: PortCheckResult | null, t: Translate) {
+export function localizedPortMessage(status: PortCheckResult | null, t: Translate, singlePort = false) {
   if (!status) return t('status.portsAvailable');
   if (status.existingHomeInventory) return t('status.existingInstance');
   if (status.ok) return t('status.portsAvailable');
+  if (singlePort) {
+    return t('status.localPortBusy', { port: status.backendPort, suggested: status.suggestedBackendPort });
+  }
   if (!status.backendOk && status.frontendOk) {
     return t('status.apiPortBusy', { port: status.backendPort, suggested: status.suggestedBackendPort });
   }
@@ -221,7 +237,23 @@ function localizedUpdateState(state: string, t: Translate) {
   return keys[state] ? t(keys[state]) : state;
 }
 
-function LanguageQuickPicker() {
+function localizedInstallState(state: string, t: Translate) {
+  const keys: Record<string, Parameters<Translate>[0]> = {
+    Preparing: 'firstInstall.statePreparing',
+    Extracting: 'firstInstall.stateExtracting',
+    Installing: 'firstInstall.stateInstalling',
+    Finalizing: 'firstInstall.stateFinalizing',
+    Completed: 'firstInstall.stateCompleted',
+    Failed: 'firstInstall.stateFailed',
+  };
+  return keys[state] ? t(keys[state]) : state;
+}
+
+function formatElapsed(seconds: number) {
+  return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+}
+
+export function LanguageQuickPicker() {
   const { locale, setLocale, t } = useLauncherI18n();
 
   return (
@@ -238,6 +270,25 @@ function LanguageQuickPicker() {
       </select>
       <ChevronDown size={13} aria-hidden="true" />
     </label>
+  );
+}
+
+// One-click switch for the beta app window, next to the language picker.
+function AppModeQuickToggle({ checked, onChange }: { checked: boolean; onChange: (checked: boolean) => void }) {
+  const { t } = useLauncherI18n();
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      className={`app-mode-quick-toggle ${checked ? 'on' : ''}`}
+      onClick={() => onChange(!checked)}
+      title={t('appMode.toggleHelp')}
+    >
+      <span className="app-mode-quick-track" aria-hidden="true"><span /></span>
+      <span>{t('appMode.quickLabel')}</span>
+      <span className="app-mode-quick-beta">{t('appMode.beta')}</span>
+    </button>
   );
 }
 
@@ -272,12 +323,6 @@ function AppContent() {
   const [portUi, setPortUi] = useState('');
   const [portCheck, setPortCheck] = useState<PortCheckResult | null>(null);
   const [portCheckRevision, setPortCheckRevision] = useState(0);
-  const [androidGuideBrand, setAndroidGuideBrand] = useState<AndroidGuideBrand>('samsung');
-  const androidCertificateGuides = useMemo<Record<AndroidGuideBrand, { label: string; path: string }>>(() => ({
-    samsung: { label: t('android.samsung'), path: t('android.samsungPath') },
-    pixel: { label: t('android.pixel'), path: t('android.pixelPath') },
-    other: { label: t('android.other'), path: t('android.otherPath') },
-  }), [t]);
 
   // User must click to start — no auto-boot
   const [userStarted, setUserStarted] = useState(false);
@@ -293,11 +338,18 @@ function AppContent() {
   const [updateNotice, setUpdateNotice] = useState('');
   const [initialUpdateCheckStarted, setInitialUpdateCheckStarted] = useState(false);
   const [updateListenerReady, setUpdateListenerReady] = useState(false);
-  const [bundledSyncStarted, setBundledSyncStarted] = useState(false);
   const [bundledSyncRetryAvailable, setBundledSyncRetryAvailable] = useState(false);
-  const bundledSyncStartedRef = useRef(false);
+  // "Later" hides an update offer for this session only.
+  const [deferredUpdateVersion, setDeferredUpdateVersion] = useState('');
   const bundledSyncInFlightRef = useRef(false);
   const httpsActivationRef = useRef(false);
+
+  // First install of the managed app (standard, non-Store launcher)
+  const [firstInstall, setFirstInstall] = useState<InstallProgress | null>(null);
+
+  // Production installs (Store, or a managed install with the prebuilt UI)
+  // serve the app and the API on one port.
+  const singlePort = Boolean(snapshot?.storeBuild) || snapshot?.runMode === 'production';
 
   /* ── Refresh ── */
   const refresh = useCallback(async () => {
@@ -330,6 +382,14 @@ function AppContent() {
 
   useEffect(() => { saveSettings(settings); refresh(); }, [settings, refresh]);
   useEffect(() => { const t = setInterval(refresh, 2000); return () => clearInterval(t); }, [refresh]);
+  // The app window sidebar edits the same settings; keep both windows in sync.
+  useEffect(() => {
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === 'hi-settings') setSettings(loadSettings());
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
 
   // Listener for update-progress
   useEffect(() => {
@@ -388,6 +448,50 @@ function AppContent() {
     };
   }, [refresh]);
 
+  // Listener for install-progress (first install)
+  useEffect(() => {
+    if (!hasTauriRuntime()) return;
+    let unlisten: (() => void) | null = null;
+    let mounted = true;
+    listen<InstallProgress>('install-progress', (event) => {
+      setFirstInstall(event.payload);
+    }).then((fn) => {
+      if (!mounted) {
+        fn();
+        return;
+      }
+      unlisten = fn;
+    }).catch(() => undefined);
+    return () => {
+      mounted = false;
+      if (unlisten) unlisten();
+    };
+  }, []);
+
+  // Events from the optional app window (app mode)
+  useEffect(() => {
+    if (!hasTauriRuntime()) return;
+    let mounted = true;
+    const unlisteners: Array<() => void> = [];
+    const keep = (fn: () => void) => {
+      if (mounted) unlisteners.push(fn);
+      else fn();
+    };
+    listen<{ classic: boolean }>('app-window-closed', (event) => {
+      if (!event.payload.classic) return;
+      setSettings(current => ({ ...current, appMode: false }));
+      setNotice(t('appMode.classicNotice'));
+    }).then(keep).catch(() => undefined);
+    listen<{ tab: ViewKey }>('launcher-open-tab', (event) => {
+      setDevTab(event.payload.tab);
+      setShowDevPanel(true);
+    }).then(keep).catch(() => undefined);
+    return () => {
+      mounted = false;
+      unlisteners.forEach(fn => fn());
+    };
+  }, [t]);
+
   const checkForUpdates = async () => {
     setCheckingUpdates(true);
     setUpdateNotice('');
@@ -422,155 +526,30 @@ function AppContent() {
 
   useEffect(() => {
     if (
-      bundledSyncStartedRef.current
-      || !updateListenerReady
-      || !hasTauriRuntime()
-      || !snapshot?.bundledSyncRequired
-      || snapshot.appSource !== 'managed'
-      || snapshot.storeBuild
-      || snapshot.activeProfileId
-      || settings.projectPath.trim()
-      || bundledSyncRetryAvailable
-    ) {
-      return;
-    }
-
-    const managedProfile = snapshot.profiles.find(profile => profile.id === 'homeinventory')
-      || snapshot.profiles[0];
-    if (!managedProfile || validatePortInputs(portApi, portUi, managedProfile, t)) {
-      return;
-    }
-    const requestedBackendPort = parsePort(portApi, managedProfile.backendPort);
-    const requestedFrontendPort = parsePort(portUi, managedProfile.frontendPort);
-    const portCheckIsCurrent = portCheck
-      && portCheck.backendPort === requestedBackendPort
-      && portCheck.frontendPort === requestedFrontendPort;
-    if (!portCheckIsCurrent) {
-      return;
-    }
-
-    const pauseBundledSync = (message: string) => {
-      bundledSyncStartedRef.current = true;
-      bundledSyncInFlightRef.current = false;
-      setBundledSyncStarted(true);
-      setBundledSyncRetryAvailable(true);
-      setUpdateNotice(message);
-      setUpdateProgress(null);
-      setBusy(null);
-    };
-
-    if (portCheck.existingHomeInventory) {
-      pauseBundledSync(
-        `${portCheck.message} Stop the running instance, then choose Retry Sync.`,
-      );
-      return;
-    }
-
-    if (
-      !portCheck.ok
-      && portCheck.suggestedBackendPort === requestedBackendPort
-      && portCheck.suggestedFrontendPort === requestedFrontendPort
-    ) {
-      pauseBundledSync(
-        portCheck.message || t('update.previousAvailable'),
-      );
-      return;
-    }
-
-    const backendPort = portCheck.ok
-      ? requestedBackendPort
-      : portCheck.suggestedBackendPort;
-    const frontendPort = portCheck.ok
-      ? requestedFrontendPort
-      : portCheck.suggestedFrontendPort;
-    const suggestedPortError = validatePortInputs(
-      String(backendPort),
-      String(frontendPort),
-      managedProfile,
-      t,
-    );
-    if (suggestedPortError) {
-      pauseBundledSync(suggestedPortError);
-      return;
-    }
-
-    bundledSyncStartedRef.current = true;
-    bundledSyncInFlightRef.current = true;
-    setBundledSyncStarted(true);
-    setUpdateNotice('');
-    setBusy('bundled-sync');
-    setUpdateProgress({
-      state: 'Starting',
-      message: t('setup.installing'),
-      progress: 0.01,
-    });
-    invoke<CommandResult>('sync_bundled_managed_app', {
-      request: {
-        overrides: overrides(settings),
-        backendPort,
-        frontendPort,
-      },
-    }).catch((err) => {
-      bundledSyncInFlightRef.current = false;
-      setBundledSyncRetryAvailable(true);
-      setUpdateNotice(err instanceof Error ? err.message : String(err));
-      setUpdateProgress(null);
-      setBusy(null);
-      refresh();
-    });
-  }, [
-    bundledSyncRetryAvailable,
-    bundledSyncStarted,
-    portApi,
-    portCheck,
-    portUi,
-    refresh,
-    settings,
-    snapshot?.activeProfileId,
-    snapshot?.appSource,
-    snapshot?.bundledSyncRequired,
-    snapshot?.profiles,
-    snapshot?.storeBuild,
-    updateListenerReady,
-  ]);
-
-  const retryBundledSync = () => {
-    bundledSyncStartedRef.current = false;
-    bundledSyncInFlightRef.current = false;
-    setBundledSyncStarted(false);
-    setBundledSyncRetryAvailable(false);
-    setUpdateNotice('');
-    setUpdateResult(null);
-    setUpdateProgress(null);
-    setBusy(null);
-    setPortCheck(null);
-    setPortCheckRevision(current => current + 1);
-  };
-
-  useEffect(() => {
-    if (
       initialUpdateCheckStarted
       || !updateListenerReady
       || !hasTauriRuntime()
       || !snapshot
       || snapshot.storeBuild
+      || snapshot.appSource === 'missing'
       || snapshot.activeProfileId
       || busy === 'bundled-sync'
+      || busy === 'first-install'
       || Boolean(updateProgress)
-      || (snapshot.bundledSyncRequired && !bundledSyncStarted)
       || bundledSyncRetryAvailable
     ) {
       return;
     }
 
+    // Only checks. Updates are offered, never installed automatically.
     setInitialUpdateCheckStarted(true);
     checkForUpdates();
   }, [
     bundledSyncRetryAvailable,
-    bundledSyncStarted,
     busy,
     initialUpdateCheckStarted,
     snapshot?.activeProfileId,
+    snapshot?.appSource,
     snapshot?.appVersion,
     snapshot?.bundledSyncRequired,
     snapshot?.launcherVersion,
@@ -627,22 +606,24 @@ function AppContent() {
   const selProfile = profiles.find(p => p.id === selId) || profiles[0] || null;
   const selectedProfileId = selProfile?.id ?? null;
   const selectedBackendPort = selProfile ? parsePort(portApi, selProfile.backendPort) : 3001;
-  const selectedFrontendPort = selProfile ? parsePort(portUi, selProfile.frontendPort) : 5173;
+  const selectedFrontendPort = selProfile
+    ? singlePort ? selectedBackendPort : parsePort(portUi, selProfile.frontendPort)
+    : 5173;
   const portInputError = useMemo(() => {
-    if (!isStoreBuild) return validatePortInputs(portApi, portUi, selProfile, t);
+    if (!singlePort) return validatePortInputs(portApi, portUi, selProfile, t);
     if (!selProfile) return t('status.noProfile');
     const backendPort = parsePort(portApi, selProfile.backendPort);
     if (backendPort < 1024 || backendPort > 65535) return t('status.localPortRange');
     return '';
-  }, [isStoreBuild, portApi, portUi, selProfile, t]);
+  }, [singlePort, portApi, portUi, selProfile, t]);
   const existingHomeInventory = Boolean(portCheck?.existingHomeInventory && portCheck.existingFrontendUrl);
   const portBusy = Boolean(!portInputError && portCheck && !portCheck.ok && !existingHomeInventory);
   const checkingPorts = Boolean(selectedProfileId && !portInputError && !portCheck);
   const portBlocked = Boolean(portInputError);
   const portStatusBlocked = Boolean(portInputError || (portCheck && !portCheck.ok && !existingHomeInventory));
-  const portMessage = portInputError || localizedPortMessage(portCheck, t);
+  const portMessage = portInputError || localizedPortMessage(portCheck, t, singlePort);
   const launchBackendPort = portBusy && portCheck ? portCheck.suggestedBackendPort : selectedBackendPort;
-  const launchFrontendPort = isStoreBuild
+  const launchFrontendPort = singlePort
     ? launchBackendPort
     : portBusy && portCheck ? portCheck.suggestedFrontendPort : selectedFrontendPort;
 
@@ -654,6 +635,103 @@ function AppContent() {
 
   const updateAvailable = Boolean(updateResult?.appUpdateAvailable || updateResult?.launcherUpdateAvailable);
   const updateBlockedByNode = Boolean(updateResult?.requiredActions.includes('nodeMajorUpgrade'));
+
+  // The app bundled with this launcher is not optional: the user already
+  // chose this launcher version, and launcher and app are released together,
+  // so it is installed automatically (see the effect after startBundledSync).
+  // Only the verified online release is offered as an optional update.
+  const bundledSyncPending = Boolean(
+    !isStoreBuild
+    && snapshot?.bundledSyncRequired
+    && snapshot.appSource === 'managed'
+    && !settings.projectPath.trim()
+  );
+  const updateOffer: UpdateOffer | null = isStoreBuild || !snapshot || bundledSyncPending
+    ? null
+    : updateResult && updateAvailable
+        ? {
+          kind: 'online',
+          version: updateResult.appUpdateAvailable ? updateResult.latestAppVersion : updateResult.latestLauncherVersion,
+          blockedByNode: updateBlockedByNode,
+        }
+        : null;
+  const updateOfferSkipped = Boolean(updateOffer && settings.skippedUpdateVersion === updateOffer.version);
+  const updateOfferHidden = Boolean(updateOffer && (updateOfferSkipped || deferredUpdateVersion === updateOffer.version));
+
+  const deferUpdate = () => {
+    if (updateOffer) setDeferredUpdateVersion(updateOffer.version);
+    setUpdateNotice('');
+  };
+
+  const skipUpdate = () => {
+    if (!updateOffer) return;
+    const version = updateOffer.version;
+    setSettings(current => ({ ...current, skippedUpdateVersion: version }));
+    setNotice(t('update.skippedNotice', { version }));
+  };
+
+  const reviewUpdateOffer = () => {
+    setDeferredUpdateVersion('');
+    setSettings(current => current.skippedUpdateVersion ? { ...current, skippedUpdateVersion: '' } : current);
+  };
+
+  // Installs the newer app bundled with this launcher. It only replaces the
+  // app files and finishes stopped; the next Start runs the new version.
+  const startBundledSync = () => {
+    if (!hasTauriRuntime() || bundledSyncInFlightRef.current || busy) return;
+    bundledSyncInFlightRef.current = true;
+    setBundledSyncRetryAvailable(false);
+    setUpdateNotice('');
+    setBusy('bundled-sync');
+    setUpdateProgress({
+      state: 'Starting',
+      message: t('update.bundledInstalling', { version: snapshot?.launcherVersion || '' }),
+      progress: 0.01,
+    });
+    invoke<CommandResult>('sync_bundled_managed_app', {
+      request: {
+        overrides: overrides(settings),
+        backendPort: launchBackendPort,
+        frontendPort: launchFrontendPort,
+      },
+    }).catch((err) => {
+      bundledSyncInFlightRef.current = false;
+      setBundledSyncRetryAvailable(true);
+      setUpdateNotice(err instanceof Error ? err.message : String(err));
+      setUpdateProgress(null);
+      setBusy(null);
+      refresh();
+    });
+  };
+
+  // Brings the managed app up to the version bundled with this launcher as
+  // soon as nothing is running, once per launcher session. A failure leaves
+  // the retry card (bundledSyncRetryAvailable) instead of looping.
+  const bundledSyncAttemptedRef = useRef(false);
+  useEffect(() => {
+    if (
+      !bundledSyncPending
+      || bundledSyncAttemptedRef.current
+      || !hasTauriRuntime()
+      || snapshot?.activeProfileId
+      || busy
+      || bundledSyncRetryAvailable
+    ) {
+      return;
+    }
+    bundledSyncAttemptedRef.current = true;
+    startBundledSync();
+  });
+
+  const applyUpdateOffer = () => {
+    if (!updateOffer) return;
+    triggerUpdate();
+  };
+  // A standard launcher with nothing installed yet offers the first install
+  // of the app that ships with it instead of asking for a folder.
+  const firstInstallAvailable = !isStoreBuild
+    && snapshot?.appSource === 'missing'
+    && !settings.projectPath.trim();
   const projectRootMissing = !isStoreBuild && Boolean(snapshot && !snapshot.projectRoot.trim());
   const projectRootInvalid = !isStoreBuild && Boolean(snapshot?.projectRoot.trim() && !snapshot.setup.projectRootValid);
   const projectRootInstallable = !isStoreBuild && Boolean(snapshot?.setup.projectRootInstallable);
@@ -664,6 +742,8 @@ function AppContent() {
       ? portMessage
     : isStoreBuild && !ready
     ? t('setup.storePreparation')
+    : firstInstallAvailable
+    ? ''
     : projectRootMissing
     ? t('setup.chooseFolderHelp')
     : projectRootInstallable
@@ -701,68 +781,102 @@ function AppContent() {
       return null;
     }
 
-    const title = bundledSyncRetryAvailable
-      ? t('update.syncPaused')
-      : updateProgress
-      ? t('update.inProgress')
+    // Updates are always optional: the card offers Update now / Later /
+    // Skip this version, and Start keeps launching the installed version.
+    if (updateProgress) {
+      return (
+        <div className="prelaunch-update-card" role="status" aria-live="polite">
+          <div className="prelaunch-update-copy">
+            <span className="prelaunch-update-kicker">{t('update.kicker')}</span>
+            <strong>{t('update.inProgress')}</strong>
+            <p>{updateProgress.message}</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (bundledSyncRetryAvailable) {
+      return (
+        <div className="prelaunch-update-card">
+          <div className="prelaunch-update-copy">
+            <span className="prelaunch-update-kicker">{t('update.kicker')}</span>
+            <strong>{t('update.syncPaused')}</strong>
+            <p>{updateNotice || t('update.previousAvailable')}</p>
+          </div>
+          <div className="update-offer-actions">
+            <button type="button" className="btn-primary" onClick={startBundledSync} disabled={Boolean(busy)}>
+              <RefreshCw size={13} />
+              {t('update.retrySync')}
+            </button>
+            <button type="button" className="btn-secondary" onClick={() => { setBundledSyncRetryAvailable(false); deferUpdate(); }} disabled={Boolean(busy)}>
+              {t('update.later')}
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (updateOffer && !updateOfferHidden) {
+      return (
+        <div className="prelaunch-update-card update-offer">
+          <div className="prelaunch-update-copy">
+            <span className="prelaunch-update-kicker">{t('update.kicker')}</span>
+            <strong>{t('update.offerTitle', { version: updateOffer.version })}</strong>
+            <p>
+              {updateOffer.blockedByNode
+                ? t('update.nodeUpgradeBeforeInstall')
+                : t('update.offerOnline')}
+            </p>
+          </div>
+          <div className="update-offer-actions">
+            <button
+              type="button"
+              className="btn-primary"
+              onClick={applyUpdateOffer}
+              disabled={Boolean(busy) || updateOffer.blockedByNode}
+            >
+              <Download size={13} />
+              {t('update.updateNow')}
+            </button>
+            <button type="button" className="btn-secondary" onClick={deferUpdate} disabled={Boolean(busy)}>
+              {t('update.later')}
+            </button>
+            <button type="button" className="btn-secondary" onClick={skipUpdate} disabled={Boolean(busy)}>
+              {t('update.skipVersion')}
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    const title = updateOffer
+      ? updateOfferSkipped
+        ? t('update.skippedTitle', { version: updateOffer.version })
+        : t('update.postponedTitle', { version: updateOffer.version })
       : checkingUpdates
         ? t('update.checking')
         : updateResult
-          ? updateAvailable
-            ? t('update.availableBeforeLaunch')
-            : t('update.checkedBeforeLaunch')
-          : t('update.checkBeforeLaunch');
-
-    const detail = bundledSyncRetryAvailable
-      ? updateNotice || t('update.previousAvailable')
-      : updateProgress
-      ? updateProgress.message
-      : checkingUpdates
-        ? t('update.lookingForReleases')
-        : updateResult
-          ? updateBlockedByNode
-            ? t('update.nodeUpgradeBeforeInstall')
-            : updateAvailable
-              ? t('update.installBeforeStart')
-              : t('update.noneAvailable')
-          : t('update.verifyBeforeStart');
-
-    const buttonLabel = bundledSyncRetryAvailable
-      ? t('update.retrySync')
-      : checkingUpdates
-      ? t('common.checking')
-      : updateAvailable
-        ? t('update.updateFirst')
-        : updateResult
-          ? t('common.checkAgain')
-          : t('update.checkUpdates');
-
-    const buttonIcon = bundledSyncRetryAvailable
-      ? <RefreshCw size={13} />
-      : checkingUpdates
-      ? <Loader2 size={13} className="spin" />
-      : updateAvailable
-        ? <Download size={13} />
-        : <RefreshCw size={13} />;
+          ? t('update.noneAvailable')
+          : t('update.checkForUpdates');
 
     return (
       <div className="prelaunch-update-card">
         <div className="prelaunch-update-copy">
           <span className="prelaunch-update-kicker">{t('update.kicker')}</span>
           <strong>{title}</strong>
-          <p>{detail}</p>
+          <p>{updateOffer ? t('update.postponedBody') : checkingUpdates ? t('update.lookingForReleases') : t('update.optionalHelp')}</p>
         </div>
-        <button
-          type="button"
-          className={bundledSyncRetryAvailable || updateAvailable ? 'btn-primary' : 'btn-secondary'}
-          onClick={bundledSyncRetryAvailable ? retryBundledSync : updateAvailable ? triggerUpdate : checkForUpdates}
-          disabled={bundledSyncRetryAvailable
-            ? Boolean(busy)
-            : checkingUpdates || Boolean(updateProgress) || (updateAvailable && (updateBlockedByNode || busy === 'update'))}
-        >
-          {buttonIcon}
-          {buttonLabel}
-        </button>
+        {updateOffer ? (
+          <button type="button" className="btn-secondary" onClick={reviewUpdateOffer} disabled={Boolean(busy)}>
+            <Download size={13} />
+            {t('update.review')}
+          </button>
+        ) : (
+          <button type="button" className="btn-secondary" onClick={checkForUpdates} disabled={checkingUpdates || Boolean(busy)}>
+            {checkingUpdates ? <Loader2 size={13} className="spin" /> : <RefreshCw size={13} />}
+            {checkingUpdates ? t('common.checking') : updateResult ? t('common.checkAgain') : t('update.checkUpdates')}
+          </button>
+        )}
       </div>
     );
   };
@@ -793,7 +907,9 @@ function AppContent() {
 
   useEffect(() => {
     if (active && !serverReady) {
-      const t = setInterval(() => setWarmup(p => p < 90 ? p + 10 : p), 300);
+      // The first start of a fresh install can take up to two minutes, so the
+      // bar slows down as it approaches the end instead of stalling early.
+      const t = setInterval(() => setWarmup(p => p < 95 ? p + Math.max(1, Math.round((95 - p) / 12)) : p), 600);
       return () => clearInterval(t);
     }
     if (serverReady) setWarmup(100);
@@ -821,8 +937,18 @@ function AppContent() {
       || !hasTauriRuntime()
     ) return;
     setOpenedUrl(active.frontendUrl);
-    invoke('open_app', { url: active.frontendUrl }).catch(e => setNotice(String(e)));
-  }, [active, busy, serverReady, settings.autoOpen, openedUrl]);
+    const opened = settings.appMode
+      ? invoke('open_app_window', { url: active.frontendUrl, reload: true })
+      : invoke('open_app', { url: active.frontendUrl });
+    opened.catch(e => setNotice(String(e)));
+  }, [active, busy, serverReady, settings.autoOpen, settings.appMode, openedUrl]);
+
+  const openActiveApp = (url: string) => run(
+    'open browser',
+    () => settings.appMode
+      ? invoke('open_app_window', { url })
+      : invoke('open_app', { url }),
+  );
 
   useEffect(() => {
     const certificateNeedsRefresh = Boolean(
@@ -885,7 +1011,7 @@ function AppContent() {
 
       try {
         const result = await invoke<PortCheckResult>('check_ports', {
-          request: { backendPort: selectedBackendPort, frontendPort: selectedFrontendPort },
+          request: { backendPort: selectedBackendPort, frontendPort: selectedFrontendPort, singlePort },
         });
         if (!cancelled) setPortCheck(result);
       } catch (e) {
@@ -913,6 +1039,7 @@ function AppContent() {
   }, [
     isStoreBuild,
     portCheckRevision,
+    singlePort,
     selectedProfileId,
     selectedBackendPort,
     selectedFrontendPort,
@@ -949,7 +1076,7 @@ function AppContent() {
       setPortUi(String(suggested.frontendPort));
       setPortCheck(null);
       setPortCheckRevision(current => current + 1);
-      setNotice(isStoreBuild
+      setNotice(singlePort
         ? t('status.randomLocalPort', { port: suggested.backendPort })
         : t('status.randomPorts', { backend: suggested.backendPort, frontend: suggested.frontendPort }));
     } catch (error) {
@@ -1152,8 +1279,9 @@ function AppContent() {
     const backendPort = launchBackendPort;
     const frontendPort = launchFrontendPort;
     if (portApi.trim()) entries['PORT'] = String(backendPort);
-    if (portUi.trim()) entries['FRONTEND_PORT'] = String(frontendPort);
-    if (portUi.trim()) entries['VITE_PORT'] = String(frontendPort);
+    // The production server has no separate UI port.
+    if (!singlePort && portUi.trim()) entries['FRONTEND_PORT'] = String(frontendPort);
+    if (!singlePort && portUi.trim()) entries['VITE_PORT'] = String(frontendPort);
 
     if (Object.keys(entries).length > 0 && hasTauriRuntime()) {
       try { await invoke('write_env', { overrides: overrides(settings), request: { entries } }); }
@@ -1173,10 +1301,43 @@ function AppContent() {
   }, [autoStartPending, snapshot, ready, busy, stopped, userStarted, portCheck]);
 
   useEffect(() => {
-    if (busy !== 'install') return;
+    if (busy !== 'install' && busy !== 'first-install') return;
     const timer = window.setInterval(() => setElapsedNow(Date.now()), 1000);
     return () => window.clearInterval(timer);
   }, [busy]);
+
+  /* ── First install of the app that ships with the launcher ── */
+  const doFirstInstall = async () => {
+    setSetupAutoBlocked(false);
+    setNotice('');
+    setInstallStartedAt(Date.now());
+    setElapsedNow(Date.now());
+    setFirstInstall({ state: 'Preparing', message: t('firstInstall.statePreparing'), progress: 0.02 });
+    setBusy('first-install');
+    try {
+      if (!hasTauriRuntime()) {
+        await new Promise(r => setTimeout(r, 1500));
+        setFirstInstall({ state: 'Completed', message: t('firstInstall.stateCompleted'), progress: 1 });
+        setNotice(t('status.browserPreview'));
+        return;
+      }
+      await invoke<CommandResult>('install_managed_app', { overrides: overrides(settings) });
+      // Start the freshly installed app once, exactly like pressing Start.
+      setAutoStartPending(true);
+      setUserStarted(true);
+      setStopped(false);
+      await refresh();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      setFirstInstall({ state: 'Failed', message, progress: 1, error: message });
+      setSetupAutoBlocked(true);
+      setAutoStartPending(false);
+      setUserStarted(false);
+    } finally {
+      setInstallStartedAt(null);
+      setBusy(null);
+    }
+  };
 
   /* ── Render ── */
   if (!snapshot) return <div className="loading-state"><Loader2 size={28} className="spin" /><span>{t('status.loadingEnvironment')}</span></div>;
@@ -1186,7 +1347,10 @@ function AppContent() {
     const s = snapshot.setup;
     const installing = busy === 'install';
     const elapsedSeconds = installStartedAt ? Math.max(0, Math.floor((elapsedNow - installStartedAt) / 1000)) : 0;
-    const elapsedLabel = `${Math.floor(elapsedSeconds / 60)}:${String(elapsedSeconds % 60).padStart(2, '0')}`;
+    const elapsedLabel = formatElapsed(elapsedSeconds);
+    const firstInstalling = busy === 'first-install';
+    const showFirstInstall = firstInstalling || firstInstallAvailable;
+    const firstInstallFailed = !firstInstalling && firstInstall?.state === 'Failed';
 
     let msg = t('setup.waiting');
     if (!isStoreBuild && (!s.node || !s.npm)) msg = t('setup.nodeRequired');
@@ -1211,7 +1375,45 @@ function AppContent() {
           </span>
           <LanguageQuickPicker />
 
-          {installing ? (
+          {showFirstInstall ? (
+            <div className="action-stack first-install" style={{ width: '100%', marginTop: 28 }}>
+              <div className="prelaunch-update-card">
+                <div className="prelaunch-update-copy">
+                  <span className="prelaunch-update-kicker">{t('firstInstall.kicker')}</span>
+                  <strong>{firstInstalling ? t('firstInstall.installing') : firstInstallFailed ? t('firstInstall.stateFailed') : t('firstInstall.title')}</strong>
+                  <p>{firstInstallFailed ? firstInstall?.message : t('firstInstall.body')}</p>
+                </div>
+              </div>
+
+              {firstInstalling && firstInstall ? (
+                <div className="progress-wrap" role="status" aria-live="polite">
+                  <div className="progress-track"><div className="progress-fill" style={{ width: `${Math.round(firstInstall.progress * 100)}%` }} /></div>
+                  <div className="progress-meta">
+                    <span>{localizedInstallState(firstInstall.state, t)}</span>
+                    <span>{Math.round(firstInstall.progress * 100)}%</span>
+                  </div>
+                  <p className="field-hint">{t('firstInstall.elapsed', { elapsed: elapsedLabel })}</p>
+                </div>
+              ) : (
+                <button
+                  className="btn-primary"
+                  onClick={doFirstInstall}
+                  disabled={Boolean(busy)}
+                >
+                  {firstInstallFailed ? <RefreshCw size={16} /> : <Download size={16} />}
+                  {firstInstallFailed ? t('firstInstall.retry') : t('firstInstall.button')}
+                </button>
+              )}
+
+              <p className="field-hint">{t('firstInstall.network')}</p>
+
+              {!firstInstalling && (
+                <button type="button" className="btn-outline" onClick={chooseInstallFolder}>
+                  <FolderOpen size={13} /> {t('firstInstall.customFolder')}
+                </button>
+              )}
+            </div>
+          ) : installing ? (
             <div className="install-status" style={{ marginTop: 28 }}>
               <Loader2 size={18} className="spin" />
               <div>
@@ -1246,7 +1448,7 @@ function AppContent() {
                 disabled={Boolean(busy) || portBlocked || checkingPorts}
               >
                 {busy || checkingPorts ? <Loader2 size={16} className="spin" /> : <Play size={16} />}
-                {checkingPorts ? t('setup.checkingLocalPorts') : isStoreBuild ? t('setup.launchLocal') : projectRootBlocked ? t('setup.chooseInstallFolder') : projectRootInstallable ? t('setup.installLaunch') : existingHomeInventory ? t('setup.openRunning') : portBusy ? t('setup.launchOn', { backend: launchBackendPort, frontend: launchFrontendPort }) : t('setup.initializeLaunch')}
+                {checkingPorts ? t('setup.checkingLocalPorts') : isStoreBuild ? t('setup.launchLocal') : projectRootBlocked ? t('setup.chooseInstallFolder') : projectRootInstallable ? t('setup.installLaunch') : existingHomeInventory ? t('setup.openRunning') : portBusy ? (singlePort ? t('setup.launchOnPort', { port: launchBackendPort }) : t('setup.launchOn', { backend: launchBackendPort, frontend: launchFrontendPort })) : t('setup.initializeLaunch')}
               </button>
 
               {visibleLaunchNotice && (
@@ -1284,6 +1486,7 @@ function AppContent() {
                 portMessage={portMessage}
                 portBlocked={portStatusBlocked}
                 storeBuild={isStoreBuild}
+                singlePort={singlePort}
                 randomPortBusy={busy === 'random-ports'}
                 onChooseRandomPorts={chooseRandomPorts}
                 onUseSuggestedPorts={() => {
@@ -1314,7 +1517,7 @@ function AppContent() {
                 <h3>{t('setup.systemConsole')}</h3>
                 <button className="btn-secondary compact" onClick={() => setShowLogs(false)}>{t('common.close')}</button>
               </div>
-              <div className="drawer-body"><LogRows logs={snapshot.logs} /></div>
+              <div className="drawer-body"><LogConsole logs={snapshot.logs} /></div>
             </div>
           </div>
         )}
@@ -1358,6 +1561,7 @@ function AppContent() {
           <div className="progress-wrap" style={{ marginTop: 24 }}>
             <div className="progress-track"><div className="progress-fill" style={{ width: `${warmup}%` }} /></div>
             <div className="progress-meta"><span>{msg2}</span><span>{warmup}%</span></div>
+            {active && <p className="field-hint">{t('setup.warmupHint')}</p>}
           </div>
           <footer className="splash-footer center">
             <span>{active?.frontendUrl ?? `http://127.0.0.1:${launchFrontendPort}`}</span>
@@ -1390,115 +1594,37 @@ function AppContent() {
             <p>{t('running.help')}</p>
           </div>
 
-          <div className="running-qr">
-            <span className="running-qr-label">{t('running.standardLan')}</span>
-            <QrCodeCard url={activeLanUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
-            <div className={`lan-status ${lanStatus?.ok ? 'ok' : 'blocked'}`}>
-              <Wifi size={12} />
-              <span>{lanStatus ? localizedLanMessage(lanStatus, t) : t('running.lanPending')}</span>
-            </div>
-          </div>
-
-          {snapshot.httpsStatus ? (
-            <section className="mobile-https-card" aria-label={t('https.setupLabel')}>
-              <div className="mobile-https-heading">
-                <span className="mobile-https-icon"><ShieldCheck size={16} /></span>
-                <div>
-                  <strong>{t('https.title')}</strong>
-                  <span>{t('https.subtitle')}</span>
-                </div>
-              </div>
-
-              <div className="mobile-https-step-title">
-                <strong>{t('https.installTitle')}</strong>
-                <span>{t('https.choosePlatform')}</span>
-              </div>
-              <div className="mobile-https-qr-grid">
-                <div className="mobile-https-qr">
-                  <span>{t('https.ios')}</span>
-                  <QrCodeCard url={snapshot.httpsStatus.iosEnrollmentUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
-                  <small>{t('https.iosHelp')}</small>
-                </div>
-                <div className="mobile-https-qr">
-                  <span>{t('https.android')}</span>
-                  <QrCodeCard url={snapshot.httpsStatus.androidEnrollmentUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
-                  <div className="certificate-download-notice">
-                    <Download size={13} />
-                    <p>{t('https.downloadPrefix')} <strong>HomeInventory-Local-CA.crt</strong>, {t('https.downloadSuffix')}</p>
-                  </div>
-                  <label className="android-guide-picker">
-                    <span>{t('https.phoneBrand')}</span>
-                    <select
-                      value={androidGuideBrand}
-                      onChange={event => setAndroidGuideBrand(event.target.value as AndroidGuideBrand)}
-                    >
-                      {Object.entries(androidCertificateGuides).map(([value, guide]) => (
-                        <option key={value} value={value}>{guide.label}</option>
-                      ))}
-                    </select>
-                  </label>
-                  <ol className="android-guide-steps">
-                    <li>{t('https.scanDownload')}</li>
-                    <li><span>{t('https.typicalPath')}</span> {androidCertificateGuides[androidGuideBrand].path}</li>
-                    <li>{t('https.finishInstall')} <strong>{t('https.openSecureApp')}</strong>.</li>
-                  </ol>
-                  <small>{t('https.menuVariation')}</small>
-                </div>
-                <div className="mobile-https-qr secure-app-qr">
-                  <span>{t('https.openSecureApp')}</span>
-                  <QrCodeCard url={snapshot.httpsStatus.httpsUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
-                  <small>{t('https.secureHelp')}</small>
-                </div>
-              </div>
-
-              <div className="mobile-https-identity">
-                <span><strong>CA:</strong> {snapshot.httpsStatus.caName}</span>
-                <code title={snapshot.httpsStatus.caFingerprint}>{snapshot.httpsStatus.caFingerprint}</code>
-                <small>{t('https.linksExpire')}</small>
-              </div>
-              <div className="mobile-https-actions">
-                <button type="button" className="settings-action" onClick={enableMobileHttps} disabled={busy === 'mobile-https'}>
-                  <RefreshCw size={13} /> {t('https.refreshLinks')}
-                </button>
-                <button type="button" className="settings-action danger" onClick={disableMobileHttps} disabled={busy === 'mobile-https'}>
-                  <Power size={13} /> {t('https.disable')}
-                </button>
-                <button type="button" className="settings-action danger wide" onClick={rotateMobileCa} disabled={busy === 'mobile-https'}>
-                  <RotateCcw size={13} /> {t('https.rotate')}
-                </button>
-              </div>
-              <small className="mobile-https-removal">{t('https.removal')}</small>
-            </section>
-          ) : (
-            <section className="mobile-https-card mobile-https-compact" aria-label={t('https.optionalLabel')}>
-              <div className="mobile-https-heading">
-                <span className="mobile-https-icon"><Smartphone size={16} /></span>
-                <div>
-                  <strong>{t('https.wantCamera')}</strong>
-                  <span>{t('https.oneTimeSetup')}</span>
-                </div>
-              </div>
-              <button type="button" className="btn-secondary mobile-https-enable" onClick={enableMobileHttps} disabled={busy === 'mobile-https'}>
-                {busy === 'mobile-https' ? <Loader2 size={14} className="spin" /> : <ShieldCheck size={14} />}
-                {t('https.enable')}
-              </button>
-              <small>{t('https.normalRemains')}</small>
-            </section>
-          )}
+          <NetworkAccessPanel
+            snapshot={snapshot}
+            lanUrl={activeLanUrl}
+            busy={busy === 'mobile-https'}
+            onEnable={enableMobileHttps}
+            onDisable={disableMobileHttps}
+            onRotate={rotateMobileCa}
+          />
 
           <button
             className="open-app-button"
-            onClick={() => run('open browser', () => invoke('open_app', { url: active.frontendUrl }))}
-            title={t('running.openBrowser')}
+            onClick={() => openActiveApp(active.frontendUrl)}
+            title={settings.appMode ? t('appMode.open') : t('running.openBrowser')}
           >
             <span className="open-app-icon"><ExternalLink size={16} /></span>
-            <span>{t('running.openApp')}</span>
+            <span>{settings.appMode ? t('appMode.open') : t('running.openApp')}</span>
           </button>
+          {settings.appMode && (
+            <button
+              type="button"
+              className="mini-action open-browser-secondary"
+              onClick={() => run('open browser', () => invoke('open_app', { url: active.frontendUrl }))}
+            >
+              <Globe size={12} /> {t('running.openBrowser')}
+            </button>
+          )}
 
           <div className="running-meta">
             <span>App v{snapshot.appVersion}</span>
             <span>{t('common.launcher')} v{snapshot.launcherVersion}</span>
-            <span>{isStoreBuild ? t('running.port', { port: active.backendPort }) : t('running.ports', { backend: active.backendPort, frontend: active.frontendPort })}</span>
+            <span>{singlePort ? t('running.port', { port: active.backendPort }) : t('running.ports', { backend: active.backendPort, frontend: active.frontendPort })}</span>
           </div>
 
           <div className="running-actions" aria-label={t('running.controls')}>
@@ -1549,41 +1675,41 @@ function AppContent() {
         </div>
         <p className="splash-subtitle dimmed">{stopped ? t('setup.servicesStopped') : t('setup.readyToLaunch')}</p>
         <span className="version-badge">{stopped ? t('common.offline') : t('common.ready')}</span>
-        <LanguageQuickPicker />
+        <div className="quick-row">
+          <LanguageQuickPicker />
+          <AppModeQuickToggle
+            checked={settings.appMode}
+            onChange={appMode => setSettings({ ...settings, appMode })}
+          />
+        </div>
 
         <div className="action-stack" style={{ marginTop: 24 }}>
           {renderPreLaunchUpdateCheck()}
 
           <button
             className="btn-primary"
-            disabled={Boolean(busy) || checkingUpdates || checkingPorts || Boolean(updateProgress) || !selProfile || portBlocked || (updateAvailable && updateBlockedByNode)}
+            disabled={Boolean(busy) || checkingPorts || Boolean(updateProgress) || !selProfile || portBlocked}
             onClick={() => {
               if (projectRootBlocked) {
                 chooseInstallFolder();
                 return;
               }
-              if (updateAvailable) {
-                triggerUpdate();
-                return;
-              }
+              // Start always runs the installed version; updates are offered
+              // separately and never replace this action.
               if (selProfile) doLaunch(selProfile);
             }}
           >
-            {busy?.startsWith('start-') || checkingUpdates || checkingPorts ? <Loader2 size={16} className="spin" /> : updateAvailable ? <Download size={16} /> : <Play size={16} />}
+            {busy?.startsWith('start-') || checkingPorts ? <Loader2 size={16} className="spin" /> : <Play size={16} />}
             {checkingPorts
               ? t('setup.checkingLocalPorts')
-              : checkingUpdates
-              ? t('setup.checkingUpdates')
-              : updateAvailable
-                ? t('setup.updateApp', { version: updateResult?.latestAppVersion || '' })
-                : isStoreBuild
+              : isStoreBuild
                   ? startButtonLabel
                   : projectRootBlocked
                     ? t('setup.chooseInstallFolder')
                     : existingHomeInventory
                       ? t('setup.openRunning')
                     : portBusy
-                      ? t('setup.launchOn', { backend: launchBackendPort, frontend: launchFrontendPort })
+                      ? (singlePort ? t('setup.launchOnPort', { port: launchBackendPort }) : t('setup.launchOn', { backend: launchBackendPort, frontend: launchFrontendPort }))
                       : startButtonLabel}
           </button>
 
@@ -1622,6 +1748,7 @@ function AppContent() {
             portMessage={portMessage}
             portBlocked={portStatusBlocked}
             storeBuild={isStoreBuild}
+            singlePort={singlePort}
             randomPortBusy={busy === 'random-ports'}
             onChooseRandomPorts={chooseRandomPorts}
             onUseSuggestedPorts={() => {
@@ -1637,7 +1764,7 @@ function AppContent() {
         </div>
 
         <footer className="splash-footer center">
-          <span>{isStoreBuild ? `Local: ${launchBackendPort}` : `API: ${launchBackendPort} · UI: ${launchFrontendPort}`}</span>
+          <span>{singlePort ? `Local: ${launchBackendPort}` : `API: ${launchBackendPort} · UI: ${launchFrontendPort}`}</span>
         </footer>
       </div>
 
@@ -1665,13 +1792,13 @@ function AppContent() {
 }
 
 /* ── Shared Advanced Config Panel ── */
-function AdvancedConfigPanel({
+export function AdvancedConfigPanel({
   showAdvanced, setShowAdvanced, resendKey, setResendKey,
   emailFrom, setEmailFrom, supportEmail, setSupportEmail,
   bootstrapAdminEmail, setBootstrapAdminEmail,
   portApi, setPortApi, portUi, setPortUi, localIp,
-  lanStatus, portCheck, portMessage, portBlocked, storeBuild, randomPortBusy,
-  onChooseRandomPorts, onUseSuggestedPorts,
+  lanStatus, portCheck, portMessage, portBlocked, storeBuild, singlePort, randomPortBusy,
+  onChooseRandomPorts, onUseSuggestedPorts, embedded = false,
 }: {
   showAdvanced: boolean; setShowAdvanced: (v: boolean) => void;
   resendKey: string; setResendKey: (v: string) => void;
@@ -1686,24 +1813,28 @@ function AdvancedConfigPanel({
   portMessage: string;
   portBlocked: boolean;
   storeBuild: boolean;
+  /** One port serves the app and the API (Store and production installs). */
+  singlePort: boolean;
   randomPortBusy: boolean;
   onChooseRandomPorts: () => void;
   onUseSuggestedPorts: () => void;
+  /** Inside the app window drawer: always open, network help lives elsewhere. */
+  embedded?: boolean;
 }) {
   const { t } = useLauncherI18n();
-  const uiPort = portUi.trim() || '5173';
+  const uiPort = singlePort ? portApi.trim() || '3001' : portUi.trim() || '5173';
   const lanUrl = lanStatus?.frontendUrl || (localIp ? `http://${localIp}:${uiPort}` : null);
 
   return (
     <>
-      <div className="divider"><span>{t('advanced.title')}</span></div>
+      {!embedded && <div className="divider"><span>{t('advanced.title')}</span></div>}
 
-      <button className="advanced-toggle" onClick={() => setShowAdvanced(!showAdvanced)}>
+      {!embedded && <button className="advanced-toggle" onClick={() => setShowAdvanced(!showAdvanced)}>
         <ChevronRight size={12} className={`chevron ${showAdvanced ? 'open' : ''}`} />
         {t('advanced.configuration')}
-      </button>
+      </button>}
 
-      <div className={`collapse-panel ${showAdvanced ? 'open' : ''}`}>
+      <div className={`collapse-panel ${showAdvanced || embedded ? 'open' : ''}`}>
         <div className="config-grid">
           <div className="guide-box">
             <div className="guide-title">
@@ -1713,7 +1844,7 @@ function AdvancedConfigPanel({
             <ul>
               <li><strong>{t('advanced.emailLabel')}</strong> {t('advanced.emailHelp')}</li>
               <li><strong>{t('advanced.adminLabel')}</strong> {t('advanced.adminHelp')}</li>
-              <li><strong>{t('advanced.networkLabel')}</strong> {storeBuild ? t('advanced.networkStore') : t('advanced.networkDesktop')}</li>
+              <li><strong>{t('advanced.networkLabel')}</strong> {storeBuild ? t('advanced.networkStore') : singlePort ? t('advanced.networkSingle') : t('advanced.networkDesktop')}</li>
             </ul>
           </div>
 
@@ -1768,17 +1899,17 @@ function AdvancedConfigPanel({
           <div className="config-section">
             <div className="config-section-header">
               <Globe size={13} />
-              <span>{storeBuild ? t('advanced.localPort') : t('advanced.networkPorts')}</span>
+              <span>{singlePort ? t('advanced.localPort') : t('advanced.networkPorts')}</span>
               <span className="config-badge required">{t('common.required')}</span>
             </div>
-            <div className={storeBuild ? '' : 'row-2'}>
+            <div className={singlePort ? '' : 'row-2'}>
               <div className="field">
-                <label className="field-label">{storeBuild ? t('advanced.localPort') : t('advanced.apiPort')}</label>
+                <label className="field-label">{singlePort ? t('advanced.localPort') : t('advanced.apiPort')}</label>
                 <input className={`field-input ${portBlocked && !portCheck?.backendOk ? 'invalid' : ''}`}
                   type="number" inputMode="numeric" min={1024} max={65535} value={portApi}
                   onChange={e => setPortApi(sanitizePortInput(e.target.value))} placeholder="3001" />
               </div>
-              {!storeBuild && (
+              {!singlePort && (
                 <div className="field">
                   <label className="field-label">{t('advanced.uiPort')}</label>
                   <input className={`field-input ${portBlocked && !portCheck?.frontendOk ? 'invalid' : ''}`}
@@ -1787,23 +1918,23 @@ function AdvancedConfigPanel({
                 </div>
               )}
             </div>
-            <span className="field-hint">{storeBuild ? t('advanced.storePortHelp') : t('advanced.desktopPortHelp')}</span>
+            <span className="field-hint">{singlePort ? t('advanced.storePortHelp') : t('advanced.desktopPortHelp')}</span>
             <button type="button" className="mini-action random-port-action" onClick={onChooseRandomPorts} disabled={randomPortBusy}>
               {randomPortBusy ? <Loader2 size={12} className="spin" /> : <Shuffle size={12} />}
-              {storeBuild ? t('advanced.randomPort') : t('advanced.randomPorts')}
+              {singlePort ? t('advanced.randomPort') : t('advanced.randomPorts')}
             </button>
             <div className={`port-status ${portBlocked ? 'blocked' : 'ok'}`}>
               <span>{portMessage}</span>
               {portBlocked && portCheck && (
                 <button type="button" className="mini-action" onClick={onUseSuggestedPorts}>
-                  {storeBuild ? t('advanced.usePort', { port: portCheck.suggestedBackendPort }) : t('advanced.usePorts', { backend: portCheck.suggestedBackendPort, frontend: portCheck.suggestedFrontendPort })}
+                  {singlePort ? t('advanced.usePort', { port: portCheck.suggestedBackendPort }) : t('advanced.usePorts', { backend: portCheck.suggestedBackendPort, frontend: portCheck.suggestedFrontendPort })}
                 </button>
               )}
             </div>
           </div>
 
           {/* LAN Access Guide + QR */}
-          <div className="tip-box">
+          {!embedded && <div className="tip-box">
             <div className="tip-header">
               <Wifi size={13} />
               <span>{t('advanced.otherDevices')}</span>
@@ -1831,7 +1962,7 @@ function AdvancedConfigPanel({
                 </div>
               </>
             )}
-          </div>
+          </div>}
 
         </div>
       </div>
@@ -1840,10 +1971,129 @@ function AdvancedConfigPanel({
 }
 
 /* ── Shared Dev Panel ── */
-function DevPanelContent({
+/* LAN address and optional mobile HTTPS: shown by the classic launcher and
+ * by the app window sidebar. */
+export function NetworkAccessPanel({ snapshot, lanUrl, busy, onEnable, onDisable, onRotate }: {
+  snapshot: LauncherSnapshot;
+  lanUrl: string;
+  busy: boolean;
+  onEnable: () => void;
+  onDisable: () => void;
+  onRotate: () => void;
+}) {
+  const { t } = useLauncherI18n();
+  const [androidGuideBrand, setAndroidGuideBrand] = useState<AndroidGuideBrand>('samsung');
+  const androidCertificateGuides = useMemo<Record<AndroidGuideBrand, { label: string; path: string }>>(() => ({
+    samsung: { label: t('android.samsung'), path: t('android.samsungPath') },
+    pixel: { label: t('android.pixel'), path: t('android.pixelPath') },
+    other: { label: t('android.other'), path: t('android.otherPath') },
+  }), [t]);
+
+  return (
+    <>
+      <div className="running-qr">
+        <span className="running-qr-label">{t('running.standardLan')}</span>
+        <QrCodeCard url={lanUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
+        <div className={`lan-status ${snapshot.lanStatus?.ok ? 'ok' : 'blocked'}`}>
+          <Wifi size={12} />
+          <span>{snapshot.lanStatus ? localizedLanMessage(snapshot.lanStatus, t) : t('running.lanPending')}</span>
+        </div>
+      </div>
+
+      {snapshot.httpsStatus ? (
+        <section className="mobile-https-card" aria-label={t('https.setupLabel')}>
+          <div className="mobile-https-heading">
+            <span className="mobile-https-icon"><ShieldCheck size={16} /></span>
+            <div>
+              <strong>{t('https.title')}</strong>
+              <span>{t('https.subtitle')}</span>
+            </div>
+          </div>
+
+          <div className="mobile-https-step-title">
+            <strong>{t('https.installTitle')}</strong>
+            <span>{t('https.choosePlatform')}</span>
+          </div>
+          <div className="mobile-https-qr-grid">
+            <div className="mobile-https-qr">
+              <span>{t('https.ios')}</span>
+              <QrCodeCard url={snapshot.httpsStatus.iosEnrollmentUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
+              <small>{t('https.iosHelp')}</small>
+            </div>
+            <div className="mobile-https-qr">
+              <span>{t('https.android')}</span>
+              <QrCodeCard url={snapshot.httpsStatus.androidEnrollmentUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
+              <div className="certificate-download-notice">
+                <Download size={13} />
+                <p>{t('https.downloadPrefix')} <strong>HomeInventory-Local-CA.crt</strong>, {t('https.downloadSuffix')}</p>
+              </div>
+              <label className="android-guide-picker">
+                <span>{t('https.phoneBrand')}</span>
+                <select
+                  value={androidGuideBrand}
+                  onChange={event => setAndroidGuideBrand(event.target.value as AndroidGuideBrand)}
+                >
+                  {Object.entries(androidCertificateGuides).map(([value, guide]) => (
+                    <option key={value} value={value}>{guide.label}</option>
+                  ))}
+                </select>
+              </label>
+              <ol className="android-guide-steps">
+                <li>{t('https.scanDownload')}</li>
+                <li><span>{t('https.typicalPath')}</span> {androidCertificateGuides[androidGuideBrand].path}</li>
+                <li>{t('https.finishInstall')} <strong>{t('https.openSecureApp')}</strong>.</li>
+              </ol>
+              <small>{t('https.menuVariation')}</small>
+            </div>
+            <div className="mobile-https-qr secure-app-qr">
+              <span>{t('https.openSecureApp')}</span>
+              <QrCodeCard url={snapshot.httpsStatus.httpsUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
+              <small>{t('https.secureHelp')}</small>
+            </div>
+          </div>
+
+          <div className="mobile-https-identity">
+            <span><strong>CA:</strong> {snapshot.httpsStatus.caName}</span>
+            <code title={snapshot.httpsStatus.caFingerprint}>{snapshot.httpsStatus.caFingerprint}</code>
+            <small>{t('https.linksExpire')}</small>
+          </div>
+          <div className="mobile-https-actions">
+            <button type="button" className="settings-action" onClick={onEnable} disabled={busy}>
+              <RefreshCw size={13} /> {t('https.refreshLinks')}
+            </button>
+            <button type="button" className="settings-action danger" onClick={onDisable} disabled={busy}>
+              <Power size={13} /> {t('https.disable')}
+            </button>
+            <button type="button" className="settings-action danger wide" onClick={onRotate} disabled={busy}>
+              <RotateCcw size={13} /> {t('https.rotate')}
+            </button>
+          </div>
+          <small className="mobile-https-removal">{t('https.removal')}</small>
+        </section>
+      ) : (
+        <section className="mobile-https-card mobile-https-compact" aria-label={t('https.optionalLabel')}>
+          <div className="mobile-https-heading">
+            <span className="mobile-https-icon"><Smartphone size={16} /></span>
+            <div>
+              <strong>{t('https.wantCamera')}</strong>
+              <span>{t('https.oneTimeSetup')}</span>
+            </div>
+          </div>
+          <button type="button" className="btn-secondary mobile-https-enable" onClick={onEnable} disabled={busy}>
+            {busy ? <Loader2 size={14} className="spin" /> : <ShieldCheck size={14} />}
+            {t('https.enable')}
+          </button>
+          <small>{t('https.normalRemains')}</small>
+        </section>
+      )}
+    </>
+  );
+}
+
+export function DevPanelContent({
   snapshot, profiles, settings, setSettings, devTab, setDevTab, busy, notice,
   onNotice, onClose, onBackup, onStop,
-  updateResult, checkingUpdates, updateProgress, updateNotice, onCheckUpdates, onTriggerUpdate,
+  updateResult, checkingUpdates, updateProgress, updateNotice, onCheckUpdates, onTriggerUpdate, embedded = false,
 }: {
   snapshot: LauncherSnapshot; profiles: ProfileStatus[];
   settings: LauncherSettings; setSettings: (s: LauncherSettings) => void;
@@ -1857,6 +2107,8 @@ function DevPanelContent({
   updateNotice: string;
   onCheckUpdates: () => Promise<void>;
   onTriggerUpdate: () => Promise<void>;
+  /** Inside the app window drawer, which brings its own header and tabs. */
+  embedded?: boolean;
 }) {
   const { locale, setLocale, t } = useLauncherI18n();
   const isStoreBuild = snapshot.storeBuild;
@@ -1912,23 +2164,23 @@ function DevPanelContent({
 
   return (
     <>
-      <header className="modal-header">
+      {!embedded && <header className="modal-header">
         <div className="modal-header-left">
           <Archive size={15} className="accent-icon" />
           <h3>{t('dev.console')}</h3>
         </div>
         <button className="close-x" onClick={onClose} aria-label={t('common.close')}>✕</button>
-      </header>
+      </header>}
 
-      <nav className="modal-tabs">
+      {!embedded && <nav className="modal-tabs">
         <button className={devTab === 'logs' ? 'active' : ''} onClick={() => setDevTab('logs')}>{t('dev.logs')}</button>
         <button className={devTab === 'backups' ? 'active' : ''} onClick={() => setDevTab('backups')}>{t('dev.backups')}</button>
         <button className={devTab === 'settings' ? 'active' : ''} onClick={() => setDevTab('settings')}>{t('dev.settings')}</button>
         {!isStoreBuild && <button className={devTab === 'updates' ? 'active' : ''} onClick={() => setDevTab('updates')}>{t('dev.updates')}</button>}
-      </nav>
+      </nav>}
 
       <div className="modal-body">
-        {devTab === 'logs' && <div className="tab-logs"><LogRows logs={snapshot.logs} /></div>}
+        {devTab === 'logs' && <div className="tab-logs"><LogConsole logs={snapshot.logs} /></div>}
 
         {!isStoreBuild && devTab === 'updates' && (
           <div className="tab-updates">
@@ -2136,6 +2388,20 @@ function DevPanelContent({
               </div>
             </section>
 
+            <section className="language-settings-card app-mode-card" aria-label={t('appMode.title')}>
+              <label className="app-mode-toggle">
+                <input
+                  type="checkbox"
+                  checked={settings.appMode}
+                  onChange={event => setSettings({ ...settings, appMode: event.target.checked })}
+                />
+                <span>
+                  <strong>{t('appMode.title')}</strong>
+                  <small>{t('appMode.toggleHelp')}</small>
+                </span>
+              </label>
+            </section>
+
             {!isStoreBuild && <>
               <PathSettingField
                 label={t('dev.installFolder')}
@@ -2187,30 +2453,15 @@ function DevPanelContent({
         )}
       </div>
 
-      <footer className="modal-footer">
+      {!embedded && <footer className="modal-footer">
         {onStop && <button className="btn-danger" onClick={onStop}><Power size={13} /> {t('dev.stopServer')}</button>}
         <span className="notice-text">{notice}</span>
-      </footer>
+      </footer>}
     </>
   );
 }
 
 /* ── Small components ── */
-function LogRows({ logs }: { logs: LogEntry[] }) {
-  const { t } = useLauncherI18n();
-  if (!logs.length) return <div className="empty-log">{t('dev.noLogs')}</div>;
-  return (
-    <div className="log-rows">
-      {logs.map((l, i) => (
-        <div className="log-row" key={`${l.timestamp}-${i}`}>
-          <span className={`log-dot ${l.level}`} />
-          <span className="log-source">{l.source}</span>
-          <code>{l.message}</code>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 function PathSettingField({ label, value, placeholder, hint, onChange, onChoose, onOpen, onReset }: {
   label: string;
@@ -2246,7 +2497,7 @@ function PathSettingField({ label, value, placeholder, hint, onChange, onChoose,
 }
 
 /* ── Mock data for browser preview ── */
-function mockSnapshot(settings: LauncherSettings, t: Translate): LauncherSnapshot {
+export function mockSnapshot(settings: LauncherSettings, t: Translate): LauncherSnapshot {
   const root = settings.projectPath || '/Users/demo/HomeInventory';
   const data = '/Users/demo/Library/Application Support/net.homeinventory.launcher';
   const runningPreview = new URLSearchParams(window.location.search).get('preview') === 'running';
@@ -2255,6 +2506,7 @@ function mockSnapshot(settings: LauncherSettings, t: Translate): LauncherSnapsho
     appVersion: LAUNCHER_VERSION,
     appSource: settings.projectPath ? 'custom' : 'development',
     bundledSyncRequired: false,
+    runMode: 'development',
     distribution: 'standard',
     storeBuild: false,
     projectRoot: root, appDataDir: data, activeProfileId: runningPreview ? 'homeinventory' : null,

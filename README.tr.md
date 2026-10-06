@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Sürüm durumu: v2.7.0 release line. -->
+<!-- Sürüm durumu: v2.8.0 release line. -->
 
 <p align="center">
   <strong>Paylaşımlı evler için özel, self-host edilebilir ev envanteri.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
 
 > [!NOTE]
-> **v2.7.0 güncel release hattıdır.** Pratik parola kuralları, hesap bazlı kademeli giriş gecikmesi, offline zayıf parola koruması, mobil kamera için isteğe bağlı LAN HTTPS, beş launcher dili, rastgele port seçimi ve senkron yönetilen uygulama/Launcher güncellemeleri getirir.
+> **v2.8.0 güncel release hattıdır.** Hazır çok mimarili Docker imajı, tek komutla gizli anahtar kurulumu, geri yüklemeli otomatik sunucu yedekleri, self-host kullanıcıları için yeni sürüm bildirimi ve isteğe bağlı güncellemeler ile isteğe bağlı uygulama penceresi sunan daha hızlı bir masaüstü launcher getirir.
 
 ## Neden HomeInventory
 
@@ -108,6 +108,7 @@ HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtl
 | Etiket ve tarama | Önce yerel envanteri kullanan, dış katalog aramasını onaya bağlayan barkod akışı; responsive Full HD barkod/QR tarama, desteklenen cihazlarda flaş/zoom, markalı eşya/kutu QR etiketleri, oda/raf etiketleri ve kesim çizgileri |
 | Uyarılar ve servis | Düşük stok, son kullanma, garanti, bakım ve ödünç iade için odaklı takip ekranları |
 | Yedekleme ve geri yükleme | Sadece ev sahibine açık standart/tam dışa ve içe aktarma; parola ile şifreleme, kutu metadata'sı, atamaları ve arşiv durumu ile isteğe bağlı medya/ek dosya kapsamı |
+| Otomatik sunucu yedekleri | Yalnızca yöneticiye açık, zamanlanmış SQLite anlık görüntüleri (varsayılan: günlük, son 7 yedek saklanır); indirme, yükleme ve bir güvenlik kopyası alındıktan sonra sonraki yeniden başlatmada uygulanan doğrulanmış geri yükleme. Ayrıntılar: [DOCKER.md](DOCKER.md#backup) |
 | Aktivite geçmişi | Düzenleme, stok değişimi, ek dosya, ödünç ve toplu işlemler için korumalı eşya aktivite kaydı |
 | Kimlik doğrulama | JWT, Google OAuth, e-posta doğrulama, TOTP 2FA, güvenilen cihaz ve recovery key |
 | Masaüstü Başlatıcı | Yerel kurulum, bağımlılık kontrolü, profil başlatma/durdurma, otomatik tarayıcı açma, yedekleme, log, gelişmiş ayarlar, port kontrolü, QR/LAN erişimi ve [mobil kamera için isteğe bağlı offline HTTPS](docs/offline-mobile-https.md) sunan Tauri GUI ve release paketleri |
@@ -180,19 +181,18 @@ npm run install-all
 
 #### 2. Yerel ortam dosyasını oluştur
 ```bash
-cp .env.example .env
+npm run setup
 ```
-`.env` dosyasının içine en az şu değerleri tanımlayın:
+Bu komut `.env` dosyası yoksa `.env.example` dosyasından oluşturur ve `JWT_SECRET`, `APP_ENCRYPTION_KEY` ile `APP_ENCRYPTION_KEY_ID` değerlerini güçlü rastgele değerlerle doldurur. Mevcut değerlerin üzerine asla yazılmaz. Yerel geliştirme için ayrıca şunları ayarlayın:
 ```env
 NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
-JWT_SECRET=uzun-ve-rastgele-bir-secret
-APP_ENCRYPTION_KEY=32-byte-base64-veya-64-char-hex-key
-APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
-> [!TIP]
-> Güvenli secret'lar oluşturmak için `JWT_SECRET` tarafında `openssl rand -hex 32`, `APP_ENCRYPTION_KEY` tarafında `openssl rand -base64 32` kullanabilirsiniz.
+> [!WARNING]
+> `APP_ENCRYPTION_KEY` ve `APP_ENCRYPTION_KEY_ID` değerlerini yedekleyin: bunlar olmadan fotoğraflar dahil şifrelenmiş veriler kurtarılamaz.
+>
+> Elle oluşturmayı mı tercih edersiniz? `JWT_SECRET` için `openssl rand -hex 32`, `APP_ENCRYPTION_KEY` için `openssl rand -base64 32` kullanın.
 
 #### 3. Uygulamayı çalıştır
 ```bash
@@ -211,11 +211,19 @@ npm start
 
 ### Seçenek C: Docker Kurulumu
 
-HomeInventory'yi önceden yapılandırılmış konteynerler ile hızlıca dağıtın:
+HomeInventory'yi önceden derlenmiş imaj ile dağıtın; kaynak kodu indirmenize veya yerel derleme yapmanıza gerek yoktur:
 
 ```bash
+curl -O https://raw.githubusercontent.com/asdteke/HomeInventory/main/docker-compose.yml
+touch .env  # isteğe bağlı ayarlar, bkz. .env.example
+mkdir -p secrets
+docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/secrets:/secrets" \
+  ghcr.io/asdteke/homeinventory:latest node scripts/setup.mjs --docker --out /secrets
 docker compose up -d
 ```
+
+Compose, en yeni sürüm olan `ghcr.io/asdteke/homeinventory:latest` imajını çeker (amd64, arm64 ve armv7). `docker run` satırı `secrets/` klasöründe üç secret dosyasını, mevcut olanların üzerine yazmadan oluşturur. Bu dosyaları yedekleyin; şifreleme anahtarı olmadan şifrelenmiş veriler kurtarılamaz.
+
 Gelişmiş yapılandırma, reverse proxy kurulumu ve canlı ortam dağıtımları için [DOCKER.md](DOCKER.md) dosyasına bakın.
 
 ## Dokümantasyon

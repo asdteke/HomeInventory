@@ -597,11 +597,9 @@
     --hi-warning-soft: rgba(240, 179, 92, 0.17);
   }
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  /* No universal margin/padding reset here: Tailwind's preflight already does
+     it in the base layer. Repeating it in this layer would override the
+     zero-specificity space-x/space-y utilities and collapse their gaps. */
 
   html {
     scroll-behavior: smooth;
@@ -10452,4 +10450,11 @@ html.dark .shell-link-v27.is-compact.is-active .shell-link-icon-v27 {
   background: var(--hi-panel-muted) !important;
   box-shadow: none !important;
   transform: none;
+}
+
+/* Light/dark switch: a calm cross-fade (see ThemeContext). */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 420ms;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }

@@ -16,8 +16,11 @@ These settings match the public v2.7.0 release line.
 1. Install Node.js `22.23.3` or newer, then install dependencies:
    - `npm install`
    - `npm install --prefix client`
-2. Create local env file:
-   - `cp .env.example .env`
+2. Create the local env file and its secrets:
+   - `npm run setup` (creates `.env` from `.env.example` and generates
+     `JWT_SECRET`, `APP_ENCRYPTION_KEY` and `APP_ENCRYPTION_KEY_ID`; existing
+     values are never overwritten. Use `npm run setup -- --docker` for the
+     Docker secret files, see `DOCKER.md`.)
 3. Set at least:
    - `NODE_ENV`
    - `PORT`
@@ -39,6 +42,15 @@ Set these only if you need the related feature locally:
 - `GOOGLE_CLIENT_SECRET`
 - `RESEND_API_KEY`
 - `SUPPORT_EMAIL`
+
+`UPDATE_CHECK=false` turns off the admin panel's new-version notice, which
+otherwise asks `api.github.com` for the latest release when an admin opens the
+panel (cached for 12 hours, no user data sent). The desktop launcher sets it
+automatically because it has its own updater.
+
+### Automatic backups
+
+Automatic server backups run daily by default and keep the last 7 snapshots in `<data dir>/backups`. Override them with `BACKUP_SCHEDULE` (`daily`, `weekly`, `off`), `BACKUP_KEEP`, `BACKUP_DIR`, `BACKUP_UPLOAD_MAX_MB`, and `BACKUP_STARTUP_DELAY_SECONDS`. Admins can also change the schedule in **Admin panel → Backups**. Backups are only usable with the same `APP_ENCRYPTION_KEY` (and keyring). See [DOCKER.md](DOCKER.md#backup).
 
 ### Docker secrets
 

@@ -1,6 +1,6 @@
 {
   "name": "home-inventory",
-  "version": "2.7.4",
+  "version": "2.8.0",
   "description": "Private, self-hostable household inventory for shared homes",
   "main": "server.js",
   "type": "module",
@@ -14,6 +14,9 @@
     "client": "npm run dev --prefix client",
     "build": "npm run build --prefix client",
     "build:homeinventory": "npm run build --prefix client",
+    "setup": "node scripts/setup.mjs",
+    "test": "npm run build && npm run test:node",
+    "test:node": "node --test --test-concurrency=1 tests/*.test.mjs",
     "start": "NODE_ENV=production node server.js",
     "install-all": "npm install && cd client && npm install",
     "launcher:install": "npm install --prefix apps/launcher",
@@ -33,12 +36,9 @@
     "translate:dry": "node scripts/api-translate.mjs --dry-run"
   },
   "dependencies": {
-    "@vitalets/google-translate-api": "^9.2.1",
     "axios": "^1.20.0",
     "bcrypt": "^6.0.0",
     "better-sqlite3": "^11.10.0",
-    "bing-translate-api": "^4.3.0",
-    "cheerio": "^1.2.0",
     "compression": "^1.8.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
@@ -52,8 +52,8 @@
     "jose": "^6.2.12",
     "jsonwebtoken": "^9.0.2",
     "multer": "2.4.0",
-    "npmlog": "^7.0.1",
-    "oci-sdk": "^2.142.1",
+    "oci-common": "^2.142.1",
+    "oci-secrets": "^2.142.1",
     "otpauth": "^9.5.2",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
@@ -72,7 +72,7 @@
   "overrides": {
     "body-parser": "1.20.6",
     "qs": "6.16.0",
-    "shell-quote": "1.10.0",
+    "shell-quote": "1.12.0",
     "oci-common": {
       "uuid": "file:./vendor/uuid"
     },

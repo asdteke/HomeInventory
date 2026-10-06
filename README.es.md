@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Estado de la versión: línea de lanzamiento v2.7.0. -->
+<!-- Estado de la versión: línea de lanzamiento v2.8.0. -->
 
 <p align="center">
   <strong>Inventario privado y autoalojable para hogares compartidos.</strong><br/>
@@ -80,7 +80,7 @@
 HomeInventory está pensado para familias, compañeros de piso y hogares pequeños que necesitan un inventario práctico sin convertir registros privados en una hoja compartida.
 
 > [!NOTE]
-> **v2.7.0 es la línea de versión actual.** Añade una política de contraseñas práctica, retraso progresivo de acceso, bloqueo offline de contraseñas débiles, HTTPS LAN opcional para la cámara móvil y un lanzador localizado.
+> **v2.8.0 es la línea de versión actual.** Añade una imagen Docker lista para varias arquitecturas, configuración de secretos con un solo comando, copias de seguridad automáticas del servidor con restauración, un aviso de nueva versión para instalaciones propias y un lanzador más rápido con actualizaciones opcionales y una ventana de aplicación opcional.
 
 ## Por qué HomeInventory
 
@@ -104,6 +104,7 @@ HomeInventory está pensado para familias, compañeros de piso y hogares pequeñ
 | Mantenimiento inteligente | Tareas recurrentes de cuidado, indicadores de vencimiento y cálculo automático de la próxima fecha |
 | Etiquetas y escaneo | Escaneo de códigos de barras, etiquetas QR de objetos y acceso rápido móvil |
 | Backup y restore | Exportación e importación estándar o completa solo para propietarios, con cifrado por frase de contraseña, metadatos, asignaciones y estado de archivo de las cajas, además de medios/adjuntos opcionales |
+| Backups automáticos del servidor | Instantáneas SQLite programadas solo para administradores (diarias por defecto, se conservan 7) con descarga, subida y restauración verificada que se aplica en el siguiente reinicio tras una copia de seguridad previa; ver [DOCKER.md](DOCKER.md#backup) |
 | Auth y recuperación | JWT, Google OAuth, verificación por correo, TOTP 2FA, dispositivos de confianza y recovery keys |
 | Desktop Launcher | GUI opcional con Tauri para setup local, chequeo de dependencias, inicio/parada de perfiles, backups, logs, puertos fijos o aleatorios, acceso QR/LAN y [HTTPS offline opcional para la cámara móvil](docs/offline-mobile-https.md) |
 | Internacionalización | 100+ paquetes de locale seleccionables con fallback y validaciones automatizadas |
@@ -176,20 +177,19 @@ npm run install-all
 #### 2. Crear el archivo de entorno local
 
 ```bash
-cp .env.example .env
+npm run setup
 ```
 
-Configura al menos estos valores en `.env`:
+Esto crea `.env` a partir de `.env.example` (si aún no existe) y rellena `JWT_SECRET`, `APP_ENCRYPTION_KEY` y `APP_ENCRYPTION_KEY_ID` con valores aleatorios seguros. Nunca sobrescribe valores existentes. Para desarrollo local, configura también:
 ```env
 NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
-JWT_SECRET=un-secret-largo-y-aleatorio
-APP_ENCRYPTION_KEY=32-byte-base64-o-64-char-hex-key
-APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
-> [!TIP]
-> Genera secretos seguros con `openssl rand -hex 32` para `JWT_SECRET` y `openssl rand -base64 32` para `APP_ENCRYPTION_KEY`.
+> [!WARNING]
+> Guarda una copia de `APP_ENCRYPTION_KEY` y `APP_ENCRYPTION_KEY_ID`: sin ellos no se pueden recuperar los datos cifrados, incluidas las fotos.
+>
+> ¿Prefieres hacerlo a mano? Usa `openssl rand -hex 32` para `JWT_SECRET` y `openssl rand -base64 32` para `APP_ENCRYPTION_KEY`.
 
 #### 3. Ejecutar la app
 
@@ -211,11 +211,19 @@ npm start
 
 ### Opción C: Instalación con Docker
 
-Despliega HomeInventory rápidamente con contenedores preconfigurados:
+Despliega HomeInventory desde la imagen precompilada, sin clonar el código ni compilar en local:
 
 ```bash
+curl -O https://raw.githubusercontent.com/asdteke/HomeInventory/main/docker-compose.yml
+touch .env  # ajustes opcionales, ver .env.example
+mkdir -p secrets
+docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/secrets:/secrets" \
+  ghcr.io/asdteke/homeinventory:latest node scripts/setup.mjs --docker --out /secrets
 docker compose up -d
 ```
+
+Compose descarga `ghcr.io/asdteke/homeinventory:latest`, la versión más reciente (para amd64, arm64 y armv7). La línea `docker run` genera los tres archivos de secretos en `secrets/` sin sobrescribir los existentes. Guarda una copia: sin la clave de cifrado no se pueden recuperar los datos cifrados.
+
 Para configuración avanzada, reverse proxy y despliegue en producción, consulta [DOCKER.md](DOCKER.md).
 
 ## Documentación

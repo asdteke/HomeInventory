@@ -13,7 +13,7 @@ CLI and Docker remain first-class setup paths. The launcher is a convenience lay
 
 ## Key Features
 
-- **One-click local start/stop:** starts and stops the HomeInventory API and Vite client together.
+- **One-click local start/stop:** starts and stops HomeInventory. Launcher-managed installs run the production server with the prebuilt UI on one port; custom source folders keep the API plus Vite development setup.
 - **Profile isolation:** launcher-managed profiles receive separate data, SQLite, uploads, and encrypted media paths.
 - **Dependency verifier:** detects Node.js and npm, including macOS/Linux GUI PATH handling and Windows path lookup.
 - **Port and LAN checks:** validates local ports before launch and shows a QR code for devices on the same network.
@@ -41,7 +41,38 @@ For most users, there is no need to compile the launcher from source. Go to the 
 - **Windows:** `.exe` or `.msi`
 - **Linux:** `.AppImage`, `.deb`, or `.rpm`
 
-After opening the launcher, click **Launch HomeInventory**. The launcher checks dependencies and ports, starts the backend and frontend, then shows the local URL plus a QR code for devices on the same network.
+On the first run the launcher shows **Install HomeInventory**. It installs the HomeInventory version that ships with the launcher, then starts it once. After that, click **Launch HomeInventory**: the launcher checks ports, starts the app, waits until the UI is actually served, and then shows the local URL plus a QR code for devices on the same network.
+
+### First Install and Run Modes
+
+- **First install:** the launcher unpacks its bundled app into the launcher data folder (`managed-app/versions/<version>`), downloads the portable Node.js runtime, and runs `npm ci --omit=dev` for the server only. The UI ships prebuilt in the archive (`client/dist`), so no client dependencies or Vite build are needed. This needs an internet connection once and usually takes one to three minutes. The app is not started and stopped during the install; it is started once after the install succeeds.
+- **Production mode (default for launcher-managed installs and HomeInventory Local):** `NODE_ENV=production node server.js` serves the API and the prebuilt UI on a single port (default 3001). The launcher waits up to 120 seconds for `/api/health` and the app shell before it reports the app as ready or opens the browser.
+- **Development mode (custom install folders and older managed installs without `client/dist`):** the launcher keeps running `scripts/dev.mjs` with separate API and UI ports, as before. `npm run dev` from the repository is unchanged.
+- **Custom folder:** **Use a custom install folder** on the first-install screen (or **Developer Tools > Settings > Install folder**) keeps the previous behaviour of installing into, or running from, a folder you choose.
+- User data, profile data, and launcher configuration stay in the same launcher application-data locations as before.
+- Every server process started by the launcher gets `UPDATE_CHECK=false`, so the app's own GitHub release check is skipped; the launcher handles updates.
+
+### Optional Updates
+
+Updates never block or replace **Launch HomeInventory**: Start always runs the installed version. When an update is available, the launcher shows a separate update card with three choices:
+
+- **Update Now** installs it. For a verified online release this creates a backup, installs the managed app, and then applies the matching launcher update (the app and launcher are released together).
+- **Later** hides the offer until the launcher is opened again.
+- **Skip This Version** hides that version permanently (saved in the launcher settings). A newer version is offered again. **Show Update** on the card, or **Developer Tools > Updates**, brings a skipped or postponed update back.
+
+The app that ships inside the launcher is not optional. After you install a newer launcher, it brings the managed app to the same version automatically as soon as nothing is running (it replaces the app files and finishes stopped), so the launcher and the app always match.
+
+The launcher still checks for updates when it opens, but it only checks; nothing is downloaded or installed until you choose **Update Now**.
+
+### Optional App Window (Beta)
+
+By default the launcher opens HomeInventory in your browser, and the classic launcher is unchanged. To use HomeInventory inside a launcher window instead, turn on **Developer Tools > Settings > App window (beta)**.
+
+- When HomeInventory is ready (or when you click **Open App Window**), the launcher opens a HomeInventory window with a collapsible sidebar and hides the classic launcher window.
+- The sidebar shows the status and port and offers **Start**, **Stop**, **Restart**, **Open in browser**, **Logs**, **Updates** and **Settings** (the last two open the classic launcher on that panel), and **Back to classic launcher**, which turns app mode off again.
+- Closing the app window brings the classic launcher back and keeps HomeInventory running. Closing the classic launcher still stops HomeInventory and closes the app window.
+- The app runs in its own webview as a normal local page. Only the sidebar can call launcher commands (`capabilities/app-sidebar.json`); the HomeInventory page has no launcher access, stays on the local app, and cannot open pop-ups or other sites.
+- Limitations: the camera, file downloads, pop-ups, and links to other websites may not work inside the app window, depending on the operating system's webview. Use **Open in browser** for barcode scanning and those cases. The app window uses Tauri's multi-webview API, which Tauri still marks as unstable.
 
 Live mobile camera access over a LAN IP requires a secure browser context. The opt-in, domain-free setup and its trust/rotation limits are documented in [Optional Offline Mobile HTTPS](docs/offline-mobile-https.md).
 
@@ -92,6 +123,10 @@ HOMEINVENTORY_UPLOADS_DIR=<launcher-app-data>/profiles/homeinventory/uploads
 ```
 
 This keeps launcher-managed local runs separate from the normal repository `.env`, database, and uploads unless the user explicitly changes paths.
+
+The launcher also sets `UPDATE_CHECK=false`: it updates HomeInventory itself, so the admin panel's GitHub new-version notice (meant for Docker and command-line installs) is turned off and never contacts GitHub.
+
+The server's own automatic backups (**Admin panel → Backups**) are written to `data/backups/` inside the profile, next to `inventory.db`. The launcher does not restart the server by itself. After you stage a restore in the admin panel, stop and start the profile in the launcher so the restore is applied. These backups do not include `uploads/` and are only usable with the profile's encryption key, so keep the launcher's own backups as well.
 
 ## Release Packaging
 

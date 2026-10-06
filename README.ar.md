@@ -9,7 +9,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.7.0 release line. -->
+<!-- Release status: v2.8.0 release line. -->
 
 <p align="center">
   <strong>جرد منزلي خاص وقابل للاستضافة الذاتية للمنازل المشتركة.</strong><br/>
@@ -82,7 +82,7 @@
 HomeInventory صُمم للعائلات وزملاء السكن والمنازل الصغيرة التي تحتاج إلى جرد عملي من دون تحويل السجلات الخاصة إلى جدول مشترك.
 
 > [!NOTE]
-> **الإصدار v2.7.0 هو خط الإصدار الحالي.** يضيف سياسة كلمات مرور عملية، وتأخيراً تدريجياً لمحاولات الدخول، وحظراً محلياً لكلمات المرور الضعيفة، وHTTPS اختيارياً لكاميرا الجوال على الشبكة المحلية، ومشغّل سطح مكتب متعدد اللغات.
+> **الإصدار v2.8.0 هو خط الإصدار الحالي.** يضيف صورة Docker جاهزة لعدة معماريات، وإعداد الأسرار بأمر واحد، ونسخاً احتياطية تلقائية للخادم مع الاستعادة، وتنبيهاً بالإصدارات الجديدة للاستضافة الذاتية، ومشغّل سطح مكتب أسرع مع تحديثات اختيارية ونافذة تطبيق اختيارية.
 
 ## لماذا HomeInventory
 
@@ -106,6 +106,7 @@ HomeInventory صُمم للعائلات وزملاء السكن والمنازل
 | الصيانة الذكية | مهام عناية متكررة، مؤشرات تأخر، وحساب تلقائي لتاريخ الاستحقاق التالي |
 | الملصقات والمسح | مسح الباركود، ملصقات QR للعناصر، والوصول السريع من الجوال |
 | النسخ الاحتياطي والاستعادة | تصدير واستيراد قياسي أو كامل للمالك فقط مع تشفير بعبارة مرور، وبيانات الصناديق وإسناد العناصر وحالة الأرشفة، وتغطية اختيارية للوسائط والمرفقات |
+| النسخ الاحتياطي التلقائي للخادم | لقطات SQLite مجدولة للمسؤول فقط (يوميًا افتراضيًا مع الاحتفاظ بآخر 7) مع التنزيل والرفع واستعادة موثّقة تُطبَّق عند إعادة التشغيل التالية بعد أخذ نسخة أمان؛ راجع [DOCKER.md](DOCKER.md#backup) |
 | المصادقة والاسترداد | JWT وGoogle OAuth والتحقق بالبريد وTOTP 2FA والأجهزة الموثوقة ومفاتيح الاسترداد |
 | Desktop Launcher | واجهة Tauri اختيارية للإعداد المحلي، فحص الاعتماديات، تشغيل/إيقاف الملفات الشخصية، النسخ الاحتياطي، السجلات، منافذ ثابتة أو عشوائية، الوصول عبر QR/LAN، و[HTTPS محلي اختياري لكاميرا الجوال](docs/offline-mobile-https.md) |
 | التدويل | أكثر من 100 حزمة لغة للواجهة مع fallback وفحوصات تحقق آلية |
@@ -188,12 +189,12 @@ npm run install-all
 <div dir="ltr">
 
 ```bash
-cp .env.example .env
+npm run setup
 ```
 
 </div>
 
-اضبط هذه القيم على الأقل داخل `.env`:
+ينشئ هذا الأمر الملف `.env` من `.env.example` (إن لم يكن موجوداً) ويملأ `JWT_SECRET` و`APP_ENCRYPTION_KEY` و`APP_ENCRYPTION_KEY_ID` بقيم عشوائية قوية، ولا يستبدل أي قيمة موجودة. للتطوير المحلي، اضبط أيضاً:
 
 <div dir="ltr">
 
@@ -201,15 +202,14 @@ cp .env.example .env
 NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
-JWT_SECRET=replace-with-a-long-random-secret
-APP_ENCRYPTION_KEY=replace-with-32-byte-base64-or-64-char-hex-key
-APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
 
 </div>
 
-> [!TIP]
-> أنشئ أسراراً آمنة باستخدام `openssl rand -hex 32` لقيمة `JWT_SECRET` و`openssl rand -base64 32` لقيمة `APP_ENCRYPTION_KEY`.
+> [!WARNING]
+> احتفظ بنسخة احتياطية من `APP_ENCRYPTION_KEY` و`APP_ENCRYPTION_KEY_ID`: لا يمكن استعادة البيانات المشفرة، بما فيها الصور، من دونهما.
+>
+> تفضّل الطريقة اليدوية؟ استخدم `openssl rand -hex 32` لقيمة `JWT_SECRET` و`openssl rand -base64 32` لقيمة `APP_ENCRYPTION_KEY`.
 
 #### 3. تشغيل التطبيق
 
@@ -239,15 +239,22 @@ npm start
 
 ### الخيار C: إعداد Docker
 
-انشر HomeInventory بسرعة باستخدام حاويات معدة مسبقاً:
+انشر HomeInventory من الصورة الجاهزة، دون الحاجة إلى نسخ الكود المصدري أو البناء محلياً:
 
 <div dir="ltr">
 
 ```bash
+curl -O https://raw.githubusercontent.com/asdteke/HomeInventory/main/docker-compose.yml
+touch .env  # optional settings, see .env.example
+mkdir -p secrets
+docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/secrets:/secrets" \
+  ghcr.io/asdteke/homeinventory:latest node scripts/setup.mjs --docker --out /secrets
 docker compose up -d
 ```
 
 </div>
+
+يسحب Compose الصورة `ghcr.io/asdteke/homeinventory:latest` وهي أحدث إصدار (لمعماريات amd64 وarm64 وarmv7). ينشئ سطر `docker run` ملفات الأسرار الثلاثة في `secrets/` دون استبدال الملفات الموجودة. احتفظ بنسخة احتياطية منها، إذ لا يمكن استعادة البيانات المشفرة من دون مفتاح التشفير.
 
 للتكوين المتقدم، reverse proxy، ونشر الإنتاج، راجع [DOCKER.md](DOCKER.md).
 

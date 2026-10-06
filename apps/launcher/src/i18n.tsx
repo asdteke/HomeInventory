@@ -1,6 +1,12 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 
-export type LauncherLocale = 'en' | 'tr' | 'de' | 'fr' | 'es';
+import { it } from './locales/it';
+import { nl } from './locales/nl';
+import { pl } from './locales/pl';
+import { pt } from './locales/pt';
+import { ru } from './locales/ru';
+
+export type LauncherLocale = 'en' | 'tr' | 'de' | 'fr' | 'es' | 'it' | 'pt' | 'nl' | 'pl' | 'ru';
 type Variables = Record<string, string | number>;
 
 const en = {
@@ -10,6 +16,11 @@ const en = {
   'language.de': 'Deutsch',
   'language.fr': 'Français',
   'language.es': 'Español',
+  'language.it': 'Italiano',
+  'language.pt': 'Português',
+  'language.nl': 'Nederlands',
+  'language.pl': 'Polski',
+  'language.ru': 'Русский',
   'language.launcherLanguage': 'Launcher language',
   'language.savedHelp': 'Applied immediately and remembered on this device.',
   'common.close': 'Close',
@@ -259,10 +270,88 @@ const en = {
   'dev.choosePath': 'Choose path',
   'dev.openLocation': 'Open location',
   'dev.useDetectedPath': 'Use auto-detected path',
+  'logs.filterLabel': 'Filter logs',
+  'logs.filterAll': 'All',
+  'logs.filterErrors': 'Errors',
+  'logs.filterWarnings': 'Warnings',
+  'logs.search': 'Search logs',
+  'logs.noMatches': 'No log lines match this filter.',
+  'logs.copy': 'Copy visible logs',
+  'logs.copied': 'Copied',
+  'logs.jumpLatest': 'Jump to latest',
+  'status.localPortBusy': 'Port {port} is busy. Suggested: {suggested}.',
+  'setup.launchOnPort': 'Launch on port {port}',
+  'setup.warmupHint': 'The first start after an install or update can take up to two minutes.',
+  'advanced.networkSingle': 'HomeInventory uses one local port for the app and API.',
+  'firstInstall.kicker': 'First install',
+  'firstInstall.title': 'HomeInventory is not installed yet',
+  'firstInstall.body': 'The launcher installs the HomeInventory version that ships with it. Your data is stored in the launcher data folder.',
+  'firstInstall.button': 'Install HomeInventory',
+  'firstInstall.installing': 'Installing HomeInventory…',
+  'firstInstall.network': 'This happens once and needs an internet connection to download the Node.js runtime and server components.',
+  'firstInstall.customFolder': 'Use a custom install folder',
+  'firstInstall.elapsed': 'Elapsed {elapsed}. This usually takes one to three minutes.',
+  'firstInstall.retry': 'Try Again',
+  'firstInstall.statePreparing': 'Preparing the Node.js runtime',
+  'firstInstall.stateExtracting': 'Unpacking the app',
+  'firstInstall.stateInstalling': 'Installing server components',
+  'firstInstall.stateFinalizing': 'Finishing the installation',
+  'firstInstall.stateCompleted': 'Installed. Starting HomeInventory…',
+  'firstInstall.stateFailed': 'Installation failed',
+  'update.offerTitle': 'HomeInventory {version} is available',
+    'update.offerOnline': 'Install it whenever it suits you. A backup is created first, and Start keeps using the installed version until then.',
+  'update.updateNow': 'Update Now',
+  'update.later': 'Later',
+  'update.skipVersion': 'Skip This Version',
+  'update.postponedTitle': 'Update to {version} postponed',
+  'update.skippedTitle': 'Version {version} skipped',
+  'update.postponedBody': 'Start uses the installed version. You can update at any time.',
+  'update.review': 'Show Update',
+  'update.skippedNotice': 'Version {version} will not be offered again. Newer versions will still be offered.',
+  'update.optionalHelp': 'Updates are optional. Start always opens the installed version.',
+  'update.bundledInstalling': 'Installing HomeInventory {version} included with this launcher…',
+  'appMode.title': 'App window (beta)',
+  'appMode.toggleHelp': 'Open HomeInventory in a launcher window with a sidebar instead of your browser. The camera may not work there; use Open in browser for scanning.',
+  'appMode.open': 'Open App Window',
+  'appMode.classicNotice': 'App window turned off. HomeInventory opens in your browser again.',
+  'appMode.sidebarLabel': 'HomeInventory controls',
+  'appMode.statusStarting': 'Starting…',
+  'appMode.statusStopped': 'Stopped',
+  'appMode.start': 'Start',
+  'appMode.stop': 'Stop',
+  'appMode.restart': 'Restart',
+  'appMode.collapse': 'Collapse sidebar',
+  'appMode.expand': 'Expand sidebar',
+  'appMode.cameraHint': 'The camera may not work in this window. Use Open in browser to scan.',
+  'appMode.backToClassic': 'Back to classic launcher',
+  'appMode.quickLabel': 'App window',
+  'shell.serverSection': 'Server',
+  'shell.toolsSection': 'Tools',
+  'shell.refresh': 'Reload page',
+  'shell.network': 'Network & phones',
+  'shell.server': 'Server setup',
+  'shell.launcherSettings': 'Launcher settings',
+  'shell.startFirst': 'Start HomeInventory to see its network address and phone setup.',
+  'shell.applyRestart': 'Save and restart',
+  'shell.applyStart': 'Save and start',
+  'shell.back': 'Back',
+  'shell.forward': 'Forward',
+  'shell.launcher': 'Launcher',
+  'shell.overview': 'Overview',
+  'shell.versions': 'App {app} · Launcher {launcher}',
+  'shell.address': 'Address on this network',
+  'shell.copy': 'Copy',
+  'shell.lanOk': 'Reachable from other devices',
+  'shell.stepCertificate': 'Install the certificate on the phone',
+  'shell.stepOpen': 'Open the secure address',
+  'shell.oldApp': 'HomeInventory {version} still shows its own sidebar. Update to 2.8 or newer to use this one for its pages.',
+  'appMode.beta': 'Beta',
 } as const;
 
 export type TranslationKey = keyof typeof en;
 type Dictionary = Record<TranslationKey, string>;
+/** A translation; missing keys fall back to English. */
+export type LauncherTranslations = Partial<Dictionary>;
 
 const tr: Dictionary = {
   ...en,
@@ -279,6 +368,11 @@ const tr: Dictionary = {
   'android.pixel': 'Google Pixel / standart Android', 'android.other': 'Diğer Android', 'android.samsungPath': 'Ayarlar → Güvenlik ve gizlilik → Diğer güvenlik ayarları → Cihaz depolama alanından yükle → CA sertifikası', 'android.pixelPath': 'Ayarlar → Güvenlik ve gizlilik → Diğer güvenlik ayarları → Şifreleme ve kimlik bilgileri → Sertifika yükle → CA sertifikası', 'android.otherPath': 'Ayarlar’ı açın, “Sertifika yükle” araması yapın ve CA sertifikasını seçin.',
   'advanced.title': 'Gelişmiş', 'advanced.configuration': 'Gelişmiş Yapılandırma', 'advanced.whatMatters': 'Burada önemli olanlar', 'advanced.emailLabel': 'E-posta:', 'advanced.emailHelp': 'Resend hem API anahtarı hem de doğrulanmış gönderici adresi gerektirir. Yalnızca anahtar yapılandırılmış görünebilir ama teslimat başarısız olur.', 'advanced.adminLabel': 'Yönetici:', 'advanced.adminHelp': 'Başlangıç Yönetici E-postası ilk güvenilir yöneticiyi öngörülebilir yapar.', 'advanced.networkLabel': 'Ağ:', 'advanced.networkStore': 'HomeInventory Local uygulama ve API için tek yerel port kullanır.', 'advanced.networkDesktop': 'Portlar yerelde boş olmalıdır; LAN erişimi ayrıca güvenlik duvarına ve aynı Wi-Fi ağına bağlıdır.', 'advanced.emailDelivery': 'E-posta Teslimi', 'advanced.resendHelp': 'Davet, doğrulama, yönetici postası ve parola sıfırlama e-postalarını etkinleştirir.', 'advanced.sender': 'Doğrulanmış Gönderici', 'advanced.senderHelp': 'Doğrulanmış bir Resend alan adından gönderici kullanın. Hızlı test için Resend onboarding@resend.dev adresine izin verir.', 'advanced.supportEmail': 'Destek E-postası', 'advanced.supportHelp': 'Yardım bağlantılarında ve giden e-posta altbilgilerinde gösterilir.', 'advanced.instanceAdmin': 'Örnek ve Yönetici', 'advanced.bootstrapAdmin': 'Başlangıç Yönetici E-postası', 'advanced.bootstrapHelp': 'Eşleşen hesap ilk kurulum veya giriş sırasında yönetici yetkisi alır.', 'advanced.envHelp': 'Launcher yalnızca doldurulan değerleri .env dosyasına yazar; mevcut yapılandırma korunur.', 'advanced.localPort': 'Yerel Port', 'advanced.networkPorts': 'Ağ Portları', 'advanced.apiPort': 'API Portu', 'advanced.uiPort': 'Arayüz Portu', 'advanced.storePortHelp': 'Geçerli aralık: 1024-65535. Varsayılan: 3001. Yalnızca başka bir uygulama aynı portu kullanıyorsa değiştirin.', 'advanced.desktopPortHelp': 'Geçerli aralık: 1024-65535. Varsayılanlar: API 3001, arayüz 5173. Yalnızca başka bir uygulama aynı portu kullanıyorsa değiştirin.', 'advanced.randomPort': 'Rastgele Boş Port Bul', 'advanced.randomPorts': 'Rastgele Boş Portlar Bul', 'advanced.usePort': '{port} Kullan', 'advanced.usePorts': '{backend}/{frontend} Kullan', 'advanced.otherDevices': 'Diğer cihazlardan erişim', 'advanced.sameWifiPrefix': 'Cihazları', 'advanced.sameWifi': 'aynı Wi-Fi ağında', 'advanced.firewall': 'İstenirse özel ağlar için Windows Güvenlik Duvarı’nda HomeInventory veya Node.js’e izin verin.', 'advanced.findIp': 'IP adresinizi bulun: Sistem Ayarları → Wi-Fi → Ayrıntılar → IP Adresi',
   'dev.console': 'Geliştirici Konsolu', 'dev.logs': 'Günlükler', 'dev.backups': 'Yedekler', 'dev.settings': 'Ayarlar', 'dev.updates': 'Güncellemeler', 'dev.backupDescription': 'Yerel verilerinizin ve medyanızın tek tıkla yedeği.', 'dev.backingUp': 'Yedekleniyor...', 'dev.backupNow': 'Şimdi Yedekle', 'dev.openBackup': 'Yedeği Aç', 'dev.installFolder': 'Kurulum Klasörü', 'dev.installFolderHelp': 'Yeni kurulum için boş bir klasör veya mevcut HomeInventory klasörü seçin.', 'dev.nodePath': 'Node Yolu', 'dev.npmPath': 'npm Yolu', 'dev.autoDetected': 'Otomatik algılandı', 'dev.nodePathHelp': 'Bunu yalnızca launcher Node kurulumunuzu bulamıyorsa ayarlayın.', 'dev.npmPathHelp': 'Bunu yalnızca masaüstü uygulaması npm’i algılayamıyorsa ayarlayın.', 'dev.openFolder': 'Klasörü Aç', 'dev.openData': 'Veriyi Aç', 'dev.resetDetection': 'Node/npm Algılamasını Sıfırla', 'dev.stopServer': 'Sunucuyu Durdur', 'dev.noLogs': 'Henüz günlük kaydı yok.', 'dev.choosePath': 'Yol seç', 'dev.openLocation': 'Konumu aç', 'dev.useDetectedPath': 'Otomatik algılanan yolu kullan',
+  'logs.filterLabel': 'Günlükleri filtrele', 'logs.filterAll': 'Tümü', 'logs.filterErrors': 'Hatalar', 'logs.filterWarnings': 'Uyarılar', 'logs.search': 'Günlüklerde ara', 'logs.noMatches': 'Bu filtreye uyan satır yok.', 'logs.copy': 'Görünen günlükleri kopyala', 'logs.copied': 'Kopyalandı', 'logs.jumpLatest': 'En yeniye git',
+  'status.localPortBusy': '{port} portu kullanımda. Önerilen: {suggested}.', 'setup.launchOnPort': '{port} Portunda Başlat', 'setup.warmupHint': 'Kurulum veya güncellemeden sonraki ilk açılış iki dakikaya kadar sürebilir.', 'advanced.networkSingle': 'HomeInventory uygulama ve API için tek yerel port kullanır.',
+  'firstInstall.kicker': 'İlk kurulum', 'firstInstall.title': 'HomeInventory henüz kurulu değil', 'firstInstall.body': 'Launcher, kendisiyle birlikte gelen HomeInventory sürümünü kurar. Verileriniz launcher veri klasöründe saklanır.', 'firstInstall.button': 'HomeInventory’yi Kur', 'firstInstall.installing': 'HomeInventory kuruluyor…', 'firstInstall.network': 'Bu işlem yalnızca bir kez yapılır; Node.js çalışma ortamını ve sunucu bileşenlerini indirmek için internet bağlantısı gerekir.', 'firstInstall.customFolder': 'Özel bir kurulum klasörü kullan', 'firstInstall.elapsed': 'Geçen süre {elapsed}. Bu genellikle bir ila üç dakika sürer.', 'firstInstall.retry': 'Tekrar Dene', 'firstInstall.statePreparing': 'Node.js çalışma ortamı hazırlanıyor', 'firstInstall.stateExtracting': 'Uygulama açılıyor', 'firstInstall.stateInstalling': 'Sunucu bileşenleri kuruluyor', 'firstInstall.stateFinalizing': 'Kurulum tamamlanıyor', 'firstInstall.stateCompleted': 'Kuruldu. HomeInventory başlatılıyor…', 'firstInstall.stateFailed': 'Kurulum başarısız oldu',
+  'update.offerTitle': 'HomeInventory {version} kullanıma hazır', 'update.offerOnline': 'Size uygun olduğunda kurun. Önce yedek alınır; o zamana kadar Başlat kurulu sürümü kullanmaya devam eder.', 'update.updateNow': 'Şimdi Güncelle', 'update.later': 'Daha Sonra', 'update.skipVersion': 'Bu Sürümü Atla', 'update.postponedTitle': '{version} güncellemesi ertelendi', 'update.skippedTitle': '{version} sürümü atlandı', 'update.postponedBody': 'Başlat kurulu sürümü kullanır. İstediğiniz zaman güncelleyebilirsiniz.', 'update.review': 'Güncellemeyi Göster', 'update.skippedNotice': '{version} sürümü bir daha önerilmeyecek. Daha yeni sürümler yine önerilecek.', 'update.optionalHelp': 'Güncellemeler isteğe bağlıdır. Başlat her zaman kurulu sürümü açar.', 'update.bundledInstalling': 'Bu launcher ile gelen HomeInventory {version} kuruluyor…',
+  'appMode.title': 'Uygulama penceresi (beta)', 'appMode.toggleHelp': 'HomeInventory’yi tarayıcı yerine kenar çubuklu bir launcher penceresinde açın. Kamera orada çalışmayabilir; tarama için Tarayıcıda aç seçeneğini kullanın.', 'appMode.open': 'Uygulama Penceresini Aç', 'appMode.classicNotice': 'Uygulama penceresi kapatıldı. HomeInventory yeniden tarayıcınızda açılacak.', 'appMode.sidebarLabel': 'HomeInventory kontrolleri', 'appMode.statusStarting': 'Başlatılıyor…', 'appMode.statusStopped': 'Durduruldu', 'appMode.start': 'Başlat', 'appMode.stop': 'Durdur', 'appMode.restart': 'Yeniden Başlat', 'appMode.collapse': 'Kenar çubuğunu daralt', 'appMode.expand': 'Kenar çubuğunu genişlet', 'appMode.cameraHint': 'Kamera bu pencerede çalışmayabilir. Tarama için Tarayıcıda aç seçeneğini kullanın.', 'appMode.backToClassic': 'Klasik launcher’a dön', 'appMode.quickLabel': 'Uygulama penceresi', 'shell.serverSection': 'Sunucu', 'shell.toolsSection': 'Araçlar', 'shell.refresh': 'Sayfayı yenile', 'shell.network': 'Ağ ve telefonlar', 'shell.server': 'Sunucu ayarları', 'shell.launcherSettings': 'Launcher ayarları', 'shell.startFirst': 'Ağ adresini ve telefon kurulumunu görmek için HomeInventory’yi başlatın.', 'shell.applyRestart': 'Kaydet ve yeniden başlat', 'shell.applyStart': 'Kaydet ve başlat', 'shell.back': 'Geri', 'shell.forward': 'İleri', 'shell.launcher': 'Launcher', 'shell.overview': 'Genel bakış', 'shell.versions': 'Uygulama {app} · Launcher {launcher}', 'shell.address': 'Bu ağdaki adres', 'shell.copy': 'Kopyala', 'shell.lanOk': 'Diğer cihazlardan erişilebilir', 'shell.stepCertificate': 'Sertifikayı telefona yükleyin', 'shell.stepOpen': 'Güvenli adresi açın', 'shell.oldApp': 'HomeInventory {version} kendi kenar çubuğunu gösteriyor. Sayfaları buradan açmak için 2.8 veya daha yeni bir sürüme güncelleyin.', 'appMode.beta': 'Beta',
 };
 
 const de: Dictionary = { ...en,
@@ -301,6 +395,12 @@ const de: Dictionary = { ...en,
   'android.pixel': 'Google Pixel / Standard-Android', 'android.other': 'Anderes Android-Gerät', 'android.samsungPath': 'Einstellungen → Sicherheit und Datenschutz → Weitere Sicherheitseinstellungen → Aus Gerätespeicher installieren → CA-Zertifikat', 'android.pixelPath': 'Einstellungen → Sicherheit und Datenschutz → Weitere Sicherheitseinstellungen → Verschlüsselung und Anmeldedaten → Zertifikat installieren → CA-Zertifikat', 'android.otherPath': 'Öffnen Sie die Einstellungen, suchen Sie nach „Zertifikat installieren“ und wählen Sie CA-Zertifikat.',
   'advanced.title': 'Erweitert', 'advanced.configuration': 'Erweiterte Konfiguration', 'advanced.whatMatters': 'Darauf kommt es an', 'advanced.emailLabel': 'E-Mail:', 'advanced.adminLabel': 'Administrator:', 'advanced.networkLabel': 'Netzwerk:', 'advanced.emailDelivery': 'E-Mail-Versand', 'advanced.sender': 'Verifizierter Absender', 'advanced.supportEmail': 'Support-E-Mail', 'advanced.instanceAdmin': 'Instanz und Administrator', 'advanced.bootstrapAdmin': 'Administrator-E-Mail bei Einrichtung', 'advanced.localPort': 'Lokaler Port', 'advanced.networkPorts': 'Netzwerkports', 'advanced.apiPort': 'API-Port', 'advanced.uiPort': 'UI-Port', 'advanced.randomPort': 'Freien Zufallsport finden', 'advanced.randomPorts': 'Freie Zufallsports finden', 'advanced.otherDevices': 'Zugriff von anderen Geräten', 'advanced.sameWifiPrefix': 'Geräte im', 'advanced.sameWifi': 'selben WLAN', 'advanced.firewall': 'Erlauben Sie HomeInventory oder Node.js bei Aufforderung in der Windows-Firewall für private Netzwerke.', 'advanced.findIp': 'IP-Adresse finden: Systemeinstellungen → WLAN → Details → IP-Adresse',
   'dev.console': 'Entwicklerkonsole', 'dev.logs': 'Protokolle', 'dev.backups': 'Sicherungen', 'dev.settings': 'Einstellungen', 'dev.updates': 'Updates', 'dev.backupDescription': 'Sicherung Ihrer lokalen Daten und Medien mit einem Klick.', 'dev.backingUp': 'Sicherung läuft...', 'dev.backupNow': 'Jetzt sichern', 'dev.openBackup': 'Sicherung öffnen', 'dev.installFolder': 'Installationsordner', 'dev.installFolderHelp': 'Wählen Sie für eine neue Installation einen leeren Ordner oder einen vorhandenen HomeInventory-Ordner.', 'dev.nodePath': 'Node-Pfad', 'dev.npmPath': 'npm-Pfad', 'dev.autoDetected': 'Automatisch erkannt', 'dev.nodePathHelp': 'Nur festlegen, wenn der Launcher Ihre Node-Installation nicht findet.', 'dev.npmPathHelp': 'Nur festlegen, wenn die Desktop-App npm nicht erkennt.', 'dev.openFolder': 'Ordner öffnen', 'dev.openData': 'Daten öffnen', 'dev.resetDetection': 'Node/npm-Erkennung zurücksetzen', 'dev.stopServer': 'Server beenden', 'dev.noLogs': 'Noch keine Protokolleinträge.', 'dev.choosePath': 'Pfad wählen', 'dev.openLocation': 'Speicherort öffnen', 'dev.useDetectedPath': 'Automatisch erkannten Pfad verwenden',
+  'shell.serverSection': 'Server', 'shell.toolsSection': 'Werkzeuge', 'shell.refresh': 'Seite neu laden', 'shell.network': 'Netzwerk und Telefone', 'shell.server': 'Server-Einrichtung', 'shell.launcherSettings': 'Launcher-Einstellungen', 'shell.startFirst': 'Starten Sie HomeInventory, um die Netzwerkadresse und die Telefoneinrichtung zu sehen.', 'shell.applyRestart': 'Speichern und neu starten', 'shell.applyStart': 'Speichern und starten', 'shell.back': 'Zurück', 'shell.forward': 'Vor', 'shell.launcher': 'Launcher', 'shell.overview': 'Übersicht', 'shell.versions': 'App {app} · Launcher {launcher}', 'shell.address': 'Adresse in diesem Netzwerk', 'shell.copy': 'Kopieren', 'shell.lanOk': 'Von anderen Geräten erreichbar', 'shell.stepCertificate': 'Zertifikat auf dem Telefon installieren', 'shell.stepOpen': 'Sichere Adresse öffnen', 'shell.oldApp': 'HomeInventory {version} zeigt noch die eigene Seitenleiste. Aktualisieren Sie auf 2.8 oder neuer, um die Seiten von hier zu öffnen.',
+  'logs.filterLabel': 'Protokolle filtern', 'logs.filterAll': 'Alle', 'logs.filterErrors': 'Fehler', 'logs.filterWarnings': 'Warnungen', 'logs.search': 'Protokolle durchsuchen', 'logs.noMatches': 'Keine Zeilen passen zu diesem Filter.', 'logs.copy': 'Sichtbare Protokolle kopieren', 'logs.copied': 'Kopiert', 'logs.jumpLatest': 'Zum Neuesten',
+  'status.localPortBusy': 'Port {port} ist belegt. Vorschlag: {suggested}.', 'setup.launchOnPort': 'Auf Port {port} starten', 'setup.warmupHint': 'Der erste Start nach einer Installation oder einem Update kann bis zu zwei Minuten dauern.', 'advanced.networkSingle': 'HomeInventory verwendet einen lokalen Port für App und API.',
+  'firstInstall.kicker': 'Erstinstallation', 'firstInstall.title': 'HomeInventory ist noch nicht installiert', 'firstInstall.body': 'Der Launcher installiert die mitgelieferte HomeInventory-Version. Ihre Daten werden im Datenordner des Launchers gespeichert.', 'firstInstall.button': 'HomeInventory installieren', 'firstInstall.installing': 'HomeInventory wird installiert…', 'firstInstall.network': 'Dies geschieht nur einmal und erfordert eine Internetverbindung, um die Node.js-Laufzeit und die Serverkomponenten herunterzuladen.', 'firstInstall.customFolder': 'Eigenen Installationsordner verwenden', 'firstInstall.elapsed': 'Vergangene Zeit: {elapsed}. Das dauert meist ein bis drei Minuten.', 'firstInstall.retry': 'Erneut versuchen', 'firstInstall.statePreparing': 'Node.js-Laufzeit wird vorbereitet', 'firstInstall.stateExtracting': 'App wird entpackt', 'firstInstall.stateInstalling': 'Serverkomponenten werden installiert', 'firstInstall.stateFinalizing': 'Installation wird abgeschlossen', 'firstInstall.stateCompleted': 'Installiert. HomeInventory wird gestartet…', 'firstInstall.stateFailed': 'Installation fehlgeschlagen',
+  'update.offerTitle': 'HomeInventory {version} ist verfügbar', 'update.offerOnline': 'Installieren Sie das Update, wann es Ihnen passt. Zuvor wird eine Sicherung erstellt; bis dahin startet „Starten“ die installierte Version.', 'update.updateNow': 'Jetzt aktualisieren', 'update.later': 'Später', 'update.skipVersion': 'Diese Version überspringen', 'update.postponedTitle': 'Update auf {version} verschoben', 'update.skippedTitle': 'Version {version} übersprungen', 'update.postponedBody': '„Starten“ verwendet die installierte Version. Sie können jederzeit aktualisieren.', 'update.review': 'Update anzeigen', 'update.skippedNotice': 'Version {version} wird nicht mehr angeboten. Neuere Versionen werden weiterhin angeboten.', 'update.optionalHelp': 'Updates sind optional. „Starten“ öffnet immer die installierte Version.', 'update.bundledInstalling': 'Die mit diesem Launcher gelieferte HomeInventory-Version {version} wird installiert…',
+  'appMode.title': 'App-Fenster (Beta)', 'appMode.toggleHelp': 'HomeInventory in einem Launcher-Fenster mit Seitenleiste statt im Browser öffnen. Die Kamera funktioniert dort möglicherweise nicht; verwenden Sie zum Scannen „Im Browser öffnen“.', 'appMode.open': 'App-Fenster öffnen', 'appMode.classicNotice': 'App-Fenster ausgeschaltet. HomeInventory wird wieder im Browser geöffnet.', 'appMode.sidebarLabel': 'HomeInventory-Steuerung', 'appMode.statusStarting': 'Wird gestartet…', 'appMode.statusStopped': 'Beendet', 'appMode.start': 'Starten', 'appMode.stop': 'Beenden', 'appMode.restart': 'Neu starten', 'appMode.collapse': 'Seitenleiste einklappen', 'appMode.expand': 'Seitenleiste ausklappen', 'appMode.cameraHint': 'Die Kamera funktioniert in diesem Fenster möglicherweise nicht. Verwenden Sie zum Scannen „Im Browser öffnen“.', 'appMode.backToClassic': 'Zurück zum klassischen Launcher', 'appMode.quickLabel': 'App-Fenster', 'appMode.beta': 'Beta',
 };
 
 const fr: Dictionary = { ...en,
@@ -323,6 +423,12 @@ const fr: Dictionary = { ...en,
   'android.pixel': 'Google Pixel / Android standard', 'android.other': 'Autre appareil Android', 'android.samsungPath': 'Paramètres → Sécurité et confidentialité → Autres paramètres de sécurité → Installer depuis le stockage de l’appareil → Certificat d’autorité', 'android.pixelPath': 'Paramètres → Sécurité et confidentialité → Autres paramètres de sécurité → Chiffrement et identifiants → Installer un certificat → Certificat d’autorité', 'android.otherPath': 'Ouvrez les paramètres, recherchez « Installer un certificat », puis choisissez Certificat d’autorité.',
   'advanced.title': 'Avancé', 'advanced.configuration': 'Configuration avancée', 'advanced.whatMatters': 'Points importants', 'advanced.emailLabel': 'E-mail :', 'advanced.adminLabel': 'Administrateur :', 'advanced.networkLabel': 'Réseau :', 'advanced.emailDelivery': 'Envoi des e-mails', 'advanced.sender': 'Expéditeur vérifié', 'advanced.supportEmail': 'E-mail d’assistance', 'advanced.instanceAdmin': 'Instance et administrateur', 'advanced.bootstrapAdmin': 'E-mail administrateur initial', 'advanced.localPort': 'Port local', 'advanced.networkPorts': 'Ports réseau', 'advanced.apiPort': 'Port API', 'advanced.uiPort': 'Port interface', 'advanced.randomPort': 'Trouver un port libre aléatoire', 'advanced.randomPorts': 'Trouver des ports libres aléatoires', 'advanced.otherDevices': 'Accès depuis d’autres appareils', 'advanced.sameWifiPrefix': 'Gardez les appareils sur le', 'advanced.sameWifi': 'même réseau Wi-Fi', 'advanced.firewall': 'Si demandé, autorisez HomeInventory ou Node.js dans le pare-feu Windows pour les réseaux privés.', 'advanced.findIp': 'Trouver votre IP : Réglages système → Wi-Fi → Détails → Adresse IP',
   'dev.console': 'Console de développement', 'dev.logs': 'Journaux', 'dev.backups': 'Sauvegardes', 'dev.settings': 'Paramètres', 'dev.updates': 'Mises à jour', 'dev.backupDescription': 'Sauvegardez vos données et médias locaux en un clic.', 'dev.backingUp': 'Sauvegarde...', 'dev.backupNow': 'Sauvegarder', 'dev.openBackup': 'Ouvrir la sauvegarde', 'dev.installFolder': 'Dossier d’installation', 'dev.installFolderHelp': 'Choisissez un dossier vide pour une nouvelle installation ou un dossier HomeInventory existant.', 'dev.nodePath': 'Chemin Node', 'dev.npmPath': 'Chemin npm', 'dev.autoDetected': 'Détecté automatiquement', 'dev.nodePathHelp': 'À définir uniquement si le launcher ne trouve pas votre installation Node.', 'dev.npmPathHelp': 'À définir uniquement si l’application de bureau ne détecte pas npm.', 'dev.openFolder': 'Ouvrir le dossier', 'dev.openData': 'Ouvrir les données', 'dev.resetDetection': 'Réinitialiser la détection Node/npm', 'dev.stopServer': 'Arrêter le serveur', 'dev.noLogs': 'Aucune entrée de journal.', 'dev.choosePath': 'Choisir le chemin', 'dev.openLocation': 'Ouvrir l’emplacement', 'dev.useDetectedPath': 'Utiliser le chemin détecté',
+  'shell.serverSection': 'Serveur', 'shell.toolsSection': 'Outils', 'shell.refresh': 'Recharger la page', 'shell.network': 'Réseau et téléphones', 'shell.server': 'Configuration du serveur', 'shell.launcherSettings': 'Paramètres du launcher', 'shell.startFirst': 'Démarrez HomeInventory pour voir son adresse réseau et la configuration des téléphones.', 'shell.applyRestart': 'Enregistrer et redémarrer', 'shell.applyStart': 'Enregistrer et démarrer', 'shell.back': 'Précédent', 'shell.forward': 'Suivant', 'shell.launcher': 'Launcher', 'shell.overview': 'Vue d’ensemble', 'shell.versions': 'App {app} · Launcher {launcher}', 'shell.address': 'Adresse sur ce réseau', 'shell.copy': 'Copier', 'shell.lanOk': 'Accessible depuis d’autres appareils', 'shell.stepCertificate': 'Installer le certificat sur le téléphone', 'shell.stepOpen': 'Ouvrir l’adresse sécurisée', 'shell.oldApp': 'HomeInventory {version} affiche encore sa propre barre latérale. Passez à la version 2.8 ou plus récente pour ouvrir ses pages d’ici.',
+  'logs.filterLabel': 'Filtrer les journaux', 'logs.filterAll': 'Tout', 'logs.filterErrors': 'Erreurs', 'logs.filterWarnings': 'Avertissements', 'logs.search': 'Rechercher dans les journaux', 'logs.noMatches': 'Aucune ligne ne correspond à ce filtre.', 'logs.copy': 'Copier les journaux visibles', 'logs.copied': 'Copié', 'logs.jumpLatest': 'Aller au plus récent',
+  'status.localPortBusy': 'Le port {port} est occupé. Suggestion : {suggested}.', 'setup.launchOnPort': 'Lancer sur le port {port}', 'setup.warmupHint': 'Le premier démarrage après une installation ou une mise à jour peut prendre jusqu’à deux minutes.', 'advanced.networkSingle': 'HomeInventory utilise un seul port local pour l’application et l’API.',
+  'firstInstall.kicker': 'Première installation', 'firstInstall.title': 'HomeInventory n’est pas encore installé', 'firstInstall.body': 'Le launcher installe la version de HomeInventory fournie avec lui. Vos données sont stockées dans le dossier de données du launcher.', 'firstInstall.button': 'Installer HomeInventory', 'firstInstall.installing': 'Installation de HomeInventory…', 'firstInstall.network': 'Cette étape n’a lieu qu’une fois et nécessite une connexion Internet pour télécharger l’environnement Node.js et les composants serveur.', 'firstInstall.customFolder': 'Utiliser un dossier d’installation personnalisé', 'firstInstall.elapsed': 'Temps écoulé : {elapsed}. Cela prend généralement une à trois minutes.', 'firstInstall.retry': 'Réessayer', 'firstInstall.statePreparing': 'Préparation de l’environnement Node.js', 'firstInstall.stateExtracting': 'Décompression de l’application', 'firstInstall.stateInstalling': 'Installation des composants serveur', 'firstInstall.stateFinalizing': 'Finalisation de l’installation', 'firstInstall.stateCompleted': 'Installé. Démarrage de HomeInventory…', 'firstInstall.stateFailed': 'Échec de l’installation',
+  'update.offerTitle': 'HomeInventory {version} est disponible', 'update.offerOnline': 'Installez-la quand cela vous convient. Une sauvegarde est créée d’abord ; d’ici là, Lancer utilise la version installée.', 'update.updateNow': 'Mettre à jour', 'update.later': 'Plus tard', 'update.skipVersion': 'Ignorer cette version', 'update.postponedTitle': 'Mise à jour vers {version} reportée', 'update.skippedTitle': 'Version {version} ignorée', 'update.postponedBody': 'Lancer utilise la version installée. Vous pouvez mettre à jour à tout moment.', 'update.review': 'Afficher la mise à jour', 'update.skippedNotice': 'La version {version} ne sera plus proposée. Les versions plus récentes le seront toujours.', 'update.optionalHelp': 'Les mises à jour sont facultatives. Lancer ouvre toujours la version installée.', 'update.bundledInstalling': 'Installation de HomeInventory {version} fourni avec ce launcher…',
+  'appMode.title': 'Fenêtre d’application (bêta)', 'appMode.toggleHelp': 'Ouvrir HomeInventory dans une fenêtre du launcher avec une barre latérale plutôt que dans le navigateur. La caméra peut ne pas y fonctionner ; utilisez Ouvrir dans le navigateur pour scanner.', 'appMode.open': 'Ouvrir la fenêtre d’application', 'appMode.classicNotice': 'Fenêtre d’application désactivée. HomeInventory s’ouvre de nouveau dans votre navigateur.', 'appMode.sidebarLabel': 'Commandes HomeInventory', 'appMode.statusStarting': 'Démarrage…', 'appMode.statusStopped': 'Arrêté', 'appMode.start': 'Démarrer', 'appMode.stop': 'Arrêter', 'appMode.restart': 'Redémarrer', 'appMode.collapse': 'Réduire la barre latérale', 'appMode.expand': 'Développer la barre latérale', 'appMode.cameraHint': 'La caméra peut ne pas fonctionner dans cette fenêtre. Utilisez Ouvrir dans le navigateur pour scanner.', 'appMode.backToClassic': 'Revenir au launcher classique', 'appMode.quickLabel': 'Fenêtre d’application', 'appMode.beta': 'Bêta',
 };
 
 const es: Dictionary = { ...en,
@@ -345,9 +451,22 @@ const es: Dictionary = { ...en,
   'android.pixel': 'Google Pixel / Android estándar', 'android.other': 'Otro Android', 'android.samsungPath': 'Ajustes → Seguridad y privacidad → Más ajustes de seguridad → Instalar desde almacenamiento del dispositivo → Certificado de CA', 'android.pixelPath': 'Ajustes → Seguridad y privacidad → Más ajustes de seguridad → Cifrado y credenciales → Instalar un certificado → Certificado de CA', 'android.otherPath': 'Abre Ajustes, busca «Instalar certificado» y elige Certificado de CA.',
   'advanced.title': 'Avanzado', 'advanced.configuration': 'Configuración avanzada', 'advanced.whatMatters': 'Lo importante aquí', 'advanced.emailLabel': 'Correo:', 'advanced.adminLabel': 'Administrador:', 'advanced.networkLabel': 'Red:', 'advanced.emailDelivery': 'Entrega de correo', 'advanced.sender': 'Remitente verificado', 'advanced.supportEmail': 'Correo de soporte', 'advanced.instanceAdmin': 'Instancia y administrador', 'advanced.bootstrapAdmin': 'Correo de administrador inicial', 'advanced.localPort': 'Puerto local', 'advanced.networkPorts': 'Puertos de red', 'advanced.apiPort': 'Puerto API', 'advanced.uiPort': 'Puerto de interfaz', 'advanced.randomPort': 'Buscar un puerto libre aleatorio', 'advanced.randomPorts': 'Buscar puertos libres aleatorios', 'advanced.otherDevices': 'Acceso desde otros dispositivos', 'advanced.sameWifiPrefix': 'Mantén los dispositivos en la', 'advanced.sameWifi': 'misma red Wi-Fi', 'advanced.firewall': 'Si se solicita, permite HomeInventory o Node.js en el Firewall de Windows para redes privadas.', 'advanced.findIp': 'Busca tu IP: Ajustes del sistema → Wi-Fi → Detalles → Dirección IP',
   'dev.console': 'Consola de desarrollo', 'dev.logs': 'Registros', 'dev.backups': 'Copias de seguridad', 'dev.settings': 'Ajustes', 'dev.updates': 'Actualizaciones', 'dev.backupDescription': 'Copias de tus datos y archivos locales con un clic.', 'dev.backingUp': 'Creando copia...', 'dev.backupNow': 'Crear copia ahora', 'dev.openBackup': 'Abrir copia', 'dev.installFolder': 'Carpeta de instalación', 'dev.installFolderHelp': 'Elige una carpeta vacía para una instalación nueva o una carpeta de HomeInventory existente.', 'dev.nodePath': 'Ruta de Node', 'dev.npmPath': 'Ruta de npm', 'dev.autoDetected': 'Detectado automáticamente', 'dev.nodePathHelp': 'Configúralo solo si el launcher no encuentra tu instalación de Node.', 'dev.npmPathHelp': 'Configúralo solo si la aplicación de escritorio no detecta npm.', 'dev.openFolder': 'Abrir carpeta', 'dev.openData': 'Abrir datos', 'dev.resetDetection': 'Restablecer detección de Node/npm', 'dev.stopServer': 'Detener servidor', 'dev.noLogs': 'Aún no hay registros.', 'dev.choosePath': 'Elegir ruta', 'dev.openLocation': 'Abrir ubicación', 'dev.useDetectedPath': 'Usar ruta detectada automáticamente',
+  'shell.serverSection': 'Servidor', 'shell.toolsSection': 'Herramientas', 'shell.refresh': 'Recargar página', 'shell.network': 'Red y teléfonos', 'shell.server': 'Configuración del servidor', 'shell.launcherSettings': 'Ajustes del launcher', 'shell.startFirst': 'Inicia HomeInventory para ver su dirección de red y la configuración de los teléfonos.', 'shell.applyRestart': 'Guardar y reiniciar', 'shell.applyStart': 'Guardar e iniciar', 'shell.back': 'Atrás', 'shell.forward': 'Adelante', 'shell.launcher': 'Launcher', 'shell.overview': 'Resumen', 'shell.versions': 'App {app} · Launcher {launcher}', 'shell.address': 'Dirección en esta red', 'shell.copy': 'Copiar', 'shell.lanOk': 'Accesible desde otros dispositivos', 'shell.stepCertificate': 'Instala el certificado en el teléfono', 'shell.stepOpen': 'Abre la dirección segura', 'shell.oldApp': 'HomeInventory {version} todavía muestra su propia barra lateral. Actualiza a la 2.8 o posterior para abrir sus páginas desde aquí.',
+  'logs.filterLabel': 'Filtrar registros', 'logs.filterAll': 'Todo', 'logs.filterErrors': 'Errores', 'logs.filterWarnings': 'Advertencias', 'logs.search': 'Buscar en registros', 'logs.noMatches': 'Ninguna línea coincide con este filtro.', 'logs.copy': 'Copiar registros visibles', 'logs.copied': 'Copiado', 'logs.jumpLatest': 'Ir a lo más reciente',
+  'status.localPortBusy': 'El puerto {port} está ocupado. Sugerido: {suggested}.', 'setup.launchOnPort': 'Iniciar en el puerto {port}', 'setup.warmupHint': 'El primer inicio tras una instalación o actualización puede tardar hasta dos minutos.', 'advanced.networkSingle': 'HomeInventory utiliza un puerto local para la aplicación y la API.',
+  'firstInstall.kicker': 'Primera instalación', 'firstInstall.title': 'HomeInventory aún no está instalado', 'firstInstall.body': 'El launcher instala la versión de HomeInventory que lo acompaña. Tus datos se guardan en la carpeta de datos del launcher.', 'firstInstall.button': 'Instalar HomeInventory', 'firstInstall.installing': 'Instalando HomeInventory…', 'firstInstall.network': 'Esto ocurre una sola vez y requiere conexión a Internet para descargar el entorno de Node.js y los componentes del servidor.', 'firstInstall.customFolder': 'Usar una carpeta de instalación personalizada', 'firstInstall.elapsed': 'Tiempo transcurrido: {elapsed}. Suele tardar entre uno y tres minutos.', 'firstInstall.retry': 'Reintentar', 'firstInstall.statePreparing': 'Preparando el entorno de Node.js', 'firstInstall.stateExtracting': 'Descomprimiendo la aplicación', 'firstInstall.stateInstalling': 'Instalando los componentes del servidor', 'firstInstall.stateFinalizing': 'Finalizando la instalación', 'firstInstall.stateCompleted': 'Instalado. Iniciando HomeInventory…', 'firstInstall.stateFailed': 'La instalación falló',
+  'update.offerTitle': 'HomeInventory {version} está disponible', 'update.offerOnline': 'Instálala cuando te convenga. Primero se crea una copia de seguridad; hasta entonces, Iniciar usa la versión instalada.', 'update.updateNow': 'Actualizar ahora', 'update.later': 'Más tarde', 'update.skipVersion': 'Omitir esta versión', 'update.postponedTitle': 'Actualización a {version} pospuesta', 'update.skippedTitle': 'Versión {version} omitida', 'update.postponedBody': 'Iniciar usa la versión instalada. Puedes actualizar en cualquier momento.', 'update.review': 'Mostrar actualización', 'update.skippedNotice': 'La versión {version} no se volverá a ofrecer. Las versiones más recientes se seguirán ofreciendo.', 'update.optionalHelp': 'Las actualizaciones son opcionales. Iniciar siempre abre la versión instalada.', 'update.bundledInstalling': 'Instalando HomeInventory {version} incluido con este launcher…',
+  'appMode.title': 'Ventana de aplicación (beta)', 'appMode.toggleHelp': 'Abre HomeInventory en una ventana del launcher con barra lateral en lugar de en el navegador. Es posible que la cámara no funcione ahí; usa Abrir en el navegador para escanear.', 'appMode.open': 'Abrir ventana de aplicación', 'appMode.classicNotice': 'Ventana de aplicación desactivada. HomeInventory vuelve a abrirse en tu navegador.', 'appMode.sidebarLabel': 'Controles de HomeInventory', 'appMode.statusStarting': 'Iniciando…', 'appMode.statusStopped': 'Detenido', 'appMode.start': 'Iniciar', 'appMode.stop': 'Detener', 'appMode.restart': 'Reiniciar', 'appMode.collapse': 'Contraer barra lateral', 'appMode.expand': 'Expandir barra lateral', 'appMode.cameraHint': 'Es posible que la cámara no funcione en esta ventana. Usa Abrir en el navegador para escanear.', 'appMode.backToClassic': 'Volver al launcher clásico', 'appMode.quickLabel': 'Ventana de aplicación', 'appMode.beta': 'Beta',
 };
 
-const dictionaries: Record<LauncherLocale, Dictionary> = { en, tr, de, fr, es };
+const dictionaries: Record<LauncherLocale, Dictionary> = {
+  en, tr, de, fr, es,
+  it: { ...en, ...it },
+  pt: { ...en, ...pt },
+  nl: { ...en, ...nl },
+  pl: { ...en, ...pl },
+  ru: { ...en, ...ru },
+};
 const STORAGE_KEY = 'homeinventory-launcher-language';
 
 export const LANGUAGE_OPTIONS: ReadonlyArray<{ code: LauncherLocale; labelKey: TranslationKey }> = [
@@ -356,14 +475,27 @@ export const LANGUAGE_OPTIONS: ReadonlyArray<{ code: LauncherLocale; labelKey: T
   { code: 'de', labelKey: 'language.de' },
   { code: 'fr', labelKey: 'language.fr' },
   { code: 'es', labelKey: 'language.es' },
+  { code: 'it', labelKey: 'language.it' },
+  { code: 'pt', labelKey: 'language.pt' },
+  { code: 'nl', labelKey: 'language.nl' },
+  { code: 'pl', labelKey: 'language.pl' },
+  { code: 'ru', labelKey: 'language.ru' },
 ];
 
-function resolveLocale(value: string | null | undefined): LauncherLocale | null {
+export const APP_LANGUAGE_KEY = 'homeinventory-app-language';
+
+export function resolveLocale(value: string | null | undefined): LauncherLocale | null {
   if (!value) return null;
   const normalized = value.toLowerCase().split('-')[0];
-  return normalized === 'en' || normalized === 'tr' || normalized === 'de' || normalized === 'fr' || normalized === 'es'
-    ? normalized
-    : null;
+  return (Object.keys(dictionaries) as LauncherLocale[]).find(code => code === normalized) ?? null;
+}
+
+function initialAppLanguage(locale: LauncherLocale): string {
+  try {
+    return localStorage.getItem(APP_LANGUAGE_KEY) || locale;
+  } catch {
+    return locale;
+  }
 }
 
 function initialLocale(): LauncherLocale {
@@ -383,6 +515,10 @@ export type Translate = (key: TranslationKey, variables?: Variables) => string;
 type I18nValue = {
   locale: LauncherLocale;
   setLocale: (locale: LauncherLocale) => void;
+  /** HomeInventory language (any of the app's languages). The launcher UI
+   * uses it when it has that language and English otherwise. */
+  appLanguage: string;
+  setAppLanguage: (language: string) => void;
   t: Translate;
 };
 
@@ -390,10 +526,17 @@ const I18nContext = createContext<I18nValue | null>(null);
 
 export function LauncherI18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<LauncherLocale>(initialLocale);
-  const setLocale = useCallback((next: LauncherLocale) => {
+  const [appLanguage, setAppLanguageState] = useState<string>(() => initialAppLanguage(locale));
+  const setAppLanguage = useCallback((language: string) => {
+    const next = resolveLocale(language) ?? 'en';
+    setAppLanguageState(language);
     setLocaleState(next);
-    try { localStorage.setItem(STORAGE_KEY, next); } catch { /* preference remains in memory */ }
+    try {
+      localStorage.setItem(APP_LANGUAGE_KEY, language);
+      localStorage.setItem(STORAGE_KEY, next);
+    } catch { /* preference remains in memory */ }
   }, []);
+  const setLocale = useCallback((next: LauncherLocale) => setAppLanguage(next), [setAppLanguage]);
   const t = useCallback<Translate>((key, variables) => {
     let message = dictionaries[locale][key] || en[key];
     if (variables) {
@@ -408,7 +551,23 @@ export function LauncherI18nProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = locale;
   }, [locale]);
 
-  const value = useMemo(() => ({ locale, setLocale, t }), [locale, setLocale, t]);
+  // The launcher window and the app window sidebar share one language.
+  useEffect(() => {
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === STORAGE_KEY) {
+        const next = resolveLocale(event.newValue);
+        if (next) setLocaleState(next);
+      }
+      if (event.key === APP_LANGUAGE_KEY && event.newValue) setAppLanguageState(event.newValue);
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+
+  const value = useMemo(
+    () => ({ locale, setLocale, appLanguage, setAppLanguage, t }),
+    [locale, setLocale, appLanguage, setAppLanguage, t],
+  );
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }
 

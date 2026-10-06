@@ -23,8 +23,9 @@ Getting the project running locally is easy:
 
 2. **Set up your local environment:**
    ```bash
-   cp .env.example .env
+   npm run setup
    ```
+   This creates `.env` from `.env.example` and fills in random development secrets. Existing values are kept.
 
 3. **Fire it up:**
    ```bash
@@ -42,9 +43,8 @@ We love tests! Whenever possible, please run tests to ensure your changes are so
 ```bash
 npm run version:check
 npm run i18n:check
-npm run build
 npm run build --prefix apps/launcher
-node --test --test-concurrency=1 tests/*.test.mjs
+npm test
 npm audit --audit-level=moderate
 npm audit --audit-level=moderate --prefix client
 npm audit --audit-level=moderate --prefix apps/launcher

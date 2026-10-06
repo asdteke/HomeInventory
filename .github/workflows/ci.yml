@@ -1,6 +1,6 @@
 name: CI
 
-# Current for the public v2.7.4 release line.
+# Current for the public v2.8.0 release line.
 
 on:
   pull_request:
@@ -145,7 +145,7 @@ jobs:
           node scripts/verify-managed-app-archive.mjs
 
       - name: Test Node application
-        run: node --test --test-concurrency=1 tests/*.test.mjs
+        run: npm run test:node
 
       - name: Test Rust launcher
         env:
@@ -160,3 +160,81 @@ jobs:
 
       - name: Audit launcher moderate severity dependencies
         run: npm audit --audit-level=moderate --prefix apps/launcher
+
+  docker:
+    name: Docker image (${{ matrix.platform }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-latest
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+          - platform: linux/arm/v7
+            runner: ubuntu-24.04-arm
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up QEMU
+        if: matrix.platform == 'linux/arm/v7'
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: ${{ matrix.platform }}
+          load: true
+          tags: homeinventory:ci
+          cache-from: type=gha,scope=${{ matrix.platform }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.platform }}
+
+      - name: Verify bundled dependencies load offline
+        run: |
+          docker run --rm --network none --platform ${{ matrix.platform }} --entrypoint node homeinventory:ci -e "
+            require('uuid'); require('better-sqlite3'); require('bcrypt'); require('sharp');
+            Promise.all([import('oci-common'), import('oci-secrets')])
+              .then(() => console.log('All runtime dependencies load without network access.'))
+              .catch((error) => { console.error(error); process.exit(1); });
+          "
+
+      - name: Generate secret files with the setup command
+        run: |
+          mkdir -p secrets
+          docker run --rm --network none --platform ${{ matrix.platform }} \
+            --user "$(id -u):$(id -g)" -v "$PWD/secrets:/secrets" \
+            homeinventory:ci node scripts/setup.mjs --docker --out /secrets
+          test -s secrets/jwt_secret.txt
+          test -s secrets/app_encryption_key.txt
+          test -s secrets/app_encryption_key_id.txt
+
+      # Mounts the generated files the way Compose does, so the container's
+      # uid 1001 must be able to read them.
+      - name: Start container without network and check health
+        run: |
+          docker run -d --name hi-smoke --network none --platform ${{ matrix.platform }} \
+            -v "$PWD/secrets/jwt_secret.txt:/run/secrets/jwt_secret:ro" \
+            -v "$PWD/secrets/app_encryption_key.txt:/run/secrets/app_encryption_key:ro" \
+            -v "$PWD/secrets/app_encryption_key_id.txt:/run/secrets/app_encryption_key_id:ro" \
+            homeinventory:ci
+          for attempt in $(seq 1 60); do
+            if docker exec hi-smoke node -e "fetch('http://127.0.0.1:3001/api/health').then((r) => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"; then
+              echo "Health check passed."
+              docker logs hi-smoke | tail -n 20
+              exit 0
+            fi
+            sleep 2
+          done
+          docker logs hi-smoke
+          exit 1
+
+      - name: Report image size
+        if: always()
+        run: docker image ls homeinventory:ci

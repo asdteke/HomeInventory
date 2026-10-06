@@ -13,7 +13,7 @@ CLI ve Docker hâlâ birinci sınıf kurulum yollarıdır. Launcher, masaüstü 
 
 ## Öne Çıkan Özellikler
 
-- **Tek tıkla yerel başlat/durdur:** HomeInventory API ve Vite istemcisini birlikte başlatır ve durdurur.
+- **Tek tıkla yerel başlat/durdur:** HomeInventory'yi başlatır ve durdurur. Launcher tarafından yönetilen kurulumlar, hazır derlenmiş arayüzle production sunucusunu tek portta çalıştırır; özel kaynak klasörleri API ve Vite geliştirme düzenini korur.
 - **Profil yalıtımı:** Launcher tarafından yönetilen profiller ayrı veri, SQLite, upload ve şifreli medya yolları kullanır.
 - **Bağımlılık doğrulama:** Node.js ve npm'i algılar; macOS/Linux GUI PATH ve Windows path çözümleme sorunlarını hesaba katar.
 - **Port ve LAN kontrolü:** Başlatmadan önce yerel portları doğrular, aynı ağdaki cihazlar için QR kod gösterir.
@@ -41,7 +41,38 @@ CLI ve Docker hâlâ birinci sınıf kurulum yollarıdır. Launcher, masaüstü 
 - **Windows:** `.exe` veya `.msi`
 - **Linux:** `.AppImage`, `.deb` veya `.rpm`
 
-Launcher açıldıktan sonra **Launch HomeInventory** butonuna tıklayın. Başlatıcı bağımlılıkları ve portları kontrol eder, backend ile frontend'i başlatır, ardından yerel URL ve aynı ağdaki cihazlar için QR kod gösterir.
+İlk açılışta launcher **HomeInventory'yi Kur** butonunu gösterir. Launcher ile birlikte gelen HomeInventory sürümünü kurar ve ardından bir kez başlatır. Sonrasında **HomeInventory'yi Başlat** butonuna tıklayın: launcher portları kontrol eder, uygulamayı başlatır, arayüz gerçekten sunulana kadar bekler ve ardından yerel URL ile aynı ağdaki cihazlar için QR kod gösterir.
+
+### İlk Kurulum ve Çalışma Modları
+
+- **İlk kurulum:** Launcher, paketli uygulamayı launcher veri klasörüne (`managed-app/versions/<sürüm>`) açar, taşınabilir Node.js çalışma ortamını indirir ve yalnızca sunucu için `npm ci --omit=dev` çalıştırır. Arayüz arşivde hazır derlenmiş olarak gelir (`client/dist`); bu yüzden istemci bağımlılıklarına veya Vite derlemesine gerek yoktur. Bu adım bir kez internet bağlantısı ister ve genellikle bir ila üç dakika sürer. Kurulum sırasında uygulama başlatılıp durdurulmaz; kurulum başarılı olduktan sonra bir kez başlatılır.
+- **Production modu (launcher tarafından yönetilen kurulumlar ve HomeInventory Local için varsayılan):** `NODE_ENV=production node server.js`, API'yi ve hazır arayüzü tek portta (varsayılan 3001) sunar. Launcher, uygulamayı hazır saymadan veya tarayıcıyı açmadan önce `/api/health` ve uygulama kabuğu için 120 saniyeye kadar bekler.
+- **Geliştirme modu (özel kurulum klasörleri ve `client/dist` içermeyen eski yönetilen kurulumlar):** Launcher, daha önce olduğu gibi ayrı API ve arayüz portlarıyla `scripts/dev.mjs` çalıştırmaya devam eder. Repository içindeki `npm run dev` değişmez.
+- **Özel klasör:** İlk kurulum ekranındaki **Özel bir kurulum klasörü kullan** seçeneği (veya **Geliştirici Araçları > Ayarlar > Kurulum klasörü**), seçtiğiniz bir klasöre kurma veya oradan çalıştırma davranışını korur.
+- Kullanıcı verileri, profil verileri ve launcher yapılandırması önceki launcher uygulama-verisi konumlarında kalır.
+- Launcher'ın başlattığı her sunucu sürecine `UPDATE_CHECK=false` verilir; böylece uygulamanın kendi GitHub sürüm kontrolü atlanır ve güncellemeleri launcher yönetir.
+
+### İsteğe Bağlı Güncellemeler
+
+Güncellemeler **HomeInventory'yi Başlat** butonunu hiçbir zaman engellemez veya onun yerine geçmez: Başlat her zaman kurulu sürümü çalıştırır. Güncelleme varsa launcher ayrı bir güncelleme kartında üç seçenek sunar:
+
+- **Şimdi Güncelle** güncellemeyi kurar. Doğrulanmış çevrim içi bir sürümde önce yedek alır, yönetilen uygulamayı kurar ve ardından eşleşen launcher güncellemesini uygular (uygulama ve launcher birlikte yayımlanır).
+- **Daha Sonra** öneriyi launcher yeniden açılana kadar gizler.
+- **Bu Sürümü Atla** o sürümü kalıcı olarak gizler (launcher ayarlarına kaydedilir). Daha yeni bir sürüm yine önerilir. Karttaki **Güncellemeyi Göster** veya **Geliştirici Araçları > Güncellemeler**, atlanan ya da ertelenen güncellemeyi geri getirir.
+
+Launcher'ın içinde gelen uygulama isteğe bağlı değildir. Daha yeni bir launcher kurduğunuzda, hiçbir şey çalışmıyorsa yönetilen uygulamayı otomatik olarak aynı sürüme getirir (uygulama dosyalarını değiştirir ve durmuş halde biter). Böylece launcher ile uygulama her zaman aynı sürümde olur.
+
+Launcher açılırken güncellemeleri yine kontrol eder, ancak yalnızca kontrol eder; **Şimdi Güncelle** seçilmeden hiçbir şey indirilmez veya kurulmaz.
+
+### İsteğe Bağlı Uygulama Penceresi (Beta)
+
+Launcher varsayılan olarak HomeInventory'yi tarayıcınızda açar ve klasik launcher değişmeden kalır. HomeInventory'yi bir launcher penceresi içinde kullanmak için **Geliştirici Araçları > Ayarlar > Uygulama penceresi (beta)** seçeneğini açın.
+
+- HomeInventory hazır olduğunda (veya **Uygulama Penceresini Aç** butonuna tıkladığınızda) launcher, daraltılabilir kenar çubuklu bir HomeInventory penceresi açar ve klasik launcher penceresini gizler.
+- Kenar çubuğu durumu ve portu gösterir; **Başlat**, **Durdur**, **Yeniden Başlat**, **Tarayıcıda aç**, **Günlükler**, **Güncellemeler** ve **Ayarlar** (son ikisi klasik launcher'ı ilgili panelde açar) ile uygulama modunu yeniden kapatan **Klasik launcher'a dön** seçeneklerini sunar.
+- Uygulama penceresini kapatmak klasik launcher'ı geri getirir ve HomeInventory'yi çalışır durumda bırakır. Klasik launcher'ı kapatmak ise yine HomeInventory'yi durdurur ve uygulama penceresini de kapatır.
+- Uygulama, kendi webview'ında normal bir yerel sayfa olarak çalışır. Launcher komutlarını yalnızca kenar çubuğu çağırabilir (`capabilities/app-sidebar.json`); HomeInventory sayfasının launcher erişimi yoktur, yerel uygulamada kalır ve açılır pencere ya da başka siteler açamaz.
+- Sınırlamalar: İşletim sisteminin webview'ına bağlı olarak kamera, dosya indirmeleri, açılır pencereler ve başka sitelere giden bağlantılar uygulama penceresinde çalışmayabilir. Barkod taraması ve bu durumlar için **Tarayıcıda aç** seçeneğini kullanın. Uygulama penceresi, Tauri'nin hâlâ kararsız (unstable) olarak işaretlediği çoklu webview API'sini kullanır.
 
 LAN IP adresinde canlı mobil kamera erişimi güvenli tarayıcı bağlamı gerektirir. İsteğe bağlı, alan adsız kurulum ile güven/rotasyon sınırları [Offline Mobil HTTPS](docs/offline-mobile-https.md) belgesinde açıklanır.
 
@@ -92,6 +123,10 @@ HOMEINVENTORY_UPLOADS_DIR=<launcher-app-data>/profiles/homeinventory/uploads
 ```
 
 Bu yapı, kullanıcı açıkça yolları değiştirmediği sürece launcher tarafından yönetilen yerel çalıştırmaları normal repository `.env`, veritabanı ve uploads klasöründen ayrı tutar.
+
+Launcher ayrıca `UPDATE_CHECK=false` ayarlar: HomeInventory'yi kendisi güncellediği için yönetici panelindeki GitHub yeni sürüm bildirimi (Docker ve komut satırı kurulumları içindir) kapalıdır ve GitHub'a hiç istek gönderilmez.
+
+Sunucunun kendi otomatik yedekleri (**Yönetim paneli → Yedekler**) profil içinde, `inventory.db` dosyasının yanındaki `data/backups/` klasörüne yazılır. Launcher sunucuyu kendiliğinden yeniden başlatmaz. Yönetim panelinde bir geri yükleme hazırladıktan sonra, uygulanması için profili launcher'da durdurup yeniden başlatın. Bu yedekler `uploads/` klasörünü içermez ve yalnızca profilin şifreleme anahtarıyla kullanılabilir. Bu yüzden launcher'ın kendi yedeklerini de saklayın.
 
 ## Release Paketleme
 

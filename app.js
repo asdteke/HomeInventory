@@ -23,6 +23,7 @@ import emailRoutes from './routes/email.js';
 import adminRoutes from './routes/admin.js';
 import housesRoutes from './routes/houses.js';
 import backupRoutes from './routes/backup.js';
+import instanceBackupRoutes, { startInstanceBackupScheduler } from './routes/instanceBackups.js';
 import vaultRoutes from './routes/vault.js';
 import borrowRequestsRoutes from './routes/borrowRequests.js';
 import maintenanceRoutes from './routes/maintenance.js';
@@ -490,6 +491,7 @@ app.use('/api/locations', locationsRoutes);
 app.use('/api/boxes', boxesRoutes);
 app.use('/api/barcode', barcodeRoutes);
 app.use('/api/email', emailRoutes);
+app.use('/api/admin/backups', instanceBackupRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/houses', housesRoutes);
 app.use('/api/backup', backupRoutes);
@@ -554,13 +556,17 @@ app.use(errorMiddleware);
 
 // Start server on configurable host; defaults to all network interfaces.
 app.listen(PORT, HOST, () => {
-    const frontendUrl = String(process.env.SITE_URL || `http://localhost:${FRONTEND_PORT}`)
+    // In production the server also serves the built client, so the app
+    // lives on PORT; FRONTEND_PORT is only the Vite dev server.
+    const isProduction = NODE_ENV === 'production';
+    const appPort = isProduction ? PORT : FRONTEND_PORT;
+    const frontendUrl = String(process.env.SITE_URL || `http://localhost:${appPort}`)
         .trim()
         .replace(/\/+$/, '');
     const backendUrl = `http://localhost:${PORT}`;
     const hasLanAddress = localIP && localIP !== 'localhost' && localIP !== '127.0.0.1';
     const networkBackendUrl = hasLanAddress ? `http://${localIP}:${PORT}` : null;
-    const networkFrontendUrl = hasLanAddress ? `http://${localIP}:${FRONTEND_PORT}` : null;
+    const networkFrontendUrl = hasLanAddress ? `http://${localIP}:${appPort}` : null;
 
     console.log(renderStartupSummary({
         appName: BRAND_NAME,
@@ -569,6 +575,9 @@ app.listen(PORT, HOST, () => {
         backendUrl,
         lanAppUrl: networkFrontendUrl,
         lanApiUrl: networkBackendUrl,
+        mode: isProduction ? 'Production' : 'Development',
         helpText: 'Use Ctrl+C to stop'
     }));
+
+    startInstanceBackupScheduler();
 });

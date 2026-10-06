@@ -1,12 +1,17 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 
 const lockfile = JSON.parse(readFileSync(new URL('../package-lock.json', import.meta.url), 'utf8'));
 const packageManifest = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
 const clientLockfile = JSON.parse(readFileSync(new URL('../client/package-lock.json', import.meta.url), 'utf8'));
 const launcherLockfile = JSON.parse(readFileSync(new URL('../apps/launcher/package-lock.json', import.meta.url), 'utf8'));
-const launcherRust = readFileSync(new URL('../apps/launcher/src-tauri/src/lib.rs', import.meta.url), 'utf8');
+const launcherRustDir = new URL('../apps/launcher/src-tauri/src/', import.meta.url);
+const launcherRust = readdirSync(launcherRustDir)
+    .filter((name) => name.endsWith('.rs'))
+    .sort()
+    .map((name) => readFileSync(new URL(name, launcherRustDir), 'utf8'))
+    .join('\n');
 const storeBuildScript = readFileSync(new URL('../scripts/build-store-windows.mjs', import.meta.url), 'utf8');
 
 function numericVersion(version) {
@@ -53,7 +58,11 @@ test('security-sensitive dependencies stay above patched versions', () => {
     const reactRouterDomVersion = clientLockfile.packages?.['node_modules/react-router-dom']?.version;
 
     assert.ok(isAtLeast(multerVersion, '2.4.0'), `multer ${multerVersion} is below patched 2.4.0`);
-    assert.ok(isAtLeast(undiciVersion, '7.29.1'), `undici ${undiciVersion} is below patched 7.29.1`);
+    // undici was only pulled in by cheerio; it may be absent from the lockfile.
+    assert.ok(
+        undiciVersion === undefined || isAtLeast(undiciVersion, '7.29.1'),
+        `undici ${undiciVersion} is below patched 7.29.1`
+    );
     assert.ok(isAtLeast(ipAddressVersion, '10.5.1'), `ip-address ${ipAddressVersion} is below patched 10.5.1`);
     assert.ok(isAtLeast(bodyParserVersion, '1.20.6'), `body-parser ${bodyParserVersion} is below patched 1.20.6`);
     assert.ok(isAtLeast(shellQuoteVersion, '1.10.0'), `shell-quote ${shellQuoteVersion} is below patched 1.10.0`);

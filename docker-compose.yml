@@ -1,8 +1,8 @@
 services:
   homeinventory:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    # Multi-arch image published by .github/workflows/docker-image.yml (latest = newest release).
+    # Pin a release by setting HOMEINVENTORY_IMAGE, e.g. ghcr.io/asdteke/homeinventory:2.8.0
+    image: ${HOMEINVENTORY_IMAGE:-ghcr.io/asdteke/homeinventory:latest}
     restart: unless-stopped
     env_file:
       - .env
@@ -25,7 +25,7 @@ services:
       # Persistent uploads (photos)
       - homeinventory_uploads:/app/uploads
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3001/api/health"]
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3001/api/health').then((r) => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
       interval: 30s
       timeout: 10s
       retries: 3

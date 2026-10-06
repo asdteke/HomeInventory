@@ -54,4 +54,36 @@ if (new Set(Object.values(versions)).size !== 1) {
   process.exit(1);
 }
 
-console.log(`Managed app archive verified: v${versions.archive}`);
+// The launcher runs managed installs in production mode, so the archive must
+// carry the prebuilt client and must not carry any installed dependencies.
+const listResult = spawnSync('tar', ['-tzf', basename(archivePath)], {
+  cwd: dirname(archivePath),
+  encoding: 'utf8',
+  shell: false,
+  maxBuffer: 64 * 1024 * 1024
+});
+
+if (listResult.status !== 0) {
+  console.error(`Could not list managed app archive: ${archivePath}`);
+  console.error(listResult.stderr || listResult.stdout);
+  process.exit(listResult.status || 1);
+}
+
+const entries = listResult.stdout
+  .split('\n')
+  .filter(Boolean)
+  .map((entry) => entry.replace(/^\.\//, ''));
+
+if (!entries.includes('client/dist/index.html')) {
+  console.error('Managed app archive does not include the prebuilt client (client/dist/index.html).');
+  console.error('Run npm run build and then npm run launcher:bundle-app.');
+  process.exit(1);
+}
+
+const dependencyEntry = entries.find((entry) => /(^|\/)node_modules\//.test(entry));
+if (dependencyEntry) {
+  console.error(`Managed app archive must not contain installed dependencies: ${dependencyEntry}`);
+  process.exit(1);
+}
+
+console.log(`Managed app archive verified: v${versions.archive} (prebuilt client included)`);

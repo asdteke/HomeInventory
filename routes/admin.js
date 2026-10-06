@@ -18,6 +18,7 @@ import {
     removeOwnedPrivateBoxes
 } from '../utils/privateBoxLifecycle.js';
 import { transferOwnedPublicLocations } from '../utils/houseMembership.js';
+import { updateChecker } from '../utils/updateCheck.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -575,6 +576,21 @@ router.get('/email/status', authenticateToken, requireAdmin, (req, res) => {
         rateLimit: '3/dakika',
         user: { id: req.user.id, username: req.user.username, role: req.user.role }
     });
+});
+
+// ============================================
+// UPDATE NOTICE (self-hosted installs)
+// ============================================
+// Lazy: GitHub is only contacted when an admin asks, and the result is cached.
+// Never fails: offline or rate-limited lookups report status "unknown".
+router.get('/update-status', authenticateToken, requireAdmin, async (req, res) => {
+    try {
+        res.set('Cache-Control', 'no-store');
+        res.json(await updateChecker.getStatus());
+    } catch (error) {
+        logError('ADMIN-UPDATE-STATUS', error, req);
+        res.status(500).json({ error: 'Sunucu hatası' });
+    }
 });
 
 router.post('/indexnow/submit', authenticateToken, requireAdmin, async (req, res) => {

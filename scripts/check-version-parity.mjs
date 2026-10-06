@@ -91,9 +91,9 @@ const runtimeVersions = new Map([
     readMatch('.github/workflows/launcher-packages.yml', /NODE_VERSION:\s*["'](\d+\.\d+\.\d+)["']/)
   ],
   [
-    'apps/launcher/src-tauri/src/lib.rs',
+    'apps/launcher/src-tauri/src/node.rs',
     readMatch(
-      'apps/launcher/src-tauri/src/lib.rs',
+      'apps/launcher/src-tauri/src/node.rs',
       /const PORTABLE_NODE_VERSION:\s*&str\s*=\s*"(\d+\.\d+\.\d+)"/
     )
   ],
@@ -103,6 +103,10 @@ const runtimeVersions = new Map([
       'scripts/build-store-windows.mjs',
       /const portableNodeVersion\s*=\s*'(\d+\.\d+\.\d+)'/
     )
+  ],
+  [
+    'Dockerfile',
+    readMatch('Dockerfile', /ARG NODE_IMAGE=node:(\d+\.\d+\.\d+)/)
   ]
 ]);
 const mismatchedRuntimeVersions = [...runtimeVersions]
@@ -128,9 +132,9 @@ const runtimeMajors = new Map([
     )
   ],
   [
-    'apps/launcher/src-tauri/src/lib.rs REQUIRED_NODE_MAJOR',
+    'apps/launcher/src-tauri/src/node.rs REQUIRED_NODE_MAJOR',
     readMatch(
-      'apps/launcher/src-tauri/src/lib.rs',
+      'apps/launcher/src-tauri/src/node.rs',
       /const REQUIRED_NODE_MAJOR:\s*u32\s*=\s*(\d+)/
     )
   ]

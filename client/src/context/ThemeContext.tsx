@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useLayoutEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
+import { publishLauncherState } from '../utils/launcherShell';
 
 export type Theme = 'light' | 'dark';
 
@@ -31,14 +33,28 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
         return 'light';
     });
 
-    useEffect(() => {
+    // Layout effect: the class must be in place when a view transition
+    // captures the new state.
+    useLayoutEffect(() => {
         const root = window.document.documentElement;
         root.classList.remove('light', 'dark');
         root.classList.add(theme);
         localStorage.setItem('theme', theme);
+        publishLauncherState({ theme });
     }, [theme]);
 
-    const setTheme = setThemeState;
+    // Cross-fade between light and dark where the browser supports it.
+    const setTheme = useCallback<React.Dispatch<React.SetStateAction<Theme>>>((value) => {
+        const doc = document as Document & { startViewTransition?: (update: () => void) => unknown };
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!doc.startViewTransition || reduceMotion) {
+            setThemeState(value);
+            return;
+        }
+        doc.startViewTransition(() => {
+            flushSync(() => setThemeState(value));
+        });
+    }, []);
 
     // Listen for system theme changes
     useEffect(() => {

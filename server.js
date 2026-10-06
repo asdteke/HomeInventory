@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { loadRuntimeSecrets } from './utils/runtimeSecrets.js';
+import { getEnvOrSecret } from './utils/secrets.js';
 
 await loadRuntimeSecrets();
 
@@ -9,13 +10,17 @@ await loadRuntimeSecrets();
 // Kritik secret'lar eksikse uygulamayı başlatma.
 // Bu kontrol, sessiz güvenlik hatalarını (zayıf fallback key kullanımı vb.) önler.
 if (process.env.NODE_ENV === 'production') {
+    // Docker secrets (/run/secrets/<name>) count as configured, matching how
+    // auth.js and utils/encryption.js read these values.
     const requiredSecrets = [
-        'JWT_SECRET',
-        'APP_ENCRYPTION_KEY',
-        'APP_ENCRYPTION_KEY_ID',
+        ['JWT_SECRET', 'jwt_secret'],
+        ['APP_ENCRYPTION_KEY', 'app_encryption_key'],
+        ['APP_ENCRYPTION_KEY_ID', 'app_encryption_key_id'],
     ];
 
-    const missing = requiredSecrets.filter((key) => !String(process.env[key] || '').trim());
+    const missing = requiredSecrets
+        .filter(([key, secretName]) => !String(getEnvOrSecret(key, secretName) || '').trim())
+        .map(([key]) => key);
 
     if (missing.length > 0) {
         console.error(

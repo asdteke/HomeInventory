@@ -7,8 +7,15 @@ const appSource = readFileSync(new URL('../apps/launcher/src/App.tsx', import.me
 const styles = readFileSync(new URL('../apps/launcher/src/styles.css', import.meta.url), 'utf8');
 const tauriConfig = readFileSync(new URL('../apps/launcher/src-tauri/tauri.conf.json', import.meta.url), 'utf8');
 const localeNames = ['en', 'tr', 'de', 'fr', 'es'];
+// Newer launcher languages live in their own files and spread English.
+const fileLocaleNames = ['it', 'pt', 'nl', 'pl', 'ru'];
+const fileLocales = Object.fromEntries(fileLocaleNames.map(name => [
+  name,
+  readFileSync(new URL(`../apps/launcher/src/locales/${name}.ts`, import.meta.url), 'utf8'),
+]));
 const invariantKeys = new Set([
   'language.en', 'language.tr', 'language.de', 'language.fr', 'language.es',
+  'language.it', 'language.pt', 'language.nl', 'language.pl', 'language.ru',
   'common.launcher', 'https.ios', 'https.android', 'android.samsung', 'advanced.resendKey',
 ]);
 
@@ -32,13 +39,16 @@ function placeholders(value) {
   return [...value.matchAll(/\{([^}]+)\}/g)].map(match => match[1]).sort();
 }
 
-test('launcher ships five complete local dictionaries with matching placeholders', () => {
-  const blocks = Object.fromEntries(localeNames.map((name, index) => [name, localeBlock(name, localeNames[index + 1])]));
+test('launcher ships ten complete local dictionaries with matching placeholders', () => {
+  const blocks = {
+    ...Object.fromEntries(localeNames.map((name, index) => [name, localeBlock(name, localeNames[index + 1])])),
+    ...fileLocales,
+  };
   const englishKeys = keys(blocks.en);
   const englishEntries = entries(blocks.en);
   assert.ok(englishKeys.size > 200, 'expected the full launcher surface to be localized');
 
-  for (const locale of localeNames.slice(1)) {
+  for (const locale of [...localeNames.slice(1), ...fileLocaleNames]) {
     const localeKeys = keys(blocks[locale]);
     const missing = [...englishKeys].filter(key => !localeKeys.has(key) && !invariantKeys.has(key));
     assert.deepEqual(missing, [], `${locale} has missing non-invariant translations`);

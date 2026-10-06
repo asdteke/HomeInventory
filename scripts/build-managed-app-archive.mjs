@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync, mkdirSync, readdirSync, rmSync, statSync } from 'node:fs';
+import { copyFileSync, existsSync, lstatSync, mkdirSync, readdirSync, rmSync, statSync } from 'node:fs';
 import { basename, dirname, join, relative, resolve, sep } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -131,6 +131,31 @@ function copyTree(source, target) {
   copyFileSync(source, target);
 }
 
+// The launcher runs the managed app in production mode (`node server.js`
+// serving client/dist), so the archive ships the prebuilt client. The build
+// output is not tracked by Git and is copied separately from the sources.
+function copyPrebuiltClient(source, target) {
+  const stats = lstatSync(source);
+  if (stats.isSymbolicLink() || basename(source) === '.DS_Store') return;
+
+  if (stats.isDirectory()) {
+    mkdirSync(target, { recursive: true });
+    for (const entry of readdirSync(source)) {
+      copyPrebuiltClient(join(source, entry), join(target, entry));
+    }
+    return;
+  }
+
+  if (!stats.isFile()) return;
+  mkdirSync(dirname(target), { recursive: true });
+  copyFileSync(source, target);
+}
+
+const prebuiltClientDir = join(repoRoot, 'client', 'dist');
+if (!existsSync(join(prebuiltClientDir, 'index.html'))) {
+  fail('client/dist/index.html is missing. Run npm run build before npm run launcher:bundle-app.');
+}
+
 rmSync(stagingRoot, { recursive: true, force: true });
 mkdirSync(stagingRoot, { recursive: true });
 mkdirSync(dirname(outputPath), { recursive: true });
@@ -138,14 +163,18 @@ mkdirSync(dirname(outputPath), { recursive: true });
 for (const entry of releaseSourceEntries()) {
   copyTree(join(repoRoot, entry), join(stagingRoot, entry));
 }
+copyPrebuiltClient(prebuiltClientDir, join(stagingRoot, 'client', 'dist'));
 
+// Sources, scripts/dev.mjs and the client lockfile stay in the archive so
+// older launchers that still run the development entrypoint can install it.
 const requiredFiles = [
   'package.json',
   'package-lock.json',
   'server.js',
   'scripts/dev.mjs',
   'client/package.json',
-  'client/package-lock.json'
+  'client/package-lock.json',
+  'client/dist/index.html'
 ];
 
 for (const file of requiredFiles) {
@@ -163,7 +192,7 @@ const forbiddenArchivePatterns = [
   /(^|\/)node_modules\//,
   /(^|\/)apps\//,
   /(^|\/)data\//,
-  /(^|\/)client\/dist(?:-[^/]+)?\//,
+  /(^|\/)client\/dist-[^/]+\//,
   /(^|\/)local-brands\//,
   /(^|\/)private-brands\//,
   /(^|\/)brand-local\//,

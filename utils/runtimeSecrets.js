@@ -163,9 +163,17 @@ function resolveProviderRegion(authenticationDetailsProvider) {
     return '';
 }
 
+// Only the auth/region helpers and the Secrets client are needed, so load the
+// two small OCI packages instead of the full oci-sdk bundle (~500 MB).
 async function loadOciSdk() {
-    const module = await import('oci-sdk');
-    return module.default || module;
+    const [commonModule, secretsModule] = await Promise.all([
+        import('oci-common'),
+        import('oci-secrets')
+    ]);
+    return {
+        common: commonModule.default || commonModule,
+        secrets: secretsModule.default || secretsModule
+    };
 }
 
 function toOciRegion(oci, region) {
