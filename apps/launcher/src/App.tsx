@@ -265,7 +265,7 @@ export function LanguageQuickPicker() {
         onChange={event => setLocale(event.target.value as typeof locale)}
       >
         {LANGUAGE_OPTIONS.map(option => (
-          <option key={option.code} value={option.code}>{t(option.labelKey)}</option>
+          <option key={option.code} value={option.code}>{option.label}</option>
         ))}
       </select>
       <ChevronDown size={13} aria-hidden="true" />
@@ -2379,10 +2379,10 @@ export function DevPanelContent({
                     role="radio"
                     aria-checked={locale === option.code}
                     onClick={() => setLocale(option.code)}
-                    title={t(option.labelKey)}
+                    title={option.label}
                   >
-                    <span>{option.code.toUpperCase()}</span>
-                    <small>{t(option.labelKey)}</small>
+                    <span>{option.code.split('-')[0].toUpperCase()}</span>
+                    <small>{option.label}</small>
                   </button>
                 ))}
               </div>
