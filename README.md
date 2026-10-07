@@ -37,6 +37,8 @@
   <a href="#why-homeinventory">Why</a> ·
   <a href="#features">Features</a> ·
   <a href="#security--privacy">Security</a> ·
+  <a href="PRIVACY.md">Privacy Policy</a> ·
+  <a href="#code-signing-policy">Code signing policy</a> ·
   <a href="#quick-start">Quick Start</a> ·
   <a href="#documentation">Docs</a> ·
   <a href="CHANGELOG.md">Changelog</a> ·
@@ -127,6 +129,10 @@ HomeInventory is built for families, roommates, and small households that need a
 
 > [!IMPORTANT]
 > HomeInventory uses strong server-side encryption, but the main inventory encryption key is still managed by the server. An operator with database access and runtime secrets can decrypt protected inventory data. Use Personal Vault for records that need stronger separation from shared household workflows.
+
+## Code signing policy
+
+HomeInventory is preparing a SignPath Foundation application for free Windows code signing. Acceptance and production signing have not been confirmed; current Windows packages are not Authenticode-signed by SignPath. See the [Code signing policy](CODE_SIGNING.md) for signing scope, maintainer roles, verification and provider attribution, and the [Privacy Policy](PRIVACY.md) for data handling and network services.
 
 ## Architecture
 
