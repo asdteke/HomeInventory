@@ -261,6 +261,8 @@ jobs:
         shell: bash
         env:
           CARGO_BUILD_JOBS: "1"
+          # Preserve the configured Finder layout; Tauri otherwise skips it in CI.
+          TAURI_BUNDLER_DMG_IGNORE_CI: "true"
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
           APPLE_DEVELOPER_ID_APPLICATION: ${{ secrets.APPLE_DEVELOPER_ID_APPLICATION }}
@@ -476,6 +478,12 @@ jobs:
       - name: List release assets
         run: ls -la public-release-assets
 
+      - name: Prepare release notes
+        run: |
+          node scripts/create-release-notes.mjs \
+            --version "${{ needs.managed-app.outputs.app_version }}" \
+            --output "${{ runner.temp }}/homeinventory-release-notes.md"
+
       - name: Replace existing release
         shell: bash
         env:
@@ -491,28 +499,5 @@ jobs:
         with:
           tag_name: ${{ needs.managed-app.outputs.release_tag }}
           name: HomeInventory ${{ needs.managed-app.outputs.release_tag }}
-          body: |
-            ## HomeInventory v2.8.0
-
-            The self-hosting release. A ready-made Docker image (`ghcr.io/asdteke/homeinventory`) for amd64, arm64, and armv7 bundles every dependency and starts offline; `npm run setup` generates secrets; automatic server backups with an admin restore screen run daily by default; self-hosted admins get a new-version notice; and the desktop launcher now runs the prebuilt app, installs faster, makes updates optional, and offers an optional app window (beta). Production dependencies shrink from about 616 MB to about 52 MB, and server-side Google scraping is removed. No manual database migration is required.
-
-            ## Recommended downloads
-
-            - **macOS (Apple Silicon):** the `darwin-aarch64.dmg` file
-            - **macOS (Intel):** the `darwin-x86_64.dmg` file
-            - **Windows:** use `.exe`; `.msi` is also available
-            - **Linux:** use `.AppImage`; `.deb` and `.rpm` are also available
-
-            The remaining archive and metadata files are used automatically by HomeInventory updates.
-
-            ## Upgrade notes
-
-            - Supported browsers: Safari 16.4+, Chrome 111+, or Firefox 128+.
-            - macOS packages use ad-hoc signing when Apple Developer ID/notarization credentials are unavailable.
-            - Physical iOS Safari certificate/camera validation remains a separate device check.
-            - Back up the SQLite database, uploads, and your encryption key before upgrading a self-hosted installation.
-            - Docker users: `docker compose pull && docker compose up -d` switches to the published image.
-            - Rebuild the client and refresh the PWA/service worker after upgrading.
-            - Flash and zoom availability depends on the mobile browser and camera hardware; unsupported controls remain disabled.
-            - See `CHANGELOG.md` in the source archive for the complete patch notes.
+          body_path: ${{ runner.temp }}/homeinventory-release-notes.md
           files: public-release-assets/*
