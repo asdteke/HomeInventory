@@ -23,7 +23,7 @@ import { MAX_PHOTO_UPLOAD_MB, isPhotoUploadTooLarge } from '../utils/mediaLimits
 import { validateVaultPassphrase } from '../utils/personalVaultCrypto';
 import FloatingToast from './FloatingToast';
 import { ConfirmDialog } from './ModalDialog';
-import { formatDateForLanguage } from '../utils/appFormatting';
+import { formatDateForLanguage, parseServerTimestamp } from '../utils/appFormatting';
 import { getCategoryPresentation } from '../utils/categoryDisplay';
 import { getRoomPresentation } from '../utils/roomDisplay';
 import { BRAND_KEY } from '../constants/branding';
@@ -288,7 +288,7 @@ function formatLocalDate(dateValue: string, locale: string): string {
 }
 
 function formatLocalDateTime(dateValue: string, locale: string): string {
-    const parsed = new Date(dateValue);
+    const parsed = parseServerTimestamp(dateValue);
     if (Number.isNaN(parsed.getTime())) {
         return '-';
     }

@@ -113,6 +113,7 @@ export default function ItemList() {
                                hasCache('/api/auth/house-members');
     const [loading, setLoading] = useState(!isInitiallyLoaded);
     const [filtersLoading, setFiltersLoading] = useState(false);
+    const lastWrittenQueryRef = useRef<string | null>(null);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [filters, setFilters] = useState<InventoryFilters>(() => createFiltersFromSearchParams(searchParams));
     const [lendDialogItem, setLendDialogItem] = useState<any | null>(null);
@@ -248,6 +249,12 @@ export default function ItemList() {
     }, []);
 
     useEffect(() => {
+        // Ignore URL updates this component wrote itself: typing faster than the
+        // router settles would otherwise reset the search box to an older value.
+        if (searchParams.toString() === lastWrittenQueryRef.current) {
+            return;
+        }
+
         const nextFilters = createFiltersFromSearchParams(searchParams);
 
         setFilters((current) => {
@@ -266,6 +273,7 @@ export default function ItemList() {
         const nextQuery = buildQueryString(filters);
         const currentQuery = searchParams.toString();
         if (nextQuery !== currentQuery) {
+            lastWrittenQueryRef.current = nextQuery;
             setSearchParams(nextQuery ? new URLSearchParams(nextQuery) : new URLSearchParams(), { replace: true });
         }
 

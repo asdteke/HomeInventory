@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { Activity, Box, Clock3, Package } from 'lucide-react';
 import { LoadingState } from './ProductUI';
+import { parseServerTimestamp } from '../utils/appFormatting';
 
 interface ActivityRecord {
     id: number;
@@ -120,7 +121,7 @@ export default function ActivityPage() {
                                     </p>
                                     <p className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-(--hi-text-muted)">
                                         <Clock3 className="h-3.5 w-3.5" />
-                                        {new Date(entry.created_at).toLocaleString(i18n.language)}
+                                        {parseServerTimestamp(entry.created_at).toLocaleString(i18n.language)}
                                     </p>
                                 </div>
                                 {entry.action.startsWith('box.')

@@ -82,32 +82,35 @@ const REQUEST_JOINS = `
     LEFT JOIN users linked_returner ON linked_returner.id = linked_borrow.returned_by_user_id
 `;
 
-function normalizeOptionalText(value, fieldLabel, maxLength = 500) {
+function normalizeOptionalText(value, fieldLabel, maxLength = 500, code = 'BORROW_FIELD_TOO_LONG') {
     const normalized = String(value || '').trim();
     if (!normalized) {
         return null;
     }
 
     if (normalized.length > maxLength) {
-        throw new Error(`${fieldLabel} çok uzun`);
+        throw createRequestError(`${fieldLabel} çok uzun`, 400, code);
     }
 
     return normalized;
 }
 
-function normalizeRequiredText(value, fieldLabel, maxLength = 160) {
-    const normalized = normalizeOptionalText(value, fieldLabel, maxLength);
+function normalizeRequiredText(value, fieldLabel, maxLength = 160, codes = {}) {
+    const normalized = normalizeOptionalText(value, fieldLabel, maxLength, codes.tooLong);
     if (!normalized) {
-        throw new Error(`${fieldLabel} gerekli`);
+        throw createRequestError(`${fieldLabel} gerekli`, 400, codes.required || 'BORROW_FIELD_REQUIRED');
     }
 
     return normalized;
 }
 
 function buildRecipientLookup(identifier) {
-    const normalized = normalizeRequiredText(identifier, 'Alıcı bilgisi', 160);
+    const normalized = normalizeRequiredText(identifier, 'Alıcı bilgisi', 160, {
+        required: 'BORROW_RECIPIENT_REQUIRED',
+        tooLong: 'BORROW_RECIPIENT_INVALID'
+    });
     if (isEncryptedPayload(normalized)) {
-        throw new Error('Alıcı bilgisi kullanıcı adı veya e-posta olarak girilmeli');
+        throw createRequestError('Alıcı bilgisi kullanıcı adı veya e-posta olarak girilmeli', 400, 'BORROW_RECIPIENT_INVALID');
     }
 
     const lookupType = normalized.includes('@') ? 'email' : 'username';
@@ -116,7 +119,7 @@ function buildRecipientLookup(identifier) {
         : buildUsernameLookup(normalized);
 
     if (!lookupHash) {
-        throw new Error('Alıcı bilgisi geçersiz');
+        throw createRequestError('Alıcı bilgisi geçersiz', 400, 'BORROW_RECIPIENT_INVALID');
     }
 
     return {
@@ -647,7 +650,7 @@ router.post('/', (req, res) => {
                 : null;
 
         if (!direction) {
-            throw new Error('İstek tipi geçersiz');
+            throw createRequestError('İstek tipi geçersiz', 400, 'BORROW_DIRECTION_INVALID');
         }
 
         const {
@@ -660,13 +663,13 @@ router.post('/', (req, res) => {
             ? buildEmailLookup(req.user.email)
             : buildUsernameLookup(req.user.username);
         if (selfLookup && selfLookup === recipientLookupHash) {
-            throw new Error('Kendinize istek gönderemezsiniz');
+            throw createRequestError('Kendinize istek gönderemezsiniz', 400, 'BORROW_SELF_REQUEST');
         }
 
         // Step 2: Recipient Resolution
         const recipientUserId = resolveRecipientUserId({ recipientLookupType, recipientLookupHash });
         if (recipientUserId && recipientUserId === req.user.id) {
-            throw new Error('Kendinize istek gönderemezsiniz');
+            throw createRequestError('Kendinize istek gönderemezsiniz', 400, 'BORROW_SELF_REQUEST');
         }
 
         const dueDate = normalizeOptionalDate(req.body.due_date, 'Planlanan teslim tarihi');
@@ -678,7 +681,7 @@ router.post('/', (req, res) => {
         if (direction === REQUEST_DIRECTION.OFFER) {
             itemId = Number.parseInt(req.body.item_id, 10);
             if (!Number.isInteger(itemId)) {
-                throw new Error('Teklif için eşya seçin');
+                throw createRequestError('Teklif için eşya seçin', 400, 'BORROW_OFFER_ITEM_REQUIRED');
             }
 
             const item = getOwnedAvailableItem(itemId, req.user.id);
@@ -696,10 +699,13 @@ router.post('/', (req, res) => {
             );
 
             if (existingOffer) {
-                throw new Error('Bu eşya için zaten bekleyen bir teklif var');
+                throw createRequestError('Bu eşya için zaten bekleyen bir teklif var', 400, 'BORROW_OFFER_EXISTS');
             }
         } else {
-            requestedItemLabel = normalizeRequiredText(req.body.requested_item_label, 'İstenen eşya', 160);
+            requestedItemLabel = normalizeRequiredText(req.body.requested_item_label, 'İstenen eşya', 160, {
+                required: 'BORROW_ITEM_LABEL_REQUIRED',
+                tooLong: 'BORROW_FIELD_TOO_LONG'
+            });
         }
 
         // Step 3: External & Verification Check

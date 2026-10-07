@@ -31,7 +31,7 @@ import AdminUpdateNotice from './AdminUpdateNotice';
 import FloatingToast from './FloatingToast';
 import { ConfirmDialog } from './ModalDialog';
 import { EmptyState, NoticeBanner, PageHeader, SectionHeader } from './ProductUI';
-import { formatDateForLanguage, formatNumberForLanguage } from '../utils/appFormatting';
+import { formatDateForLanguage, formatNumberForLanguage, parseServerTimestamp } from '../utils/appFormatting';
 import '../admin-overlays-v25.css';
 
 type AdminTabId = 'dashboard' | 'users' | 'logs' | 'email' | 'backups';
@@ -226,7 +226,7 @@ function formatAdminDate(
         return '';
     }
 
-    const date = new Date(value);
+    const date = parseServerTimestamp(value);
     if (Number.isNaN(date.getTime())) {
         return '';
     }

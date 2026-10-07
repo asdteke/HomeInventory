@@ -2,6 +2,18 @@
 
 All notable changes to HomeInventory are documented here.
 
+## Unreleased - QA fixes for 2.8.0
+
+- **Attachments:** downloading an uploaded file no longer fails with `ENOENT`; the route now reads from `uploads/attachments`, where files are stored.
+- **Inventory search:** typing in the search box keeps focus and every character; the page is no longer remounted when only the query string changes, and URL updates written by the list can no longer overwrite newer typing.
+- **Labels:** the Print buttons on box, item, and shelf labels explain what to do when the launcher app window cannot open a print dialog.
+- **Box locations:** creating a shelf/location from the box form works in WebKit-based windows (the menu used to close before the click registered).
+- **Borrow requests:** validation errors now carry codes and are shown in the interface language.
+- **Times:** UTC timestamps from SQLite are now converted to local time in Activity History, house members, dashboard, and other lists.
+- **Service center:** maintenance tasks more than 30 days away show "Scheduled" instead of "Soon".
+- **Launcher:** a successful backup notice in the app-window sidebar is shown as a success, not an error.
+- **Setup text:** values copied from `.env.example` (for example `Your Company Ltd.` or `support@example.com`) are ignored instead of appearing in the legal pages; the legal variables are commented out in `.env.example`.
+
 ## v2.8.0 - Self-Hosting, Backups, and Launcher Release
 
 ### Highlights

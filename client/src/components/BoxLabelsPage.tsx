@@ -2,9 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { Link, useSearchParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { Box, Lock, Printer, QrCode } from 'lucide-react';
+import { Box, Lock, QrCode } from 'lucide-react';
 import { ASSET_VERSION, QR_LOGO_PATH } from '../constants/branding';
 import { LoadingState } from './ProductUI';
+import PrintButton from './PrintButton';
 import '../operations-v25.css';
 
 const LABEL_LOGO_SRC = `${QR_LOGO_PATH}?v=${ASSET_VERSION}`;
@@ -71,9 +72,7 @@ export default function BoxLabelsPage() {
                     </div>
                 </div>
                 <div className="operations-intro-actions-v25">
-                    <button type="button" onClick={() => window.print()} className="btn-primary">
-                        <Printer className="h-4 w-4" /> {t('common.print')}
-                    </button>
+                    <PrintButton />
                 </div>
             </header>
 

@@ -2040,7 +2040,7 @@ router.get('/attachments/:attachmentId/download', (req, res) => {
 
         const resolvedPath = resolveStoredMediaPath(attachment.stored_path, {
             repoRoot,
-            mediaRoot: uploadsDir,
+            mediaRoot: attachmentsDir,
             allowedPrefixes: ['uploads/attachments']
         });
         if (!resolvedPath || !ATTACHMENT_FILE_REGEX.test(path.basename(resolvedPath))) {
