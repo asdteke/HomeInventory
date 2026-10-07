@@ -30,6 +30,10 @@ const notes = `## HomeInventory v${version}\n\n${changes}
 
 The remaining archive and metadata files are used automatically by HomeInventory updates.
 
+## Code signing policy
+
+See the [Code signing policy](https://github.com/asdteke/HomeInventory/blob/main/CODE_SIGNING.md) for current Windows signing status, SignPath Foundation application status, signing scope and verification. See the [Privacy Policy](https://github.com/asdteke/HomeInventory/blob/main/PRIVACY.md) for data handling and network services. A policy link alone does not mean that this release's files are signed.
+
 ## Upgrade notes
 
 - Supported browsers: Safari 16.4+, Chrome 111+, or Firefox 128+.
