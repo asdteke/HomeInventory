@@ -2,6 +2,26 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.8.1 - Launcher Fixes and QA Release
+
+- **Launcher (Windows):** Node.js and npm are now always taken from the same installation, so dependencies are no longer built for a different Node ABI than the one that starts the app (`NODE_MODULE_VERSION` errors with `better-sqlite3`). Installs already affected are repaired with `npm rebuild` before the app starts.
+- **Launcher:** the app-window sidebar keeps its width while a panel closes instead of flashing wider.
+- **Launcher:** translations for 72 more languages.
+- **macOS:** the DMG opens with a drag-to-Applications layout and background.
+- **Security:** `i18next-http-backend` updated to 4.0.2 (GHSA-xvq9-wjp8-hwqf, low severity URL validation in translation loading).
+
+### QA fixes for 2.8.0
+
+- **Attachments:** downloading an uploaded file no longer fails with `ENOENT`; the route now reads from `uploads/attachments`, where files are stored.
+- **Inventory search:** typing in the search box keeps focus and every character; the page is no longer remounted when only the query string changes, and URL updates written by the list can no longer overwrite newer typing.
+- **Labels:** the Print buttons on box, item, and shelf labels explain what to do when the launcher app window cannot open a print dialog.
+- **Box locations:** creating a shelf/location from the box form works in WebKit-based windows (the menu used to close before the click registered).
+- **Borrow requests:** validation errors now carry codes and are shown in the interface language.
+- **Times:** UTC timestamps from SQLite are now converted to local time in Activity History, house members, dashboard, and other lists.
+- **Service center:** maintenance tasks more than 30 days away show "Scheduled" instead of "Soon".
+- **Launcher:** a successful backup notice in the app-window sidebar is shown as a success, not an error.
+- **Setup text:** values copied from `.env.example` (for example `Your Company Ltd.` or `support@example.com`) are ignored instead of appearing in the legal pages; the legal variables are commented out in `.env.example`.
+
 ## v2.8.0 - Self-Hosting, Backups, and Launcher Release
 
 ### Highlights

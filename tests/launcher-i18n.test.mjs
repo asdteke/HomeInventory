@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import test from 'node:test';
 
 const source = readFileSync(new URL('../apps/launcher/src/i18n.tsx', import.meta.url), 'utf8');
@@ -8,14 +8,15 @@ const styles = readFileSync(new URL('../apps/launcher/src/styles.css', import.me
 const tauriConfig = readFileSync(new URL('../apps/launcher/src-tauri/tauri.conf.json', import.meta.url), 'utf8');
 const localeNames = ['en', 'tr', 'de', 'fr', 'es'];
 // Newer launcher languages live in their own files and spread English.
-const fileLocaleNames = ['it', 'pt', 'nl', 'pl', 'ru'];
+const fileLocaleNames = readdirSync(new URL('../apps/launcher/src/locales/', import.meta.url))
+  .filter(file => file.endsWith('.ts') && file !== 'extra.ts')
+  .map(file => file.slice(0, -3));
+const appLanguages = JSON.parse(readFileSync(new URL('../apps/launcher/src/generated/appLabels.json', import.meta.url), 'utf8')).languages;
 const fileLocales = Object.fromEntries(fileLocaleNames.map(name => [
   name,
   readFileSync(new URL(`../apps/launcher/src/locales/${name}.ts`, import.meta.url), 'utf8'),
 ]));
 const invariantKeys = new Set([
-  'language.en', 'language.tr', 'language.de', 'language.fr', 'language.es',
-  'language.it', 'language.pt', 'language.nl', 'language.pl', 'language.ru',
   'common.launcher', 'https.ios', 'https.android', 'android.samsung', 'advanced.resendKey',
 ]);
 
@@ -32,14 +33,15 @@ function keys(block) {
 }
 
 function entries(block) {
-  return new Map([...block.matchAll(/'([^']+)'\s*:\s*'([^']*)'/g)].map(match => [match[1], match[2]]));
+  // Values may contain escaped apostrophes (\').
+  return new Map([...block.matchAll(/'([^']+)'\s*:\s*'((?:[^'\\]|\\.)*)'/g)].map(match => [match[1], match[2]]));
 }
 
 function placeholders(value) {
   return [...value.matchAll(/\{([^}]+)\}/g)].map(match => match[1]).sort();
 }
 
-test('launcher ships ten complete local dictionaries with matching placeholders', () => {
+test('launcher ships a complete dictionary for every file locale with matching placeholders', () => {
   const blocks = {
     ...Object.fromEntries(localeNames.map((name, index) => [name, localeBlock(name, localeNames[index + 1])])),
     ...fileLocales,
@@ -98,4 +100,17 @@ test('advanced field labels use human-readable names without repeating env keys'
     }
     assert.doesNotMatch(dictionary.get('advanced.bootstrapHelp') || '', /BOOTSTRAP_ADMIN_EMAIL/);
   }
+});
+
+test('launcher has a dictionary for every HomeInventory language and marks right-to-left ones', () => {
+  const extra = fileLocales.extra ?? readFileSync(new URL('../apps/launcher/src/locales/extra.ts', import.meta.url), 'utf8');
+  const builtIn = new Set([...localeNames, ...fileLocaleNames]);
+  const extraCodes = new Set([...extra.matchAll(/'([A-Za-z-]+)': [A-Za-z]+,/g)].map(match => match[1]));
+  for (const { code } of appLanguages) {
+    if (code === 'zh-Hans') continue; // shares the Simplified Chinese dictionary
+    assert.ok(builtIn.has(code) || extraCodes.has(code), `no launcher dictionary for ${code}`);
+  }
+  assert.match(source, /dictionaries\['zh-Hans'\] = dictionaries\.zh/);
+  assert.match(source, /RTL_LOCALES = new Set<string>\(\['ar', 'he', \.\.\.EXTRA_RTL_LOCALES\]\)/);
+  assert.match(source, /document\.documentElement\.dir = isRtlLocale\(locale\) \? 'rtl' : 'ltr'/);
 });

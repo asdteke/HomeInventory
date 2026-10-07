@@ -22,6 +22,7 @@ import SettingsAboutSection from './SettingsAboutSection';
 import { decryptBackupPayload, encryptBackupPayload, isEncryptedBackupPayload } from '../utils/backupEncryption';
 import { useToastQueue } from '../hooks/useToastQueue';
 import { PremiumCheckbox } from './PremiumCheckbox';
+import { parseServerTimestamp } from '../utils/appFormatting';
 
 const HouseKeyModal = lazy(() => import('./HouseKeyModal'));
 const RecoveryKeyModal = lazy(() => import('./RecoveryKeyModal'));
@@ -1120,7 +1121,7 @@ export default function Settings() {
                                                         {request.requested_house_name}
                                                     </p>
                                                     <p className="text-(--hi-text-soft)">
-                                                        {t('settings.pending_requests.waiting_since', { date: new Date(request.created_at) })}
+                                                        {t('settings.pending_requests.waiting_since', { date: parseServerTimestamp(request.created_at) })}
                                                     </p>
                                                 </div>
                                                 <span className="rounded-full border border-[rgba(184,153,104,0.18)] bg-(--hi-panel-strong) px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-(--hi-secondary-strong)">
@@ -1225,7 +1226,7 @@ export default function Settings() {
                                                                         {member.id === user?.id && <span className="ml-1 font-normal text-(--hi-text-soft)">{t('settings.house_info.you')}</span>}
                                                                     </p>
                                                                     <p className="text-xs text-(--hi-text-soft)">
-                                                                        {member.joined_at ? t('settings.house_info.joined_at', { date: new Date(member.joined_at) }) : '-'}
+                                                                        {member.joined_at ? t('settings.house_info.joined_at', { date: parseServerTimestamp(member.joined_at) }) : '-'}
                                                                     </p>
                                                                 </div>
                                                                 {member.is_owner === 1 && (
@@ -1282,7 +1283,7 @@ export default function Settings() {
                                                                                 {request.requested_house_name}
                                                                             </p>
                                                                             <p className="mt-1 text-xs text-(--hi-text-muted)">
-                                                                                {t('settings.pending_requests.waiting_since', { date: new Date(request.created_at) })}
+                                                                                {t('settings.pending_requests.waiting_since', { date: parseServerTimestamp(request.created_at) })}
                                                                             </p>
                                                                         </div>
 

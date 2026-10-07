@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { createHash, generateKeyPairSync, sign } from 'node:crypto';
-import { mkdtempSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -150,9 +150,11 @@ test('macOS packages build updater app bundles with the compact Tauri-controlled
   );
   const dmg = tauriConfig.bundle.macOS.dmg;
 
-  assert.deepEqual(dmg.windowSize, { width: 520, height: 280 });
-  assert.deepEqual(dmg.appPosition, { x: 140, y: 130 });
-  assert.deepEqual(dmg.applicationFolderPosition, { x: 380, y: 130 });
+  assert.deepEqual(dmg.windowSize, { width: 660, height: 400 });
+  assert.deepEqual(dmg.appPosition, { x: 180, y: 170 });
+  assert.deepEqual(dmg.applicationFolderPosition, { x: 480, y: 170 });
+  assert.equal(dmg.background, 'dmg/background.png');
+  assert.ok(existsSync(join(repoRoot, 'apps/launcher/src-tauri', dmg.background)));
 
   const workflow = readFileSync(
     join(repoRoot, '.github/workflows/launcher-packages.yml'),

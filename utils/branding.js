@@ -58,16 +58,24 @@ export const BRAND_HOST = (() => {
     }
 })();
 
+// Values copied verbatim from .env.example are not real operator details.
+const TEMPLATE_PLACEHOLDER_PATTERN = /your-domain|@example\.(?:com|org|net)\b|^Your Company\b|Example Street|^Your competent data protection|^EU-hosted infrastructure;/i;
+
+function configuredValue(value) {
+    const text = String(value || '').trim();
+    return TEMPLATE_PLACEHOLDER_PATTERN.test(text) ? '' : text;
+}
+
 export const BRAND_NAME = String(process.env.APP_BRAND_NAME || deriveBrandName()).trim() || deriveBrandName();
 export const BRAND_KEY = String(process.env.APP_BRAND_KEY || 'homeinventory')
     .trim()
     .toLocaleLowerCase('en-US')
     .replace(/[^a-z0-9]+/g, '') || 'homeinventory';
-export const DATA_CONTROLLER_NAME = String(process.env.APP_DATA_CONTROLLER_NAME || '').trim();
-export const DATA_CONTROLLER_ADDRESS = String(process.env.APP_DATA_CONTROLLER_ADDRESS || '').trim();
-export const DPO_EMAIL = String(process.env.APP_DPO_EMAIL || '').trim();
-export const PRIVACY_TRANSFER_DISCLOSURE = String(process.env.APP_PRIVACY_TRANSFER_DISCLOSURE || '').trim();
-export const PRIVACY_COMPLAINT_AUTHORITY = String(process.env.APP_PRIVACY_COMPLAINT_AUTHORITY || '').trim();
+export const DATA_CONTROLLER_NAME = configuredValue(process.env.APP_DATA_CONTROLLER_NAME);
+export const DATA_CONTROLLER_ADDRESS = configuredValue(process.env.APP_DATA_CONTROLLER_ADDRESS);
+export const DPO_EMAIL = configuredValue(process.env.APP_DPO_EMAIL);
+export const PRIVACY_TRANSFER_DISCLOSURE = configuredValue(process.env.APP_PRIVACY_TRANSFER_DISCLOSURE);
+export const PRIVACY_COMPLAINT_AUTHORITY = configuredValue(process.env.APP_PRIVACY_COMPLAINT_AUTHORITY);
 export const SUPPORT_EMAIL = String(process.env.SUPPORT_EMAIL || deriveSupportEmail()).trim() || deriveSupportEmail();
 export const DEFAULT_FROM = String(process.env.EMAIL_FROM || `${BRAND_NAME} <${SUPPORT_EMAIL}>`).trim();
 

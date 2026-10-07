@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import SecureImage from './SecureImage';
 import { LoadingState, SectionHeader, NoticeBanner } from './ProductUI';
-import { formatDateForLanguage, formatNumberForLanguage } from '../utils/appFormatting';
+import { formatDateForLanguage, formatNumberForLanguage, parseServerTimestamp } from '../utils/appFormatting';
 import { resolveVisibleItemTitle } from '../utils/itemDisplay';
 import { getRoomPresentation } from '../utils/roomDisplay';
 
@@ -69,7 +69,7 @@ function formatItemDate(value: string | undefined, locale: string): string | nul
         return null;
     }
 
-    const date = new Date(value);
+    const date = parseServerTimestamp(value);
     if (Number.isNaN(date.getTime())) {
         return null;
     }
@@ -143,8 +143,8 @@ export default function Dashboard() {
     const recentItems = useMemo(() => {
         return [...recentDashboardItems]
             .sort((a, b) => {
-                const dateA = new Date(a.created_at || a.createdAt || 0).getTime();
-                const dateB = new Date(b.created_at || b.createdAt || 0).getTime();
+                const dateA = parseServerTimestamp(a.created_at || a.createdAt || 0).getTime();
+                const dateB = parseServerTimestamp(b.created_at || b.createdAt || 0).getTime();
                 return dateB - dateA;
             })
             .slice(0, 5);

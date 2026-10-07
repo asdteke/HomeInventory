@@ -265,7 +265,7 @@ export function LanguageQuickPicker() {
         onChange={event => setLocale(event.target.value as typeof locale)}
       >
         {LANGUAGE_OPTIONS.map(option => (
-          <option key={option.code} value={option.code}>{t(option.labelKey)}</option>
+          <option key={option.code} value={option.code}>{option.label}</option>
         ))}
       </select>
       <ChevronDown size={13} aria-hidden="true" />
@@ -2099,7 +2099,7 @@ export function DevPanelContent({
   settings: LauncherSettings; setSettings: (s: LauncherSettings) => void;
   devTab: ViewKey; setDevTab: (t: ViewKey) => void;
   busy: string | null; notice: string;
-  onNotice: (message: string) => void;
+  onNotice: (message: string, tone?: 'success' | 'error') => void;
   onClose: () => void; onBackup: (p: ProfileStatus) => Promise<BackupResult>; onStop?: () => void;
   updateResult: UpdateCheckResult | null;
   checkingUpdates: boolean;
@@ -2122,7 +2122,7 @@ export function DevPanelContent({
     try {
       const result = await onBackup(profile);
       setBackupResults(current => ({ ...current, [profile.id]: result }));
-      onNotice(result.message);
+      onNotice(result.message, 'success');
     } catch (err) {
       onNotice(err instanceof Error ? err.message : String(err));
     }
@@ -2379,10 +2379,10 @@ export function DevPanelContent({
                     role="radio"
                     aria-checked={locale === option.code}
                     onClick={() => setLocale(option.code)}
-                    title={t(option.labelKey)}
+                    title={option.label}
                   >
-                    <span>{option.code.toUpperCase()}</span>
-                    <small>{t(option.labelKey)}</small>
+                    <span>{option.code.split('-')[0].toUpperCase()}</span>
+                    <small>{option.label}</small>
                   </button>
                 ))}
               </div>

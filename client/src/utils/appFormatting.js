@@ -18,6 +18,25 @@ function formatIsoFallback(date, includeTime = false) {
     return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
 
+const SQLITE_UTC_TIMESTAMP = /^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?$/;
+
+/**
+ * Parses a timestamp coming from the API. SQLite stores UTC without a zone
+ * suffix ("2026-10-07 09:38:52"); `new Date()` would read that as local time.
+ */
+export function parseServerTimestamp(value) {
+    if (value instanceof Date) {
+        return value;
+    }
+
+    const text = String(value ?? '').trim();
+    if (SQLITE_UTC_TIMESTAMP.test(text)) {
+        return new Date(`${text.replace(' ', 'T')}Z`);
+    }
+
+    return new Date(value);
+}
+
 export function resolveFormattingLanguage(language) {
     const normalized = String(language || '').trim();
     const candidates = normalized

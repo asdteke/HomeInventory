@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useSearchParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { Package, Printer, QrCode, Tags } from 'lucide-react';
+import { Package, QrCode, Tags } from 'lucide-react';
 import { LoadingState } from './ProductUI';
+import PrintButton from './PrintButton';
 import { resolveVisibleItemTitle } from '../utils/itemDisplay';
 import { getCategoryPresentation } from '../utils/categoryDisplay';
 import { getRoomPresentation } from '../utils/roomDisplay';
@@ -99,10 +100,7 @@ export default function QRLabelsPage() {
                             <Tags className="h-4 w-4" />
                             <span>{t('storage_labels.title', { defaultValue: 'Raf ve Oda Etiketleri' })}</span>
                         </Link>
-                        <button type="button" onClick={() => window.print()} className="btn-primary">
-                            <Printer className="h-4 w-4" />
-                            <span>{t('common.print', { defaultValue: 'Yazdır' })}</span>
-                        </button>
+                        <PrintButton />
                     </div>
                 </div>
             </header>

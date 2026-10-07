@@ -13,6 +13,15 @@ const DEFAULT_ASSET_VERSION = '20260519-pwa-assets';
 const LEGACY_PWA_CACHE_PREFIX = 'home-inventory-static-';
 const DEFAULT_BRAND_NAME = 'HomeInventory';
 
+// Values copied verbatim from .env.example must not be published as the operator's
+// real contact or legal details; treat them as "not configured".
+const TEMPLATE_PLACEHOLDER_PATTERN = /your-domain|@example\.(?:com|org|net)\b|^Your Company\b|Example Street|^Your competent data protection|^EU-hosted infrastructure;/i;
+
+function stripTemplatePlaceholder(value) {
+    const text = String(value || '').trim();
+    return TEMPLATE_PLACEHOLDER_PATTERN.test(text) ? '' : text;
+}
+
 function isIpAddress(siteHost) {
     const host = String(siteHost || '').trim().replace(/^\[|\]$/g, '');
     return /^\d{1,3}(?:\.\d{1,3}){3}$/.test(host) || (
@@ -405,11 +414,11 @@ export default defineConfig(({ command, mode }) => {
     const siteUrl = String(env.SITE_URL || '').trim();
     const rawBrandName = String(env.APP_BRAND_NAME || '').trim();
     const rawBrandKey = String(env.APP_BRAND_KEY || '').trim();
-    const rawDataControllerName = String(env.APP_DATA_CONTROLLER_NAME || '').trim();
-    const rawDataControllerAddress = String(env.APP_DATA_CONTROLLER_ADDRESS || '').trim();
-    const rawDpoEmail = String(env.APP_DPO_EMAIL || '').trim();
-    const rawPrivacyTransferDisclosure = String(env.APP_PRIVACY_TRANSFER_DISCLOSURE || '').trim();
-    const rawPrivacyComplaintAuthority = String(env.APP_PRIVACY_COMPLAINT_AUTHORITY || '').trim();
+    const rawDataControllerName = stripTemplatePlaceholder(env.APP_DATA_CONTROLLER_NAME);
+    const rawDataControllerAddress = stripTemplatePlaceholder(env.APP_DATA_CONTROLLER_ADDRESS);
+    const rawDpoEmail = stripTemplatePlaceholder(env.APP_DPO_EMAIL);
+    const rawPrivacyTransferDisclosure = stripTemplatePlaceholder(env.APP_PRIVACY_TRANSFER_DISCLOSURE);
+    const rawPrivacyComplaintAuthority = stripTemplatePlaceholder(env.APP_PRIVACY_COMPLAINT_AUTHORITY);
     const analyticsScripts = String(env.APP_ANALYTICS_SCRIPTS || '').trim();
     const buildId = String(
         env.APP_BUILD_ID ||
@@ -446,7 +455,7 @@ export default defineConfig(({ command, mode }) => {
         `/app/${brandKey}`
     ).trim();
     const cachePrefix = `home-inventory-${brandKey}-static`;
-    const supportEmail = String(env.SUPPORT_EMAIL || '').trim();
+    const supportEmail = stripTemplatePlaceholder(env.SUPPORT_EMAIL);
     const metaDescription = `${brandName} - Evinizin tum esyalarini akillica yonetin`;
     const logoFullDarkPath = String(env.APP_BRAND_LOGO_FULL_DARK || '/brand/logo-full-dark.svg').trim();
     const logoFullLightPath = String(env.APP_BRAND_LOGO_FULL_LIGHT || '/brand/logo-full-light.svg').trim();

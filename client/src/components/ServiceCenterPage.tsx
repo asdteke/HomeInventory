@@ -18,7 +18,26 @@ function formatDisplayDate(value: string) {
     return `${match[3]}.${match[2]}.${match[1]}`;
 }
 
+const SOON_WINDOW_DAYS = 30;
+
+function isDueSoon(dueDate: string | undefined) {
+    const match = String(dueDate || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!match) return false;
+    const due = Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+    const now = new Date();
+    const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+    return (due - today) / 86_400_000 <= SOON_WINDOW_DAYS;
+}
+
 function TaskRow({ task, overdue, t }: { task: any; overdue: boolean; t: any }) {
+    const soon = !overdue && isDueSoon(task.next_due_date);
+    const statusClass = overdue ? 'is-danger' : soon ? 'is-warning' : 'is-info';
+    const statusLabel = overdue
+        ? t('service.overdue', { defaultValue: 'Geçti' })
+        : soon
+            ? t('service.upcoming', { defaultValue: 'Yakın' })
+            : t('service.scheduled', { defaultValue: 'Planlandı' });
+
     return (
         <Link
             to="/maintenance"
@@ -30,9 +49,7 @@ function TaskRow({ task, overdue, t }: { task: any; overdue: boolean; t: any }) 
                     {task.item_name || t('inventory.untitled_item')} · {formatDisplayDate(task.next_due_date)}
                 </span>
             </span>
-            <span className={`operations-status-v25 ${overdue ? 'is-danger' : 'is-warning'}`}>
-                {overdue ? t('service.overdue', { defaultValue: 'Geçti' }) : t('service.upcoming', { defaultValue: 'Yakın' })}
-            </span>
+            <span className={`operations-status-v25 ${statusClass}`}>{statusLabel}</span>
         </Link>
     );
 }

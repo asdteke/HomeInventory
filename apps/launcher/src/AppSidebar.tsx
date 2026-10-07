@@ -160,7 +160,13 @@ function SidebarContent() {
   const [panelClosing, setPanelClosing] = useState(false);
   const closeTimerRef = useRef<number | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
-  const [notice, setNotice] = useState('');
+  const [notice, setNoticeText] = useState('');
+  const [noticeTone, setNoticeTone] = useState<'success' | 'error'>('error');
+  // Notices default to the error look; a panel passes 'success' for finished actions.
+  const setNotice = (message: string, tone: 'success' | 'error' = 'error') => {
+    setNoticeTone(tone);
+    setNoticeText(message);
+  };
   const [serverReady, setServerReady] = useState(false);
   const [page, setPage] = useState<ContentState | null>(null);
   const [settings, setSettingsState] = useState<LauncherSettings>(() => loadSettings());
@@ -698,7 +704,7 @@ function SidebarContent() {
         {/* Pinned to the bottom; the pages above scroll on short windows. */}
         <section className="shell-tools" aria-label={t('shell.launcher')}>
           {notice && (
-            <p className="shell-notice" role="alert">
+            <p className={`shell-notice ${noticeTone === 'success' ? 'is-success' : ''}`} role={noticeTone === 'success' ? 'status' : 'alert'}>
               <span>{notice}</span>
               <button type="button" onClick={() => setNotice('')} aria-label={t('common.close')}><X size={12} /></button>
             </p>

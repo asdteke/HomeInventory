@@ -342,6 +342,15 @@ jobs:
               echo "::error::Tauri did not create the configured macOS DMG."
               exit 1
             fi
+            MOUNT_DIR="$(mktemp -d)"
+            hdiutil attach "${DMG_SOURCE}" -readonly -nobrowse -mountpoint "$MOUNT_DIR" >/dev/null
+            trap 'hdiutil detach "$MOUNT_DIR" -quiet || true' EXIT
+            ls -la "$MOUNT_DIR"
+            [[ -d "$MOUNT_DIR/.background" ]] || { echo "::error::DMG is missing its background image."; exit 1; }
+            [[ -e "$MOUNT_DIR/Applications" ]] || { echo "::error::DMG is missing the Applications shortcut."; exit 1; }
+            [[ -f "$MOUNT_DIR/.DS_Store" ]] || { echo "::error::DMG is missing its icon layout (.DS_Store)."; exit 1; }
+            hdiutil detach "$MOUNT_DIR" -quiet
+            trap - EXIT
             cp "${DMG_SOURCE}" \
               "artifacts/HomeInventory Launcher_${{ needs.managed-app.outputs.app_version }}_${{ matrix.tauri_platform }}.dmg"
           else
