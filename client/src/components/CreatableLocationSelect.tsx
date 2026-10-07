@@ -158,7 +158,14 @@ export default function CreatableLocationSelect({
             </div>
 
             {open && (
-                <div id={listboxId} role="listbox" className="box-location-combobox-menu-v26">
+                <div
+                    id={listboxId}
+                    role="listbox"
+                    className="box-location-combobox-menu-v26"
+                    // WebKit (macOS launcher WebView, Safari) does not focus buttons on click, so
+                    // the root onBlur would close the menu before the click lands. Keep focus put.
+                    onMouseDown={(event) => event.preventDefault()}
+                >
                     {!creating && filteredLocations.length > 0 && (
                         <div className="box-location-options-v26">
                             {filteredLocations.map((location) => {

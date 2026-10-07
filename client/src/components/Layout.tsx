@@ -850,7 +850,7 @@ export default function Layout() {
 
             <main className={`transition-all duration-300 ${launcherShell ? '' : sidebarOpen ? 'lg:ml-[288px]' : 'lg:ml-[112px]'}`}>
                 <div className="px-3 pb-28 pt-4 lg:px-8 lg:pb-10 lg:pt-8">
-                    <div key={`${location.pathname}${location.search}`} className="animate-fade-in">
+                    <div key={location.pathname} className="animate-fade-in">
                         <Suspense
                             fallback={(
                                 <div role="status" aria-live="polite" className="flex min-h-[42vh] items-center justify-center">

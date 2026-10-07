@@ -1,4 +1,4 @@
-import { formatDateForLanguage } from './appFormatting';
+import { formatDateForLanguage, parseServerTimestamp } from './appFormatting';
 
 function parseBorrowDate(value, endOfDay = false) {
     if (!value) {
@@ -11,7 +11,7 @@ function parseBorrowDate(value, endOfDay = false) {
         return Number.isNaN(date.getTime()) ? null : date;
     }
 
-    const parsed = new Date(value);
+    const parsed = parseServerTimestamp(value);
     return Number.isNaN(parsed.getTime()) ? null : parsed;
 }
 

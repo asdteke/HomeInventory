@@ -1,4 +1,4 @@
-import { formatDateForLanguage } from './appFormatting';
+import { formatDateForLanguage, parseServerTimestamp } from './appFormatting';
 
 interface BorrowLike {
     due_date?: string | Date | null;
@@ -16,7 +16,7 @@ function parseBorrowDate(value: any, endOfDay = false): Date | null {
         return Number.isNaN(date.getTime()) ? null : date;
     }
 
-    const parsed = new Date(value);
+    const parsed = parseServerTimestamp(value);
     return Number.isNaN(parsed.getTime()) ? null : parsed;
 }
 

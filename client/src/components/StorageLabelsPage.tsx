@@ -2,8 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { FolderOpen, MapPin, Printer, QrCode } from 'lucide-react';
+import { FolderOpen, MapPin, QrCode } from 'lucide-react';
 import { LoadingState } from './ProductUI';
+import PrintButton from './PrintButton';
 import { getRoomPresentation } from '../utils/roomDisplay';
 import { ASSET_VERSION, QR_LOGO_PATH } from '../constants/branding';
 import '../operations-v25.css';
@@ -129,10 +130,7 @@ export default function StorageLabelsPage() {
                     </div>
                 </div>
                 <div className="operations-intro-actions-v25">
-                    <button type="button" onClick={() => window.print()} className="btn-primary print:hidden">
-                        <Printer className="h-4 w-4" />
-                        <span>{t('common.print', { defaultValue: 'Yazdır' })}</span>
-                    </button>
+                    <PrintButton />
                 </div>
             </header>
 

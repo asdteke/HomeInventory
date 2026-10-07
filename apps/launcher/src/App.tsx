@@ -2099,7 +2099,7 @@ export function DevPanelContent({
   settings: LauncherSettings; setSettings: (s: LauncherSettings) => void;
   devTab: ViewKey; setDevTab: (t: ViewKey) => void;
   busy: string | null; notice: string;
-  onNotice: (message: string) => void;
+  onNotice: (message: string, tone?: 'success' | 'error') => void;
   onClose: () => void; onBackup: (p: ProfileStatus) => Promise<BackupResult>; onStop?: () => void;
   updateResult: UpdateCheckResult | null;
   checkingUpdates: boolean;
@@ -2122,7 +2122,7 @@ export function DevPanelContent({
     try {
       const result = await onBackup(profile);
       setBackupResults(current => ({ ...current, [profile.id]: result }));
-      onNotice(result.message);
+      onNotice(result.message, 'success');
     } catch (err) {
       onNotice(err instanceof Error ? err.message : String(err));
     }
