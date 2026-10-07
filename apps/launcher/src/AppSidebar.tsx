@@ -704,7 +704,11 @@ function SidebarContent() {
         {/* Pinned to the bottom; the pages above scroll on short windows. */}
         <section className="shell-tools" aria-label={t('shell.launcher')}>
           {notice && (
-            <p className={`shell-notice ${noticeTone === 'success' ? 'is-success' : ''}`} role={noticeTone === 'success' ? 'status' : 'alert'}>
+            <p
+              className="shell-notice"
+              role={noticeTone === 'success' ? 'status' : 'alert'}
+              style={noticeTone === 'success' ? { background: 'var(--hi-success-soft)', color: 'var(--hi-success)' } : undefined}
+            >
               <span>{notice}</span>
               <button type="button" onClick={() => setNotice('')} aria-label={t('common.close')}><X size={12} /></button>
             </p>
