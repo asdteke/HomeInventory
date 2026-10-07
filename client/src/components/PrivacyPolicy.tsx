@@ -51,6 +51,15 @@ const PRIVACY_PAGE_KEYS = [
     'legal.privacy_summary.section_titles.rights'
 ];
 
+const UNSET_MARKER = '\u0000unset\u0000';
+
+function removeUnsetLines(content: string): string {
+    return content
+        .split('\n')
+        .filter((line) => !line.includes(UNSET_MARKER))
+        .join('\n');
+}
+
 export default function PrivacyPolicy() {
     const { i18n } = useTranslation();
     const documentLanguage = resolveVerifiedLegalTranslationLanguage(i18n, PRIVACY_PAGE_KEYS);
@@ -64,9 +73,9 @@ export default function PrivacyPolicy() {
             { brandHost: BRAND_HOST }
         )
     );
-    const controllerAddress = DATA_CONTROLLER_ADDRESS || (
-        pageT('legal.controller_address_unconfigured')
-    );
+    // No address configured (typical for self-hosted installs): drop the line entirely
+    // instead of printing a placeholder sentence.
+    const controllerAddress = DATA_CONTROLLER_ADDRESS || UNSET_MARKER;
     const privacyEmail = DPO_EMAIL || SUPPORT_CONTACT_LABEL;
     const transferDisclosure = PRIVACY_TRANSFER_DISCLOSURE || (
         pageT('legal.transfer_disclosure_default')
@@ -113,7 +122,7 @@ export default function PrivacyPolicy() {
             description={pageT('legal.privacy_description', {
                 brandName: BRAND_NAME
             })}
-            content={pageT('legal.privacy_policy_content', {
+            content={removeUnsetLines(pageT('legal.privacy_policy_content', {
                 brandName: BRAND_NAME,
                 controllerName,
                 controllerAddress,
@@ -121,7 +130,7 @@ export default function PrivacyPolicy() {
                 transferDisclosure,
                 complaintAuthority,
                 supportEmail: SUPPORT_CONTACT_LABEL
-            })}
+            }))}
             summaryBlock={summaryBlock}
             supportLabel={pageT('legal.privacy_support_label')}
             supportValue={privacyEmail}
