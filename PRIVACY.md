@@ -33,7 +33,7 @@ Third-party services have their own policies: [GitHub](https://docs.github.com/e
 
 ## Retention, export and deletion
 
-Records remain in the installation until users delete them or its operator applies a retention or cleanup policy. Account deletion is available in Settings and removes associated data according to the app's ownership and shared-household rules. Shared household records may remain for other members. Existing backup copies and operator-managed logs require separate cleanup; deleting an account does not rewrite previously exported backups.
+Records remain in the installation until users delete them or its operator applies a retention or cleanup policy. Account deletion is available in Settings and deletes database records according to the app's ownership and shared-household rules. Shared household records may remain for other members. Some uploaded attachment files can remain in the live uploads directory even after their database records are deleted; these files require separate cleanup by the installation's operator. Existing backup copies and operator-managed logs also require separate cleanup; deleting an account does not rewrite previously exported backups.
 
 Household owners can export backups. For a local installation, you control its data directories and backup files. Uninstalling the launcher may leave application data; remove the relevant profile/data directories and backups yourself when you want to delete the installation's remaining data. For a hosted installation, contact its operator about access, exports, deletion, hosting and retention.
 
