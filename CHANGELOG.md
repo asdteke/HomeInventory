@@ -2,7 +2,15 @@
 
 All notable changes to HomeInventory are documented here.
 
-## Unreleased - QA fixes for 2.8.0
+## v2.8.1 - Launcher Fixes and QA Release
+
+- **Launcher (Windows):** Node.js and npm are now always taken from the same installation, so dependencies are no longer built for a different Node ABI than the one that starts the app (`NODE_MODULE_VERSION` errors with `better-sqlite3`). Installs already affected are repaired with `npm rebuild` before the app starts.
+- **Launcher:** the app-window sidebar keeps its width while a panel closes instead of flashing wider.
+- **Launcher:** translations for 72 more languages.
+- **macOS:** the DMG opens with a drag-to-Applications layout and background.
+- **Security:** `i18next-http-backend` updated to 4.0.2 (GHSA-xvq9-wjp8-hwqf, low severity URL validation in translation loading).
+
+### QA fixes for 2.8.0
 
 - **Attachments:** downloading an uploaded file no longer fails with `ENOENT`; the route now reads from `uploads/attachments`, where files are stored.
 - **Inventory search:** typing in the search box keeps focus and every character; the page is no longer remounted when only the query string changes, and URL updates written by the list can no longer overwrite newer typing.
