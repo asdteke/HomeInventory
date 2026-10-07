@@ -17,7 +17,7 @@ use std::os::windows::io::AsRawHandle;
 
 use crate::config::{is_store_distribution, profile_config};
 use crate::logs::{append_log, stream_process_output};
-use crate::node::{resolve_tools, resolved_command_env};
+use crate::node::{ensure_native_modules_match, resolve_tools, resolved_command_env};
 use crate::paths::{app_data_dir, profile_paths};
 use crate::ports::{is_port_available, next_free_port, requested_ports};
 use crate::project::{
@@ -179,6 +179,9 @@ pub(crate) fn start_profile_internal(
     // The launcher manages app updates itself; skip the server's own
     // GitHub "new version" check for launcher-managed processes.
     command_env.insert("UPDATE_CHECK".into(), "false".into());
+    if production {
+        ensure_native_modules_match(state, &node, &npm, &project_root, &command_env);
+    }
     if !npm.is_empty() {
         command_env.insert("HOMEINVENTORY_NPM_EXEC".into(), npm);
     }

@@ -731,3 +731,23 @@ fn test_first_install_is_only_offered_for_a_fresh_standard_install() {
         .unwrap_err()
         .contains("already installed"));
 }
+
+#[cfg(test)]
+mod node_pair_tests {
+    use crate::node::sibling_executable;
+
+    #[test]
+    fn sibling_executable_finds_npm_next_to_node() {
+        let dir = std::env::temp_dir().join(format!("hi-sibling-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let node = dir.join("node");
+        let npm = dir.join("npm");
+        std::fs::write(&node, "").unwrap();
+        std::fs::write(&npm, "").unwrap();
+        let found = sibling_executable(node.to_str(), &["npm"]);
+        assert_eq!(found.as_deref(), npm.to_str());
+        assert!(sibling_executable(node.to_str(), &["missing"]).is_none());
+        assert!(sibling_executable(None, &["npm"]).is_none());
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+}
