@@ -146,7 +146,18 @@ pub(crate) fn resolve_tools(
     let mut node_path = clean_path_override(&overrides.node_path);
     let mut npm_path = clean_path_override(&overrides.npm_path);
 
-    if node_path.is_none() || npm_path.is_none() {
+    // node and npm must come from the same installation: npm runs lifecycle
+    // scripts and picks native-module builds with the node next to it, while
+    // the app itself starts with the resolved node. Mixing the pinned portable
+    // runtime with a user-selected node produced modules built for one Node
+    // ABI and loaded by another.
+    if node_path.is_some() != npm_path.is_some() {
+        if npm_path.is_none() {
+            npm_path = sibling_executable(node_path.as_deref(), npm_names());
+        } else {
+            node_path = sibling_executable(npm_path.as_deref(), node_names());
+        }
+    } else if node_path.is_none() {
         if let Ok(app_data) = app_data_dir(app) {
             let portable_dir = app_data.join("bin").join(portable_node_folder_name());
             let p_node = portable_dir.join(if cfg!(windows) {
@@ -157,12 +168,8 @@ pub(crate) fn resolve_tools(
             let p_npm = portable_dir.join(if cfg!(windows) { "npm.cmd" } else { "bin/npm" });
 
             if p_node.exists() && p_npm.exists() {
-                if node_path.is_none() {
-                    node_path = Some(path_string(&p_node));
-                }
-                if npm_path.is_none() {
-                    npm_path = Some(path_string(&p_npm));
-                }
+                node_path = Some(path_string(&p_node));
+                npm_path = Some(path_string(&p_npm));
             }
         }
     }
@@ -176,6 +183,33 @@ pub(crate) fn resolve_tools(
         node_path,
         npm_path,
     }
+}
+
+fn node_names() -> &'static [&'static str] {
+    if cfg!(windows) {
+        &["node.exe"]
+    } else {
+        &["node"]
+    }
+}
+
+fn npm_names() -> &'static [&'static str] {
+    if cfg!(windows) {
+        &["npm.cmd"]
+    } else {
+        &["npm"]
+    }
+}
+
+/// Finds one of `names` in the folder of `anchor`. Unix npm installs keep
+/// `node` and `npm` together in `bin/`; Windows installs keep them side by side.
+pub(crate) fn sibling_executable(anchor: Option<&str>, names: &[&str]) -> Option<String> {
+    let dir = Path::new(anchor?).parent()?;
+    names
+        .iter()
+        .map(|name| dir.join(name))
+        .find(|candidate| candidate.is_file())
+        .map(|candidate| path_string(&candidate))
 }
 
 pub(crate) fn clean_path_override(value: &Option<String>) -> Option<String> {
@@ -425,4 +459,86 @@ pub(crate) async fn get_node_major_version(_app: &tauri::AppHandle) -> Option<u3
         }
     }
     None
+}
+
+/// Heals an install whose native modules were built for another Node ABI than
+/// the node that runs the app (for example `better-sqlite3` built by the
+/// pinned portable Node 22 and then started with a system Node 24). Loads the
+/// module with the exact node used to start the app and rebuilds it with that
+/// same node when the ABI does not match.
+pub(crate) fn ensure_native_modules_match(
+    state: &LauncherState,
+    node: &str,
+    npm: &str,
+    project_root: &Path,
+    envs: &HashMap<String, String>,
+) {
+    if !project_root
+        .join("node_modules")
+        .join("better-sqlite3")
+        .exists()
+    {
+        return;
+    }
+    let probe = |program: &str, args: &[&str]| {
+        let mut command = ProcessCommand::new(program);
+        command.args(args).current_dir(project_root).envs(envs);
+        #[cfg(windows)]
+        {
+            use std::os::windows::process::CommandExt;
+            command.creation_flags(0x08000000); // CREATE_NO_WINDOW
+        }
+        command.output()
+    };
+    let Ok(output) = probe(
+        node,
+        &["-e", "new (require('better-sqlite3'))(':memory:').close()"],
+    ) else {
+        return;
+    };
+    if output.status.success() {
+        return;
+    }
+    let message = String::from_utf8_lossy(&output.stderr);
+    if !message.contains("NODE_MODULE_VERSION") {
+        return;
+    }
+    append_log(
+        state,
+        "setup",
+        "warning",
+        "Native modules were built for a different Node.js version. Rebuilding them for the Node.js used to run HomeInventory...",
+    );
+    if npm.is_empty() {
+        append_log(
+            state,
+            "setup",
+            "error",
+            "npm was not found; cannot rebuild native modules.",
+        );
+        return;
+    }
+    match probe(
+        npm,
+        &["rebuild", "better-sqlite3", "--no-audit", "--no-fund"],
+    ) {
+        Ok(result) if result.status.success() => {
+            append_log(state, "setup", "success", "Native modules were rebuilt.");
+        }
+        Ok(result) => append_log(
+            state,
+            "setup",
+            "error",
+            &format!(
+                "Rebuilding native modules failed: {}",
+                String::from_utf8_lossy(&result.stderr).trim()
+            ),
+        ),
+        Err(err) => append_log(
+            state,
+            "setup",
+            "error",
+            &format!("Could not run npm rebuild: {err}"),
+        ),
+    }
 }
