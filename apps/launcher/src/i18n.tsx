@@ -1,26 +1,39 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 
+import appLabels from './generated/appLabels.json';
+import { EXTRA_RTL_LOCALES, extraDictionaries } from './locales/extra';
+import { ar } from './locales/ar';
+import { bg } from './locales/bg';
+import { cs } from './locales/cs';
+import { da } from './locales/da';
+import { el } from './locales/el';
+import { fi } from './locales/fi';
+import { he } from './locales/he';
+import { hi } from './locales/hi';
+import { hu } from './locales/hu';
+import { id } from './locales/id';
 import { it } from './locales/it';
+import { ja } from './locales/ja';
+import { ko } from './locales/ko';
+import { ms } from './locales/ms';
 import { nl } from './locales/nl';
+import { no } from './locales/no';
 import { pl } from './locales/pl';
 import { pt } from './locales/pt';
+import { ro } from './locales/ro';
 import { ru } from './locales/ru';
+import { sv } from './locales/sv';
+import { th } from './locales/th';
+import { uk } from './locales/uk';
+import { vi } from './locales/vi';
+import { zh } from './locales/zh';
 
-export type LauncherLocale = 'en' | 'tr' | 'de' | 'fr' | 'es' | 'it' | 'pt' | 'nl' | 'pl' | 'ru';
+/** A HomeInventory language code the launcher ships a dictionary for. */
+export type LauncherLocale = string;
 type Variables = Record<string, string | number>;
 
 const en = {
   'language.label': 'Language',
-  'language.en': 'English',
-  'language.tr': 'Türkçe',
-  'language.de': 'Deutsch',
-  'language.fr': 'Français',
-  'language.es': 'Español',
-  'language.it': 'Italiano',
-  'language.pt': 'Português',
-  'language.nl': 'Nederlands',
-  'language.pl': 'Polski',
-  'language.ru': 'Русский',
   'language.launcherLanguage': 'Launcher language',
   'language.savedHelp': 'Applied immediately and remembered on this device.',
   'common.close': 'Close',
@@ -379,8 +392,7 @@ const de: Dictionary = { ...en,
   'qr.code': 'QR-Code', 'qr.scan': 'Zum Verbinden scannen',
   'language.launcherLanguage': 'Launcher-Sprache', 'language.savedHelp': 'Wird sofort angewendet und auf diesem Gerät gespeichert.',
   'status.existingInstance': 'HomeInventory läuft bereits auf den ausgewählten Ports. Öffnen Sie die vorhandene Sitzung, statt eine zweite zu starten.', 'status.apiPortBusy': 'API-Port {port} ist belegt. Vorschlag: {suggested}.', 'status.uiPortBusy': 'UI-Port {port} ist belegt. Vorschlag: {suggested}.', 'status.bothPortsBusy': 'Ports {backend} und {frontend} sind belegt. Vorschlag: {suggestedBackend}/{suggestedFrontend}.', 'status.networkReady': 'Die Netzwerkadresse ist bereit. Falls ein anderes Gerät keine Verbindung herstellen kann, erlauben Sie HomeInventory oder Node.js in der Windows-Firewall für private Netzwerke.', 'status.lanUiBlocked': 'Die App-Oberfläche ist über die LAN-IP nicht erreichbar. Prüfen Sie Windows-Firewall und Host-Bindung.', 'status.lanApiBlocked': 'Die App-Oberfläche ist erreichbar, die API jedoch nicht über die LAN-IP.', 'status.lanBlocked': 'LAN-Prüfung fehlgeschlagen. Erlauben Sie HomeInventory oder Node.js in der Windows-Firewall für private Netzwerke und starten Sie die App neu.',
-  'update.stateStarting': 'Wird gestartet', 'update.stateBackingUp': 'Sicherung läuft', 'update.stateDownloading': 'Wird heruntergeladen', 'update.stateInstalling': 'Wird installiert', 'update.stateCompleted': 'Abgeschlossen', 'update.stateRollback': 'Wird zurückgesetzt', 'update.stateRollbackComplete': 'Zurücksetzen abgeschlossen', 'update.stateFailed': 'Fehlgeschlagen',
-  'language.en': 'English', 'language.tr': 'Türkçe', 'language.de': 'Deutsch', 'language.fr': 'Français', 'language.es': 'Español', 'common.launcher': 'Launcher', 'common.detected': 'Erkannt: {path}',
+  'update.stateStarting': 'Wird gestartet', 'update.stateBackingUp': 'Sicherung läuft', 'update.stateDownloading': 'Wird heruntergeladen', 'update.stateInstalling': 'Wird installiert', 'update.stateCompleted': 'Abgeschlossen', 'update.stateRollback': 'Wird zurückgesetzt', 'update.stateRollbackComplete': 'Zurücksetzen abgeschlossen', 'update.stateFailed': 'Fehlgeschlagen', 'common.launcher': 'Launcher', 'common.detected': 'Erkannt: {path}',
   'status.launcherReady': 'Launcher ist bereit.', 'status.browserPreview': 'Browser-Vorschau — Tauri-Befehle werden simuliert.', 'status.loadingEnvironment': 'Umgebung wird geladen…', 'status.noProfile': 'Kein Profil verfügbar.', 'status.apiPortRange': 'Der API-Port muss zwischen 1024 und 65535 liegen.', 'status.uiPortRange': 'Der UI-Port muss zwischen 1024 und 65535 liegen.', 'status.localPortRange': 'Der lokale Port muss zwischen 1024 und 65535 liegen.', 'status.portsDifferent': 'API- und UI-Port müssen unterschiedlich sein.', 'status.portsAvailable': 'Die Ports sind verfügbar.', 'status.localPortValid': 'Der lokale Port ist gültig.', 'status.previewPortsValid': 'Die Ports sind in der Browser-Vorschau gültig.', 'status.checkingPorts': 'Lokale Ports werden vor dem Start geprüft…', 'status.randomLocalPort': 'Verfügbarer lokaler Port {port} ausgewählt.', 'status.randomPorts': 'Verfügbare API-/UI-Ports {backend}/{frontend} ausgewählt.', 'status.defaultPortsBusy': 'Die Standardports sind belegt. Start auf {backend}/{frontend}.', 'status.startPreview': '{name} wird gestartet: im Browsermodus simuliert.', 'status.stopPreview': 'Aktives Profil beendet: im Browsermodus simuliert.', 'status.setupStopped': 'HomeInventory wurde beendet, bevor der Start abgeschlossen war. Öffnen Sie die Entwicklerwerkzeuge für Protokolle.', 'status.folderPickerDesktop': 'Die Ordnerauswahl ist im Desktop-Launcher verfügbar.', 'status.folderSelected': 'Installationsordner ausgewählt.', 'status.folderCleared': 'Installationsordner geleert.', 'status.pathPickerDesktop': 'Die Pfadauswahl ist im Desktop-Launcher verfügbar.', 'status.pathUpdated': 'Pfad aktualisiert. Die Werkzeugerkennung wird automatisch aktualisiert.', 'status.pathEmpty': 'Der Pfad für {label} ist leer.', 'status.folderRevealDesktop': 'Das Anzeigen von Ordnern ist im Desktop-Launcher verfügbar.', 'status.pathOpened': '{label} wurde geöffnet.', 'status.nodeOverridesCleared': 'Node-/npm-Überschreibungen entfernt. Die automatische Erkennung ist aktiv.', 'status.backupPreview': 'Sicherung für {name} erstellt: im Browsermodus simuliert.',
   'setup.elapsedBundled': 'Vergangene Zeit: {elapsed}. Gebündelte App-Dateien und Laufzeit werden vorbereitet.', 'setup.elapsedInstall': 'Vergangene Zeit: {elapsed}. Die Erstinstallation kann je nach npm- und Netzwerkgeschwindigkeit einige Minuten dauern.', 'setup.runtimeHelp': 'Starten Sie HomeInventory Local, um die im Microsoft-Store-Paket enthaltene Laufzeit vorzubereiten.', 'setup.nodeHelpPrefix': 'Laden Sie Node.js von', 'setup.nodeHelpSuffix': 'herunter und installieren Sie es, um fortzufahren.', 'setup.launchOn': 'Auf {backend}/{frontend} starten', 'setup.restartLocal': 'HomeInventory Local neu starten', 'setup.storePreparation': 'HomeInventory Local bereitet die gebündelten App-Dateien und die lokale Laufzeit aus dem Microsoft-Store-Paket vor.', 'setup.chooseFolderHelp': 'Wählen Sie einen leeren Installationsordner oder einen vorhandenen HomeInventory-Ordner.', 'setup.emptyFolderSelected': 'Leerer Installationsordner ausgewählt. HomeInventory wird hier heruntergeladen und installiert.', 'setup.invalidFolder': 'Dieser Ordner ist nicht leer und kein HomeInventory-Installationsordner.',
   'update.previousAvailable': 'Die vorherige Version bleibt verfügbar. Versuchen Sie es erneut, wenn Sie bereit sind.', 'update.lookingForReleases': 'Signierte Launcher- und App-Versionen werden gesucht.', 'update.nodeUpgradeBeforeInstall': 'Node.js muss aktualisiert werden, bevor dieses Update installiert werden kann.', 'update.installBeforeStart': 'Installieren Sie das verifizierte Update, bevor Sie HomeInventory starten.', 'update.noneAvailable': 'Derzeit ist kein Update verfügbar.', 'update.verifyBeforeStart': 'Prüfen Sie Versionen, Signaturen und Anforderungen, bevor Sie die Dienste starten.', 'update.checkFirst': 'Suchen Sie nach Updates, bevor Sie das Update starten.', 'update.noInstallAvailable': 'Ihre Software ist aktuell. Es ist kein installierbares Update verfügbar.', 'update.initializing': 'Update wird vorbereitet...', 'update.backingUp': 'Datenbank und Uploads werden gesichert...', 'update.downloading': 'Versionsarchiv wird heruntergeladen...', 'update.installing': 'npm-ci-Abhängigkeiten werden installiert...', 'update.complete': 'Update abgeschlossen!', 'update.toVersion': '(Auf v{version} aktualisieren)', 'update.nodeRequiredBody': 'Die neueste App-Version benötigt Node.js v{version} oder höher. Aktualisieren Sie Ihre Node.js-Laufzeit, um fortzufahren.', 'update.checkExplanation': 'Vor dem Update sollte der Launcher die neueste Version, Signaturen, die erforderliche Node.js-Version sowie verfügbare App- oder Launcher-Updates prüfen.',
@@ -407,8 +419,7 @@ const fr: Dictionary = { ...en,
   'qr.code': 'QR code', 'qr.scan': 'Scanner pour se connecter',
   'language.launcherLanguage': 'Langue du launcher', 'language.savedHelp': 'Appliquée immédiatement et mémorisée sur cet appareil.',
   'status.existingInstance': 'HomeInventory fonctionne déjà sur les ports sélectionnés. Ouvrez la session existante au lieu d’en démarrer une autre.', 'status.apiPortBusy': 'Le port API {port} est occupé. Suggestion : {suggested}.', 'status.uiPortBusy': 'Le port de l’interface {port} est occupé. Suggestion : {suggested}.', 'status.bothPortsBusy': 'Les ports {backend} et {frontend} sont occupés. Suggestion : {suggestedBackend}/{suggestedFrontend}.', 'status.networkReady': 'L’adresse réseau est prête. Si un autre appareil ne peut pas se connecter, autorisez HomeInventory ou Node.js dans le pare-feu Windows pour les réseaux privés.', 'status.lanUiBlocked': 'L’interface n’est pas accessible via l’adresse IP du LAN. Vérifiez le pare-feu Windows et l’écoute réseau.', 'status.lanApiBlocked': 'L’interface est accessible, mais l’API ne l’est pas via l’adresse IP du LAN.', 'status.lanBlocked': 'La vérification du LAN a échoué. Autorisez HomeInventory ou Node.js dans le pare-feu Windows pour les réseaux privés, puis redémarrez l’application.',
-  'update.stateStarting': 'Démarrage', 'update.stateBackingUp': 'Sauvegarde', 'update.stateDownloading': 'Téléchargement', 'update.stateInstalling': 'Installation', 'update.stateCompleted': 'Terminé', 'update.stateRollback': 'Restauration', 'update.stateRollbackComplete': 'Restauration terminée', 'update.stateFailed': 'Échec',
-  'language.en': 'English', 'language.tr': 'Türkçe', 'language.de': 'Deutsch', 'language.fr': 'Français', 'language.es': 'Español', 'common.launcher': 'Launcher', 'common.detected': 'Détecté : {path}',
+  'update.stateStarting': 'Démarrage', 'update.stateBackingUp': 'Sauvegarde', 'update.stateDownloading': 'Téléchargement', 'update.stateInstalling': 'Installation', 'update.stateCompleted': 'Terminé', 'update.stateRollback': 'Restauration', 'update.stateRollbackComplete': 'Restauration terminée', 'update.stateFailed': 'Échec', 'common.launcher': 'Launcher', 'common.detected': 'Détecté : {path}',
   'status.launcherReady': 'Le launcher est prêt.', 'status.browserPreview': 'Aperçu navigateur — les commandes Tauri sont simulées.', 'status.loadingEnvironment': 'Chargement de l’environnement…', 'status.noProfile': 'Aucun profil disponible.', 'status.apiPortRange': 'Le port API doit être compris entre 1024 et 65535.', 'status.uiPortRange': 'Le port de l’interface doit être compris entre 1024 et 65535.', 'status.localPortRange': 'Le port local doit être compris entre 1024 et 65535.', 'status.portsDifferent': 'Les ports API et interface doivent être différents.', 'status.portsAvailable': 'Les ports sont disponibles.', 'status.localPortValid': 'Le port local est valide.', 'status.previewPortsValid': 'Les ports semblent valides dans l’aperçu navigateur.', 'status.checkingPorts': 'Vérification des ports locaux avant le lancement…', 'status.randomLocalPort': 'Port local disponible {port} sélectionné.', 'status.randomPorts': 'Ports API/interface disponibles {backend}/{frontend} sélectionnés.', 'status.defaultPortsBusy': 'Les ports par défaut sont occupés. Lancement sur {backend}/{frontend}.', 'status.startPreview': 'Démarrage de {name} : simulé en mode navigateur.', 'status.stopPreview': 'Profil actif arrêté : simulé en mode navigateur.', 'status.setupStopped': 'HomeInventory s’est arrêté avant la fin du démarrage. Ouvrez les outils de développement pour consulter les journaux.', 'status.folderPickerDesktop': 'Le sélecteur de dossier est disponible dans le launcher de bureau.', 'status.folderSelected': 'Dossier d’installation sélectionné.', 'status.folderCleared': 'Dossier d’installation effacé.', 'status.pathPickerDesktop': 'Le sélecteur de chemin est disponible dans le launcher de bureau.', 'status.pathUpdated': 'Chemin mis à jour. La détection des outils sera actualisée automatiquement.', 'status.pathEmpty': 'Le chemin {label} est vide.', 'status.folderRevealDesktop': 'L’affichage du dossier est disponible dans le launcher de bureau.', 'status.pathOpened': '{label} a été ouvert.', 'status.nodeOverridesCleared': 'Les chemins Node/npm personnalisés ont été effacés. La détection automatique est active.', 'status.backupPreview': 'Sauvegarde créée pour {name} : simulée en mode navigateur.',
   'setup.elapsedBundled': 'Temps écoulé : {elapsed}. Préparation des fichiers intégrés et de l’environnement.', 'setup.elapsedInstall': 'Temps écoulé : {elapsed}. La première installation peut prendre quelques minutes selon npm et la vitesse du réseau.', 'setup.runtimeHelp': 'Lancez HomeInventory Local pour préparer l’environnement inclus dans le paquet Microsoft Store.', 'setup.nodeHelpPrefix': 'Téléchargez et installez Node.js depuis', 'setup.nodeHelpSuffix': 'pour continuer.', 'setup.launchOn': 'Lancer sur {backend}/{frontend}', 'setup.restartLocal': 'Redémarrer HomeInventory Local', 'setup.storePreparation': 'HomeInventory Local va préparer les fichiers intégrés et l’environnement local du paquet Microsoft Store.', 'setup.chooseFolderHelp': 'Choisissez un dossier d’installation vide ou un dossier HomeInventory existant.', 'setup.emptyFolderSelected': 'Dossier d’installation vide sélectionné. HomeInventory y sera téléchargé et installé.', 'setup.invalidFolder': 'Ce dossier n’est pas vide et ne correspond pas à une installation HomeInventory.',
   'update.previousAvailable': 'La version précédente reste disponible. Réessayez lorsque vous êtes prêt.', 'update.lookingForReleases': 'Recherche des versions signées du launcher et de l’application.', 'update.nodeUpgradeBeforeInstall': 'Node.js doit être mis à niveau avant l’installation de cette mise à jour.', 'update.installBeforeStart': 'Installez la mise à jour vérifiée avant de lancer HomeInventory.', 'update.noneAvailable': 'Aucune mise à jour n’est disponible actuellement.', 'update.verifyBeforeStart': 'Vérifiez les versions, signatures et prérequis avant de démarrer les services.', 'update.checkFirst': 'Recherchez des mises à jour avant de lancer la mise à jour.', 'update.noInstallAvailable': 'Votre logiciel est à jour. Aucune mise à jour ne peut être installée.', 'update.initializing': 'Préparation de la mise à jour...', 'update.backingUp': 'Sauvegarde de la base de données et des fichiers...', 'update.downloading': 'Téléchargement de l’archive de version...', 'update.installing': 'Installation des dépendances avec npm ci...', 'update.complete': 'Mise à jour terminée !', 'update.toVersion': '(Mettre à jour vers v{version})', 'update.nodeRequiredBody': 'La dernière version de l’application nécessite Node.js v{version} ou une version ultérieure. Mettez à niveau votre environnement Node.js pour continuer.', 'update.checkExplanation': 'Avant la mise à jour, le launcher doit vérifier la dernière version, les signatures, la version Node.js requise et les mises à jour disponibles pour l’application ou le launcher.',
@@ -435,8 +446,7 @@ const es: Dictionary = { ...en,
   'qr.code': 'Código QR', 'qr.scan': 'Escanea para conectarte',
   'language.launcherLanguage': 'Idioma del launcher', 'language.savedHelp': 'Se aplica al instante y se recuerda en este dispositivo.',
   'status.existingInstance': 'HomeInventory ya se está ejecutando en los puertos seleccionados. Abre la sesión existente en lugar de iniciar otra.', 'status.apiPortBusy': 'El puerto API {port} está ocupado. Sugerencia: {suggested}.', 'status.uiPortBusy': 'El puerto de interfaz {port} está ocupado. Sugerencia: {suggested}.', 'status.bothPortsBusy': 'Los puertos {backend} y {frontend} están ocupados. Sugerencia: {suggestedBackend}/{suggestedFrontend}.', 'status.networkReady': 'La dirección de red está lista. Si otro dispositivo no puede conectarse, permite HomeInventory o Node.js en el Firewall de Windows para redes privadas.', 'status.lanUiBlocked': 'No se puede acceder a la interfaz mediante la IP de la LAN. Comprueba el Firewall de Windows y la vinculación de red.', 'status.lanApiBlocked': 'Se puede acceder a la interfaz, pero no a la API mediante la IP de la LAN.', 'status.lanBlocked': 'La comprobación de la LAN ha fallado. Permite HomeInventory o Node.js en el Firewall de Windows para redes privadas y reinicia la aplicación.',
-  'update.stateStarting': 'Iniciando', 'update.stateBackingUp': 'Creando copia', 'update.stateDownloading': 'Descargando', 'update.stateInstalling': 'Instalando', 'update.stateCompleted': 'Completado', 'update.stateRollback': 'Revirtiendo', 'update.stateRollbackComplete': 'Reversión completada', 'update.stateFailed': 'Error',
-  'language.en': 'English', 'language.tr': 'Türkçe', 'language.de': 'Deutsch', 'language.fr': 'Français', 'language.es': 'Español', 'common.launcher': 'Launcher', 'common.detected': 'Detectado: {path}',
+  'update.stateStarting': 'Iniciando', 'update.stateBackingUp': 'Creando copia', 'update.stateDownloading': 'Descargando', 'update.stateInstalling': 'Instalando', 'update.stateCompleted': 'Completado', 'update.stateRollback': 'Revirtiendo', 'update.stateRollbackComplete': 'Reversión completada', 'update.stateFailed': 'Error', 'common.launcher': 'Launcher', 'common.detected': 'Detectado: {path}',
   'status.launcherReady': 'El launcher está listo.', 'status.browserPreview': 'Vista previa del navegador — los comandos de Tauri se simulan.', 'status.loadingEnvironment': 'Cargando el entorno…', 'status.noProfile': 'No hay ningún perfil disponible.', 'status.apiPortRange': 'El puerto API debe estar entre 1024 y 65535.', 'status.uiPortRange': 'El puerto de interfaz debe estar entre 1024 y 65535.', 'status.localPortRange': 'El puerto local debe estar entre 1024 y 65535.', 'status.portsDifferent': 'Los puertos de API e interfaz deben ser diferentes.', 'status.portsAvailable': 'Los puertos están disponibles.', 'status.localPortValid': 'El puerto local es válido.', 'status.previewPortsValid': 'Los puertos parecen válidos en la vista previa del navegador.', 'status.checkingPorts': 'Comprobando los puertos locales antes de iniciar…', 'status.randomLocalPort': 'Se ha elegido el puerto local disponible {port}.', 'status.randomPorts': 'Se han elegido los puertos disponibles API/interfaz {backend}/{frontend}.', 'status.defaultPortsBusy': 'Los puertos predeterminados están ocupados. Iniciando en {backend}/{frontend}.', 'status.startPreview': 'Iniciando {name}: simulado en modo navegador.', 'status.stopPreview': 'Perfil activo detenido: simulado en modo navegador.', 'status.setupStopped': 'HomeInventory se detuvo antes de terminar de iniciarse. Abre las herramientas de desarrollo para ver los registros.', 'status.folderPickerDesktop': 'El selector de carpetas está disponible en el launcher de escritorio.', 'status.folderSelected': 'Carpeta de instalación seleccionada.', 'status.folderCleared': 'Carpeta de instalación borrada.', 'status.pathPickerDesktop': 'El selector de rutas está disponible en el launcher de escritorio.', 'status.pathUpdated': 'Ruta actualizada. La detección de herramientas se actualizará automáticamente.', 'status.pathEmpty': 'La ruta de {label} está vacía.', 'status.folderRevealDesktop': 'La función para mostrar carpetas está disponible en el launcher de escritorio.', 'status.pathOpened': 'Se ha abierto {label}.', 'status.nodeOverridesCleared': 'Se han borrado las rutas personalizadas de Node/npm. La detección automática está activa.', 'status.backupPreview': 'Copia creada para {name}: simulada en modo navegador.',
   'setup.elapsedBundled': 'Tiempo transcurrido: {elapsed}. Preparando los archivos incluidos y el entorno.', 'setup.elapsedInstall': 'Tiempo transcurrido: {elapsed}. La primera instalación puede tardar unos minutos según npm y la velocidad de la red.', 'setup.runtimeHelp': 'Inicia HomeInventory Local para preparar el entorno incluido en el paquete de Microsoft Store.', 'setup.nodeHelpPrefix': 'Descarga e instala Node.js desde', 'setup.nodeHelpSuffix': 'para continuar.', 'setup.launchOn': 'Iniciar en {backend}/{frontend}', 'setup.restartLocal': 'Reiniciar HomeInventory Local', 'setup.storePreparation': 'HomeInventory Local preparará los archivos incluidos y el entorno local del paquete de Microsoft Store.', 'setup.chooseFolderHelp': 'Elige una carpeta de instalación vacía o una carpeta de HomeInventory existente.', 'setup.emptyFolderSelected': 'Se ha seleccionado una carpeta vacía. HomeInventory se descargará e instalará aquí.', 'setup.invalidFolder': 'Esta carpeta no está vacía y no es una carpeta de instalación de HomeInventory.',
   'update.previousAvailable': 'La versión anterior sigue disponible. Inténtalo de nuevo cuando estés listo.', 'update.lookingForReleases': 'Buscando versiones firmadas del launcher y la aplicación.', 'update.nodeUpgradeBeforeInstall': 'Node.js debe actualizarse antes de instalar esta actualización.', 'update.installBeforeStart': 'Instala la actualización verificada antes de iniciar HomeInventory.', 'update.noneAvailable': 'No hay actualizaciones disponibles ahora.', 'update.verifyBeforeStart': 'Comprueba las versiones, firmas y requisitos antes de iniciar los servicios.', 'update.checkFirst': 'Busca actualizaciones antes de iniciar la actualización.', 'update.noInstallAvailable': 'Tu software está actualizado. No hay ninguna actualización para instalar.', 'update.initializing': 'Preparando la actualización...', 'update.backingUp': 'Creando copia de la base de datos y los archivos...', 'update.downloading': 'Descargando el archivo de la versión...', 'update.installing': 'Instalando dependencias con npm ci...', 'update.complete': '¡Actualización completada!', 'update.toVersion': '(Actualizar a v{version})', 'update.nodeRequiredBody': 'La última versión de la aplicación requiere Node.js v{version} o posterior. Actualiza tu entorno de Node.js para continuar.', 'update.checkExplanation': 'Antes de actualizar, el launcher debe comprobar la última versión, las firmas, la versión de Node.js necesaria y las actualizaciones disponibles de la aplicación o el launcher.',
@@ -459,35 +469,46 @@ const es: Dictionary = { ...en,
   'appMode.title': 'Ventana de aplicación (beta)', 'appMode.toggleHelp': 'Abre HomeInventory en una ventana del launcher con barra lateral en lugar de en el navegador. Es posible que la cámara no funcione ahí; usa Abrir en el navegador para escanear.', 'appMode.open': 'Abrir ventana de aplicación', 'appMode.classicNotice': 'Ventana de aplicación desactivada. HomeInventory vuelve a abrirse en tu navegador.', 'appMode.sidebarLabel': 'Controles de HomeInventory', 'appMode.statusStarting': 'Iniciando…', 'appMode.statusStopped': 'Detenido', 'appMode.start': 'Iniciar', 'appMode.stop': 'Detener', 'appMode.restart': 'Reiniciar', 'appMode.collapse': 'Contraer barra lateral', 'appMode.expand': 'Expandir barra lateral', 'appMode.cameraHint': 'Es posible que la cámara no funcione en esta ventana. Usa Abrir en el navegador para escanear.', 'appMode.backToClassic': 'Volver al launcher clásico', 'appMode.quickLabel': 'Ventana de aplicación', 'appMode.beta': 'Beta',
 };
 
+const fileDictionaries: Record<string, LauncherTranslations> = {
+  ar, bg, cs, da, el, fi, he, hi, hu, id, it, ja, ko, ms, nl, no, pl, pt, ro, ru, sv, th, uk, vi, zh,
+  ...extraDictionaries,
+};
+
 const dictionaries: Record<LauncherLocale, Dictionary> = {
   en, tr, de, fr, es,
-  it: { ...en, ...it },
-  pt: { ...en, ...pt },
-  nl: { ...en, ...nl },
-  pl: { ...en, ...pl },
-  ru: { ...en, ...ru },
+  ...Object.fromEntries(Object.entries(fileDictionaries).map(([code, dictionary]) => [code, { ...en, ...dictionary }])),
 };
+// The app lists Simplified Chinese under both codes.
+dictionaries['zh-Hans'] = dictionaries.zh;
+
+const RTL_LOCALES = new Set<string>(['ar', 'he', ...EXTRA_RTL_LOCALES]);
+
+export function isRtlLocale(locale: string) {
+  return RTL_LOCALES.has(locale);
+}
+
 const STORAGE_KEY = 'homeinventory-launcher-language';
 
-export const LANGUAGE_OPTIONS: ReadonlyArray<{ code: LauncherLocale; labelKey: TranslationKey }> = [
-  { code: 'en', labelKey: 'language.en' },
-  { code: 'tr', labelKey: 'language.tr' },
-  { code: 'de', labelKey: 'language.de' },
-  { code: 'fr', labelKey: 'language.fr' },
-  { code: 'es', labelKey: 'language.es' },
-  { code: 'it', labelKey: 'language.it' },
-  { code: 'pt', labelKey: 'language.pt' },
-  { code: 'nl', labelKey: 'language.nl' },
-  { code: 'pl', labelKey: 'language.pl' },
-  { code: 'ru', labelKey: 'language.ru' },
-];
+// Same order and native names as HomeInventory's own language list.
+export const LANGUAGE_OPTIONS: ReadonlyArray<{ code: LauncherLocale; label: string }> = appLabels.languages
+  .filter(language => language.code in dictionaries);
 
 export const APP_LANGUAGE_KEY = 'homeinventory-app-language';
 
+// Browser and OS codes that differ from the app's language codes.
+const LOCALE_ALIASES: Record<string, string> = {
+  nb: 'no', nn: 'no', iw: 'he', tl: 'fil', 'zh-tw': 'zh-Hant', 'zh-hk': 'zh-Hant', 'zh-mo': 'zh-Hant',
+};
+
 export function resolveLocale(value: string | null | undefined): LauncherLocale | null {
   if (!value) return null;
-  const normalized = value.toLowerCase().split('-')[0];
-  return (Object.keys(dictionaries) as LauncherLocale[]).find(code => code === normalized) ?? null;
+  const codes = Object.keys(dictionaries);
+  const lookup = (candidate: string) => {
+    const lower = candidate.toLowerCase();
+    const aliased = LOCALE_ALIASES[lower] ?? lower;
+    return codes.find(code => code.toLowerCase() === aliased.toLowerCase()) ?? null;
+  };
+  return lookup(value) ?? lookup(value.split('-')[0]);
 }
 
 function initialAppLanguage(locale: LauncherLocale): string {
@@ -549,6 +570,7 @@ export function LauncherI18nProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     document.documentElement.lang = locale;
+    document.documentElement.dir = isRtlLocale(locale) ? 'rtl' : 'ltr';
   }, [locale]);
 
   // The launcher window and the app window sidebar share one language.
