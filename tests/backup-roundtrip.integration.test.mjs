@@ -86,7 +86,7 @@ async function startCleanServer(t, label) {
     child.stderr.on('data', (chunk) => logs.push(String(chunk)));
     t.after(async () => {
         await stopServer(child);
-        rmSync(tempDir, { recursive: true, force: true });
+        rmSync(tempDir, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
     });
 
     for (let attempt = 0; attempt < 150; attempt += 1) {
@@ -231,10 +231,28 @@ test('owner export imports into a clean database with data and encrypted fields 
     const sourceItems = await request(source.port, '/api/items', {}, sourceJar);
     assert.equal(sourceItems.status, 200);
     assert.equal(sourceItems.data.items.length, 2);
+    const cameraSourceItem = sourceItems.data.items.find((item) => item.name === 'Mirrorless camera');
+    assert.ok(cameraSourceItem);
+
+    const maintenanceCreated = await request(source.port, '/api/maintenance', {
+        method: 'POST',
+        body: {
+            item_id: cameraSourceItem.id,
+            task_name: 'Sensor and lens cleaning',
+            description: 'Use blower and sensor swab',
+            frequency_value: 6,
+            frequency_unit: 'months',
+            next_due_date: '2026-09-14'
+        }
+    }, sourceJar);
+    assert.equal(maintenanceCreated.status, 201, JSON.stringify(maintenanceCreated.data));
 
     const exported = await request(source.port, '/api/backup/export', {}, sourceJar);
     assert.equal(exported.status, 200);
     assert.equal(exported.data.items.length, 2);
+    assert.ok(Array.isArray(exported.data.maintenance), 'exported data includes maintenance array');
+    assert.equal(exported.data.maintenance.length, 1);
+    assert.equal(exported.data.maintenance[0].task_name, 'Sensor and lens cleaning');
 
     const target = await startCleanServer(t, 'target');
     const targetJar = new CookieJar();
@@ -242,6 +260,29 @@ test('owner export imports into a clean database with data and encrypted fields 
     const imported = await request(target.port, '/api/backup/import', { method: 'POST', body: exported.data }, targetJar);
     assert.equal(imported.status, 200, JSON.stringify(imported.data));
     assert.equal(imported.data.imported.items, 2);
+    assert.equal(imported.data.imported.maintenance, 1);
+
+    const targetMaintenance = await request(target.port, '/api/maintenance', {}, targetJar);
+    assert.equal(targetMaintenance.status, 200);
+    assert.equal(targetMaintenance.data.tasks.length, 1);
+    assert.equal(targetMaintenance.data.tasks[0].task_name, 'Sensor and lens cleaning');
+    assert.equal(targetMaintenance.data.tasks[0].description, 'Use blower and sensor swab');
+    assert.equal(targetMaintenance.data.tasks[0].frequency_value, 6);
+    assert.equal(targetMaintenance.data.tasks[0].frequency_unit, 'months');
+    assert.equal(targetMaintenance.data.tasks[0].next_due_date, '2026-09-14');
+    assert.equal(targetMaintenance.data.tasks[0].item_name, 'Mirrorless camera');
+
+    // Deduplication on re-importing identical backup:
+    const importedAgain = await request(target.port, '/api/backup/import', { method: 'POST', body: exported.data }, targetJar);
+    assert.equal(importedAgain.status, 200);
+    assert.equal(importedAgain.data.skipped.maintenance, 1);
+    assert.equal(importedAgain.data.imported.maintenance, 0);
+
+    // Backward compatibility: importing legacy backup without maintenance array succeeds
+    const legacyExport = { ...exported.data };
+    delete legacyExport.maintenance;
+    const importedLegacy = await request(target.port, '/api/backup/import', { method: 'POST', body: legacyExport }, targetJar);
+    assert.equal(importedLegacy.status, 200);
 
     const targetItems = await request(target.port, '/api/items', {}, targetJar);
     assert.equal(targetItems.status, 200);
@@ -267,20 +308,23 @@ test('owner export imports into a clean database with data and encrypted fields 
 
     // Imported rows are re-encrypted at rest in the clean database.
     const targetDb = new Database(target.dbPath, { readonly: true });
-    t.after(() => targetDb.close());
-    const rawItems = targetDb.prepare(`SELECT ${PROTECTED_ITEM_COLUMNS.join(', ')} FROM items`).all();
-    assert.equal(rawItems.length, 2);
-    for (const row of rawItems) {
-        for (const column of PROTECTED_ITEM_COLUMNS) {
-            if (row[column] === null || row[column] === undefined || row[column] === '') continue;
-            assert.ok(isEncryptedAtRest(row[column]), `items.${column} is encrypted at rest`);
+    try {
+        const rawItems = targetDb.prepare(`SELECT ${PROTECTED_ITEM_COLUMNS.join(', ')} FROM items`).all();
+        assert.equal(rawItems.length, 2);
+        for (const row of rawItems) {
+            for (const column of PROTECTED_ITEM_COLUMNS) {
+                if (row[column] === null || row[column] === undefined || row[column] === '') continue;
+                assert.ok(isEncryptedAtRest(row[column]), `items.${column} is encrypted at rest`);
+            }
         }
-    }
-    const rawText = JSON.stringify(rawItems)
-        + JSON.stringify(targetDb.prepare('SELECT name FROM categories').all())
-        + JSON.stringify(targetDb.prepare('SELECT name, description FROM rooms').all())
-        + JSON.stringify(targetDb.prepare('SELECT name FROM locations').all());
-    for (const plaintext of ['Mirrorless camera', 'Serial 4471', '4006381333931', '1299.90', 'Electronics', 'Study corner', 'Top shelf']) {
-        assert.equal(rawText.includes(plaintext), false, `${plaintext} is not stored in plaintext`);
+        const rawText = JSON.stringify(rawItems)
+            + JSON.stringify(targetDb.prepare('SELECT name FROM categories').all())
+            + JSON.stringify(targetDb.prepare('SELECT name, description FROM rooms').all())
+            + JSON.stringify(targetDb.prepare('SELECT name FROM locations').all());
+        for (const plaintext of ['Mirrorless camera', 'Serial 4471', '4006381333931', '1299.90', 'Electronics', 'Study corner', 'Top shelf']) {
+            assert.equal(rawText.includes(plaintext), false, `${plaintext} is not stored in plaintext`);
+        }
+    } finally {
+        targetDb.close();
     }
 });

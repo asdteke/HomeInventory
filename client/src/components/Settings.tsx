@@ -651,6 +651,11 @@ export default function Settings() {
                 t('settings.data_management.preview_boxes', { defaultValue: 'Boxes' }),
                 preview.boxes,
                 preview?.omitted?.boxes || 0
+            ),
+            formatPreviewLine(
+                t('settings.data_management.preview_maintenance', { defaultValue: 'Maintenance Tasks' }),
+                preview.maintenance,
+                preview?.omitted?.maintenance || 0
             )
         ].filter(Boolean);
 
@@ -661,7 +666,8 @@ export default function Settings() {
             skipped.locations ? t('settings.data_management.skipped_locations', { count: skipped.locations, defaultValue: '{{count}} existing locations skipped.' }) : '',
             skipped.boxes ? t('settings.data_management.skipped_boxes', { count: skipped.boxes, defaultValue: '{{count}} existing boxes skipped.' }) : '',
             skipped.borrows ? t('settings.data_management.skipped_borrows', { count: skipped.borrows, defaultValue: '{{count}} existing borrow records skipped.' }) : '',
-            skipped.attachments ? t('settings.data_management.skipped_attachments', { count: skipped.attachments, defaultValue: '{{count}} existing attachments skipped.' }) : ''
+            skipped.attachments ? t('settings.data_management.skipped_attachments', { count: skipped.attachments, defaultValue: '{{count}} existing attachments skipped.' }) : '',
+            skipped.maintenance ? t('settings.data_management.skipped_maintenance', { count: skipped.maintenance, defaultValue: '{{count}} existing maintenance tasks skipped.' }) : ''
         ].filter(Boolean);
 
         showToast({
@@ -677,6 +683,7 @@ export default function Settings() {
                     boxes: imported.boxes || 0,
                     borrows: imported.borrows || 0,
                     attachments: imported.attachments || 0,
+                    maintenance: imported.maintenance || 0,
                     media: imported.media || 0,
                     defaultValue: '{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{boxes}} boxes, {{borrows}} borrow records, {{attachments}} attachments, {{media}} media files restored.'
                 }),

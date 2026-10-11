@@ -9,6 +9,7 @@ import { hashLookupToken } from '../utils/encryption.js';
 import { authenticateToken, requireActiveHouse } from '../middleware/auth.js';
 import { isHouseOwner } from '../utils/houseMembership.js';
 import { normalizeWarrantyDetails } from '../utils/warrantyValidation.js';
+import { normalizeOptionalDate } from '../utils/dateValidation.js';
 import {
     ensurePrivateDirectory,
     normalizeStoredPath,
@@ -26,6 +27,7 @@ import {
     decryptItemRecord,
     decryptLocationRecord,
     decryptRoomRecord,
+    decryptUsername,
     encryptBorrowerContact,
     encryptBorrowerName,
     encryptBorrowNote,
@@ -535,6 +537,18 @@ function createBorrowFingerprint(borrow, mappedItemId, fallbackBorrowerName = ''
     ]);
 }
 
+function createMaintenanceFingerprint(task, mappedItemId) {
+    return JSON.stringify([
+        Number(mappedItemId || 0),
+        normalizeImportValue(task.task_name),
+        normalizeImportValue(task.description),
+        Number(task.frequency_value || 0),
+        normalizeImportValue(task.frequency_unit),
+        normalizeImportValue(task.last_performed_at),
+        normalizeImportValue(task.next_due_date)
+    ]);
+}
+
 // GET /api/backup/export - Export all data for current house
 router.get('/export', backupRateLimiter, (req, res) => {
     try {
@@ -622,8 +636,30 @@ router.get('/export', backupRateLimiter, (req, res) => {
             ORDER BY ib.borrowed_at DESC, ib.id DESC
         `).all(houseKey).map(decryptBorrowRecord);
 
+        const maintenance = db.prepare(`
+            SELECT
+                im.id,
+                im.item_id,
+                im.task_name,
+                im.description,
+                im.frequency_value,
+                im.frequency_unit,
+                im.last_performed_at,
+                im.next_due_date,
+                creator.username AS created_by_name,
+                im.created_at,
+                im.updated_at
+            FROM item_maintenance im
+            LEFT JOIN users creator ON creator.id = im.created_by
+            WHERE im.house_key = ?
+            ORDER BY im.created_at ASC, im.id ASC
+        `).all(houseKey).map((task) => ({
+            ...task,
+            created_by_name: decryptUsername(task.created_by_name)
+        }));
+
         const exportData = {
-            version: '1.6',
+            version: '1.7',
             exportDate: new Date().toISOString(),
             meta: {
                 containsDecryptedData: true,
@@ -634,7 +670,8 @@ router.get('/export', backupRateLimiter, (req, res) => {
             rooms,
             locations,
             boxes,
-            borrows
+            borrows,
+            maintenance
         };
 
         res.json(exportData);
@@ -724,6 +761,28 @@ router.get('/export-full', backupRateLimiter, (req, res) => {
             ORDER BY ib.borrowed_at DESC, ib.id DESC
         `).all(houseKey).map(decryptBorrowRecord);
 
+        const maintenance = db.prepare(`
+            SELECT
+                im.id,
+                im.item_id,
+                im.task_name,
+                im.description,
+                im.frequency_value,
+                im.frequency_unit,
+                im.last_performed_at,
+                im.next_due_date,
+                creator.username AS created_by_name,
+                im.created_at,
+                im.updated_at
+            FROM item_maintenance im
+            LEFT JOIN users creator ON creator.id = im.created_by
+            WHERE im.house_key = ?
+            ORDER BY im.created_at ASC, im.id ASC
+        `).all(houseKey).map((task) => ({
+            ...task,
+            created_by_name: decryptUsername(task.created_by_name)
+        }));
+
         const attachments = db.prepare(`
             SELECT id, item_id, original_name, stored_path, mime_type, size_bytes, created_at
             FROM item_attachments
@@ -737,7 +796,7 @@ router.get('/export-full', backupRateLimiter, (req, res) => {
         const { mediaEntries, totalBytes } = collectMediaEntries(items, attachments, boxes);
 
         res.json({
-            version: '1.6-full',
+            version: '1.7-full',
             exportDate: new Date().toISOString(),
             meta: {
                 containsDecryptedData: true,
@@ -753,6 +812,7 @@ router.get('/export-full', backupRateLimiter, (req, res) => {
             boxes,
             borrows,
             attachments,
+            maintenance,
             media: mediaEntries
         });
     } catch (err) {
@@ -772,7 +832,7 @@ router.post('/import', backupRateLimiter, (req, res) => {
             return res.status(400).json({ error: 'Aktif ev bulunamadı' });
         }
 
-        const { items, categories, rooms, locations, boxes, borrows, attachments, media } = req.body;
+        const { items, categories, rooms, locations, boxes, borrows, attachments, maintenance, media } = req.body;
 
         if (!items || !Array.isArray(items)) {
             return res.status(400).json({ error: 'Geçersiz yedek dosyası formatı' });
@@ -790,6 +850,7 @@ router.post('/import', backupRateLimiter, (req, res) => {
         let importedItems = 0;
         let importedBorrows = 0;
         let importedAttachments = 0;
+        let importedMaintenance = 0;
         let skippedCategories = 0;
         let skippedRooms = 0;
         let skippedLocations = 0;
@@ -797,6 +858,7 @@ router.post('/import', backupRateLimiter, (req, res) => {
         let skippedItems = 0;
         let skippedBorrows = 0;
         let skippedAttachments = 0;
+        let skippedMaintenance = 0;
 
         const importPreview = {
             items: [],
@@ -805,7 +867,8 @@ router.post('/import', backupRateLimiter, (req, res) => {
             locations: [],
             boxes: [],
             borrows: [],
-            attachments: []
+            attachments: [],
+            maintenance: []
         };
         let restoredMedia = { restoredMedia: 0, restoredBytes: 0 };
 
@@ -1408,6 +1471,100 @@ router.post('/import', backupRateLimiter, (req, res) => {
                     pushUniquePreview(importPreview.attachments, attachmentName || mediaEntry.targetPath);
                 }
             }
+
+            if (maintenance && Array.isArray(maintenance)) {
+                const existingMaintenanceFingerprints = new Set(
+                    db.prepare(`
+                        SELECT item_id, task_name, description, frequency_value, frequency_unit, last_performed_at, next_due_date
+                        FROM item_maintenance
+                        WHERE house_key = ?
+                    `).all(houseKey).map((existingTask) =>
+                        createMaintenanceFingerprint(existingTask, existingTask.item_id)
+                    )
+                );
+                const insertMaintenance = db.prepare(`
+                    INSERT INTO item_maintenance (
+                        item_id, task_name, description, frequency_value, frequency_unit,
+                        last_performed_at, next_due_date, house_key, created_by,
+                        created_at, updated_at
+                    )
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                `);
+
+                for (const task of maintenance) {
+                    const mappedItemId = itemMap[task.item_id];
+                    if (!mappedItemId) {
+                        continue;
+                    }
+
+                    const taskName = String(task.task_name || '').trim().slice(0, 255);
+                    if (!taskName) {
+                        skippedMaintenance++;
+                        continue;
+                    }
+
+                    const taskDescription = task.description ? String(task.description).trim().slice(0, 1000) : null;
+                    const normalizedNextDueDate = normalizeOptionalDate(task.next_due_date, 'Planlanan tarih');
+                    if (!normalizedNextDueDate) {
+                        skippedMaintenance++;
+                        continue;
+                    }
+
+                    let freqVal = task.frequency_value ? parseInt(task.frequency_value, 10) : null;
+                    let freqUnit = task.frequency_unit || null;
+                    if (freqVal !== null && (isNaN(freqVal) || freqVal <= 0)) {
+                        freqVal = null;
+                        freqUnit = null;
+                    }
+                    if (freqVal !== null && !['days', 'weeks', 'months', 'years'].includes(freqUnit)) {
+                        freqVal = null;
+                        freqUnit = null;
+                    }
+                    if ((freqVal !== null && freqUnit === null) || (freqVal === null && freqUnit !== null)) {
+                        freqVal = null;
+                        freqUnit = null;
+                    }
+
+                    const normalizedLastPerformedAt = normalizeOptionalDate(task.last_performed_at, 'Son yapılan tarih') || null;
+
+                    const fingerprint = createMaintenanceFingerprint({
+                        task_name: taskName,
+                        description: taskDescription,
+                        frequency_value: freqVal,
+                        frequency_unit: freqUnit,
+                        last_performed_at: normalizedLastPerformedAt,
+                        next_due_date: normalizedNextDueDate
+                    }, mappedItemId);
+
+                    if (existingMaintenanceFingerprints.has(fingerprint)) {
+                        skippedMaintenance++;
+                        continue;
+                    }
+
+                    const taskOwnerId = resolveImportedItemOwnerId(
+                        task,
+                        memberIdsByUsernameLookup,
+                        req.user.id
+                    );
+
+                    insertMaintenance.run(
+                        mappedItemId,
+                        taskName,
+                        taskDescription,
+                        freqVal,
+                        freqUnit,
+                        normalizedLastPerformedAt,
+                        normalizedNextDueDate,
+                        houseKey,
+                        taskOwnerId,
+                        task.created_at || new Date().toISOString(),
+                        task.updated_at || task.created_at || new Date().toISOString()
+                    );
+                    existingMaintenanceFingerprints.add(fingerprint);
+                    importedMaintenance++;
+                    pushUniquePreview(importPreview.maintenance, taskName);
+                }
+            }
         });
 
         stageRestoreMediaPlan(restoreMediaPlan);
@@ -1432,6 +1589,7 @@ router.post('/import', backupRateLimiter, (req, res) => {
                 boxes: importedBoxes,
                 borrows: importedBorrows,
                 attachments: importedAttachments,
+                maintenance: importedMaintenance,
                 media: restoredMedia.restoredMedia
             },
             skipped: {
@@ -1441,7 +1599,8 @@ router.post('/import', backupRateLimiter, (req, res) => {
                 locations: skippedLocations,
                 boxes: skippedBoxes,
                 borrows: skippedBorrows,
-                attachments: skippedAttachments
+                attachments: skippedAttachments,
+                maintenance: skippedMaintenance
             },
             source: {
                 items: Array.isArray(items) ? items.length : 0,
@@ -1451,6 +1610,7 @@ router.post('/import', backupRateLimiter, (req, res) => {
                 boxes: Array.isArray(boxes) ? boxes.length : 0,
                 borrows: Array.isArray(borrows) ? borrows.length : 0,
                 attachments: Array.isArray(attachments) ? attachments.length : 0,
+                maintenance: Array.isArray(maintenance) ? maintenance.length : 0,
                 media: Array.isArray(media) ? media.length : 0
             },
             restoredMedia,
@@ -1463,7 +1623,8 @@ router.post('/import', backupRateLimiter, (req, res) => {
                     locations: Math.max(importedLocations - importPreview.locations.length, 0),
                     boxes: Math.max(importedBoxes - importPreview.boxes.length, 0),
                     borrows: Math.max(importedBorrows - importPreview.borrows.length, 0),
-                    attachments: Math.max(importedAttachments - importPreview.attachments.length, 0)
+                    attachments: Math.max(importedAttachments - importPreview.attachments.length, 0),
+                    maintenance: Math.max(importedMaintenance - importPreview.maintenance.length, 0)
                 }
             }
         });
