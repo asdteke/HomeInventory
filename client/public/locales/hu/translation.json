@@ -1448,7 +1448,14 @@
             "load_failed_title": "A felhasználók nem tölthetők be",
             "pending_requests": "{{count}} függő házigénylés",
             "role_admin": "Rendszergazda",
-            "role_user": "Felhasználó"
+            "role_user": "Felhasználó",
+            "reset_passkeys": "Azonosítókulcsok eltávolítása ({{count}})",
+            "reset_passkeys_title": "Eltávolítja az összes azonosítókulcsot?",
+            "reset_passkeys_description": "Akkor használja, ha egy azonosítókulccsal rendelkező eszköz elveszett, vagy ellopták.",
+            "reset_passkeys_confirm": "Azonosítókulcsok eltávolítása",
+            "reset_passkeys_warning": "A felhasználó megtartja a jelszavát és a kétfaktoros hitelesítési beállításait.",
+            "reset_passkeys_success_title": "Azonosítókulcsok eltávolítva",
+            "reset_passkeys_success_body": "{{username}} bejelentkezhet a jelszavával, és új azonosítókulcsokat adhat hozzá."
         },
         "logs": {
             "title": "Adminisztrátori naplók",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "Ez a mentés más titkosítási kulccsal készült, ezért ezen a szerveren nem állítható vissza.",
         "error_too_large": "A fájl nagyobb a(z) {{size}} feltöltési korlátnál.",
         "error_busy": "Már fut egy mentés. Próbálja újra egy kicsit később."
+    },
+    "passkeys": {
+        "title": "Azonosítókulcsok",
+        "description": "Jelentkezzen be ujjlenyomattal, arccal vagy az eszköz PIN-kódjával a jelszó begépelése helyett. A jelszava tartalékként megmarad.",
+        "add": "Azonosítókulcs hozzáadása",
+        "add_title": "Azonosítókulcs hozzáadása",
+        "add_confirm": "Folytatás",
+        "confirm_identity": "Igazolja, hogy Ön az. Ezután az eszköze kérni fogja az azonosítókulcs létrehozását.",
+        "name_label": "Azonosítókulcs neve",
+        "remove": "Azonosítókulcs eltávolítása",
+        "remove_title": "Eltávolítja ezt az azonosítókulcsot?",
+        "remove_description": "A(z) „{{name}}” kulccsal többé nem lehet bejelentkezni. Erősítse meg a jelszavával.",
+        "remove_confirm": "Eltávolítás",
+        "rename": "Átnevezés",
+        "added": "Azonosítókulcs hozzáadva.",
+        "removed": "Azonosítókulcs eltávolítva.",
+        "action_failed": "Az azonosítókulccsal végzett művelet nem fejeződött be. Kérjük, próbálja újra.",
+        "create_cancelled": "Az azonosítókulcs létrehozása megszakadt.",
+        "synced": "Szinkronizálva",
+        "other_address": "Csak itt működik: {{address}}",
+        "created_on": "Hozzáadva: {{date}}",
+        "last_used_on": "Utoljára használva: {{date}}",
+        "never_used": "Még nem használták",
+        "empty": "Még nem adott hozzá azonosítókulcsot.",
+        "login_button": "Bejelentkezés azonosítókulccsal",
+        "login_waiting": "Várakozás az azonosítókulcsra...",
+        "login_cancelled": "Az azonosítókulcsos bejelentkezés megszakadt.",
+        "login_failed": "Az azonosítókulcsos bejelentkezés sikertelen. Próbálja újra, vagy használja a jelszavát.",
+        "unavailable": {
+            "disabled": "Az azonosítókulcsok ki vannak kapcsolva ezen a szerveren.",
+            "ip_address": "Az azonosítókulcsok nem működnek, ha az alkalmazást IP-címmel nyitja meg. Használatukhoz nyissa meg domainnévvel vagy a localhost címmel.",
+            "insecure_origin": "Az azonosítókulcsokhoz biztonságos HTTPS-kapcsolat szükséges.",
+            "origin_not_allowed": "Az azonosítókulcsok nincsenek beállítva ehhez a címhez. Kérje meg az adminisztrátort, hogy ellenőrizze az azonosítókulcs-beállításokat.",
+            "unknown_origin": "Az azonosítókulcsok nem érhetők el ezen a címen.",
+            "unsupported_browser": "Ez a böngésző nem támogatja az azonosítókulcsokat."
+        }
     }
 }

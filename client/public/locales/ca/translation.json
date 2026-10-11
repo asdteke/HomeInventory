@@ -1448,7 +1448,14 @@
             "load_failed_title": "No s'han pogut carregar els usuaris",
             "pending_requests": "{{count}} sol·licituds de cases pendents",
             "role_admin": "Administrador",
-            "role_user": "Usuari"
+            "role_user": "Usuari",
+            "reset_passkeys": "Elimina les claus d'accés ({{count}})",
+            "reset_passkeys_title": "Vols eliminar totes les claus d'accés?",
+            "reset_passkeys_description": "Utilitza-ho quan es perdi o es robi un dispositiu amb una clau d'accés.",
+            "reset_passkeys_confirm": "Elimina les claus d'accés",
+            "reset_passkeys_warning": "L'usuari conserva la contrasenya i la configuració de l'autenticació de dos factors.",
+            "reset_passkeys_success_title": "Claus d'accés eliminades",
+            "reset_passkeys_success_body": "{{username}} pot iniciar sessió amb la contrasenya i afegir claus d'accés noves."
         },
         "logs": {
             "title": "Registres d'Administrador",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "Aquesta còpia es va fer amb una altra clau de xifratge i no es pot restaurar en aquest servidor.",
         "error_too_large": "El fitxer supera el límit de pujada de {{size}}.",
         "error_busy": "Ja hi ha una còpia en curs. Torna-ho a provar d’aquí a un moment."
+    },
+    "passkeys": {
+        "title": "Claus d'accés",
+        "description": "Inicia sessió amb l'empremta digital, la cara o el PIN del dispositiu en lloc d'escriure la contrasenya. La contrasenya es manté com a alternativa.",
+        "add": "Afegeix una clau d'accés",
+        "add_title": "Afegeix una clau d'accés",
+        "add_confirm": "Continua",
+        "confirm_identity": "Confirma que ets tu. Després, el dispositiu et demanarà que creïs la clau d'accés.",
+        "name_label": "Nom de la clau d'accés",
+        "remove": "Elimina la clau d'accés",
+        "remove_title": "Vols eliminar aquesta clau d'accés?",
+        "remove_description": "«{{name}}» ja no et permetrà iniciar sessió. Confirma-ho amb la contrasenya.",
+        "remove_confirm": "Elimina",
+        "rename": "Canvia el nom",
+        "added": "S'ha afegit la clau d'accés.",
+        "removed": "S'ha eliminat la clau d'accés.",
+        "action_failed": "No s'ha pogut completar l'acció amb la clau d'accés. Torna-ho a provar.",
+        "create_cancelled": "S'ha cancel·lat la creació de la clau d'accés.",
+        "synced": "Sincronitzada",
+        "other_address": "Només funciona a {{address}}",
+        "created_on": "Afegida el {{date}}",
+        "last_used_on": "Últim ús: {{date}}",
+        "never_used": "Encara no s'ha utilitzat",
+        "empty": "Encara no has afegit cap clau d'accés.",
+        "login_button": "Inicia sessió amb una clau d'accés",
+        "login_waiting": "S'està esperant la clau d'accés...",
+        "login_cancelled": "S'ha cancel·lat l'inici de sessió amb clau d'accés.",
+        "login_failed": "No s'ha pogut iniciar sessió amb la clau d'accés. Torna-ho a provar o utilitza la contrasenya.",
+        "unavailable": {
+            "disabled": "Les claus d'accés estan desactivades en aquest servidor.",
+            "ip_address": "Les claus d'accés no funcionen quan l'aplicació s'obre amb una adreça IP. Obre-la amb un nom de domini o amb localhost per utilitzar-les.",
+            "insecure_origin": "Les claus d'accés necessiten una connexió HTTPS segura.",
+            "origin_not_allowed": "Les claus d'accés no estan configurades per a aquesta adreça. Demana a l'administrador que revisi la configuració de les claus d'accés.",
+            "unknown_origin": "Les claus d'accés no estan disponibles en aquesta adreça.",
+            "unsupported_browser": "Aquest navegador no admet claus d'accés."
+        }
     }
 }

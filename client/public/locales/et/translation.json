@@ -1448,7 +1448,14 @@
             "load_failed_title": "Kasutajaid ei saanud laadida",
             "pending_requests": "{{count}} ootel maja taotlust",
             "role_admin": "Administraator",
-            "role_user": "Kasutaja"
+            "role_user": "Kasutaja",
+            "reset_passkeys": "Eemalda pääsuvõtmed ({{count}})",
+            "reset_passkeys_title": "Kas eemaldada kõik pääsuvõtmed?",
+            "reset_passkeys_description": "Kasutage seda, kui pääsuvõtmega seade on kadunud või varastatud.",
+            "reset_passkeys_confirm": "Eemalda pääsuvõtmed",
+            "reset_passkeys_warning": "Kasutajale jäävad alles tema parool ja kahefaktorilise autentimise seaded.",
+            "reset_passkeys_success_title": "Pääsuvõtmed eemaldati",
+            "reset_passkeys_success_body": "{{username}} saab sisse logida oma parooliga ja lisada uusi pääsuvõtmeid."
         },
         "logs": {
             "title": "Admini logid",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "See koopia on tehtud teise krüpteerimisvõtmega ja seda ei saa selles serveris taastada.",
         "error_too_large": "Fail ületab üleslaadimise piirangu {{size}}.",
         "error_busy": "Varundamine juba käib. Proovige hetke pärast uuesti."
+    },
+    "passkeys": {
+        "title": "Pääsuvõtmed",
+        "description": "Logige sisse sõrmejälje, näo või seadme PIN-koodiga, selle asemel et parooli sisestada. Parool jääb varuvõimaluseks alles.",
+        "add": "Lisa pääsuvõti",
+        "add_title": "Pääsuvõtme lisamine",
+        "add_confirm": "Jätka",
+        "confirm_identity": "Kinnitage, et see olete teie. Seejärel palub seade teil pääsuvõtme luua.",
+        "name_label": "Pääsuvõtme nimi",
+        "remove": "Eemalda pääsuvõti",
+        "remove_title": "Kas eemaldada see pääsuvõti?",
+        "remove_description": "„{{name}}“ abil ei saa enam sisse logida. Kinnitage oma parooliga.",
+        "remove_confirm": "Eemalda",
+        "rename": "Nimeta ümber",
+        "added": "Pääsuvõti lisati.",
+        "removed": "Pääsuvõti eemaldati.",
+        "action_failed": "Pääsuvõtme toimingut ei õnnestunud lõpule viia. Proovige uuesti.",
+        "create_cancelled": "Pääsuvõtme loomine tühistati.",
+        "synced": "Sünkroonitud",
+        "other_address": "Töötab ainult aadressil {{address}}",
+        "created_on": "Lisatud {{date}}",
+        "last_used_on": "Viimati kasutatud {{date}}",
+        "never_used": "Pole veel kasutatud",
+        "empty": "Te pole veel pääsuvõtit lisanud.",
+        "login_button": "Logi sisse pääsuvõtmega",
+        "login_waiting": "Ootan teie pääsuvõtit...",
+        "login_cancelled": "Pääsuvõtmega sisselogimine tühistati.",
+        "login_failed": "Pääsuvõtmega sisselogimine ebaõnnestus. Proovige uuesti või kasutage parooli.",
+        "unavailable": {
+            "disabled": "Pääsuvõtmed on selles serveris välja lülitatud.",
+            "ip_address": "Pääsuvõtmed ei tööta, kui rakendus on avatud IP-aadressiga. Nende kasutamiseks avage rakendus domeeninime või localhost kaudu.",
+            "insecure_origin": "Pääsuvõtmed vajavad turvalist HTTPS-ühendust.",
+            "origin_not_allowed": "Pääsuvõtmed pole selle aadressi jaoks seadistatud. Paluge administraatoril pääsuvõtmete seaded üle vaadata.",
+            "unknown_origin": "Pääsuvõtmed pole sellel aadressil saadaval.",
+            "unsupported_browser": "See brauser ei toeta pääsuvõtmeid."
+        }
     }
 }

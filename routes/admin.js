@@ -255,7 +255,12 @@ router.get('/users', authenticateToken, requireAdmin, (req, res) => {
                     FROM house_join_requests
                     WHERE house_join_requests.requester_user_id = users.id
                       AND house_join_requests.status = 'pending'
-                ) AS pending_house_requests
+                ) AS pending_house_requests,
+                (
+                    SELECT COUNT(*)
+                    FROM user_passkeys
+                    WHERE user_passkeys.user_id = users.id
+                ) AS passkey_count
             FROM users
             ORDER BY created_at DESC
         `).all().map(decryptUserRecord);
@@ -265,7 +270,8 @@ router.get('/users', authenticateToken, requireAdmin, (req, res) => {
             is_banned: !!u.is_banned,
             house_count: Number(u.house_count || 0),
             owned_item_count: Number(u.owned_item_count || 0),
-            pending_house_requests: Number(u.pending_house_requests || 0)
+            pending_house_requests: Number(u.pending_house_requests || 0),
+            passkey_count: Number(u.passkey_count || 0)
         }));
 
         res.json({ success: true, users: minimizedUsers });
@@ -331,6 +337,20 @@ router.post('/users/:id/reset-failed-logins', authenticateToken, requireAdmin, (
             WHERE id = ?
         `).run(userId);
         res.json({ success: true, message: 'Başarısız giriş sayacı sıfırlandı' });
+    } catch (error) {
+        res.status(500).json({ success: false, error: 'İşlem başarısız' });
+    }
+});
+
+// Remove every passkey of a user, e.g. after a lost or stolen device.
+router.post('/users/:id/reset-passkeys', authenticateToken, requireAdmin, (req, res) => {
+    try {
+        const userId = Number.parseInt(req.params.id, 10);
+        if (!Number.isInteger(userId) || userId <= 0) {
+            return res.status(400).json({ success: false, error: 'Geçersiz kullanıcı kimliği' });
+        }
+        const result = db.prepare('DELETE FROM user_passkeys WHERE user_id = ?').run(userId);
+        res.json({ success: true, removed: result.changes });
     } catch (error) {
         res.status(500).json({ success: false, error: 'İşlem başarısız' });
     }

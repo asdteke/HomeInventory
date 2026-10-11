@@ -23,6 +23,7 @@ import { decryptBackupPayload, encryptBackupPayload, isEncryptedBackupPayload } 
 import { useToastQueue } from '../hooks/useToastQueue';
 import { PremiumCheckbox } from './PremiumCheckbox';
 import { parseServerTimestamp } from '../utils/appFormatting';
+import PasskeySettings from './PasskeySettings';
 
 const HouseKeyModal = lazy(() => import('./HouseKeyModal'));
 const RecoveryKeyModal = lazy(() => import('./RecoveryKeyModal'));
@@ -1576,6 +1577,13 @@ export default function Settings() {
                                 </div>
                             )}
                         </div>
+
+                        {/* Passkeys Card */}
+                        <PasskeySettings
+                            totpEnabled={totpEnabled}
+                            onSuccess={(message) => showSuccessToast(message)}
+                            onError={(message) => showErrorToast(message)}
+                        />
 
                         {/* 3. Borrow Request Privacy Card */}
                         <div className="rounded-xl border border-(--hi-border) bg-(--hi-panel-strong) p-6">

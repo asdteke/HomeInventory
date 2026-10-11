@@ -1450,7 +1450,14 @@
             "load_failed_title": "用戶無法加載",
             "pending_requests": "{{count}} 個待處理房屋請求",
             "role_admin": "管理員",
-            "role_user": "用戶"
+            "role_user": "用戶",
+            "reset_passkeys": "移除通行密鑰（{{count}}）",
+            "reset_passkeys_title": "要移除所有通行密鑰嗎？",
+            "reset_passkeys_description": "當存有通行密鑰的裝置遺失或遭竊時使用。",
+            "reset_passkeys_confirm": "移除通行密鑰",
+            "reset_passkeys_warning": "使用者的密碼與兩步驟驗證設定會保留。",
+            "reset_passkeys_success_title": "已移除通行密鑰",
+            "reset_passkeys_success_body": "{{username}} 可以使用密碼登入並新增通行密鑰。"
         },
         "logs": {
             "title": "管理員日誌",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "這份備份使用了不同的加密金鑰，無法在這台伺服器上還原。",
         "error_too_large": "檔案超過 {{size}} 的上傳上限。",
         "error_busy": "已有備份正在進行，請稍後再試。"
+    },
+    "passkeys": {
+        "title": "通行密鑰",
+        "description": "使用指紋、臉孔或裝置 PIN 碼登入，不必輸入密碼。您的密碼仍會保留作為備用。",
+        "add": "新增通行密鑰",
+        "add_title": "新增通行密鑰",
+        "add_confirm": "繼續",
+        "confirm_identity": "請確認是您本人。接著您的裝置會要求您建立通行密鑰。",
+        "name_label": "通行密鑰名稱",
+        "remove": "移除通行密鑰",
+        "remove_title": "要移除此通行密鑰嗎？",
+        "remove_description": "「{{name}}」將無法再用來登入。請輸入密碼以確認。",
+        "remove_confirm": "移除",
+        "rename": "重新命名",
+        "added": "已新增通行密鑰。",
+        "removed": "已移除通行密鑰。",
+        "action_failed": "無法完成通行密鑰操作，請再試一次。",
+        "create_cancelled": "已取消建立通行密鑰。",
+        "synced": "已同步",
+        "other_address": "僅適用於 {{address}}",
+        "created_on": "新增於 {{date}}",
+        "last_used_on": "上次使用：{{date}}",
+        "never_used": "尚未使用",
+        "empty": "您尚未新增任何通行密鑰。",
+        "login_button": "使用通行密鑰登入",
+        "login_waiting": "正在等待您的通行密鑰...",
+        "login_cancelled": "已取消通行密鑰登入。",
+        "login_failed": "通行密鑰登入失敗。請再試一次，或改用密碼登入。",
+        "unavailable": {
+            "disabled": "此伺服器已停用通行密鑰。",
+            "ip_address": "以 IP 位址開啟應用程式時無法使用通行密鑰。請改用網域名稱或 localhost 開啟。",
+            "insecure_origin": "通行密鑰需要安全的 HTTPS 連線。",
+            "origin_not_allowed": "此位址尚未設定通行密鑰。請要求管理員檢查通行密鑰設定。",
+            "unknown_origin": "此位址無法使用通行密鑰。",
+            "unsupported_browser": "此瀏覽器不支援通行密鑰。"
+        }
     }
 }

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
-import { ArrowRight, Eye, EyeOff, KeyRound, Lock, Moon, ShieldCheck, Sun, User } from 'lucide-react';
+import { ArrowRight, Eye, EyeOff, Fingerprint, KeyRound, Lock, Moon, ShieldCheck, Sun, User } from 'lucide-react';
 import BrandLogo from './BrandLogo';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTheme } from '../context/ThemeContext';
@@ -10,6 +10,7 @@ import { BRAND_KEY, BRAND_NAME, SUPPORT_CONTACT_URL } from '../constants/brandin
 import '../auth-landing-v25.css';
 import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
 import { PremiumCheckbox } from './PremiumCheckbox';
+import { fetchPasskeyConfig, isPasskeyCancellation, signInWithPasskey } from '../utils/passkeys';
 
 const LEGAL_LINK_KEYS = [
     'legal.terms_of_service_title',
@@ -28,7 +29,10 @@ export default function Login() {
     const [rememberDevice, setRememberDevice] = useState(false);
     const [useBackupCode, setUseBackupCode] = useState(false);
 
-    const { login } = useAuth();
+    const [passkeyAvailable, setPasskeyAvailable] = useState(false);
+    const [passkeyLoading, setPasskeyLoading] = useState(false);
+
+    const { login, refreshUser } = useAuth();
     const { isDark, toggleTheme } = useTheme();
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
@@ -160,6 +164,39 @@ export default function Login() {
             }
         } finally {
             setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        let cancelled = false;
+        fetchPasskeyConfig()
+            .then((config) => {
+                if (!cancelled) setPasskeyAvailable(Boolean(config.available));
+            })
+            .catch(() => {
+                if (!cancelled) setPasskeyAvailable(false);
+            });
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    const handlePasskeySignIn = async () => {
+        setError('');
+        setPasskeyLoading(true);
+        try {
+            await signInWithPasskey();
+            await refreshUser();
+        } catch (err: any) {
+            if (isPasskeyCancellation(err)) {
+                setError(t('passkeys.login_cancelled'));
+            } else if (err.response?.data?.code === 'AUTH_RATE_LIMITED') {
+                setError(t('rate_limit.too_many_login_attempts'));
+            } else {
+                setError(err.response?.data?.error || t('passkeys.login_failed'));
+            }
+        } finally {
+            setPasskeyLoading(false);
         }
     };
 
@@ -312,6 +349,18 @@ export default function Login() {
                                             </svg>
                                             {t('auth.login.google_continue')}
                                         </a>
+
+                                        {passkeyAvailable && (
+                                            <button
+                                                type="button"
+                                                onClick={handlePasskeySignIn}
+                                                disabled={passkeyLoading || loading}
+                                                className={`mt-3 inline-flex h-14 w-full items-center justify-center rounded-(--hi-radius-md) px-5 text-sm font-medium transition disabled:opacity-60 ${secondaryButtonClass}`}
+                                            >
+                                                <Fingerprint className="mr-3 h-5 w-5" aria-hidden="true" />
+                                                {passkeyLoading ? t('passkeys.login_waiting') : t('passkeys.login_button')}
+                                            </button>
+                                        )}
 
                                         <div className={`mt-8 border-t pt-5 ${isDark ? 'border-white/8' : 'border-[rgba(18,32,22,0.08)]'}`}>
                                             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

@@ -1448,7 +1448,14 @@
             "load_failed_title": "Użytkownicy nie mogli się załadować",
             "pending_requests": "{{count}} oczekujących wniosków domowych",
             "role_admin": "Administrator",
-            "role_user": "Użytkownik"
+            "role_user": "Użytkownik",
+            "reset_passkeys": "Usuń klucze dostępu ({{count}})",
+            "reset_passkeys_title": "Usunąć wszystkie klucze dostępu?",
+            "reset_passkeys_description": "Użyj tej opcji, gdy urządzenie z kluczem dostępu zostało zgubione lub skradzione.",
+            "reset_passkeys_confirm": "Usuń klucze dostępu",
+            "reset_passkeys_warning": "Użytkownik zachowa hasło i ustawienia uwierzytelniania dwuskładnikowego.",
+            "reset_passkeys_success_title": "Usunięto klucze dostępu",
+            "reset_passkeys_success_body": "{{username}} może zalogować się hasłem i dodać nowe klucze dostępu."
         },
         "logs": {
             "title": "Dzienniki administratora",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "Ta kopia została utworzona innym kluczem szyfrowania i nie można jej przywrócić na tym serwerze.",
         "error_too_large": "Plik przekracza limit przesyłania wynoszący {{size}}.",
         "error_busy": "Kopia zapasowa jest już w toku. Spróbuj ponownie za chwilę."
+    },
+    "passkeys": {
+        "title": "Klucze dostępu",
+        "description": "Loguj się odciskiem palca, twarzą lub kodem PIN urządzenia zamiast wpisywać hasło. Hasło pozostaje jako zapasowa metoda.",
+        "add": "Dodaj klucz dostępu",
+        "add_title": "Dodaj klucz dostępu",
+        "add_confirm": "Dalej",
+        "confirm_identity": "Potwierdź, że to Ty. Następnie urządzenie poprosi o utworzenie klucza dostępu.",
+        "name_label": "Nazwa klucza dostępu",
+        "remove": "Usuń klucz dostępu",
+        "remove_title": "Usunąć ten klucz dostępu?",
+        "remove_description": "Klucz „{{name}}” nie będzie już umożliwiał logowania. Potwierdź hasłem.",
+        "remove_confirm": "Usuń",
+        "rename": "Zmień nazwę",
+        "added": "Dodano klucz dostępu.",
+        "removed": "Usunięto klucz dostępu.",
+        "action_failed": "Nie udało się wykonać operacji na kluczu dostępu. Spróbuj ponownie.",
+        "create_cancelled": "Anulowano tworzenie klucza dostępu.",
+        "synced": "Zsynchronizowany",
+        "other_address": "Działa tylko pod adresem {{address}}",
+        "created_on": "Dodano {{date}}",
+        "last_used_on": "Ostatnio użyty {{date}}",
+        "never_used": "Jeszcze nieużywany",
+        "empty": "Nie dodano jeszcze żadnego klucza dostępu.",
+        "login_button": "Zaloguj się kluczem dostępu",
+        "login_waiting": "Oczekiwanie na klucz dostępu...",
+        "login_cancelled": "Anulowano logowanie kluczem dostępu.",
+        "login_failed": "Logowanie kluczem dostępu nie powiodło się. Spróbuj ponownie lub użyj hasła.",
+        "unavailable": {
+            "disabled": "Klucze dostępu są wyłączone na tym serwerze.",
+            "ip_address": "Klucze dostępu nie działają, gdy aplikacja jest otwarta przez adres IP. Aby z nich korzystać, otwórz ją przez nazwę domeny lub localhost.",
+            "insecure_origin": "Klucze dostępu wymagają bezpiecznego połączenia HTTPS.",
+            "origin_not_allowed": "Klucze dostępu nie są skonfigurowane dla tego adresu. Poproś administratora o sprawdzenie ustawień kluczy dostępu.",
+            "unknown_origin": "Klucze dostępu nie są dostępne pod tym adresem.",
+            "unsupported_browser": "Ta przeglądarka nie obsługuje kluczy dostępu."
+        }
     }
 }

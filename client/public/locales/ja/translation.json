@@ -1450,7 +1450,14 @@
             "load_failed_title": "ユーザーを読み込めませんでした",
             "pending_requests": "{{count}} 件の保留中のハウスリクエスト",
             "role_admin": "管理者",
-            "role_user": "ユーザー"
+            "role_user": "ユーザー",
+            "reset_passkeys": "パスキーを削除 ({{count}})",
+            "reset_passkeys_title": "すべてのパスキーを削除しますか？",
+            "reset_passkeys_description": "パスキーが保存されたデバイスを紛失した場合や盗まれた場合に使用します。",
+            "reset_passkeys_confirm": "パスキーを削除",
+            "reset_passkeys_warning": "ユーザーのパスワードと二要素認証の設定はそのまま残ります。",
+            "reset_passkeys_success_title": "パスキーを削除しました",
+            "reset_passkeys_success_body": "{{username}} はパスワードでサインインし、新しいパスキーを追加できます。"
         },
         "logs": {
             "title": "管理ログ",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "このバックアップは別の暗号化キーで作成されているため、このサーバーでは復元できません。",
         "error_too_large": "ファイルがアップロード上限の {{size}} を超えています。",
         "error_busy": "バックアップがすでに実行中です。しばらくしてからもう一度お試しください。"
+    },
+    "passkeys": {
+        "title": "パスキー",
+        "description": "パスワードを入力する代わりに、指紋、顔、またはデバイスの PIN でサインインできます。パスワードはバックアップとして残ります。",
+        "add": "パスキーを追加",
+        "add_title": "パスキーを追加",
+        "add_confirm": "続行",
+        "confirm_identity": "ご本人であることを確認してください。その後、デバイスでパスキーの作成を求められます。",
+        "name_label": "パスキー名",
+        "remove": "パスキーを削除",
+        "remove_title": "このパスキーを削除しますか？",
+        "remove_description": "「{{name}}」ではサインインできなくなります。パスワードで確認してください。",
+        "remove_confirm": "削除",
+        "rename": "名前を変更",
+        "added": "パスキーを追加しました。",
+        "removed": "パスキーを削除しました。",
+        "action_failed": "パスキーの操作を完了できませんでした。もう一度お試しください。",
+        "create_cancelled": "パスキーの作成がキャンセルされました。",
+        "synced": "同期済み",
+        "other_address": "{{address}} でのみ使用できます",
+        "created_on": "{{date}} に追加",
+        "last_used_on": "最終使用日: {{date}}",
+        "never_used": "未使用",
+        "empty": "パスキーはまだ追加されていません。",
+        "login_button": "パスキーでサインイン",
+        "login_waiting": "パスキーを待っています...",
+        "login_cancelled": "パスキーでのサインインがキャンセルされました。",
+        "login_failed": "パスキーでのサインインに失敗しました。もう一度お試しいただくか、パスワードを使用してください。",
+        "unavailable": {
+            "disabled": "このサーバーではパスキーが無効になっています。",
+            "ip_address": "IP アドレスでアプリを開いている場合、パスキーは使用できません。ドメイン名または localhost でアプリを開いてください。",
+            "insecure_origin": "パスキーには安全な HTTPS 接続が必要です。",
+            "origin_not_allowed": "このアドレスではパスキーが設定されていません。管理者にパスキーの設定を確認するよう依頼してください。",
+            "unknown_origin": "このアドレスではパスキーを利用できません。",
+            "unsupported_browser": "このブラウザはパスキーに対応していません。"
+        }
     }
 }

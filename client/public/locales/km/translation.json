@@ -1448,7 +1448,14 @@
             "load_failed_title": "អ្នកប្រើប្រាស់មិនអាចផ្ទុកបាន",
             "pending_requests": "{{count}} សំណើផ្ទះកំពុងរង់ចាំ",
             "role_admin": "អ្នកគ្រប់គ្រង",
-            "role_user": "អ្នកប្រើ"
+            "role_user": "អ្នកប្រើ",
+            "reset_passkeys": "ដក passkey ចេញ ({{count}})",
+            "reset_passkeys_title": "ដក passkey ទាំងអស់ចេញឬ?",
+            "reset_passkeys_description": "ប្រើវានៅពេលឧបករណ៍ដែលមាន passkey បាត់ ឬត្រូវបានគេលួច។",
+            "reset_passkeys_confirm": "ដក passkey ចេញ",
+            "reset_passkeys_warning": "អ្នកប្រើប្រាស់នៅតែរក្សាពាក្យសម្ងាត់ និងការកំណត់ការផ្ទៀងផ្ទាត់ពីរកត្តារបស់ខ្លួន។",
+            "reset_passkeys_success_title": "បានដក passkey ចេញ",
+            "reset_passkeys_success_body": "{{username}} អាចចូលដោយប្រើពាក្យសម្ងាត់របស់ខ្លួន ហើយបន្ថែម passkey ថ្មី។"
         },
         "logs": {
             "title": "កំណត់ត្រាអ្នកគ្រប់គ្រង",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "ការបម្រុងទុកនេះត្រូវបានបង្កើតដោយកូនសោអ៊ិនគ្រីបផ្សេង ហើយមិនអាចស្ដារលើម៉ាស៊ីនមេនេះបានទេ។",
         "error_too_large": "ឯកសារធំជាងដែនកំណត់ផ្ទុកឡើង {{size}}។",
         "error_busy": "កំពុងបម្រុងទុករួចហើយ។ សូមព្យាយាមម្ដងទៀតបន្តិចទៀត។"
+    },
+    "passkeys": {
+        "title": "Passkey",
+        "description": "ចូលដោយប្រើស្នាមម្រាមដៃ មុខ ឬ PIN របស់ឧបករណ៍ ជំនួសឱ្យការវាយពាក្យសម្ងាត់។ ពាក្យសម្ងាត់របស់អ្នកនៅតែជាជម្រើសបម្រុងទុក។",
+        "add": "បន្ថែម passkey",
+        "add_title": "បន្ថែម passkey",
+        "add_confirm": "បន្ត",
+        "confirm_identity": "សូមបញ្ជាក់ថាជាអ្នក។ បន្ទាប់មក ឧបករណ៍របស់អ្នកនឹងសុំឱ្យអ្នកបង្កើត passkey។",
+        "name_label": "ឈ្មោះ passkey",
+        "remove": "ដក passkey ចេញ",
+        "remove_title": "ដក passkey នេះចេញឬ?",
+        "remove_description": "\"{{name}}\" នឹងមិនអាចប្រើដើម្បីចូលបានទៀតទេ។ សូមបញ្ជាក់ដោយពាក្យសម្ងាត់របស់អ្នក។",
+        "remove_confirm": "ដកចេញ",
+        "rename": "ប្ដូរឈ្មោះ",
+        "added": "បានបន្ថែម passkey។",
+        "removed": "បានដក passkey ចេញ។",
+        "action_failed": "មិនអាចបញ្ចប់សកម្មភាព passkey បានទេ។ សូមព្យាយាមម្តងទៀត។",
+        "create_cancelled": "ការបង្កើត passkey ត្រូវបានបោះបង់។",
+        "synced": "បានធ្វើសមកាលកម្ម",
+        "other_address": "ដំណើរការតែនៅ {{address}} ប៉ុណ្ណោះ",
+        "created_on": "បានបន្ថែម {{date}}",
+        "last_used_on": "ប្រើចុងក្រោយ {{date}}",
+        "never_used": "មិនទាន់បានប្រើ",
+        "empty": "អ្នកមិនទាន់បានបន្ថែម passkey នៅឡើយទេ។",
+        "login_button": "ចូលដោយប្រើ passkey",
+        "login_waiting": "កំពុងរង់ចាំ passkey របស់អ្នក...",
+        "login_cancelled": "ការចូលដោយប្រើ passkey ត្រូវបានបោះបង់។",
+        "login_failed": "ការចូលដោយប្រើ passkey បានបរាជ័យ។ សូមព្យាយាមម្តងទៀត ឬប្រើពាក្យសម្ងាត់របស់អ្នក។",
+        "unavailable": {
+            "disabled": "Passkey ត្រូវបានបិទនៅលើម៉ាស៊ីនបម្រើនេះ។",
+            "ip_address": "Passkey មិនដំណើរការទេ នៅពេលកម្មវិធីត្រូវបានបើកដោយអាសយដ្ឋាន IP។ សូមបើកវាដោយឈ្មោះដែន ឬ localhost ដើម្បីប្រើ passkey។",
+            "insecure_origin": "Passkey ត្រូវការការតភ្ជាប់ HTTPS ដែលមានសុវត្ថិភាព។",
+            "origin_not_allowed": "Passkey មិនទាន់បានរៀបចំសម្រាប់អាសយដ្ឋាននេះទេ។ សូមស្នើឱ្យអ្នកគ្រប់គ្រងពិនិត្យការកំណត់ passkey។",
+            "unknown_origin": "Passkey មិនមាននៅអាសយដ្ឋាននេះទេ។",
+            "unsupported_browser": "កម្មវិធីរុករកនេះមិនគាំទ្រ passkey ទេ។"
+        }
     }
 }

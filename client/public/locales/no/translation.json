@@ -1448,7 +1448,14 @@
             "load_failed_title": "Brukere kunne ikke lastes",
             "pending_requests": "{{count}} ventende husforespørsler",
             "role_admin": "Administrator",
-            "role_user": "Bruker"
+            "role_user": "Bruker",
+            "reset_passkeys": "Fjern tilgangsnøkler ({{count}})",
+            "reset_passkeys_title": "Vil du fjerne alle tilgangsnøkler?",
+            "reset_passkeys_description": "Bruk dette når en enhet med en tilgangsnøkkel er mistet eller stjålet.",
+            "reset_passkeys_confirm": "Fjern tilgangsnøkler",
+            "reset_passkeys_warning": "Brukeren beholder passordet og innstillingene for tofaktorautentisering.",
+            "reset_passkeys_success_title": "Tilgangsnøkler fjernet",
+            "reset_passkeys_success_body": "{{username}} kan logge inn med passordet sitt og legge til nye tilgangsnøkler."
         },
         "logs": {
             "title": "Adminlogger",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "Denne kopien ble laget med en annen krypteringsnøkkel og kan ikke gjenopprettes på denne serveren.",
         "error_too_large": "Filen er større enn opplastingsgrensen på {{size}}.",
         "error_busy": "En sikkerhetskopiering pågår allerede. Prøv igjen om litt."
+    },
+    "passkeys": {
+        "title": "Tilgangsnøkler",
+        "description": "Logg inn med fingeravtrykk, ansikt eller enhetens PIN-kode i stedet for å skrive passordet. Passordet beholdes som reserve.",
+        "add": "Legg til tilgangsnøkkel",
+        "add_title": "Legg til en tilgangsnøkkel",
+        "add_confirm": "Fortsett",
+        "confirm_identity": "Bekreft at det er deg. Enheten vil deretter be deg om å opprette tilgangsnøkkelen.",
+        "name_label": "Navn på tilgangsnøkkel",
+        "remove": "Fjern tilgangsnøkkel",
+        "remove_title": "Vil du fjerne denne tilgangsnøkkelen?",
+        "remove_description": "«{{name}}» kan ikke lenger brukes til å logge deg inn. Bekreft med passordet ditt.",
+        "remove_confirm": "Fjern",
+        "rename": "Gi nytt navn",
+        "added": "Tilgangsnøkkel lagt til.",
+        "removed": "Tilgangsnøkkel fjernet.",
+        "action_failed": "Handlingen for tilgangsnøkkelen kunne ikke fullføres. Prøv igjen.",
+        "create_cancelled": "Opprettingen av tilgangsnøkkelen ble avbrutt.",
+        "synced": "Synkronisert",
+        "other_address": "Fungerer bare på {{address}}",
+        "created_on": "Lagt til {{date}}",
+        "last_used_on": "Sist brukt {{date}}",
+        "never_used": "Ikke brukt ennå",
+        "empty": "Du har ikke lagt til en tilgangsnøkkel ennå.",
+        "login_button": "Logg inn med tilgangsnøkkel",
+        "login_waiting": "Venter på tilgangsnøkkelen din...",
+        "login_cancelled": "Innloggingen med tilgangsnøkkel ble avbrutt.",
+        "login_failed": "Innloggingen med tilgangsnøkkel mislyktes. Prøv igjen eller bruk passordet ditt.",
+        "unavailable": {
+            "disabled": "Tilgangsnøkler er slått av på denne serveren.",
+            "ip_address": "Tilgangsnøkler fungerer ikke når appen åpnes med en IP-adresse. Åpne den med et domenenavn eller localhost for å bruke dem.",
+            "insecure_origin": "Tilgangsnøkler krever en sikker HTTPS-tilkobling.",
+            "origin_not_allowed": "Tilgangsnøkler er ikke satt opp for denne adressen. Be administratoren om å sjekke innstillingene for tilgangsnøkler.",
+            "unknown_origin": "Tilgangsnøkler er ikke tilgjengelige på denne adressen.",
+            "unsupported_browser": "Denne nettleseren støtter ikke tilgangsnøkler."
+        }
     }
 }

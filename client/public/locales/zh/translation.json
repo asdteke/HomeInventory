@@ -1450,7 +1450,14 @@
             "load_failed_title": "用户无法加载",
             "pending_requests": "{{count}} 待处理的房屋请求",
             "role_admin": "管理员",
-            "role_user": "用户"
+            "role_user": "用户",
+            "reset_passkeys": "移除通行密钥（{{count}}）",
+            "reset_passkeys_title": "要移除所有通行密钥吗？",
+            "reset_passkeys_description": "当存有通行密钥的设备丢失或被盗时使用此操作。",
+            "reset_passkeys_confirm": "移除通行密钥",
+            "reset_passkeys_warning": "该用户的密码和双重身份验证设置将保留。",
+            "reset_passkeys_success_title": "已移除通行密钥",
+            "reset_passkeys_success_body": "{{username}} 可以使用密码登录并添加新的通行密钥。"
         },
         "logs": {
             "title": "管理员日志",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "此备份使用了不同的加密密钥，无法在此服务器上恢复。",
         "error_too_large": "文件超过了 {{size}} 的上传限制。",
         "error_busy": "已有备份正在进行，请稍后再试。"
+    },
+    "passkeys": {
+        "title": "通行密钥",
+        "description": "使用指纹、面容或设备 PIN 码登录，无需输入密码。你的密码仍会保留作为备用方式。",
+        "add": "添加通行密钥",
+        "add_title": "添加通行密钥",
+        "add_confirm": "继续",
+        "confirm_identity": "请确认是你本人。随后你的设备会请你创建通行密钥。",
+        "name_label": "通行密钥名称",
+        "remove": "移除通行密钥",
+        "remove_title": "要移除此通行密钥吗？",
+        "remove_description": "“{{name}}”将无法再用于登录。请输入密码确认。",
+        "remove_confirm": "移除",
+        "rename": "重命名",
+        "added": "已添加通行密钥。",
+        "removed": "已移除通行密钥。",
+        "action_failed": "无法完成通行密钥操作。请重试。",
+        "create_cancelled": "已取消创建通行密钥。",
+        "synced": "已同步",
+        "other_address": "仅适用于 {{address}}",
+        "created_on": "添加于 {{date}}",
+        "last_used_on": "上次使用：{{date}}",
+        "never_used": "尚未使用",
+        "empty": "你还没有添加通行密钥。",
+        "login_button": "使用通行密钥登录",
+        "login_waiting": "正在等待你的通行密钥...",
+        "login_cancelled": "已取消通行密钥登录。",
+        "login_failed": "通行密钥登录失败。请重试或使用密码登录。",
+        "unavailable": {
+            "disabled": "此服务器已关闭通行密钥功能。",
+            "ip_address": "通过 IP 地址打开应用时无法使用通行密钥。请通过域名或 localhost 打开应用以使用通行密钥。",
+            "insecure_origin": "通行密钥需要安全的 HTTPS 连接。",
+            "origin_not_allowed": "此地址尚未设置通行密钥。请联系管理员检查通行密钥设置。",
+            "unknown_origin": "此地址无法使用通行密钥。",
+            "unsupported_browser": "此浏览器不支持通行密钥。"
+        }
     }
 }

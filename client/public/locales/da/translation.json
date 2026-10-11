@@ -1448,7 +1448,14 @@
             "load_failed_title": "Brugere kunne ikke indlæses",
             "pending_requests": "{{count}} ventende husansøgninger",
             "role_admin": "Administrator",
-            "role_user": "Bruger"
+            "role_user": "Bruger",
+            "reset_passkeys": "Fjern adgangsnøgler ({{count}})",
+            "reset_passkeys_title": "Fjern alle adgangsnøgler?",
+            "reset_passkeys_description": "Brug dette, når en enhed med en adgangsnøgle er blevet væk eller stjålet.",
+            "reset_passkeys_confirm": "Fjern adgangsnøgler",
+            "reset_passkeys_warning": "Brugeren beholder sin adgangskode og sine indstillinger for tofaktorautentificering.",
+            "reset_passkeys_success_title": "Adgangsnøgler fjernet",
+            "reset_passkeys_success_body": "{{username}} kan logge ind med sin adgangskode og tilføje nye adgangsnøgler."
         },
         "logs": {
             "title": "Admin-logfiler",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "Denne kopi blev lavet med en anden krypteringsnøgle og kan ikke gendannes på denne server.",
         "error_too_large": "Filen er større end uploadgrænsen på {{size}}.",
         "error_busy": "En sikkerhedskopiering er allerede i gang. Prøv igen om lidt."
+    },
+    "passkeys": {
+        "title": "Adgangsnøgler",
+        "description": "Log ind med dit fingeraftryk, dit ansigt eller enhedens pinkode i stedet for at skrive din adgangskode. Din adgangskode bevares som backup.",
+        "add": "Tilføj adgangsnøgle",
+        "add_title": "Tilføj en adgangsnøgle",
+        "add_confirm": "Fortsæt",
+        "confirm_identity": "Bekræft, at det er dig. Derefter beder din enhed dig om at oprette adgangsnøglen.",
+        "name_label": "Navn på adgangsnøgle",
+        "remove": "Fjern adgangsnøgle",
+        "remove_title": "Fjern denne adgangsnøgle?",
+        "remove_description": "\"{{name}}\" kan ikke længere bruges til at logge dig ind. Bekræft med din adgangskode.",
+        "remove_confirm": "Fjern",
+        "rename": "Omdøb",
+        "added": "Adgangsnøgle tilføjet.",
+        "removed": "Adgangsnøgle fjernet.",
+        "action_failed": "Handlingen med adgangsnøglen kunne ikke gennemføres. Prøv igen.",
+        "create_cancelled": "Oprettelsen af adgangsnøglen blev annulleret.",
+        "synced": "Synkroniseret",
+        "other_address": "Virker kun på {{address}}",
+        "created_on": "Tilføjet {{date}}",
+        "last_used_on": "Sidst brugt {{date}}",
+        "never_used": "Ikke brugt endnu",
+        "empty": "Du har ikke tilføjet en adgangsnøgle endnu.",
+        "login_button": "Log ind med en adgangsnøgle",
+        "login_waiting": "Venter på din adgangsnøgle...",
+        "login_cancelled": "Login med adgangsnøgle blev annulleret.",
+        "login_failed": "Login med adgangsnøgle mislykkedes. Prøv igen, eller brug din adgangskode.",
+        "unavailable": {
+            "disabled": "Adgangsnøgler er slået fra på denne server.",
+            "ip_address": "Adgangsnøgler virker ikke, når appen åbnes med en IP-adresse. Åbn den med et domænenavn eller localhost for at bruge dem.",
+            "insecure_origin": "Adgangsnøgler kræver en sikker HTTPS-forbindelse.",
+            "origin_not_allowed": "Adgangsnøgler er ikke sat op til denne adresse. Bed administratoren om at kontrollere indstillingerne for adgangsnøgler.",
+            "unknown_origin": "Adgangsnøgler er ikke tilgængelige på denne adresse.",
+            "unsupported_browser": "Denne browser understøtter ikke adgangsnøgler."
+        }
     }
 }

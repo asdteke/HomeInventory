@@ -13,6 +13,7 @@ import crypto from 'crypto';
 
 // Import routes
 import authRoutes from './routes/auth.js';
+import passkeyRoutes from './routes/passkeys.js';
 import itemsRoutes from './routes/items.js';
 import categoriesRoutes from './routes/categories.js';
 import roomsRoutes from './routes/rooms.js';
@@ -468,6 +469,8 @@ const authLimiter = rateLimit({
 app.use('/api/auth/login', authLimiter);
 app.use('/api/auth/register', authLimiter);
 app.use('/api/auth/forgot-password', authLimiter);
+app.use('/api/auth/passkeys/login', authLimiter);
+app.use('/api/auth/passkeys', interactiveApiLimiter);
 app.use('/api/items', interactiveApiLimiter);
 app.use('/api/categories', interactiveApiLimiter);
 app.use('/api/rooms', interactiveApiLimiter);
@@ -483,6 +486,7 @@ app.use('/api/activity', interactiveApiLimiter);
 app.use('/api/notifications', interactiveApiLimiter);
 
 // API Routes
+app.use('/api/auth/passkeys', passkeyRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/items', itemsRoutes);
 app.use('/api/categories', categoriesRoutes);

@@ -1448,7 +1448,14 @@
             "load_failed_title": "Gebruikers konden niet laden",
             "pending_requests": "{{count}} lopende woningverzoeken",
             "role_admin": "Beheerder",
-            "role_user": "Gebruiker"
+            "role_user": "Gebruiker",
+            "reset_passkeys": "Toegangssleutels verwijderen ({{count}})",
+            "reset_passkeys_title": "Alle toegangssleutels verwijderen?",
+            "reset_passkeys_description": "Gebruik dit als een apparaat met een toegangssleutel kwijt of gestolen is.",
+            "reset_passkeys_confirm": "Toegangssleutels verwijderen",
+            "reset_passkeys_warning": "De gebruiker behoudt zijn wachtwoord en instellingen voor tweefactorauthenticatie.",
+            "reset_passkeys_success_title": "Toegangssleutels verwijderd",
+            "reset_passkeys_success_body": "{{username}} kan inloggen met zijn wachtwoord en nieuwe toegangssleutels toevoegen."
         },
         "logs": {
             "title": "Beheerderslogboeken",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "Deze back-up is gemaakt met een andere versleutelingssleutel en kan op deze server niet worden teruggezet.",
         "error_too_large": "Het bestand is groter dan de uploadlimiet van {{size}}.",
         "error_busy": "Er loopt al een back-up. Probeer het zo opnieuw."
+    },
+    "passkeys": {
+        "title": "Toegangssleutels",
+        "description": "Log in met je vingerafdruk, gezicht of de pincode van je apparaat in plaats van je wachtwoord te typen. Je wachtwoord blijft beschikbaar als back-up.",
+        "add": "Toegangssleutel toevoegen",
+        "add_title": "Een toegangssleutel toevoegen",
+        "add_confirm": "Doorgaan",
+        "confirm_identity": "Bevestig dat jij het bent. Daarna vraagt je apparaat je om de toegangssleutel aan te maken.",
+        "name_label": "Naam van toegangssleutel",
+        "remove": "Toegangssleutel verwijderen",
+        "remove_title": "Deze toegangssleutel verwijderen?",
+        "remove_description": "Met \"{{name}}\" kun je niet meer inloggen. Bevestig met je wachtwoord.",
+        "remove_confirm": "Verwijderen",
+        "rename": "Naam wijzigen",
+        "added": "Toegangssleutel toegevoegd.",
+        "removed": "Toegangssleutel verwijderd.",
+        "action_failed": "De actie voor de toegangssleutel kon niet worden voltooid. Probeer het opnieuw.",
+        "create_cancelled": "Het aanmaken van de toegangssleutel is geannuleerd.",
+        "synced": "Gesynchroniseerd",
+        "other_address": "Werkt alleen op {{address}}",
+        "created_on": "Toegevoegd op {{date}}",
+        "last_used_on": "Laatst gebruikt op {{date}}",
+        "never_used": "Nog niet gebruikt",
+        "empty": "Je hebt nog geen toegangssleutel toegevoegd.",
+        "login_button": "Inloggen met een toegangssleutel",
+        "login_waiting": "Wachten op je toegangssleutel...",
+        "login_cancelled": "Inloggen met toegangssleutel is geannuleerd.",
+        "login_failed": "Inloggen met toegangssleutel is mislukt. Probeer het opnieuw of gebruik je wachtwoord.",
+        "unavailable": {
+            "disabled": "Toegangssleutels zijn uitgeschakeld op deze server.",
+            "ip_address": "Toegangssleutels werken niet als de app via een IP-adres wordt geopend. Open de app via een domeinnaam of localhost om ze te gebruiken.",
+            "insecure_origin": "Toegangssleutels vereisen een beveiligde HTTPS-verbinding.",
+            "origin_not_allowed": "Toegangssleutels zijn niet ingesteld voor dit adres. Vraag de beheerder om de instellingen voor toegangssleutels te controleren.",
+            "unknown_origin": "Toegangssleutels zijn niet beschikbaar op dit adres.",
+            "unsupported_browser": "Deze browser ondersteunt geen toegangssleutels."
+        }
     }
 }

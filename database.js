@@ -928,6 +928,43 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_trusted_devices_expires ON trusted_devices(expires_at);
 `);
 
+// Passkeys (WebAuthn): one row per registered credential, plus single-use challenges.
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN webauthn_user_id TEXT`);
+  emitDatabaseLog('[Database] webauthn_user_id column added to users table');
+} catch (e) { /* Column exists */ }
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS user_passkeys (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    credential_id TEXT NOT NULL UNIQUE,
+    public_key TEXT NOT NULL,
+    sign_count INTEGER NOT NULL DEFAULT 0,
+    transports TEXT,
+    device_type TEXT,
+    backed_up INTEGER NOT NULL DEFAULT 0,
+    name TEXT,
+    rp_id TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    last_used_at DATETIME,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  );
+  CREATE INDEX IF NOT EXISTS idx_user_passkeys_user ON user_passkeys(user_id);
+
+  CREATE TABLE IF NOT EXISTS webauthn_challenges (
+    id TEXT PRIMARY KEY,
+    user_id INTEGER,
+    purpose TEXT NOT NULL,
+    challenge TEXT NOT NULL,
+    rp_id TEXT NOT NULL,
+    origin TEXT NOT NULL,
+    expires_at DATETIME NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  );
+  CREATE INDEX IF NOT EXISTS idx_webauthn_challenges_expires ON webauthn_challenges(expires_at);
+`);
+
 // Create item_maintenance table for periyodik maintenance schedules
 db.exec(`
   CREATE TABLE IF NOT EXISTS item_maintenance (

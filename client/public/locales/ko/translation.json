@@ -1448,7 +1448,14 @@
             "load_failed_title": "사용자를 불러올 수 없습니다",
             "pending_requests": "{{count}}개의 보류 중인 하우스 요청",
             "role_admin": "관리자",
-            "role_user": "사용자"
+            "role_user": "사용자",
+            "reset_passkeys": "패스키 삭제 ({{count}})",
+            "reset_passkeys_title": "모든 패스키를 삭제하시겠습니까?",
+            "reset_passkeys_description": "패스키가 있는 기기를 분실하거나 도난당한 경우 사용하세요.",
+            "reset_passkeys_confirm": "패스키 삭제",
+            "reset_passkeys_warning": "사용자의 비밀번호와 2단계 인증 설정은 유지됩니다.",
+            "reset_passkeys_success_title": "패스키 삭제됨",
+            "reset_passkeys_success_body": "{{username}} 님은 비밀번호로 로그인하고 새 패스키를 추가할 수 있습니다."
         },
         "logs": {
             "title": "관리자 기록",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "이 백업은 다른 암호화 키로 만들어져 이 서버에서 복원할 수 없습니다.",
         "error_too_large": "파일이 업로드 한도인 {{size}}을(를) 초과합니다.",
         "error_busy": "이미 백업이 진행 중입니다. 잠시 후 다시 시도하세요."
+    },
+    "passkeys": {
+        "title": "패스키",
+        "description": "비밀번호를 입력하는 대신 지문, 얼굴 또는 기기 PIN으로 로그인하세요. 비밀번호는 백업용으로 유지됩니다.",
+        "add": "패스키 추가",
+        "add_title": "패스키 추가",
+        "add_confirm": "계속",
+        "confirm_identity": "본인임을 확인하세요. 그러면 기기에서 패스키를 생성하라는 메시지가 표시됩니다.",
+        "name_label": "패스키 이름",
+        "remove": "패스키 삭제",
+        "remove_title": "이 패스키를 삭제하시겠습니까?",
+        "remove_description": "\"{{name}}\"(으)로 더 이상 로그인할 수 없습니다. 비밀번호로 확인하세요.",
+        "remove_confirm": "삭제",
+        "rename": "이름 변경",
+        "added": "패스키가 추가되었습니다.",
+        "removed": "패스키가 삭제되었습니다.",
+        "action_failed": "패스키 작업을 완료할 수 없습니다. 다시 시도해 주세요.",
+        "create_cancelled": "패스키 생성이 취소되었습니다.",
+        "synced": "동기화됨",
+        "other_address": "{{address}}에서만 작동",
+        "created_on": "{{date}}에 추가됨",
+        "last_used_on": "{{date}}에 마지막으로 사용",
+        "never_used": "아직 사용되지 않음",
+        "empty": "아직 추가한 패스키가 없습니다.",
+        "login_button": "패스키로 로그인",
+        "login_waiting": "패스키를 기다리는 중...",
+        "login_cancelled": "패스키 로그인이 취소되었습니다.",
+        "login_failed": "패스키 로그인에 실패했습니다. 다시 시도하거나 비밀번호를 사용하세요.",
+        "unavailable": {
+            "disabled": "이 서버에서 패스키가 비활성화되어 있습니다.",
+            "ip_address": "앱을 IP 주소로 열면 패스키가 작동하지 않습니다. 패스키를 사용하려면 도메인 이름이나 localhost로 여세요.",
+            "insecure_origin": "패스키를 사용하려면 안전한 HTTPS 연결이 필요합니다.",
+            "origin_not_allowed": "이 주소에는 패스키가 설정되어 있지 않습니다. 관리자에게 패스키 설정을 확인해 달라고 요청하세요.",
+            "unknown_origin": "이 주소에서는 패스키를 사용할 수 없습니다.",
+            "unsupported_browser": "이 브라우저는 패스키를 지원하지 않습니다."
+        }
     }
 }

@@ -1448,7 +1448,14 @@
             "load_failed_title": "Les utilisateurs n'ont pas pu se charger",
             "pending_requests": "{{count}} demandes de maison en attente",
             "role_admin": "Administrateur",
-            "role_user": "Utilisateur"
+            "role_user": "Utilisateur",
+            "reset_passkeys": "Supprimer les clés d'accès ({{count}})",
+            "reset_passkeys_title": "Supprimer toutes les clés d'accès ?",
+            "reset_passkeys_description": "À utiliser lorsqu'un appareil contenant une clé d'accès est perdu ou volé.",
+            "reset_passkeys_confirm": "Supprimer les clés d'accès",
+            "reset_passkeys_warning": "L'utilisateur conserve son mot de passe et ses paramètres d'authentification à deux facteurs.",
+            "reset_passkeys_success_title": "Clés d'accès supprimées",
+            "reset_passkeys_success_body": "{{username}} peut se connecter avec son mot de passe et ajouter de nouvelles clés d'accès."
         },
         "logs": {
             "title": "Journaux d'administration",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "Cette sauvegarde a été créée avec une autre clé de chiffrement et ne peut pas être restaurée sur ce serveur.",
         "error_too_large": "Le fichier dépasse la limite d’envoi de {{size}}.",
         "error_busy": "Une sauvegarde est déjà en cours. Réessayez dans un instant."
+    },
+    "passkeys": {
+        "title": "Clés d'accès",
+        "description": "Connectez-vous avec votre empreinte digitale, votre visage ou le code PIN de votre appareil au lieu de saisir votre mot de passe. Votre mot de passe reste disponible en secours.",
+        "add": "Ajouter une clé d'accès",
+        "add_title": "Ajouter une clé d'accès",
+        "add_confirm": "Continuer",
+        "confirm_identity": "Confirmez qu'il s'agit bien de vous. Votre appareil vous demandera ensuite de créer la clé d'accès.",
+        "name_label": "Nom de la clé d'accès",
+        "remove": "Supprimer la clé d'accès",
+        "remove_title": "Supprimer cette clé d'accès ?",
+        "remove_description": "« {{name}} » ne permettra plus de vous connecter. Confirmez avec votre mot de passe.",
+        "remove_confirm": "Supprimer",
+        "rename": "Renommer",
+        "added": "Clé d'accès ajoutée.",
+        "removed": "Clé d'accès supprimée.",
+        "action_failed": "L'opération sur la clé d'accès n'a pas pu aboutir. Veuillez réessayer.",
+        "create_cancelled": "La création de la clé d'accès a été annulée.",
+        "synced": "Synchronisée",
+        "other_address": "Fonctionne uniquement sur {{address}}",
+        "created_on": "Ajoutée le {{date}}",
+        "last_used_on": "Dernière utilisation le {{date}}",
+        "never_used": "Pas encore utilisée",
+        "empty": "Vous n'avez pas encore ajouté de clé d'accès.",
+        "login_button": "Se connecter avec une clé d'accès",
+        "login_waiting": "En attente de votre clé d'accès...",
+        "login_cancelled": "La connexion par clé d'accès a été annulée.",
+        "login_failed": "La connexion par clé d'accès a échoué. Veuillez réessayer ou utiliser votre mot de passe.",
+        "unavailable": {
+            "disabled": "Les clés d'accès sont désactivées sur ce serveur.",
+            "ip_address": "Les clés d'accès ne fonctionnent pas lorsque l'application est ouverte via une adresse IP. Ouvrez-la avec un nom de domaine ou localhost pour les utiliser.",
+            "insecure_origin": "Les clés d'accès nécessitent une connexion HTTPS sécurisée.",
+            "origin_not_allowed": "Les clés d'accès ne sont pas configurées pour cette adresse. Demandez à l'administrateur de vérifier les paramètres des clés d'accès.",
+            "unknown_origin": "Les clés d'accès ne sont pas disponibles à cette adresse.",
+            "unsupported_browser": "Ce navigateur ne prend pas en charge les clés d'accès."
+        }
     }
 }

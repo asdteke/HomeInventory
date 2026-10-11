@@ -1448,7 +1448,14 @@
             "load_failed_title": "Gli utenti non hanno potuto essere caricati",
             "pending_requests": "{{count}} richieste di casa in sospeso",
             "role_admin": "Amministratore",
-            "role_user": "Utente"
+            "role_user": "Utente",
+            "reset_passkeys": "Rimuovi passkey ({{count}})",
+            "reset_passkeys_title": "Rimuovere tutte le passkey?",
+            "reset_passkeys_description": "Usa questa opzione quando un dispositivo con una passkey viene perso o rubato.",
+            "reset_passkeys_confirm": "Rimuovi passkey",
+            "reset_passkeys_warning": "L'utente mantiene la password e le impostazioni di autenticazione a due fattori.",
+            "reset_passkeys_success_title": "Passkey rimosse",
+            "reset_passkeys_success_body": "{{username}} può accedere con la propria password e aggiungere nuove passkey."
         },
         "logs": {
             "title": "Registri amministrativi",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "Questo backup è stato creato con un’altra chiave di cifratura e non può essere ripristinato su questo server.",
         "error_too_large": "Il file supera il limite di caricamento di {{size}}.",
         "error_busy": "È già in corso un backup. Riprova tra poco."
+    },
+    "passkeys": {
+        "title": "Passkey",
+        "description": "Accedi con impronta digitale, volto o PIN del dispositivo invece di digitare la password. La password resta disponibile come alternativa.",
+        "add": "Aggiungi passkey",
+        "add_title": "Aggiungi una passkey",
+        "add_confirm": "Continua",
+        "confirm_identity": "Conferma la tua identità. Il dispositivo ti chiederà poi di creare la passkey.",
+        "name_label": "Nome della passkey",
+        "remove": "Rimuovi passkey",
+        "remove_title": "Rimuovere questa passkey?",
+        "remove_description": "Non potrai più accedere con \"{{name}}\". Conferma con la tua password.",
+        "remove_confirm": "Rimuovi",
+        "rename": "Rinomina",
+        "added": "Passkey aggiunta.",
+        "removed": "Passkey rimossa.",
+        "action_failed": "Impossibile completare l'operazione sulla passkey. Riprova.",
+        "create_cancelled": "La creazione della passkey è stata annullata.",
+        "synced": "Sincronizzata",
+        "other_address": "Funziona solo su {{address}}",
+        "created_on": "Aggiunta il {{date}}",
+        "last_used_on": "Ultimo utilizzo: {{date}}",
+        "never_used": "Non ancora utilizzata",
+        "empty": "Non hai ancora aggiunto una passkey.",
+        "login_button": "Accedi con una passkey",
+        "login_waiting": "In attesa della passkey...",
+        "login_cancelled": "L'accesso con passkey è stato annullato.",
+        "login_failed": "Accesso con passkey non riuscito. Riprova o usa la password.",
+        "unavailable": {
+            "disabled": "Le passkey sono disattivate su questo server.",
+            "ip_address": "Le passkey non funzionano quando l'app viene aperta tramite un indirizzo IP. Aprila con un nome di dominio o con localhost per usarle.",
+            "insecure_origin": "Le passkey richiedono una connessione HTTPS sicura.",
+            "origin_not_allowed": "Le passkey non sono configurate per questo indirizzo. Chiedi all'amministratore di controllare le impostazioni delle passkey.",
+            "unknown_origin": "Le passkey non sono disponibili a questo indirizzo.",
+            "unsupported_browser": "Questo browser non supporta le passkey."
+        }
     }
 }

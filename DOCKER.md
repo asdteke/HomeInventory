@@ -122,6 +122,10 @@ curl http://localhost:3001/api/health
 | `APP_DPO_EMAIL` | ⬜ | Privacy or DPO contact email if different from support |
 | `APP_PRIVACY_TRANSFER_DISCLOSURE` | ⬜ | Human-readable disclosure of countries/providers/safeguards used for transfers |
 | `APP_PRIVACY_COMPLAINT_AUTHORITY` | ⬜ | Authority named in the complaint-rights section of the privacy notice |
+| `PASSKEYS_ENABLED` | ⬜ | Set to `false` to turn off passkey sign-in (default `true`) |
+| `WEBAUTHN_RP_ID` | ⬜ | Domain passkeys are bound to, e.g. `inventory.example.com`. Default: the domain the browser uses. Passkeys never work at an IP address |
+| `WEBAUTHN_ORIGINS` | ⬜ | Comma-separated origins allowed to use passkeys, e.g. `https://inventory.example.com`. Recommended behind a reverse proxy |
+| `WEBAUTHN_RP_NAME` | ⬜ | Name shown in the passkey prompt (default: the app name) |
 | `GOOGLE_CLIENT_ID` | ⬜ | Google OAuth client ID |
 | `GOOGLE_CLIENT_SECRET` | ⬜ | Google OAuth secret |
 | `RESEND_API_KEY` | ⬜ | Resend.com API key for emails |

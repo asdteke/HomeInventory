@@ -1448,7 +1448,14 @@
             "load_failed_title": "Användare kunde inte laddas",
             "pending_requests": "{{count}} väntande husförfrågningar",
             "role_admin": "Administration",
-            "role_user": "Användare"
+            "role_user": "Användare",
+            "reset_passkeys": "Ta bort lösennycklar ({{count}})",
+            "reset_passkeys_title": "Ta bort alla lösennycklar?",
+            "reset_passkeys_description": "Använd detta när en enhet med en lösennyckel har tappats bort eller blivit stulen.",
+            "reset_passkeys_confirm": "Ta bort lösennycklar",
+            "reset_passkeys_warning": "Användaren behåller sitt lösenord och sina inställningar för tvåfaktorsautentisering.",
+            "reset_passkeys_success_title": "Lösennycklar borttagna",
+            "reset_passkeys_success_body": "{{username}} kan logga in med sitt lösenord och lägga till nya lösennycklar."
         },
         "logs": {
             "title": "Adminloggar",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "Den här kopian skapades med en annan krypteringsnyckel och kan inte återställas på den här servern.",
         "error_too_large": "Filen är större än uppladdningsgränsen på {{size}}.",
         "error_busy": "En säkerhetskopiering pågår redan. Försök igen om en stund."
+    },
+    "passkeys": {
+        "title": "Lösennycklar",
+        "description": "Logga in med ditt fingeravtryck, ditt ansikte eller enhetens PIN-kod i stället för att skriva ditt lösenord. Ditt lösenord finns kvar som reserv.",
+        "add": "Lägg till lösennyckel",
+        "add_title": "Lägg till en lösennyckel",
+        "add_confirm": "Fortsätt",
+        "confirm_identity": "Bekräfta att det är du. Sedan ber din enhet dig att skapa lösennyckeln.",
+        "name_label": "Lösennyckelns namn",
+        "remove": "Ta bort lösennyckel",
+        "remove_title": "Ta bort den här lösennyckeln?",
+        "remove_description": "\"{{name}}\" kommer inte längre att kunna logga in dig. Bekräfta med ditt lösenord.",
+        "remove_confirm": "Ta bort",
+        "rename": "Byt namn",
+        "added": "Lösennyckeln har lagts till.",
+        "removed": "Lösennyckeln har tagits bort.",
+        "action_failed": "Åtgärden för lösennyckeln kunde inte slutföras. Försök igen.",
+        "create_cancelled": "Skapandet av lösennyckeln avbröts.",
+        "synced": "Synkad",
+        "other_address": "Fungerar bara på {{address}}",
+        "created_on": "Tillagd {{date}}",
+        "last_used_on": "Senast använd {{date}}",
+        "never_used": "Inte använd än",
+        "empty": "Du har inte lagt till någon lösennyckel än.",
+        "login_button": "Logga in med en lösennyckel",
+        "login_waiting": "Väntar på din lösennyckel...",
+        "login_cancelled": "Inloggningen med lösennyckel avbröts.",
+        "login_failed": "Inloggningen med lösennyckel misslyckades. Försök igen eller använd ditt lösenord.",
+        "unavailable": {
+            "disabled": "Lösennycklar är avstängda på den här servern.",
+            "ip_address": "Lösennycklar fungerar inte när appen öppnas med en IP-adress. Öppna den med ett domännamn eller localhost för att använda dem.",
+            "insecure_origin": "Lösennycklar kräver en säker HTTPS-anslutning.",
+            "origin_not_allowed": "Lösennycklar är inte konfigurerade för den här adressen. Be administratören att kontrollera inställningarna för lösennycklar.",
+            "unknown_origin": "Lösennycklar är inte tillgängliga på den här adressen.",
+            "unsupported_browser": "Den här webbläsaren har inte stöd för lösennycklar."
+        }
     }
 }

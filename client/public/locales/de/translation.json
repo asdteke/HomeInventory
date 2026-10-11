@@ -1448,7 +1448,14 @@
             "load_failed_title": "Benutzer konnten nicht geladen werden",
             "pending_requests": "{{count}} ausstehende Hausanfragen",
             "role_admin": "Administrator",
-            "role_user": "Benutzer"
+            "role_user": "Benutzer",
+            "reset_passkeys": "Passkeys entfernen ({{count}})",
+            "reset_passkeys_title": "Alle Passkeys entfernen?",
+            "reset_passkeys_description": "Verwenden Sie dies, wenn ein Gerät mit einem Passkey verloren gegangen ist oder gestohlen wurde.",
+            "reset_passkeys_confirm": "Passkeys entfernen",
+            "reset_passkeys_warning": "Der Benutzer behält sein Passwort und seine Einstellungen für die Zwei-Faktor-Authentifizierung.",
+            "reset_passkeys_success_title": "Passkeys entfernt",
+            "reset_passkeys_success_body": "{{username}} kann sich mit dem Passwort anmelden und neue Passkeys hinzufügen."
         },
         "logs": {
             "title": "Admin-Protokolle",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "Diese Sicherung wurde mit einem anderen Schlüssel erstellt und kann auf diesem Server nicht wiederhergestellt werden.",
         "error_too_large": "Die Datei überschreitet das Upload-Limit von {{size}}.",
         "error_busy": "Es läuft bereits eine Sicherung. Bitte versuchen Sie es gleich noch einmal."
+    },
+    "passkeys": {
+        "title": "Passkeys",
+        "description": "Melden Sie sich mit Ihrem Fingerabdruck, Ihrem Gesicht oder der Geräte-PIN an, statt Ihr Passwort einzugeben. Ihr Passwort bleibt als Reserve erhalten.",
+        "add": "Passkey hinzufügen",
+        "add_title": "Einen Passkey hinzufügen",
+        "add_confirm": "Weiter",
+        "confirm_identity": "Bestätigen Sie, dass Sie es sind. Ihr Gerät fordert Sie dann auf, den Passkey zu erstellen.",
+        "name_label": "Name des Passkeys",
+        "remove": "Passkey entfernen",
+        "remove_title": "Diesen Passkey entfernen?",
+        "remove_description": "Mit „{{name}}“ können Sie sich nicht mehr anmelden. Bestätigen Sie mit Ihrem Passwort.",
+        "remove_confirm": "Entfernen",
+        "rename": "Umbenennen",
+        "added": "Passkey hinzugefügt.",
+        "removed": "Passkey entfernt.",
+        "action_failed": "Die Passkey-Aktion konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.",
+        "create_cancelled": "Die Erstellung des Passkeys wurde abgebrochen.",
+        "synced": "Synchronisiert",
+        "other_address": "Funktioniert nur unter {{address}}",
+        "created_on": "Hinzugefügt am {{date}}",
+        "last_used_on": "Zuletzt verwendet am {{date}}",
+        "never_used": "Noch nicht verwendet",
+        "empty": "Sie haben noch keinen Passkey hinzugefügt.",
+        "login_button": "Mit Passkey anmelden",
+        "login_waiting": "Warte auf Ihren Passkey...",
+        "login_cancelled": "Die Anmeldung mit Passkey wurde abgebrochen.",
+        "login_failed": "Die Anmeldung mit Passkey ist fehlgeschlagen. Bitte versuchen Sie es erneut oder verwenden Sie Ihr Passwort.",
+        "unavailable": {
+            "disabled": "Passkeys sind auf diesem Server deaktiviert.",
+            "ip_address": "Passkeys funktionieren nicht, wenn die App über eine IP-Adresse geöffnet wird. Öffnen Sie sie über einen Domainnamen oder localhost, um sie zu verwenden.",
+            "insecure_origin": "Passkeys benötigen eine sichere HTTPS-Verbindung.",
+            "origin_not_allowed": "Passkeys sind für diese Adresse nicht eingerichtet. Bitten Sie den Administrator, die Passkey-Einstellungen zu prüfen.",
+            "unknown_origin": "Passkeys sind unter dieser Adresse nicht verfügbar.",
+            "unsupported_browser": "Dieser Browser unterstützt keine Passkeys."
+        }
     }
 }

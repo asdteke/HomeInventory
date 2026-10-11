@@ -1750,7 +1750,14 @@
             "load_failed_title": "Users could not load",
             "pending_requests": "{{count}} pending house requests",
             "role_admin": "Admin",
-            "role_user": "User"
+            "role_user": "User",
+            "reset_passkeys": "Remove passkeys ({{count}})",
+            "reset_passkeys_title": "Remove all passkeys?",
+            "reset_passkeys_description": "Use this when a device with a passkey is lost or stolen.",
+            "reset_passkeys_confirm": "Remove passkeys",
+            "reset_passkeys_warning": "The user keeps their password and two-factor settings.",
+            "reset_passkeys_success_title": "Passkeys removed",
+            "reset_passkeys_success_body": "{{username}} can sign in with their password and add new passkeys."
         },
         "logs": {
             "section_eyebrow": "Audit trail",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "This backup was made with a different encryption key and cannot be restored on this server.",
         "error_too_large": "The file is larger than the upload limit of {{size}}.",
         "error_busy": "A backup is already running. Try again in a moment."
+    },
+    "passkeys": {
+        "title": "Passkeys",
+        "description": "Sign in with your fingerprint, face or device PIN instead of typing your password. Your password stays as a backup.",
+        "add": "Add passkey",
+        "add_title": "Add a passkey",
+        "add_confirm": "Continue",
+        "confirm_identity": "Confirm it is you. Your device will then ask you to create the passkey.",
+        "name_label": "Passkey name",
+        "remove": "Remove passkey",
+        "remove_title": "Remove this passkey?",
+        "remove_description": "\"{{name}}\" will no longer sign you in. Confirm with your password.",
+        "remove_confirm": "Remove",
+        "rename": "Rename",
+        "added": "Passkey added.",
+        "removed": "Passkey removed.",
+        "action_failed": "The passkey action could not be completed. Please try again.",
+        "create_cancelled": "Passkey creation was cancelled.",
+        "synced": "Synced",
+        "other_address": "Only works at {{address}}",
+        "created_on": "Added {{date}}",
+        "last_used_on": "Last used {{date}}",
+        "never_used": "Not used yet",
+        "empty": "You have not added a passkey yet.",
+        "login_button": "Sign in with a passkey",
+        "login_waiting": "Waiting for your passkey...",
+        "login_cancelled": "Passkey sign-in was cancelled.",
+        "login_failed": "Passkey sign-in failed. Please try again or use your password.",
+        "unavailable": {
+            "disabled": "Passkeys are turned off on this server.",
+            "ip_address": "Passkeys do not work when the app is opened with an IP address. Open it with a domain name or localhost to use them.",
+            "insecure_origin": "Passkeys need a secure HTTPS connection.",
+            "origin_not_allowed": "Passkeys are not set up for this address. Ask the administrator to check the passkey settings.",
+            "unknown_origin": "Passkeys are not available at this address.",
+            "unsupported_browser": "This browser does not support passkeys."
+        }
     }
 }

@@ -1448,7 +1448,14 @@
             "load_failed_title": "Käyttäjiä ei voitu ladata",
             "pending_requests": "{{count}} odottavaa talopyyntöä",
             "role_admin": "Ylläpitäjä",
-            "role_user": "Käyttäjä"
+            "role_user": "Käyttäjä",
+            "reset_passkeys": "Poista pääsyavaimet ({{count}})",
+            "reset_passkeys_title": "Poistetaanko kaikki pääsyavaimet?",
+            "reset_passkeys_description": "Käytä tätä, kun laite, jolla on pääsyavain, on kadonnut tai varastettu.",
+            "reset_passkeys_confirm": "Poista pääsyavaimet",
+            "reset_passkeys_warning": "Käyttäjä säilyttää salasanansa ja kaksivaiheisen tunnistautumisen asetukset.",
+            "reset_passkeys_success_title": "Pääsyavaimet poistettu",
+            "reset_passkeys_success_body": "{{username}} voi kirjautua sisään salasanallaan ja lisätä uusia pääsyavaimia."
         },
         "logs": {
             "title": "Ylläpitäjän lokit",
@@ -2994,5 +3001,41 @@
         "error_key_mismatch": "Tämä kopio on tehty eri salausavaimella, eikä sitä voi palauttaa tälle palvelimelle.",
         "error_too_large": "Tiedosto ylittää {{size}} lähetysrajan.",
         "error_busy": "Varmuuskopiointi on jo käynnissä. Yritä hetken kuluttua uudelleen."
+    },
+    "passkeys": {
+        "title": "Pääsyavaimet",
+        "description": "Kirjaudu sisään sormenjäljellä, kasvoilla tai laitteen PIN-koodilla salasanan kirjoittamisen sijaan. Salasanasi säilyy varmistuksena.",
+        "add": "Lisää pääsyavain",
+        "add_title": "Lisää pääsyavain",
+        "add_confirm": "Jatka",
+        "confirm_identity": "Vahvista henkilöllisyytesi. Sen jälkeen laitteesi pyytää sinua luomaan pääsyavaimen.",
+        "name_label": "Pääsyavaimen nimi",
+        "remove": "Poista pääsyavain",
+        "remove_title": "Poistetaanko tämä pääsyavain?",
+        "remove_description": "Avaimella \"{{name}}\" ei voi enää kirjautua sisään. Vahvista salasanallasi.",
+        "remove_confirm": "Poista",
+        "rename": "Nimeä uudelleen",
+        "added": "Pääsyavain lisätty.",
+        "removed": "Pääsyavain poistettu.",
+        "action_failed": "Pääsyavaintoimintoa ei voitu suorittaa. Yritä uudelleen.",
+        "create_cancelled": "Pääsyavaimen luominen peruutettiin.",
+        "synced": "Synkronoitu",
+        "other_address": "Toimii vain osoitteessa {{address}}",
+        "created_on": "Lisätty {{date}}",
+        "last_used_on": "Viimeksi käytetty {{date}}",
+        "never_used": "Ei vielä käytetty",
+        "empty": "Et ole vielä lisännyt pääsyavainta.",
+        "login_button": "Kirjaudu sisään pääsyavaimella",
+        "login_waiting": "Odotetaan pääsyavaintasi...",
+        "login_cancelled": "Kirjautuminen pääsyavaimella peruutettiin.",
+        "login_failed": "Kirjautuminen pääsyavaimella epäonnistui. Yritä uudelleen tai käytä salasanaasi.",
+        "unavailable": {
+            "disabled": "Pääsyavaimet on poistettu käytöstä tällä palvelimella.",
+            "ip_address": "Pääsyavaimet eivät toimi, kun sovellus avataan IP-osoitteella. Avaa se verkkotunnuksella tai localhost-osoitteella käyttääksesi niitä.",
+            "insecure_origin": "Pääsyavaimet vaativat suojatun HTTPS-yhteyden.",
+            "origin_not_allowed": "Pääsyavaimia ei ole määritetty tälle osoitteelle. Pyydä järjestelmänvalvojaa tarkistamaan pääsyavainasetukset.",
+            "unknown_origin": "Pääsyavaimet eivät ole käytettävissä tässä osoitteessa.",
+            "unsupported_browser": "Tämä selain ei tue pääsyavaimia."
+        }
     }
 }

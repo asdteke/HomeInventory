@@ -2,6 +2,14 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.8.2 - Passkey Sign-In
+
+- **Passkeys:** sign in with Face ID, Touch ID, Windows Hello, Android, or a security key instead of typing your password. Add, rename, and remove passkeys in **Settings → Security**; adding or removing one asks for your password (and your two-factor code when it is on). Passwords and two-factor authentication keep working as before; a passkey sign-in does not ask for the TOTP code because the passkey already requires your device and its PIN or biometrics.
+- **Where passkeys work:** over HTTPS with a domain name, or at `http://localhost`. Browsers do not allow passkeys at IP addresses, so the option is hidden there (for example on phones using the launcher's LAN address) and password sign-in stays available. New settings: `PASSKEYS_ENABLED`, `WEBAUTHN_RP_ID`, `WEBAUTHN_ORIGINS`, `WEBAUTHN_RP_NAME`.
+- **Admins:** the Users tab shows a **Remove passkeys** action for accounts that have passkeys, for lost or stolen devices.
+- **Backups:** passkeys are part of the database and come back with server backups. Restoring under a different domain keeps them listed but marked as not usable at the new address.
+- **Translations:** the new texts are available in all 103 languages.
+
 ## v2.8.1 - Launcher Fixes and QA Release
 
 - **Launcher (Windows):** Node.js and npm are now always taken from the same installation, so dependencies are no longer built for a different Node ABI than the one that starts the app (`NODE_MODULE_VERSION` errors with `better-sqlite3`). Installs already affected are repaired with `npm rebuild` before the app starts.

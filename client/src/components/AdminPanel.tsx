@@ -9,6 +9,7 @@ import {
     CheckCircle2,
     DatabaseBackup,
     House,
+    KeyRound,
     HousePlus,
     LayoutDashboard,
     Mail,
@@ -146,6 +147,7 @@ interface AdminUser {
     house_count: number;
     owned_item_count: number;
     pending_house_requests: number;
+    passkey_count: number;
 }
 
 function normalizeAdminUsers(rawUsers: any[]): AdminUser[] {
@@ -160,7 +162,8 @@ function normalizeAdminUsers(rawUsers: any[]): AdminUser[] {
             failed_login_count: toSafeNumber(user?.failed_login_count),
             house_count: toSafeNumber(user?.house_count),
             owned_item_count: toSafeNumber(user?.owned_item_count),
-            pending_house_requests: toSafeNumber(user?.pending_house_requests)
+            pending_house_requests: toSafeNumber(user?.pending_house_requests),
+            passkey_count: toSafeNumber(user?.passkey_count)
         }))
         : [];
 }
@@ -576,6 +579,7 @@ interface UserCardProps {
     t: any;
     onBanToggle: () => void;
     onDelete: () => void;
+    onResetPasskeys: () => void;
 }
 
 function UserCard({
@@ -583,7 +587,8 @@ function UserCard({
     locale,
     t,
     onBanToggle,
-    onDelete
+    onDelete,
+    onResetPasskeys
 }: UserCardProps) {
     const joinedAt = formatAdminDate(user.created_at, locale, { month: 'short', day: 'numeric', year: 'numeric' });
     const lastLogin = formatAdminDate(user.last_login, locale);
@@ -676,6 +681,14 @@ function UserCard({
                                 tone="warning"
                                 onClick={onBanToggle}
                             />
+                            {user.passkey_count > 0 && (
+                                <UserActionButton
+                                    icon={KeyRound}
+                                    label={t('admin.users.reset_passkeys', { count: user.passkey_count, defaultValue: 'Remove passkeys ({{count}})' })}
+                                    tone="warning"
+                                    onClick={onResetPasskeys}
+                                />
+                            )}
                             <UserActionButton
                                 icon={Trash2}
                                 label={t('admin.users.delete', { defaultValue: 'Delete Account' })}
@@ -691,7 +704,7 @@ function UserCard({
 }
 
 interface PendingUserAction {
-    type: 'ban' | 'delete';
+    type: 'ban' | 'delete' | 'passkeys';
     userId: string;
     username: string;
     isBanned: boolean;
@@ -845,6 +858,12 @@ export default function AdminPanel() {
                     description: pendingUserAction.isBanned
                         ? t('admin.users.unban_success_body', { username: pendingUserAction.username, defaultValue: '{{username}} can sign in again.' })
                         : t('admin.users.ban_success_body', { username: pendingUserAction.username, defaultValue: '{{username}} has been blocked from signing in.' })
+                });
+            } else if (pendingUserAction.type === 'passkeys') {
+                await axios.post(`/api/admin/users/${pendingUserAction.userId}/reset-passkeys`);
+                setToast({
+                    title: t('admin.users.reset_passkeys_success_title', { defaultValue: 'Passkeys removed' }),
+                    description: t('admin.users.reset_passkeys_success_body', { username: pendingUserAction.username, defaultValue: '{{username}} can sign in with their password and add new passkeys.' })
                 });
             } else if (pendingUserAction.type === 'delete') {
                 await axios.delete(`/api/admin/users/${pendingUserAction.userId}`);
@@ -1366,6 +1385,12 @@ export default function AdminPanel() {
                                             username: user.username,
                                             isBanned: user.is_banned
                                         })}
+                                        onResetPasskeys={() => setPendingUserAction({
+                                            type: 'passkeys',
+                                            userId: user.id,
+                                            username: user.username,
+                                            isBanned: user.is_banned
+                                        })}
                                     />
                                 ))}
                             </div>
@@ -1587,6 +1612,8 @@ export default function AdminPanel() {
                 title={
                     pendingUserAction?.type === 'delete'
                         ? t('admin.users.delete_title', { defaultValue: 'Delete this account?' })
+                        : pendingUserAction?.type === 'passkeys'
+                            ? t('admin.users.reset_passkeys_title', { defaultValue: 'Remove all passkeys?' })
                         : pendingUserAction?.isBanned
                             ? t('admin.users.unban_title', { defaultValue: 'Restore this user?' })
                             : t('admin.users.ban_title', { defaultValue: 'Ban this user?' })
@@ -1597,6 +1624,8 @@ export default function AdminPanel() {
                             username: pendingUserAction?.username,
                             defaultValue: 'Deleting {{username}} permanently removes the account and its owned inventory data.'
                         })
+                        : pendingUserAction?.type === 'passkeys'
+                            ? t('admin.users.reset_passkeys_description', { defaultValue: 'Use this when a device with a passkey is lost or stolen.' })
                         : pendingUserAction?.isBanned
                             ? t('admin.users.unban_description', { defaultValue: 'Restoring access allows this user to sign in again.' })
                             : t('admin.users.ban_description', { defaultValue: 'Banning a user immediately blocks access until an admin restores it.' })
@@ -1604,6 +1633,8 @@ export default function AdminPanel() {
                 confirmLabel={
                     pendingUserAction?.type === 'delete'
                         ? (actionSubmitting ? t('common.deleting', { defaultValue: 'Deleting...' }) : t('admin.users.delete', { defaultValue: 'Delete Account' }))
+                        : pendingUserAction?.type === 'passkeys'
+                            ? (actionSubmitting ? t('common.loading', { defaultValue: 'Loading...' }) : t('admin.users.reset_passkeys_confirm', { defaultValue: 'Remove passkeys' }))
                         : (actionSubmitting
                             ? t('common.loading', { defaultValue: 'Loading...' })
                             : (pendingUserAction?.isBanned ? t('admin.users.unban', { defaultValue: 'Unban' }) : t('admin.users.ban', { defaultValue: 'Ban' })))
@@ -1620,6 +1651,8 @@ export default function AdminPanel() {
                     <p className="mt-1 text-sm leading-6 text-(--hi-text-soft)">
                         {pendingUserAction?.type === 'delete'
                             ? t('admin.users.delete_warning', { defaultValue: 'This action is irreversible and removes rooms, categories, items, and related ownership history tied to this account.' })
+                            : pendingUserAction?.type === 'passkeys'
+                                ? t('admin.users.reset_passkeys_warning', { defaultValue: 'The user keeps their password and two-factor settings.' })
                             : pendingUserAction?.isBanned
                                 ? t('admin.users.unban_warning', { defaultValue: 'The user regains access on the next successful sign-in.' })
                                 : t('admin.users.ban_warning', { defaultValue: 'The user loses access until another admin explicitly restores it.' })}

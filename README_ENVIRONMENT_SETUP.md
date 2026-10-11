@@ -43,6 +43,12 @@ Set these only if you need the related feature locally:
 - `RESEND_API_KEY`
 - `SUPPORT_EMAIL`
 
+Passkeys work locally at `http://localhost` without any setting. On a server
+they need HTTPS and a domain name; set `WEBAUTHN_RP_ID` and `WEBAUTHN_ORIGINS`
+behind a reverse proxy, or `PASSKEYS_ENABLED=false` to turn them off. Opening
+the app at an IP address (for example the launcher's LAN address) hides the
+passkey option, and password sign-in keeps working.
+
 `UPDATE_CHECK=false` turns off the admin panel's new-version notice, which
 otherwise asks `api.github.com` for the latest release when an admin opens the
 panel (cached for 12 hours, no user data sent). The desktop launcher sets it
