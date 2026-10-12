@@ -164,7 +164,7 @@ export default function PasskeySettings({ totpEnabled, onSuccess, onError }: Pas
                                 <div className="min-w-0 flex-1">
                                     {renamingId === passkey.id ? (
                                         <form
-                                            className="flex gap-2"
+                                            className="flex flex-wrap items-center gap-2 sm:flex-nowrap"
                                             onSubmit={(event) => {
                                                 event.preventDefault();
                                                 handleRename(passkey);
@@ -174,12 +174,12 @@ export default function PasskeySettings({ totpEnabled, onSuccess, onError }: Pas
                                                 value={renameValue}
                                                 onChange={(event) => setRenameValue(event.target.value)}
                                                 maxLength={64}
-                                                className="input-field py-2 text-sm"
+                                                className="input-field min-w-0 flex-1 basis-48 py-2 text-sm"
                                                 aria-label={t('passkeys.name_label')}
                                                 autoFocus
                                             />
-                                            <button type="submit" className="btn-secondary px-3 py-2 text-xs font-semibold">{t('common.save')}</button>
-                                            <button type="button" onClick={() => setRenamingId(null)} className="px-2 text-xs text-(--hi-text-soft)">{t('common.cancel')}</button>
+                                            <button type="submit" className="btn-secondary shrink-0 whitespace-nowrap px-4 py-2 text-xs font-semibold">{t('common.save')}</button>
+                                            <button type="button" onClick={() => setRenamingId(null)} className="shrink-0 whitespace-nowrap px-3 py-2 text-xs text-(--hi-text-soft) hover:text-(--hi-text)">{t('common.cancel')}</button>
                                         </form>
                                     ) : (
                                         <p className="flex flex-wrap items-center gap-2 font-semibold text-sm text-(--hi-text)">
