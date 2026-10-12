@@ -420,7 +420,7 @@ test('box lifecycle guards contents, keeps house scope, and preserves item place
 
     const backup = await request(port, '/api/backup/export-full', {}, owner);
     assert.equal(backup.status, 200);
-    assert.equal(backup.data.version, '1.6-full');
+    assert.equal(backup.data.version, '1.7-full');
     assert.equal(backup.data.boxes.length, 1);
     assert.equal(backup.data.items.length, 2);
     assert.ok(backup.data.items.every((backupItem) => backupItem.box_code === 'DB-02'));

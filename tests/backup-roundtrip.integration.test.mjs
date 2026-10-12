@@ -284,6 +284,16 @@ test('owner export imports into a clean database with data and encrypted fields 
     const importedLegacy = await request(target.port, '/api/backup/import', { method: 'POST', body: legacyExport }, targetJar);
     assert.equal(importedLegacy.status, 200);
 
+    // A task with a malformed date is skipped instead of aborting the whole restore.
+    const malformedExport = {
+        ...exported.data,
+        maintenance: [{ ...exported.data.maintenance[0], task_name: 'Broken date task', next_due_date: '2026-02-30' }]
+    };
+    const importedMalformed = await request(target.port, '/api/backup/import', { method: 'POST', body: malformedExport }, targetJar);
+    assert.equal(importedMalformed.status, 200, JSON.stringify(importedMalformed.data));
+    assert.equal(importedMalformed.data.imported.maintenance, 0);
+    assert.equal(importedMalformed.data.skipped.maintenance, 1);
+
     const targetItems = await request(target.port, '/api/items', {}, targetJar);
     assert.equal(targetItems.status, 200);
     const byName = (items) => [...items].sort((a, b) => a.name.localeCompare(b.name)).map(pickComparable);

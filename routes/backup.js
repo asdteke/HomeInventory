@@ -537,6 +537,15 @@ function createBorrowFingerprint(borrow, mappedItemId, fallbackBorrowerName = ''
     ]);
 }
 
+// A malformed date in one backed-up task must not abort the whole restore.
+function normalizeImportedMaintenanceDate(value) {
+    try {
+        return normalizeOptionalDate(value, 'Tarih');
+    } catch {
+        return null;
+    }
+}
+
 function createMaintenanceFingerprint(task, mappedItemId) {
     return JSON.stringify([
         Number(mappedItemId || 0),
@@ -1504,7 +1513,7 @@ router.post('/import', backupRateLimiter, (req, res) => {
                     }
 
                     const taskDescription = task.description ? String(task.description).trim().slice(0, 1000) : null;
-                    const normalizedNextDueDate = normalizeOptionalDate(task.next_due_date, 'Planlanan tarih');
+                    const normalizedNextDueDate = normalizeImportedMaintenanceDate(task.next_due_date);
                     if (!normalizedNextDueDate) {
                         skippedMaintenance++;
                         continue;
@@ -1525,7 +1534,7 @@ router.post('/import', backupRateLimiter, (req, res) => {
                         freqUnit = null;
                     }
 
-                    const normalizedLastPerformedAt = normalizeOptionalDate(task.last_performed_at, 'Son yapılan tarih') || null;
+                    const normalizedLastPerformedAt = normalizeImportedMaintenanceDate(task.last_performed_at);
 
                     const fingerprint = createMaintenanceFingerprint({
                         task_name: taskName,

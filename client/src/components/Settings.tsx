@@ -683,10 +683,10 @@ export default function Settings() {
                     boxes: imported.boxes || 0,
                     borrows: imported.borrows || 0,
                     attachments: imported.attachments || 0,
-                    maintenance: imported.maintenance || 0,
                     media: imported.media || 0,
                     defaultValue: '{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{boxes}} boxes, {{borrows}} borrow records, {{attachments}} attachments, {{media}} media files restored.'
                 }),
+                imported.maintenance ? t('settings.data_management.restored_maintenance', { count: imported.maintenance, defaultValue: '{{count}} maintenance tasks restored.' }) : '',
                 ...previewLines,
                 ...skippedBits
             ].filter(Boolean).join('\n'),

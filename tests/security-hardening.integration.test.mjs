@@ -274,7 +274,7 @@ test('shared-house backups are limited to the house owner', async (t) => {
 
     const ownerExport = await requestJson(port, '/api/backup/export', {}, ownerJar);
     assert.equal(ownerExport.status, 200);
-    assert.equal(ownerExport.data.version, '1.6');
+    assert.equal(ownerExport.data.version, '1.7');
 });
 
 test('house owner can transfer ownership to another active member', async (t) => {
