@@ -493,7 +493,7 @@ export default function Layout() {
                                     type="button"
                                     onClick={openLogoutConfirm}
                                     aria-label={t('navigation.logout_aria', { defaultValue: 'Log out of your account' }) || undefined}
-                                    className="sidebar-account-logout-v27 flex w-full items-center gap-3 rounded-[0.95rem] border border-red-500/18 bg-red-500/6 px-3 py-2.5 text-left text-sm font-medium text-red-400 transition hover:bg-red-500/10 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-bg-elevated)"
+                                    className="sidebar-account-logout-v27 flex w-full items-center gap-3 rounded-[1rem] text-left text-sm font-medium text-red-400 transition focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-(--hi-bg-elevated)"
                                 >
                                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-red-500/12 text-current">
                                         <LogOut className="h-4 w-4" />

@@ -10360,20 +10360,24 @@ html.dark .sidebar-account-theme-v27.segmented-toggle-v25 {
   box-shadow: none !important;
 }
 
+/* Logout shares the menu's inset row treatment: same radius as the
+   overview row, no hard-edged band, a soft red tint only on hover/focus. */
 .sidebar-account-logout-v27,
 html.dark .sidebar-account-logout-v27 {
   min-height: 3rem;
-  padding: .65rem !important;
+  margin-top: .35rem;
+  padding: .6rem .65rem !important;
   border: 0 !important;
-  border-top: 1px solid var(--hi-border) !important;
-  border-radius: 0 !important;
+  border-radius: 1rem !important;
   background: transparent !important;
   box-shadow: none !important;
 }
 
 .sidebar-account-logout-v27:hover,
-html.dark .sidebar-account-logout-v27:hover {
-  background: color-mix(in srgb, #ef4444 6%, transparent) !important;
+.sidebar-account-logout-v27:focus-visible,
+html.dark .sidebar-account-logout-v27:hover,
+html.dark .sidebar-account-logout-v27:focus-visible {
+  background: color-mix(in srgb, #ef4444 9%, transparent) !important;
   transform: none;
 }
 
