@@ -97,12 +97,20 @@ export function resolveRelyingParty(requestOrigin, env = process.env) {
     return { available: true, rpId: hostname, rpName, origin: origin.origin };
 }
 
-export function getRequestOrigin(req) {
+/**
+ * Browsers often leave Origin off same-origin GET requests. Behind a TLS-terminating
+ * proxy without TRUST_PROXY, req.protocol then says http, so prefer a configured
+ * public origin (WEBAUTHN_ORIGINS, then SITE_URL) whose host matches the request.
+ */
+export function getRequestOrigin(req, env = process.env) {
     const headerOrigin = req.get('origin');
     if (headerOrigin && headerOrigin !== 'null') {
         return headerOrigin;
     }
-    return `${req.protocol}://${req.get('host')}`;
+    const host = String(req.get('host') || '').toLowerCase();
+    const publicOrigins = [...configuredOrigins(env), parseOrigin(env.SITE_URL)?.origin].filter(Boolean);
+    const matching = publicOrigins.find((origin) => new URL(origin).host === host);
+    return matching || `${req.protocol}://${host}`;
 }
 
 export function toBase64Url(bytes) {

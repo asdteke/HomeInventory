@@ -10,7 +10,7 @@ process.env.APP_ENCRYPTION_KEY = '0123456789abcdef0123456789abcdef';
 process.env.APP_ENCRYPTION_KEY_ID = 'passkey-unit-key';
 process.env.HOMEINVENTORY_DB_PATH = join(mkdtempSync(join(tmpdir(), 'homeinventory-passkey-unit-')), 'inventory.db');
 
-const { resolveRelyingParty, normalizePasskeyName, storeChallenge, consumeChallenge } = await import('../utils/passkeys.js');
+const { resolveRelyingParty, getRequestOrigin, normalizePasskeyName, storeChallenge, consumeChallenge } = await import('../utils/passkeys.js');
 
 test('relying party is derived from secure origins only', () => {
     assert.deepEqual(
@@ -33,6 +33,16 @@ test('configured RP ID and origins take precedence', () => {
     assert.equal(resolveRelyingParty('https://example.com', { WEBAUTHN_RP_ID: 'example.com' }).available, true);
     assert.equal(resolveRelyingParty('https://evil.test', { WEBAUTHN_RP_ID: 'example.com', WEBAUTHN_ORIGINS: 'https://evil.test' }).reason, 'origin_not_allowed');
     assert.equal(resolveRelyingParty('https://inventory.example.com', { WEBAUTHN_RP_NAME: 'Ev Envanteri' }).rpName, 'Ev Envanteri');
+});
+
+test('origin-less requests behind a TLS proxy use the configured public origin', () => {
+    const request = (headers, protocol = 'http') => ({ protocol, get: (name) => headers[name.toLowerCase()] });
+    const proxied = request({ host: 'inventory.example.com' });
+    assert.equal(getRequestOrigin(proxied, { WEBAUTHN_ORIGINS: 'https://inventory.example.com' }), 'https://inventory.example.com');
+    assert.equal(getRequestOrigin(proxied, { SITE_URL: 'https://inventory.example.com/' }), 'https://inventory.example.com');
+    assert.equal(getRequestOrigin(proxied, { SITE_URL: 'https://other.example.com' }), 'http://inventory.example.com');
+    assert.equal(getRequestOrigin(request({ host: 'inventory.example.com', origin: 'https://inventory.example.com' }), {}), 'https://inventory.example.com');
+    assert.equal(getRequestOrigin(request({ host: 'localhost:3001' }), {}), 'http://localhost:3001');
 });
 
 test('passkey names are trimmed and bounded', () => {
