@@ -8,6 +8,7 @@ All notable changes to HomeInventory are documented here.
 - **Where passkeys work:** over HTTPS with a domain name, or at `http://localhost`. Browsers do not allow passkeys at IP addresses, so the option is hidden there (for example on phones using the launcher's LAN address) and password sign-in stays available. New settings: `PASSKEYS_ENABLED`, `WEBAUTHN_RP_ID`, `WEBAUTHN_ORIGINS`, `WEBAUTHN_RP_NAME`.
 - **Admins:** the Users tab shows a **Remove passkeys** action for accounts that have passkeys, for lost or stolen devices.
 - **Backups:** passkeys are part of the database and come back with server backups. Restoring under a different domain keeps them listed but marked as not usable at the new address.
+- **Backups include maintenance tasks:** household backups now export and restore maintenance schedules, and the restore summary counts them. Tasks with invalid dates are skipped instead of failing the restore. Thanks to Denn-Freigeist (#41).
 - **Translations:** the new texts are available in all 103 languages.
 
 ## v2.8.1 - Launcher Fixes and QA Release
