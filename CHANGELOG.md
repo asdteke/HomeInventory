@@ -2,6 +2,11 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.8.3 - Security Update
+
+- **Security:** updated Vite from 8.3.2 to 8.3.5 in both the web client and desktop launcher, resolving Dependabot alerts #128 and #129 for GHSA-698v-4r3x-3vcv (CVE-2026-112943), a Windows command-argument escaping vulnerability in the development server's editor integration.
+- **Coordinated release:** server, web client, managed app, and desktop launcher all target 2.8.3. No database migration is required.
+
 ## v2.8.2 - Passkey Sign-In
 
 - **Passkeys:** sign in with Face ID, Touch ID, Windows Hello, Android, or a security key instead of typing your password. Add, rename, and remove passkeys in **Settings → Security**; adding or removing one asks for your password (and your two-factor code when it is on). Passwords and two-factor authentication keep working as before; a passkey sign-in does not ask for the TOTP code because the passkey already requires your device and its PIN or biometrics.
