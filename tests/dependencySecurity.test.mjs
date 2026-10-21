@@ -93,6 +93,13 @@ test('security-sensitive dependencies stay above patched versions', () => {
     assert.equal(i18nextFsBackendVersion, undefined, 'i18next-fs-backend should not be reintroduced');
 });
 
+test('client and launcher Vite include the Windows editor command escaping fix', () => {
+    for (const [name, dependencyLock] of [['client', clientLockfile], ['launcher', launcherLockfile]]) {
+        const version = dependencyLock.packages?.['node_modules/vite']?.version;
+        assert.ok(isAtLeast(version, '8.3.3'), `${name} vite ${version} is below patched 8.3.3`);
+    }
+});
+
 test('client tooling does not reintroduce the unpatched braces dependency', () => {
     for (const path of Object.keys(clientLockfile.packages || {})) {
         assert.ok(!path.endsWith('node_modules/braces'), `Vulnerable braces dependency found at ${path}`);
