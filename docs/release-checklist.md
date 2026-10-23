@@ -12,7 +12,7 @@ Use this checklist for public HomeInventory source and launcher releases. Local/
 
 ## 2. Deterministic validation
 
-Use the Node.js version configured in CI (Node 22.23.3 for v2.8.0):
+Use the Node.js version configured in CI (Node 22.23.4):
 
 ```bash
 npm ci

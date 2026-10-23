@@ -6,7 +6,7 @@
 # Debian slim is used instead of Alpine because sharp only ships musl
 # binaries for x64 and arm64; glibc binaries also cover 32-bit ARM.
 
-ARG NODE_IMAGE=node:22.23.3-bookworm-slim
+ARG NODE_IMAGE=node:22.23.4-bookworm-slim
 
 # ============================================
 # Stage 1: Build frontend

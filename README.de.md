@@ -162,7 +162,7 @@ Details zur Isolation und zu erweiterten Einstellungen findest du in [GUI_LAUNCH
 
 #### Voraussetzungen
 
-- Node.js 22.23.3+
+- Node.js 22.23.4+
 - npm 9+
 - Git
 
