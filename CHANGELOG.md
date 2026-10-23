@@ -2,6 +2,13 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.8.4 - Node.js Security Update
+
+- **Security:** updated Node.js from 22.23.3 to 22.23.4, the October 21, 2026 security release. This addresses the high-severity Brotli decoder remote-code-execution vulnerability (CVE-2026-111497), DNS input validation (CVE-2026-105482), TLS hostname validation (CVE-2026-106069), and the other fixes included in that release. See the [official Node.js advisory](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases).
+- **Dependencies:** updated `ip-address` to 10.7.4 to fix the IPv6 zone-identifier denial-of-service vulnerability (CVE-2026-111997 / GHSA-rxp7-6hxx-x8q5) reported by npm audit.
+- **Runtime coverage:** Docker, CI, launcher portable runtimes, Windows Store packaging, package engine requirements, and installation documentation now use 22.23.4. All four portable runtime archives use the new official SHA-256 checksums.
+- **Coordinated release:** server, web client, managed app, and desktop launcher all target 2.8.4. No database migration is required. Self-hosted source installations must also update their Node.js runtime; updating npm packages alone does not apply these runtime fixes.
+
 ## v2.8.3 - Security Update
 
 - **Security:** updated Vite from 8.3.2 to 8.3.5 in both the web client and desktop launcher, resolving Dependabot alerts #128 and #129 for GHSA-698v-4r3x-3vcv (CVE-2026-112943), a Windows command-argument escaping vulnerability in the development server's editor integration.

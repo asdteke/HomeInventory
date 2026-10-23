@@ -63,7 +63,7 @@ test('security-sensitive dependencies stay above patched versions', () => {
         undiciVersion === undefined || isAtLeast(undiciVersion, '7.29.1'),
         `undici ${undiciVersion} is below patched 7.29.1`
     );
-    assert.ok(isAtLeast(ipAddressVersion, '10.5.1'), `ip-address ${ipAddressVersion} is below patched 10.5.1`);
+    assert.ok(isAtLeast(ipAddressVersion, '10.7.4'), `ip-address ${ipAddressVersion} is below patched 10.7.4`);
     assert.ok(isAtLeast(bodyParserVersion, '1.20.6'), `body-parser ${bodyParserVersion} is below patched 1.20.6`);
     assert.ok(isAtLeast(shellQuoteVersion, '1.10.0'), `shell-quote ${shellQuoteVersion} is below patched 1.10.0`);
     assert.ok(isAtLeast(qsVersion, '6.16.0'), `qs ${qsVersion} is below patched 6.16.0`);
@@ -111,8 +111,18 @@ test('direct image and multipart dependencies stay pinned to audited releases', 
     assert.equal(packageManifest.dependencies?.sharp, '0.35.5');
 });
 
+test('Node.js runtime stays on the October 2026 security release or newer', () => {
+    for (const manifestPath of ['../package.json', '../client/package.json', '../apps/launcher/package.json']) {
+        const manifest = JSON.parse(readFileSync(new URL(manifestPath, import.meta.url), 'utf8'));
+        const minimum = manifest.engines.node.replace(/^>=/, '');
+        assert.ok(isAtLeast(minimum, '22.23.4'), `${manifestPath} permits vulnerable Node.js ${minimum}`);
+    }
+    const version = launcherRust.match(/const PORTABLE_NODE_VERSION: &str = "([^"]+)"/)?.[1];
+    assert.ok(isAtLeast(version, '22.23.4'), `portable Node.js ${version} is below patched 22.23.4`);
+});
+
 test('portable Node.js archives are pinned to official SHA-256 values before extraction', () => {
-    const windowsNodeHash = '2b0ff57b049cda1bbcea2240eec20467018713c1efe1f7360c2681859b90ed71';
+    const windowsNodeHash = 'cbc74b5e0982c9dbb41525fd8fb5dcd32fbee237863f7829072f4639a1ce5f20';
     assert.match(launcherRust, new RegExp(windowsNodeHash));
     assert.match(storeBuildScript, new RegExp(windowsNodeHash));
     assert.match(launcherRust, /verify_file_sha256\(\s*&bundled_node,/s);

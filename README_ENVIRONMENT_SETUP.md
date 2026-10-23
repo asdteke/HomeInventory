@@ -13,7 +13,7 @@ These settings match the public v2.7.0 release line.
 
 ### Local setup
 
-1. Install Node.js `22.23.3` or newer, then install dependencies:
+1. Install Node.js `22.23.4` or newer, then install dependencies:
    - `npm install`
    - `npm install --prefix client`
 2. Create the local env file and its secrets:
