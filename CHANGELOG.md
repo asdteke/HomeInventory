@@ -2,6 +2,16 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.8.5 - Dependency Security Update
+
+- **Security:** updated `multer` from 2.4.0 to 2.5.0, fixing the high-severity denial-of-service issue where a pending asynchronous `fileFilter` could keep running after request teardown (npm audit, high).
+- **Security:** pinned `body-parser` to 1.20.9 in the Express dependency chain, fixing the high-severity denial-of-service issue with trailing bytes after a compressed request body (npm audit, high).
+- **Security:** pinned `qs` to 6.16.1, fixing the denial-of-service issue in `qs.stringify` with `arrayFormat: "comma"` (npm audit, moderate).
+- **Security (desktop launcher):** updated `rustls` to 0.23.46, `rustls-webpki` to 0.103.16, `webpki-root-certs` to 1.0.10, and the direct `zip` dependency to 9.1.3 (the launcher archive extractor was checked against the new API). These fix the RustSec advisories reported by `cargo audit` for TLS certificate handling and ZIP extraction.
+- **Dependencies:** updated `i18next-http-backend` in the web client to 4.0.4, fixing the low-severity query-parameter and protocol-relative URL issues in translation loading.
+- **Regression coverage:** dependency security tests now require the patched `multer`, `body-parser`, and `qs` versions.
+- **Coordinated release:** server, web client, managed app, and desktop launcher all target 2.8.5. No database migration is required.
+
 ## v2.8.4 - Node.js Security Update
 
 - **Security:** updated Node.js from 22.23.3 to 22.23.4, the October 21, 2026 security release. This addresses the high-severity Brotli decoder remote-code-execution vulnerability (CVE-2026-111497), DNS input validation (CVE-2026-105482), TLS hostname validation (CVE-2026-106069), and the other fixes included in that release. See the [official Node.js advisory](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases).
