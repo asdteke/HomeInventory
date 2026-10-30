@@ -57,16 +57,16 @@ test('security-sensitive dependencies stay above patched versions', () => {
     const reactRouterVersion = clientLockfile.packages?.['node_modules/react-router']?.version;
     const reactRouterDomVersion = clientLockfile.packages?.['node_modules/react-router-dom']?.version;
 
-    assert.ok(isAtLeast(multerVersion, '2.4.0'), `multer ${multerVersion} is below patched 2.4.0`);
+    assert.ok(isAtLeast(multerVersion, '2.5.0'), `multer ${multerVersion} is below patched 2.5.0`);
     // undici was only pulled in by cheerio; it may be absent from the lockfile.
     assert.ok(
         undiciVersion === undefined || isAtLeast(undiciVersion, '7.29.1'),
         `undici ${undiciVersion} is below patched 7.29.1`
     );
     assert.ok(isAtLeast(ipAddressVersion, '10.7.4'), `ip-address ${ipAddressVersion} is below patched 10.7.4`);
-    assert.ok(isAtLeast(bodyParserVersion, '1.20.6'), `body-parser ${bodyParserVersion} is below patched 1.20.6`);
+    assert.ok(isAtLeast(bodyParserVersion, '1.20.9'), `body-parser ${bodyParserVersion} is below patched 1.20.9`);
     assert.ok(isAtLeast(shellQuoteVersion, '1.10.0'), `shell-quote ${shellQuoteVersion} is below patched 1.10.0`);
-    assert.ok(isAtLeast(qsVersion, '6.16.0'), `qs ${qsVersion} is below patched 6.16.0`);
+    assert.ok(isAtLeast(qsVersion, '6.16.1'), `qs ${qsVersion} is below patched 6.16.1`);
     assert.ok(isAtLeast(axiosVersion, '1.18.1'), `root axios ${axiosVersion} is below patched 1.18.1`);
     assert.ok(isAtLeast(clientAxiosVersion, '1.18.1'), `client axios ${clientAxiosVersion} is below patched 1.18.1`);
     assert.ok(isAtLeast(followRedirectsVersion, '1.16.0'), `root follow-redirects ${followRedirectsVersion} is below patched 1.16.0`);
@@ -107,7 +107,7 @@ test('client tooling does not reintroduce the unpatched braces dependency', () =
 });
 
 test('direct image and multipart dependencies stay pinned to audited releases', () => {
-    assert.equal(packageManifest.dependencies?.multer, '2.4.0');
+    assert.equal(packageManifest.dependencies?.multer, '2.5.0');
     assert.equal(packageManifest.dependencies?.sharp, '0.35.5');
 });
 
