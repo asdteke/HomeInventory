@@ -69,8 +69,8 @@ test('security-sensitive dependencies stay above patched versions', () => {
     assert.ok(isAtLeast(qsVersion, '6.16.1'), `qs ${qsVersion} is below patched 6.16.1`);
     assert.ok(isAtLeast(axiosVersion, '1.18.1'), `root axios ${axiosVersion} is below patched 1.18.1`);
     assert.ok(isAtLeast(clientAxiosVersion, '1.18.1'), `client axios ${clientAxiosVersion} is below patched 1.18.1`);
-    assert.ok(isAtLeast(followRedirectsVersion, '1.16.0'), `root follow-redirects ${followRedirectsVersion} is below patched 1.16.0`);
-    assert.ok(isAtLeast(clientFollowRedirectsVersion, '1.16.0'), `client follow-redirects ${clientFollowRedirectsVersion} is below patched 1.16.0`);
+    assert.ok(isAtLeast(followRedirectsVersion, '1.16.2'), `root follow-redirects ${followRedirectsVersion} is below patched 1.16.2`);
+    assert.ok(isAtLeast(clientFollowRedirectsVersion, '1.16.2'), `client follow-redirects ${clientFollowRedirectsVersion} is below patched 1.16.2`);
     assert.ok(isAtLeast(formDataVersion, '4.0.6'), `root form-data ${formDataVersion} is below patched 4.0.6`);
     assert.ok(isAtLeast(clientFormDataVersion, '4.0.6'), `client form-data ${clientFormDataVersion} is below patched 4.0.6`);
     assert.ok(

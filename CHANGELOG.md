@@ -8,6 +8,7 @@ All notable changes to HomeInventory are documented here.
 - **Security:** pinned `body-parser` to 1.20.9 in the Express dependency chain, fixing the high-severity denial-of-service issue with trailing bytes after a compressed request body (npm audit, high).
 - **Security:** pinned `qs` to 6.16.1, fixing the denial-of-service issue in `qs.stringify` with `arrayFormat: "comma"` (npm audit, moderate).
 - **Security (desktop launcher):** updated `rustls` to 0.23.46, `rustls-webpki` to 0.103.16, `webpki-root-certs` to 1.0.10, and the direct `zip` dependency to 9.1.3 (the launcher archive extractor was checked against the new API). These fix the RustSec advisories reported by `cargo audit` for TLS certificate handling and ZIP extraction.
+- **Security:** updated `follow-redirects` to 1.16.2 in the server and web client, fixing the high-severity GHSA-mrwp-f3q8-3g9p advisory (sensitive headers and custom credentials could follow cross-realm redirects).
 - **Dependencies:** updated `i18next-http-backend` in the web client to 4.0.4, fixing the low-severity query-parameter and protocol-relative URL issues in translation loading.
 - **Regression coverage:** dependency security tests now require the patched `multer`, `body-parser`, and `qs` versions.
 - **Coordinated release:** server, web client, managed app, and desktop launcher all target 2.8.5. No database migration is required.
