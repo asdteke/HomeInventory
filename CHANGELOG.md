@@ -2,6 +2,12 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.8.7 - Security Maintenance Release
+
+- **Security (desktop launcher):** updated `tauri-plugin-updater` from 2.13.1 to 2.14.1 (and `tauri` to 2.12.2). The updater plugin now uses `zip` 9.x, so the vulnerable `zip` 4.6.1 copy is gone from the launcher and the open Dependabot alerts (GHSA-8hxf-qr8p-62x4, GHSA-q7v9-x93c-xqv3, GHSA-m665-v7pm-7grj) are resolved.
+- **Dependencies:** `npm audit` reports no known vulnerabilities for the server and web client.
+- **Versions:** app, web client, and launcher version numbers are synchronized to 2.8.7. No database migration is required.
+
 ## v2.8.6 - Security Maintenance Release
 
 - **Security (desktop launcher):** updated `tokio` to 1.54.1, fixing RUSTSEC-2026-0386 (`AsyncFd::new` and related constructors could violate I/O safety).
