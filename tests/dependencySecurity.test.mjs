@@ -115,18 +115,18 @@ test('direct image and multipart dependencies stay pinned to audited releases', 
     assert.equal(packageManifest.dependencies?.sharp, '0.35.5');
 });
 
-test('Node.js runtime stays on the October 2026 security release or newer', () => {
+test('Node.js runtime stays on the November 2026 security release or newer', () => {
     for (const manifestPath of ['../package.json', '../client/package.json', '../apps/launcher/package.json']) {
         const manifest = JSON.parse(readFileSync(new URL(manifestPath, import.meta.url), 'utf8'));
         const minimum = manifest.engines.node.replace(/^>=/, '');
-        assert.ok(isAtLeast(minimum, '22.23.4'), `${manifestPath} permits vulnerable Node.js ${minimum}`);
+        assert.ok(isAtLeast(minimum, '22.23.5'), `${manifestPath} permits vulnerable Node.js ${minimum}`);
     }
     const version = launcherRust.match(/const PORTABLE_NODE_VERSION: &str = "([^"]+)"/)?.[1];
-    assert.ok(isAtLeast(version, '22.23.4'), `portable Node.js ${version} is below patched 22.23.4`);
+    assert.ok(isAtLeast(version, '22.23.5'), `portable Node.js ${version} is below patched 22.23.5`);
 });
 
 test('portable Node.js archives are pinned to official SHA-256 values before extraction', () => {
-    const windowsNodeHash = 'cbc74b5e0982c9dbb41525fd8fb5dcd32fbee237863f7829072f4639a1ce5f20';
+    const windowsNodeHash = '4a191082e9706866830379d577d2cc8a50c776fcd9436a8d061b063ed0d9a0e3';
     assert.match(launcherRust, new RegExp(windowsNodeHash));
     assert.match(storeBuildScript, new RegExp(windowsNodeHash));
     assert.match(launcherRust, /verify_file_sha256\(\s*&bundled_node,/s);

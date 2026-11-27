@@ -168,7 +168,7 @@ SQLite storage + encrypted media
 
 #### المتطلبات
 
-- Node.js 22.23.4+
+- Node.js 22.23.5+
 - npm 9+
 - Git
 
