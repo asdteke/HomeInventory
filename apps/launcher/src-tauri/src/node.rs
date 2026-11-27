@@ -19,7 +19,7 @@ use crate::state::LauncherState;
 use crate::types::ToolOverrides;
 use crate::util::path_string;
 
-pub(crate) const PORTABLE_NODE_VERSION: &str = "22.23.4";
+pub(crate) const PORTABLE_NODE_VERSION: &str = "22.23.5";
 pub(crate) const REQUIRED_NODE_MAJOR: u32 = 22;
 
 pub(crate) struct ResolvedTools {
@@ -106,13 +106,13 @@ pub(crate) fn portable_node_download_url() -> String {
 
 pub(crate) fn portable_node_expected_sha256() -> &'static str {
     if cfg!(target_os = "windows") {
-        "cbc74b5e0982c9dbb41525fd8fb5dcd32fbee237863f7829072f4639a1ce5f20"
+        "4a191082e9706866830379d577d2cc8a50c776fcd9436a8d061b063ed0d9a0e3"
     } else if cfg!(target_os = "macos") && cfg!(target_arch = "aarch64") {
-        "c9e1dbc748b33ed2d14f42445191ecaf14c56259c7a9a26d0042c49ec2b66428"
+        "e7131995759b61a0170b646010d2ad35a5d37b4cb0d471f3e8317eac6f742f3d"
     } else if cfg!(target_os = "macos") {
-        "efcc2b0db6f94bf53eddb038fe2b370277a042bd29e4f19b8f8e23598795b819"
+        "c53383238206b9ae4db23c5d8a63645e2e753bec8ab51a49cc81939aa64e9422"
     } else {
-        "b8492284c76a54baf58d61668dd0e41ee0fc98adabf9503d30f05d08f55b4406"
+        "c54118104acc524633b5abe106bbf44a53126ec8b4e5fa105cb92b5d7de8a1a1"
     }
 }
 

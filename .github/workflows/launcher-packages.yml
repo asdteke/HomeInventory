@@ -23,7 +23,7 @@ permissions:
   contents: write
 
 env:
-  NODE_VERSION: "22.23.4"
+  NODE_VERSION: "22.23.5"
 
 jobs:
   managed-app:
@@ -137,12 +137,12 @@ jobs:
       matrix:
         include:
           - name: macos-aarch64
-            os: macos-14
+            os: macos-15
             bundles: app,dmg
             tauri_platform: darwin-aarch64
             tauri_target: aarch64-apple-darwin
           - name: macos-x86_64
-            os: macos-14
+            os: macos-15-intel
             bundles: app,dmg
             tauri_platform: darwin-x86_64
             tauri_target: x86_64-apple-darwin
