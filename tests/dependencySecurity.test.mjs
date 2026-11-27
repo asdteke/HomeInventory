@@ -47,6 +47,8 @@ test('security-sensitive dependencies stay above patched versions', () => {
     const clientFollowRedirectsVersion = clientLockfile.packages?.['node_modules/follow-redirects']?.version;
     const formDataVersion = lockfile.packages?.['node_modules/form-data']?.version;
     const clientFormDataVersion = clientLockfile.packages?.['node_modules/form-data']?.version;
+    const i18nextVersion = lockfile.packages?.['node_modules/i18next']?.version;
+    const clientI18nextVersion = clientLockfile.packages?.['node_modules/i18next']?.version;
     const i18nextHttpMiddlewareVersion = lockfile.packages?.['node_modules/i18next-http-middleware']?.version;
     const i18nextFsBackendVersion = lockfile.packages?.['node_modules/i18next-fs-backend']?.version;
     const sharpVersion = lockfile.packages?.['node_modules/sharp']?.version;
@@ -73,6 +75,8 @@ test('security-sensitive dependencies stay above patched versions', () => {
     assert.ok(isAtLeast(clientFollowRedirectsVersion, '1.16.2'), `client follow-redirects ${clientFollowRedirectsVersion} is below patched 1.16.2`);
     assert.ok(isAtLeast(formDataVersion, '4.0.6'), `root form-data ${formDataVersion} is below patched 4.0.6`);
     assert.ok(isAtLeast(clientFormDataVersion, '4.0.6'), `client form-data ${clientFormDataVersion} is below patched 4.0.6`);
+    assert.ok(isAtLeast(i18nextVersion, '26.3.4'), `root i18next ${i18nextVersion} is below patched 26.3.4`);
+    assert.ok(isAtLeast(clientI18nextVersion, '26.3.4'), `client i18next ${clientI18nextVersion} is below patched 26.3.4`);
     assert.ok(
         isAtLeast(i18nextHttpMiddlewareVersion, '3.9.7'),
         `i18next-http-middleware ${i18nextHttpMiddlewareVersion} is below patched 3.9.7`

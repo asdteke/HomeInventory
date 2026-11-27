@@ -2,6 +2,12 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.8.8 - Security Maintenance Release
+
+- Updated i18next to 26.7.2 in the server and web client to fix [GHSA-6jcc-5g8w-32mx](https://github.com/advisories/GHSA-6jcc-5g8w-32mx), a denial-of-service vulnerability in translation resource merging. This addresses Dependabot alerts #137 through #140.
+- Updated the desktop launcher dependencies `cookie` to 0.18.3, `url` to 2.5.9, and `rustix` to 1.1.6 to address [RUSTSEC-2026-0594](https://rustsec.org/advisories/RUSTSEC-2026-0594.html), [RUSTSEC-2026-0592](https://rustsec.org/advisories/RUSTSEC-2026-0592.html), and [RUSTSEC-2026-0486](https://rustsec.org/advisories/RUSTSEC-2026-0486.html).
+- Synchronized the server, web client, and desktop launcher at v2.8.8. The update requires no database migration.
+
 ## v2.8.7 - Security Maintenance Release
 
 - **Security (desktop launcher):** updated `tauri-plugin-updater` from 2.13.1 to 2.14.1 (and `tauri` to 2.12.2). The updater plugin now uses `zip` 9.x, so the vulnerable `zip` 4.6.1 copy is gone from the launcher and the open Dependabot alerts (GHSA-8hxf-qr8p-62x4, GHSA-q7v9-x93c-xqv3, GHSA-m665-v7pm-7grj) are resolved.
