@@ -4,7 +4,7 @@ All notable changes to HomeInventory are documented here.
 
 ## v2.8.8 - Security Maintenance Release
 
-- Updated i18next to 26.7.2 in the server and web client to fix [GHSA-6jcc-5g8w-32mx](https://github.com/advisories/GHSA-6jcc-5g8w-32mx), a denial-of-service vulnerability in translation resource merging. This addresses Dependabot alerts #137 through #140.
+- Updated i18next to 26.7.2 in the server and web client to fix [GHSA-6jcc-5g8w-32mx](https://github.com/advisories/GHSA-6jcc-5g8w-32mx), a denial-of-service vulnerability in translation resource merging. This addresses Dependabot alerts #137 through #140. The web client keeps its localized date and number formatting through the v26 formatter API.
 - Updated the desktop launcher dependencies `cookie` to 0.18.3, `url` to 2.5.9, and `rustix` to 1.1.6 to address [RUSTSEC-2026-0594](https://rustsec.org/advisories/RUSTSEC-2026-0594.html), [RUSTSEC-2026-0592](https://rustsec.org/advisories/RUSTSEC-2026-0592.html), and [RUSTSEC-2026-0486](https://rustsec.org/advisories/RUSTSEC-2026-0486.html).
 - Synchronized the server, web client, and desktop launcher at v2.8.8. The update requires no database migration.
 

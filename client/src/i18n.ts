@@ -114,11 +114,41 @@ const emojiCleaner = {
     }
 };
 
+const translationFormatter = {
+    type: 'formatter' as const,
+    format(value: unknown, format?: string, lng?: string) {
+        if (value instanceof Date) {
+            if (format === 'datetime') {
+                return formatDateForLanguage(value, lng, {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric'
+                }, { fallback: 'datetime' });
+            }
+            return formatDateForLanguage(value, lng, {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+        if (typeof value === 'number') {
+            if (format === 'currency') {
+                return formatNumberForLanguage(value, lng, { style: 'currency', currency: 'TRY' });
+            }
+            return formatNumberForLanguage(value, lng);
+        }
+        return value;
+    }
+};
+
 i18n
     .use(Backend)
     .use(LanguageDetector)
     .use(initReactI18next)
     .use(emojiCleaner)
+    .use(translationFormatter)
     .init({
         postProcess: ['emojiCleaner'],
         lng: INITIAL_LANGUAGE,
@@ -138,31 +168,6 @@ i18n
                 brandName: BRAND_NAME,
                 supportEmail: SUPPORT_EMAIL,
                 siteHost: BRAND_HOST
-            },
-            format: (value, format, lng) => {
-                if (value instanceof Date) {
-                    if (format === 'datetime') {
-                        return formatDateForLanguage(value, lng, {
-                            year: 'numeric',
-                            month: 'numeric',
-                            day: 'numeric',
-                            hour: 'numeric',
-                            minute: 'numeric'
-                        }, { fallback: 'datetime' });
-                    }
-                    return formatDateForLanguage(value, lng, {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    });
-                }
-                if (typeof value === 'number') {
-                    if (format === 'currency') {
-                        return formatNumberForLanguage(value, lng, { style: 'currency', currency: 'TRY' });
-                    }
-                    return formatNumberForLanguage(value, lng);
-                }
-                return value;
             }
         },
         detection: {
